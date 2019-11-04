@@ -15,7 +15,7 @@ export interface Component<A> {
 
 export interface PortalLibrary {
   getComponent<A>():  Component<A> | null;
-  getContent<A>(): Content<A> | null;
+  getContent<A, PageConfig = any>(): Content<A, PageConfig> | null;
   getIdProviderKey(): string | null;
 
   /**
