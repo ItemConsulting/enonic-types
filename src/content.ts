@@ -3,7 +3,7 @@ export interface ContentLibrary {
   query<A>(params: QueryContentParams): QueryResponse<A>;
   create<A>(params: CreateContentParams<A>): Content<A>;
   modify<A>(params: ModifyContentParams<A>): Content<A>;
-  delete(params: DeleteContentParams): void;
+  delete(params: DeleteContentParams): boolean;
   publish(params: PublishContentParams): PublishResponse;
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
   getChildren<A>(params: GetChildrenParams): QueryResponse<A>;
