@@ -4,7 +4,7 @@ export interface HttpLibrary {
 
 import {ByteSource} from "./content";
 
-interface HttpRequestParamsProxy {
+export interface HttpRequestParamsProxy {
   /** Proxy host name to use. */
   readonly host?: string;
 
@@ -18,7 +18,7 @@ interface HttpRequestParamsProxy {
   readonly password?: string;
 }
 
-interface HttpRequestParamsAuth {
+export interface HttpRequestParamsAuth {
   /** User name for basic authentication. */
   readonly user?: string;
 

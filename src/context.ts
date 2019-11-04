@@ -9,11 +9,11 @@ export interface Context {
   readonly authInfo: AuthInfo;
 }
 
-interface AuthInfo {
+export interface AuthInfo {
   readonly user: User;
 }
 
-interface User {
+export interface User {
   readonly type: string;
   readonly key: string;
   readonly displayName: string;
@@ -23,7 +23,7 @@ interface User {
   readonly idProvider: string;
 }
 
-interface RunContext {
+export interface RunContext {
   readonly repository?: string;
   readonly branch?: string;
   readonly user?: {
