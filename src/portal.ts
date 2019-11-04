@@ -1,6 +1,20 @@
 import { ByteSource, Content, Site } from "./content";
 
+export interface Component<A> {
+  readonly path: string;
+  readonly type: string;
+  readonly descriptor: string;
+  readonly config: A;
+  readonly regions: {
+    [key: string]: {
+      components: Array<Component<any>>;
+      name: string;
+    };
+  };
+}
+
 export interface PortalLibrary {
+  getComponent<A>():  Component<A> | null;
   getContent<A>(): Content<A> | null;
   getIdProviderKey(): string | null;
 
