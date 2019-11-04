@@ -1,7 +1,7 @@
 import {Component} from "./portal";
 
 export interface ContentLibrary {
-  get<A>(params: GetContentParams): Content<A> | null;
+  get<A, PageConfig = any>(params: GetContentParams): Content<A, PageConfig> | null;
   query<A>(params: QueryContentParams): QueryResponse<A>;
   create<A>(params: CreateContentParams<A>): Content<A>;
   modify<A>(params: ModifyContentParams<A>): Content<A>;
@@ -10,7 +10,7 @@ export interface ContentLibrary {
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
   getChildren<A>(params: GetChildrenParams): QueryResponse<A>;
   move<A>(params: MoveParams): Content<A>;
-  getSite<A>(params: GetSiteParams): Site<A>;
+  getSite<A, PageConfig = any>(params: GetSiteParams): Site<A, PageConfig>;
   getSiteConfig<A>(params: GetSiteConfigParams): A;
   createMedia<A>(params: CreateMediaParams): Content<A>;
   getAttachments(key: string): Attachments | null;
@@ -150,7 +150,7 @@ export interface GetSiteParams {
   readonly key: string;
 }
 
-export interface Site<A> {
+export interface Site<A, PageConfig = any> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -161,7 +161,7 @@ export interface Site<A> {
     readonly siteConfig: SiteConfig<A>;
   };
   readonly x: { readonly [key: string]: string };
-  readonly page: any;
+  readonly page: Page<PageConfig>;
   readonly attachments: object;
   readonly publish: ScheduleParams;
 }
