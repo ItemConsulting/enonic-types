@@ -1,3 +1,5 @@
+import {Component} from "./portal";
+
 export interface ContentLibrary {
   get<A>(params: GetContentParams): Content<A> | null;
   query<A>(params: QueryContentParams): QueryResponse<A>;
@@ -20,7 +22,7 @@ export interface ContentLibrary {
   getTypes(): ReadonlyArray<ContentType>;
 }
 
-export interface Content<A> {
+export interface Content<A, PageConfig = any> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -37,9 +39,19 @@ export interface Content<A> {
   readonly childOrder: string;
   readonly data: A;
   readonly x: { readonly [key: string]: string };
-  readonly page: any;
+  readonly page: Page<PageConfig>;
   readonly attachments: Attachments;
-  readonly publish: any;
+  readonly publish?: ScheduleParams;
+}
+
+export interface Page<A> {
+  readonly type: string;
+  readonly path: string;
+  readonly descriptor: string;
+  readonly config: A;
+  readonly regions: {
+    [key: string]: Array<Component<any>>;
+  };
 }
 
 export interface Attachment {
@@ -107,8 +119,9 @@ export interface PublishContentParams {
 }
 
 export interface ScheduleParams {
-  readonly from: string;
-  readonly to: string;
+  readonly from?: string;
+  readonly to?: string;
+  readonly first?: string;
 }
 
 export interface PublishResponse {
@@ -150,7 +163,7 @@ export interface Site<A> {
   readonly x: { readonly [key: string]: string };
   readonly page: any;
   readonly attachments: object;
-  readonly publish: any;
+  readonly publish: ScheduleParams;
 }
 
 export interface SiteConfig<A> {
