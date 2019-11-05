@@ -14,13 +14,6 @@ export declare interface Request {
   readonly cookies: { readonly [key: string]: string | undefined };
 }
 
-export interface PageContributions {
-  readonly headBegin?: string | ReadonlyArray<string>;
-  readonly headEnd?: string | ReadonlyArray<string>;
-  readonly bodyBegin?: string | ReadonlyArray<string>;
-  readonly bodyEnd?: string | ReadonlyArray<string>;
-}
-
 export declare interface Response {
   readonly status: number;
   readonly body?: string | object;
@@ -31,4 +24,11 @@ export declare interface Response {
   readonly postProcess?: boolean;
   readonly pageContributions?: PageContributions;
   readonly applyFilters?: boolean;
+}
+
+export interface PageContributions {
+  readonly headBegin?: string | ReadonlyArray<string>;
+  readonly headEnd?: string | ReadonlyArray<string>;
+  readonly bodyBegin?: string | ReadonlyArray<string>;
+  readonly bodyEnd?: string | ReadonlyArray<string>;
 }
