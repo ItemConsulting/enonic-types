@@ -1,7 +1,7 @@
 import {Component} from "./portal";
 
 export interface ContentLibrary {
-  get<A, PageConfig = any>(params: GetContentParams): Content<A, PageConfig> | null;
+  get<A>(params: GetContentParams): Content<A, {}> | null;
   query<A>(params: QueryContentParams): QueryResponse<A>;
   create<A>(params: CreateContentParams<A>): Content<A>;
   modify<A>(params: ModifyContentParams<A>): Content<A>;
