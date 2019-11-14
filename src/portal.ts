@@ -146,7 +146,7 @@ export interface ProcessHtmlParams {
 
 export interface MultipartItem {
   readonly name: string;
-  readonly fileName: string;
-  readonly contentType: string;
+  readonly fileName?: string;
+  readonly contentType?: string;
   readonly size: number;
 }
