@@ -193,8 +193,8 @@ export interface ByteSource {
 }
 
 export interface CreateMediaParams {
-  readonly name?: string;
-  readonly parentPath?: string;
+  readonly name: string;
+  readonly parentPath: string;
   readonly mimeType?: string;
   readonly focalX?: number;
   readonly focalY?: number;
