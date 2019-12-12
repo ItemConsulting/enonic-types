@@ -49,9 +49,7 @@ export interface Page<A> {
   readonly path: string;
   readonly descriptor: string;
   readonly config: A;
-  readonly regions: {
-    [key: string]: Array<Component<any>>;
-  };
+  readonly regions: Record<string, Array<Component<any>>>;
 }
 
 export interface Attachment {
