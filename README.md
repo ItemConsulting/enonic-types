@@ -44,6 +44,7 @@ export function get(req: Request): Response { // 3
  * [ContextLibrary](./src/context.ts)
  * [I18nLibrary](./src/i18n.ts)
  * [MailLibrary](./src/mail.ts)
+ * [MenuLibrary](./src/menu.ts)
  * [NodeLibrary](./src/node.ts)
  * [PortalLibrary](./src/portal.ts)
  * [RepoLibrary](./src/repo.ts) 
