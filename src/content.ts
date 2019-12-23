@@ -44,6 +44,21 @@ export interface Content<A, PageConfig = never> {
   readonly publish?: ScheduleParams;
 }
 
+export interface Image {
+  readonly media: {
+    readonly attachment: string;
+    readonly focalPoint: {
+      readonly x: number;
+      readonly y: number;
+    };
+  };
+  readonly caption?: string;
+  readonly artist?: string | ReadonlyArray<string>;
+  readonly copyright?: string;
+  readonly tags?: string | ReadonlyArray<string>;
+  readonly altText?: string;
+}
+
 export interface Page<A> {
   readonly type: string;
   readonly path: string;
