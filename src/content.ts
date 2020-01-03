@@ -34,7 +34,7 @@ export interface Content<A, PageConfig = never> {
   readonly type: string;
   readonly displayName: string;
   readonly hasChildren: boolean;
-  readonly language: string;
+  readonly language?: string;
   readonly valid: boolean;
   readonly childOrder: string;
   readonly data: A;
