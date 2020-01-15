@@ -26,6 +26,14 @@ export declare interface Response {
   readonly applyFilters?: boolean;
 }
 
+export interface MacroContext<A> {
+  readonly name: string;
+  readonly body: string;
+  readonly params: A;
+  readonly document: string;
+  readonly request: Request;
+}
+
 export interface PageContributions {
   readonly headBegin?: string | ReadonlyArray<string>;
   readonly headEnd?: string | ReadonlyArray<string>;
