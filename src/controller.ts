@@ -6,8 +6,8 @@ export declare interface Request {
   readonly path: string;
   readonly url: string;
   readonly remoteAddress: string;
-  readonly mode: string;
-  readonly branch: string;
+  readonly mode: "inline" | "edit" | "preview" | "live";
+  readonly branch: "draft" | "master";
   readonly body: string;
   readonly params: { readonly [key: string]: string | undefined };
   readonly headers: { readonly [key: string]: string | undefined };
@@ -19,14 +19,14 @@ export declare interface Response {
   readonly body?: string | object;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
-  readonly cookies?: { readonly [key: string]: string };
+  readonly cookies?: { readonly [key: string]: string | Cookie };
   readonly redirect?: string;
   readonly postProcess?: boolean;
   readonly pageContributions?: PageContributions;
   readonly applyFilters?: boolean;
 }
 
-export interface MacroContext<A> {
+export interface MacroContext<A = never> {
   readonly name: string;
   readonly body: string;
   readonly params: A;
@@ -39,4 +39,14 @@ export interface PageContributions {
   readonly headEnd?: string | ReadonlyArray<string>;
   readonly bodyBegin?: string | ReadonlyArray<string>;
   readonly bodyEnd?: string | ReadonlyArray<string>;
+}
+
+export interface Cookie {
+  readonly value: string;
+  readonly path?: string;
+  readonly domain?: string;
+  readonly comment?: string;
+  readonly maxAge?: number;
+  readonly secure?: boolean;
+  readonly httpOnly?: boolean;
 }
