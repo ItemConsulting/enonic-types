@@ -1,6 +1,6 @@
 {
   "name": "enonic-types",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "TypeScript types for Enonic XP",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -27,10 +27,10 @@
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "eslint": "^6.8.0",
-    "husky": "^4.0.9",
-    "lint-staged": "^9.5.0",
+    "husky": "^4.0.10",
+    "lint-staged": "^10.0.0",
     "rimraf": "^3.0.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   },
   "husky": {
     "hooks": {
