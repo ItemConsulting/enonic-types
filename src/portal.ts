@@ -1,4 +1,5 @@
 import { ByteSource, Content, Site } from "./content";
+import {Params} from "./controller";
 
 export interface Component<A> {
   readonly path: string;
@@ -57,7 +58,7 @@ export interface IdProviderUrlParams {
   readonly idProvider?: string;
   readonly contextPath?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface ImagePlaceHolderParams {
@@ -69,7 +70,7 @@ export interface AssetUrlParams {
   readonly path: string;
   readonly application?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface AttachmentUrlParams {
@@ -78,7 +79,7 @@ export interface AttachmentUrlParams {
   readonly name?: string;
   readonly label?: string; // source
   readonly download?: boolean;
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
   readonly type?: "server" | "absolute";
 }
 
@@ -87,7 +88,7 @@ export interface ComponentUrlParams {
   readonly path?: string;
   readonly component?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface ImageUrlParams {
@@ -99,14 +100,14 @@ export interface ImageUrlParams {
   readonly format?: string;
   readonly filter?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface PageUrlParams {
   readonly id?: string;
   readonly path?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface LoginUrlParams {
@@ -114,27 +115,27 @@ export interface LoginUrlParams {
   readonly redirect?: string;
   readonly contextPath?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface LogoutUrlParams {
   readonly redirect?: string;
   readonly contextPath?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface ServiceUrlParams {
   readonly service: string;
   readonly application?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface UrlParams {
   readonly path?: string;
   readonly type?: "server" | "absolute";
-  readonly params?: { readonly [key: string]: string };
+  readonly params?: Params;
 }
 
 export interface ProcessHtmlParams {

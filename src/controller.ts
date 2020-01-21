@@ -9,7 +9,7 @@ export declare interface Request {
   readonly mode: "inline" | "edit" | "preview" | "live";
   readonly branch: "draft" | "master";
   readonly body: string;
-  readonly params: { readonly [key: string]: string | ReadonlyArray<string> | undefined };
+  readonly params: Params;
   readonly headers: { readonly [key: string]: string | undefined };
   readonly cookies: { readonly [key: string]: string | undefined };
 }
@@ -25,6 +25,8 @@ export declare interface Response {
   readonly pageContributions?: PageContributions;
   readonly applyFilters?: boolean;
 }
+
+export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
 export interface MacroContext<A = never> {
   readonly name: string;
