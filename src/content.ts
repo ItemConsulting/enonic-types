@@ -1,18 +1,18 @@
 import {Component} from "./portal";
 
 export interface ContentLibrary {
-  get<A>(params: GetContentParams): Content<A, never> | null;
-  query<A>(params: QueryContentParams): QueryResponse<A>;
-  create<A>(params: CreateContentParams<A>): Content<A>;
-  modify<A>(params: ModifyContentParams<A>): Content<A>;
+  get<A extends object, PageConfig extends object = never>(params: GetContentParams): Content<A, PageConfig> | null;
+  query<A extends object>(params: QueryContentParams): QueryResponse<A>;
+  create<A extends object>(params: CreateContentParams<A>): Content<A>;
+  modify<A extends object>(params: ModifyContentParams<A>): Content<A>;
   delete(params: DeleteContentParams): boolean;
   publish(params: PublishContentParams): PublishResponse;
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
-  getChildren<A>(params: GetChildrenParams): QueryResponse<A>;
-  move<A>(params: MoveParams): Content<A>;
-  getSite<A, PageConfig = never>(params: GetSiteParams): Site<A, PageConfig>;
-  getSiteConfig<A>(params: GetSiteConfigParams): A;
-  createMedia<A>(params: CreateMediaParams): Content<A>;
+  getChildren<A extends object>(params: GetChildrenParams): QueryResponse<A>;
+  move<A extends object>(params: MoveParams): Content<A>;
+  getSite<A extends object, PageConfig extends object = never>(params: GetSiteParams): Site<A, PageConfig>;
+  getSiteConfig<A extends object>(params: GetSiteConfigParams): A;
+  createMedia<A extends object>(params: CreateMediaParams): Content<A>;
   getAttachments(key: string): Attachments | null;
   getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
   removeAttachment(params: RemoveAttachmentParams): void;
@@ -22,7 +22,7 @@ export interface ContentLibrary {
   getTypes(): ReadonlyArray<ContentType>;
 }
 
-export interface Content<A, PageConfig = never> {
+export interface Content<A extends object = object, PageConfig extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -84,15 +84,96 @@ export interface QueryContentParams {
   readonly query: string;
   readonly filters?: object;
   readonly sort?: string;
-  readonly aggregations?: string;
+  readonly aggregations?: Aggregations;
   readonly contentTypes?: ReadonlyArray<string>;
+  readonly highlight?: Highlight;
 }
 
-export interface QueryResponse<A> {
-  readonly aggregations: object;
+export interface Aggregations {
+  [name: string]: {
+    terms?: {
+      field: string;
+      order: string;
+      size: number;
+    };
+    stats?: {
+      field: string;
+      order: string;
+      size: number;
+    };
+    range?: {
+      field: string;
+      ranges?: Array<{
+        from?: number;
+        to?: number;
+      }>;
+      range?: {
+        from: number;
+        to: number;
+      };
+    };
+    geoDistance?: {
+      field: string;
+      ranges?: Array<{
+        from?: number;
+        to?: number;
+      }>;
+      range?: {
+        from: number;
+        to: number;
+      };
+      unit: string;
+      origin: {
+        lat: string;
+        lon: string;
+      };
+    };
+    dateRange?: {
+      field: string;
+      format: string;
+      ranges?: Array<{
+        from?: string;
+        to?: string;
+      }>;
+      range?: {
+        from: string;
+        to: string;
+      };
+    };
+
+    aggregations: Aggregations;
+  };
+}
+
+export interface Highlight {
+  encoder?: 'default' | 'html';
+  fragmenter?: 'simple' | 'span';
+  fragmentSize?: number;
+  numberOfFragments?: number;
+  noMatchSize?: number;
+  order?: 'score' | 'none';
+  preTag?: string;
+  postTag?: string;
+  requireFieldMatch?: boolean;
+  tagsSchema?: string;
+  properties: Record<string, Highlight>;
+}
+
+export interface QueryResponse<A extends object> {
   readonly count: number;
   readonly hits: ReadonlyArray<Content<A>>;
   readonly total: number;
+  readonly aggregations: {
+    [name: string]: {
+      buckets: Array<{
+        docCount: number;
+        key: string;
+        from?: number | string;
+        to?: number | string;
+        [key2: string]: any; // sub aggregations
+      }>;
+    };
+  };
 }
 
 export interface GetContentParams {
@@ -116,7 +197,7 @@ export interface CreateContentParams<A> {
   readonly x?: string;
 }
 
-export interface ModifyContentParams<A> {
+export interface ModifyContentParams<A extends object> {
   readonly key: string;
   readonly editor: (c: Content<A>) => Content<A>;
   readonly requireValid?: boolean;
@@ -163,7 +244,7 @@ export interface GetSiteParams {
   readonly key: string;
 }
 
-export interface Site<A, PageConfig = never> {
+export interface Site<A extends object, PageConfig extends object = never> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;

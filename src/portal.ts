@@ -14,7 +14,7 @@ export interface Component<A> {
 
 export interface PortalLibrary {
   getComponent<A>():  Component<A> | null;
-  getContent<A, PageConfig = never>(): Content<A, PageConfig> | null;
+  getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig> | null;
   getIdProviderKey(): string | null;
 
   /**
@@ -37,7 +37,7 @@ export interface PortalLibrary {
    */
   getMultipartText(name: string, index: number): string | null;
 
-  getSite<A>(): Site<A>;
+  getSite<A extends object>(): Site<A>;
   getSiteConfig<A>(): A;
   idProviderUrl(params: IdProviderUrlParams): string;
   imagePlaceholder(params: ImagePlaceHolderParams): string;
