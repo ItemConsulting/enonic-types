@@ -91,12 +91,21 @@ export interface QueryContentParams {
   readonly highlight?: Highlight;
 }
 
+export interface QueryResponse<A extends object> {
+  readonly count: number;
+  readonly hits: ReadonlyArray<Content<A>>;
+  readonly total: number;
+  readonly aggregations: AggregationsResponse;
+  readonly highlight: HighlightResponse;
+}
+
 export type Aggregation =
   | TermsAggregation
   | StatsAggregation
   | RangeAggregation
   | GeoDistanceAggregation
-  | DateRangeAggregation;
+  | DateRangeAggregation
+  | DateHistogramAggregation;
 
 export interface TermsAggregation {
   terms: {
@@ -163,17 +172,37 @@ export interface DateRangeAggregation {
   dateRange: {
     field: string;
     format: string;
-    ranges?: Array<{
+    ranges: Array<{
       from?: string;
       to?: string;
     }>;
-    range?: {
-      from: string;
-      to: string;
-    };
   };
   aggregations?: {
     [subaggregation: string]: Aggregation;
+  };
+}
+
+export interface DateHistogramAggregation {
+  dateHistogram: {
+    field: string;
+    interval: string;
+    minDocCount: number;
+    format: string;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+export interface AggregationsResponse {
+  readonly [name: string]: {
+    readonly buckets: Array<{
+      readonly docCount: number;
+      readonly key: string;
+      readonly from?: number | string;
+      readonly to?: number | string;
+      readonly [key2: string]: any; // sub aggregations
+    }>;
   };
 }
 
@@ -191,20 +220,9 @@ export interface Highlight {
   properties: Record<string, Highlight>;
 }
 
-export interface QueryResponse<A extends object> {
-  readonly count: number;
-  readonly hits: ReadonlyArray<Content<A>>;
-  readonly total: number;
-  readonly aggregations: {
-    [name: string]: {
-      buckets: Array<{
-        docCount: number;
-        key: string;
-        from?: number | string;
-        to?: number | string;
-        [key2: string]: any; // sub aggregations
-      }>;
-    };
+export interface HighlightResponse {
+  readonly [uuid: string]: {
+    [name: string]: ReadonlyArray<string>;
   };
 }
 
