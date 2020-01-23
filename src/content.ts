@@ -84,64 +84,96 @@ export interface QueryContentParams {
   readonly query: string;
   readonly filters?: object;
   readonly sort?: string;
-  readonly aggregations?: Aggregations;
+  readonly aggregations?: {
+    readonly [key: string]: Aggregation;
+  };
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
 }
 
-export interface Aggregations {
-  [name: string]: {
-    terms?: {
-      field: string;
-      order: string;
-      size: number;
-    };
-    stats?: {
-      field: string;
-      order: string;
-      size: number;
-    };
-    range?: {
-      field: string;
-      ranges?: Array<{
-        from?: number;
-        to?: number;
-      }>;
-      range?: {
-        from: number;
-        to: number;
-      };
-    };
-    geoDistance?: {
-      field: string;
-      ranges?: Array<{
-        from?: number;
-        to?: number;
-      }>;
-      range?: {
-        from: number;
-        to: number;
-      };
-      unit: string;
-      origin: {
-        lat: string;
-        lon: string;
-      };
-    };
-    dateRange?: {
-      field: string;
-      format: string;
-      ranges?: Array<{
-        from?: string;
-        to?: string;
-      }>;
-      range?: {
-        from: string;
-        to: string;
-      };
-    };
+type Aggregation =
+  | TermsAggregation
+  | StatsAggregation
+  | RangeAggregation
+  | GeoDistanceAggregation
+  | DateRangeAggregation;
 
-    aggregations: Aggregations;
+interface TermsAggregation {
+  terms: {
+    field: string;
+    order: string;
+    size: number;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+interface StatsAggregation {
+  stats: {
+    field: string;
+    order: string;
+    size: number;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+interface RangeAggregation {
+  range: {
+    field: string;
+    ranges?: Array<{
+      from?: number;
+      to?: number;
+    }>;
+    range?: {
+      from: number;
+      to: number;
+    };
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+interface GeoDistanceAggregation {
+  geoDistance: {
+    field: string;
+    ranges?: Array<{
+      from?: number;
+      to?: number;
+    }>;
+    range?: {
+      from: number;
+      to: number;
+    };
+    unit: string;
+    origin: {
+      lat: string;
+      lon: string;
+    };
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+interface DateRangeAggregation {
+  dateRange: {
+    field: string;
+    format: string;
+    ranges?: Array<{
+      from?: string;
+      to?: string;
+    }>;
+    range?: {
+      from: string;
+      to: string;
+    };
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
   };
 }
 
