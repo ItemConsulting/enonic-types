@@ -91,14 +91,14 @@ export interface QueryContentParams {
   readonly highlight?: Highlight;
 }
 
-type Aggregation =
+export type Aggregation =
   | TermsAggregation
   | StatsAggregation
   | RangeAggregation
   | GeoDistanceAggregation
   | DateRangeAggregation;
 
-interface TermsAggregation {
+export interface TermsAggregation {
   terms: {
     field: string;
     order: string;
@@ -109,7 +109,7 @@ interface TermsAggregation {
   };
 }
 
-interface StatsAggregation {
+export interface StatsAggregation {
   stats: {
     field: string;
     order: string;
@@ -120,7 +120,7 @@ interface StatsAggregation {
   };
 }
 
-interface RangeAggregation {
+export interface RangeAggregation {
   range: {
     field: string;
     ranges?: Array<{
@@ -137,7 +137,7 @@ interface RangeAggregation {
   };
 }
 
-interface GeoDistanceAggregation {
+export interface GeoDistanceAggregation {
   geoDistance: {
     field: string;
     ranges?: Array<{
@@ -159,7 +159,7 @@ interface GeoDistanceAggregation {
   };
 }
 
-interface DateRangeAggregation {
+export interface DateRangeAggregation {
   dateRange: {
     field: string;
     format: string;
