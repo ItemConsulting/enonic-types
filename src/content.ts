@@ -196,14 +196,16 @@ export interface DateHistogramAggregation {
 
 export interface AggregationsResponse {
   readonly [name: string]: {
-    readonly buckets: Array<{
-      readonly docCount: number;
-      readonly key: string;
-      readonly from?: number | string;
-      readonly to?: number | string;
-      readonly [key2: string]: any; // sub aggregations
-    }>;
+    readonly buckets: Array<AggregationsResponseBucket>;
   };
+}
+
+export interface AggregationsResponseBucket {
+  readonly docCount: number;
+  readonly key: string;
+  readonly from?: number | string;
+  readonly to?: number | string;
+  readonly [key2: string]: any; // sub aggregations
 }
 
 export interface Highlight {
