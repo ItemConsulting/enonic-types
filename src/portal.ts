@@ -6,10 +6,12 @@ export interface Component<A> {
   readonly type: string;
   readonly descriptor: string;
   readonly config: A;
-  readonly regions: Record<string, {
-    components: Array<Component<any>>;
-    name: string;
-  }>;
+  readonly regions: Record<string, Region>;
+}
+
+export interface Region {
+  components: Array<Component<any>>;
+  name: string;
 }
 
 export interface PortalLibrary {

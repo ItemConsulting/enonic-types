@@ -1,4 +1,4 @@
-import {Component} from "./portal";
+import {Component, Region} from "./portal";
 
 export interface ContentLibrary {
   get<A extends object, PageConfig extends object = never>(params: GetContentParams): Content<A, PageConfig> | null;
@@ -64,7 +64,7 @@ export interface Page<A> {
   readonly path: string;
   readonly descriptor: string;
   readonly config: A;
-  readonly regions: Record<string, Array<Component<any>>>;
+  readonly regions: Record<string, Region>;
 }
 
 export interface Attachment {
