@@ -6,7 +6,7 @@ export interface Component<A> {
   readonly type: string;
   readonly descriptor: string;
   readonly config: A;
-  readonly regions: Record<string, Region>;
+  readonly regions?: Record<string, Region>;
 }
 
 export interface Region {
