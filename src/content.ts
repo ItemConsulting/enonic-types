@@ -1,4 +1,4 @@
-import {Component, Region} from "./portal";
+import {Region} from "./portal";
 
 export interface ContentLibrary {
   get<A extends object, PageConfig extends object = never>(params: GetContentParams): Content<A, PageConfig> | null;
@@ -197,7 +197,7 @@ export interface DateHistogramAggregation {
 export interface AggregationsResponse {
   readonly [name: string]: {
     readonly buckets: Array<AggregationsResponseBucket>;
-  };
+  } | undefined;
 }
 
 export interface AggregationsResponseBucket {
@@ -225,7 +225,7 @@ export interface Highlight {
 export interface HighlightResponse {
   readonly [uuid: string]: {
     [name: string]: ReadonlyArray<string>;
-  };
+  } | undefined;
 }
 
 export interface GetContentParams {
