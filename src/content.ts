@@ -84,9 +84,7 @@ export interface QueryContentParams {
   readonly query: string;
   readonly filters?: object;
   readonly sort?: string;
-  readonly aggregations?: {
-    readonly [key: string]: Aggregation;
-  };
+  readonly aggregations?: Record<string, Aggregation>;
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
 }
@@ -194,12 +192,6 @@ export interface DateHistogramAggregation {
   };
 }
 
-export interface AggregationsResponse {
-  readonly [name: string]: {
-    readonly buckets: Array<AggregationsResponseBucket>;
-  } | undefined;
-}
-
 export interface AggregationsResponseBucket {
   readonly docCount: number;
   readonly key: string;
@@ -207,6 +199,12 @@ export interface AggregationsResponseBucket {
   readonly to?: number | string;
   readonly [key2: string]: any; // sub aggregations
 }
+
+export interface AggregationsResponseEntry {
+  readonly buckets: Array<AggregationsResponseBucket>;
+}
+
+export type AggregationsResponse = Record<string, AggregationsResponseEntry>
 
 export interface Highlight {
   encoder?: 'default' | 'html';
