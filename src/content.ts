@@ -2,7 +2,7 @@ import {Region} from "./portal";
 
 export interface ContentLibrary {
   get<A extends object, PageConfig extends object = never>(params: GetContentParams): Content<A, PageConfig> | null;
-  query<A extends object>(params: QueryContentParams): QueryResponse<A>;
+  query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B>;
   create<A extends object>(params: CreateContentParams<A>): Content<A>;
   modify<A extends object>(params: ModifyContentParams<A>): Content<A>;
   delete(params: DeleteContentParams): boolean;
@@ -78,22 +78,22 @@ export interface Attachments {
   readonly [key: string]: Attachment;
 }
 
-export interface QueryContentParams {
+export interface QueryContentParams<B extends string = never> {
   readonly start?: number;
   readonly count: number;
   readonly query: string;
   readonly filters?: object;
   readonly sort?: string;
-  readonly aggregations?: Record<string, Aggregation>;
+  readonly aggregations?: Record<B, Aggregation>;
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
 }
 
-export interface QueryResponse<A extends object> {
+export interface QueryResponse<A extends object, B extends string = never> {
   readonly count: number;
   readonly hits: ReadonlyArray<Content<A>>;
   readonly total: number;
-  readonly aggregations: AggregationsResponse;
+  readonly aggregations: AggregationsResponse<B>;
   readonly highlight: HighlightResponse;
 }
 
@@ -204,7 +204,7 @@ export interface AggregationsResponseEntry {
   readonly buckets: Array<AggregationsResponseBucket>;
 }
 
-export type AggregationsResponse = Record<string, AggregationsResponseEntry>
+export type AggregationsResponse<B extends string> = { [K in B]: AggregationsResponseEntry }
 
 export interface Highlight {
   encoder?: 'default' | 'html';
