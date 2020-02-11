@@ -3,19 +3,19 @@ export interface EventLibrary {
   send(params: SendParams): null;
 }
 
-interface ListenerParams<A extends object> {
+export interface ListenerParams<A extends object> {
   readonly type: string;
   readonly callback: (event: EnonicEvent<A>) => void;
   readonly localOnly: boolean;
 }
 
-interface SendParams {
+export interface SendParams {
   readonly type: EnonicEventTypes;
   readonly distributed: boolean;
   readonly data: object;
 }
 
-interface EnonicEvent<A extends object> {
+export interface EnonicEvent<A extends object> {
   readonly type: EnonicEventTypes;
   readonly timestamp: number;
   readonly localOrigin: boolean;
@@ -32,7 +32,7 @@ interface EnonicEvent<A extends object> {
   };
 }
 
-type EnonicEventTypes =
+export type EnonicEventTypes =
   | "node.created"
   | "node.deleted"
   | "node.pushed"
