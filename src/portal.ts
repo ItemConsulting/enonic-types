@@ -14,6 +14,14 @@ export interface Region {
   name: string;
 }
 
+interface ByPath {
+  readonly path: string;
+}
+
+interface ById {
+  readonly id: string;
+}
+
 export interface PortalLibrary {
   getComponent<A>():  Component<A> | null;
   getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig> | null;
@@ -75,9 +83,7 @@ export interface AssetUrlParams {
   readonly params?: Params;
 }
 
-export interface AttachmentUrlParams {
-  readonly id?: string;
-  readonly path?: string;
+export type AttachmentUrlParams = XOR<ById, ByPath> & {
   readonly name?: string;
   readonly label?: string; // source
   readonly download?: boolean;
@@ -85,17 +91,13 @@ export interface AttachmentUrlParams {
   readonly type?: "server" | "absolute";
 }
 
-export interface ComponentUrlParams {
-  readonly id?: string;
-  readonly path?: string;
+export type ComponentUrlParams = XOR<ById, ByPath> & {
   readonly component?: string;
   readonly type?: "server" | "absolute";
   readonly params?: Params;
 }
 
-export interface ImageUrlParams {
-  readonly id?: string;
-  readonly path?: string;
+export type ImageUrlParams = XOR<ById, ByPath> & {
   readonly scale: string;
   readonly quality?: number;
   readonly background?: string;
@@ -105,9 +107,7 @@ export interface ImageUrlParams {
   readonly params?: Params;
 }
 
-export interface PageUrlParams {
-  readonly id?: string;
-  readonly path?: string;
+export type PageUrlParams = XOR<ById, ByPath> & {
   readonly type?: "server" | "absolute";
   readonly params?: Params;
 }
