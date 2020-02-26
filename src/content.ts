@@ -38,7 +38,7 @@ export interface Content<A extends object = object, PageConfig extends object = 
   readonly valid: boolean;
   readonly childOrder: string;
   readonly data: A;
-  readonly x: { readonly [key: string]: string };
+  readonly x: Record<string, any>;
   readonly page: Page<PageConfig>;
   readonly attachments: Attachments;
   readonly publish?: ScheduleParams;
@@ -244,7 +244,7 @@ export interface CreateContentParams<A> {
   readonly language?: string;
   readonly childOrder?: string;
   readonly data: A;
-  readonly x?: string;
+  readonly x?: Record<string, any>;
 }
 
 export interface ModifyContentParams<A extends object> {
@@ -304,7 +304,7 @@ export interface Site<A extends object, PageConfig extends object = never> {
   readonly data: {
     readonly siteConfig: SiteConfig<A>;
   };
-  readonly x: { readonly [key: string]: string };
+  readonly x: Record<string, any>;
   readonly page: Page<PageConfig>;
   readonly attachments: object;
   readonly publish: ScheduleParams;
