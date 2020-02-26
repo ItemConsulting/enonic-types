@@ -1,7 +1,7 @@
 import {Region} from "./portal";
 
 export interface ContentLibrary {
-  get<A extends object, PageConfig extends object = never>(params: GetContentParams): Content<A, PageConfig> | null;
+  get<A extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<A, PageConfig, XData> | null;
   query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B>;
   create<A extends object>(params: CreateContentParams<A>): Content<A>;
   modify<A extends object>(params: ModifyContentParams<A>): Content<A>;
@@ -22,7 +22,7 @@ export interface ContentLibrary {
   getTypes(): ReadonlyArray<ContentType>;
 }
 
-export interface Content<A extends object = object, PageConfig extends object = object> {
+export interface Content<A extends object = object, PageConfig extends object = object, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -38,7 +38,7 @@ export interface Content<A extends object = object, PageConfig extends object = 
   readonly valid: boolean;
   readonly childOrder: string;
   readonly data: A;
-  readonly x: Record<string, any>;
+  readonly x: Record<string, Record<string, XData>>;
   readonly page: Page<PageConfig>;
   readonly attachments: Attachments;
   readonly publish?: ScheduleParams;
@@ -294,7 +294,7 @@ export interface GetSiteParams {
   readonly key: string;
 }
 
-export interface Site<A extends object, PageConfig extends object = never> {
+export interface Site<A extends object, PageConfig extends object = never, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -304,7 +304,7 @@ export interface Site<A extends object, PageConfig extends object = never> {
   readonly data: {
     readonly siteConfig: SiteConfig<A>;
   };
-  readonly x: Record<string, any>;
+  readonly x: Record<string, Record<string, XData>>;
   readonly page: Page<PageConfig>;
   readonly attachments: object;
   readonly publish: ScheduleParams;
