@@ -23,6 +23,10 @@ interface ById {
   readonly id: string;
 }
 
+interface ByComponent {
+  readonly component?: string;
+}
+
 export interface PortalLibrary {
   getComponent<A>():  Component<A> | null;
   getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig> | null;
@@ -92,11 +96,10 @@ export type AttachmentUrlParams = XOR<ById, ByPath> & {
   readonly type?: "server" | "absolute";
 }
 
-export type ComponentUrlParams = XOR<ById, ByPath> & {
-  readonly component?: string;
+export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
   readonly type?: "server" | "absolute";
   readonly params?: Params;
-}
+};
 
 export type ImageUrlParams = XOR<ById, ByPath> & {
   readonly scale: string;
