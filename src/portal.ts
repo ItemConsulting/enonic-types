@@ -40,17 +40,17 @@ export interface PortalLibrary {
   /**
    * This function returns a JSON containing a named multipart item.
    */
-  getMultipartItem(name: string, index: number): MultipartItem | null;
+  getMultipartItem(name: string, index?: number): MultipartItem | undefined;
 
   /**
    * This function returns a data-stream for a named multipart item.
    */
-  getMultipartStream(name: string, index: number): ByteSource | null;
+  getMultipartStream(name: string, index?: number): ByteSource | undefined;
 
   /**
    * This function returns the multipart item data as text.
    */
-  getMultipartText(name: string, index: number): string | null;
+  getMultipartText(name: string, index?: number): string | undefined;
 
   getSite<A extends object>(): Site<A>;
   getSiteConfig<A>(): A;

@@ -7,8 +7,8 @@ export interface MailLibrary {
 export interface EmailAttachment {
   readonly fileName: string;
   readonly data: ByteSource;
-  readonly mimeType: string;
-  readonly headers: { [key: string]: string };
+  readonly mimeType?: string;
+  readonly headers?: Record<string, string>;
 }
 
 export interface EmailParams {
