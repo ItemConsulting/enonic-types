@@ -6,13 +6,16 @@ export interface ContentLibrary {
   create<A extends object>(params: CreateContentParams<A>): Content<A>;
   modify<A extends object>(params: ModifyContentParams<A>): Content<A>;
   delete(params: DeleteContentParams): boolean;
+  exists(params: ExistsParams): boolean;
   publish(params: PublishContentParams): PublishResponse;
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
   getChildren<A extends object>(params: GetChildrenParams): QueryResponse<A>;
+  getOutboundDependencies(params: GetOutboundDependenciesParams): ReadonlyArray<string>;
   move<A extends object>(params: MoveParams): Content<A>;
   getSite<A extends object, PageConfig extends object = never>(params: GetSiteParams): Site<A, PageConfig>;
   getSiteConfig<A extends object>(params: GetSiteConfigParams): A;
   createMedia<A extends object>(params: CreateMediaParams): Content<A>;
+  addAttachment(params: AddAttachmentParams): void;
   getAttachments(key: string): Attachments | null;
   getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
   removeAttachment(params: RemoveAttachmentParams): void;
@@ -234,6 +237,10 @@ export interface DeleteContentParams {
   readonly key: string;
 }
 
+export interface ExistsParams {
+  readonly key: string;
+}
+
 export interface CreateContentParams<A> {
   readonly name: string;
   readonly parentPath: string;
@@ -283,6 +290,13 @@ export interface GetChildrenParams {
   readonly start?: number;
   readonly count?: number;
   readonly sort?: string;
+}
+
+export interface GetOutboundDependenciesParams {
+  /**
+   * Path or id to the content
+   */
+  readonly key: string;
 }
 
 export interface MoveParams {
@@ -343,6 +357,14 @@ export interface CreateMediaParams {
   readonly focalX?: number;
   readonly focalY?: number;
   readonly data: ByteSource;
+}
+
+export interface AddAttachmentParams {
+  readonly key: string;
+  readonly name: string;
+  readonly mimeType: string;
+  readonly label?: string;
+  readonly data?: ByteSource;
 }
 
 export interface GetPermissionsParams {
