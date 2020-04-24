@@ -173,6 +173,18 @@ export interface NodeCreateParams {
   readonly _childOrder?: string;
 }
 
+export interface NodeModifyParams<A> {
+  /**
+   * Path or ID of the node
+   */
+  readonly key: string;
+
+  /**
+   * Editor callback function
+   */
+  readonly editor: (node: A & RepoNode) => A & RepoNode;
+}
+
 export interface RepoNode {
   readonly _id: string;
   readonly _childOrder: string;
@@ -188,4 +200,5 @@ export interface RepoConnection {
   delete(keys: ReadonlyArray<string> | string): boolean;
   get<A>(keys: string | ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
   query<A>(params: NodeQueryParams): NodeQueryResponse;
+  modify<A>(params: NodeModifyParams<A>): A & RepoNode;
 }
