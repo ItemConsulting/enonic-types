@@ -52,3 +52,13 @@ export interface Cookie {
   readonly secure?: boolean;
   readonly httpOnly?: boolean;
 }
+
+/**
+ * Request object to be used with functions in "error.ts"
+ */
+export interface ErrorRequest {
+  readonly status: number;
+  readonly message: string;
+  readonly exception?: unknown;
+  readonly request: Request;
+}
