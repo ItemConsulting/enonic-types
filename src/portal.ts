@@ -15,11 +15,15 @@ export interface Region {
   name: string;
 }
 
-interface ByPath {
+export interface ByKey {
+  readonly key: string;
+}
+
+export interface ByPath {
   readonly path: string;
 }
 
-interface ById {
+export interface ById {
   readonly id: string;
 }
 
