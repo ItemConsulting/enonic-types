@@ -68,6 +68,11 @@ export interface AuthLibrary {
   getPrincipal(principalKey: string): User;
 
   /**
+   * Search for principals matching the specified criteria.
+   */
+  findPrincipals(params: FindPrincipalsParams): FindPrincipalsResult;
+
+  /**
    * Returns the list of principals which the specified principal is a member of.
    */
   getMemberships(principalKey: string, transitive?: boolean): ReadonlyArray<Principal>;
@@ -105,7 +110,7 @@ export interface AuthLibrary {
   /**
    * Returns the profile of a user.
    */
-  getProfile<A>(principalKey: string, scope?: string): A;
+  getProfile<A>(params: GetProfileParams): A;
 
   /**
    * This function retrieves the profile of a user and updates it.
@@ -177,6 +182,21 @@ export interface Group extends Principal {
   readonly description?: string;
 }
 
+export interface FindPrincipalsParams {
+  readonly type?: string;
+  readonly idProvider?: string;
+  readonly start?: string;
+  readonly count?: string;
+  readonly name?: string;
+  readonly searchText?: string;
+}
+
+export interface FindPrincipalsResult {
+  readonly total: number;
+  readonly count: number;
+  readonly hits: ReadonlyArray<Principal>;
+}
+
 export interface FindUsersParams {
   readonly start?: number;
   readonly count: number;
@@ -194,6 +214,11 @@ export interface UserQueryResult<A> {
 export interface ModifyUserParams {
   readonly key: string;
   readonly editor: (c: User) => User;
+}
+
+export interface GetProfileParams {
+  readonly principalKey: string;
+  readonly scope?: string;
 }
 
 export interface ModifyProfileParams<A> {
