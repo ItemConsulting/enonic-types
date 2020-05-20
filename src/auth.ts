@@ -20,7 +20,7 @@ export interface AuthLibrary {
   /**
    * Changes password for specified user.
    */
-  changePassword(userKey: string, password: string): void;
+  changePassword(params: ChangePasswordParams): void;
 
   /**
    * Generates a random secure password that may be suggested to a user.
@@ -144,6 +144,11 @@ export interface LoginParams {
 export interface LoginResult {
   readonly authenticated: boolean;
   readonly user: User;
+}
+
+export interface ChangePasswordParams {
+  readonly userKey: string;
+  readonly password: string;
 }
 
 export interface Principal {
