@@ -1,7 +1,6 @@
 import {ByteSource} from "./content";
 import {ResourceKey} from "./thymeleaf";
 
-// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IOLibrary {
   /**
    * Returns the mime-type from a name or extension.
