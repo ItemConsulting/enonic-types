@@ -226,8 +226,11 @@ export interface RepoNode {
 export interface RepoConnection {
   create<A>(a: A & NodeCreateParams): A & RepoNode;
   delete(keys: ReadonlyArray<string> | string): boolean;
-  get<A>(keys: string | ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
+  exists(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+  get<A>(key: string): A & RepoNode;
+  get<A>(keys: ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
   query<A>(params: NodeQueryParams): NodeQueryResponse;
   modify<A>(params: NodeModifyParams<A>): A & RepoNode;
   findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
+
 }
