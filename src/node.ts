@@ -5,27 +5,6 @@ export interface NodeLibrary {
    * Creates a connection to a repository with a given branch and authentication info.
    */
   connect(params: Source): RepoConnection;
-
-  /**
-   * This function fetches nodes.
-   */
-  get<A>(repo: RepoConnection, keys: string | ReadonlyArray<string>): ReadonlyArray<A & RepoNode> | A & RepoNode;
-
-  /**
-   * This function creates a node.
-   */
-  create<A>(repo: RepoConnection, params: A & NodeCreateParams):  A & RepoNode;
-
-  /**
-   * This function deletes a node or nodes.
-   */
-  delete(repo: RepoConnection, keys: ReadonlyArray<string>): boolean;
-
-  /**
-   * This command queries nodes.
-   */
-  query(repo: RepoConnection, params: NodeQueryParams): NodeQueryResponse;
-
 }
 
 export interface Source {
