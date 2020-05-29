@@ -25,6 +25,7 @@ export interface NodeLibrary {
    * This command queries nodes.
    */
   query(repo: RepoConnection, params: NodeQueryParams): NodeQueryResponse;
+
 }
 
 export interface Source {
@@ -185,6 +186,33 @@ export interface NodeModifyParams<A> {
   readonly editor: (node: A & RepoNode) => A & RepoNode;
 }
 
+export interface NodeFindChildrenParams {
+  /**
+   * Path or ID of parent to get children of
+   */
+  readonly parentKey: string;
+  /**
+   * start index used for paging - default: 0
+   */
+  readonly start?: number;
+  /**
+   * number of content to fetch, used for paging - default: 10
+   */
+  readonly count?: number;
+  /**
+   * How to order the children - default is value stored on parent
+   */
+  readonly childOrder?: string;
+  /**
+   * Optimize for count children only - default is false
+   */
+  readonly countOnly?: boolean;
+  /**
+   * Do recursive fetching of all children of children - default is false
+   */
+  readonly recursive?: boolean;
+}
+
 export interface RepoNode {
   readonly _id: string;
   readonly _childOrder: string;
@@ -201,4 +229,5 @@ export interface RepoConnection {
   get<A>(keys: string | ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
   query<A>(params: NodeQueryParams): NodeQueryResponse;
   modify<A>(params: NodeModifyParams<A>): A & RepoNode;
+  findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
 }
