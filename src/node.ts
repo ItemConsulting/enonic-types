@@ -5,6 +5,7 @@ export interface NodeLibrary {
    * Creates a connection to a repository with a given branch and authentication info.
    */
   connect(params: Source): RepoConnection;
+  multiRepoConnect(params: MultiRepoConnectParams): MultiRepoConnection;
 }
 
 export interface Source {
@@ -15,6 +16,10 @@ export interface Source {
     readonly idProvider?: string;
   };
   readonly principals?: ReadonlyArray<string>;
+}
+
+interface MultiRepoConnectParams {
+  sources: ReadonlyArray<Source>;
 }
 
 export interface NodeQueryHit {
@@ -202,14 +207,84 @@ export interface RepoNode {
   readonly _nodeType: string;
 }
 
+export interface MultiRepoConnection {
+  query(params: NodeQueryParams): NodeQueryResponse;
+}
+
 export interface RepoConnection {
   create<A>(a: A & NodeCreateParams): A & RepoNode;
   delete(keys: ReadonlyArray<string> | string): boolean;
+  diff(params: DiffParams): DiffResponse;
   exists(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+  findVersions(params: FindVersionsParams): NodeVersionQueryResult;
   get<A>(key: string): A & RepoNode;
   get<A>(keys: ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
   query<A>(params: NodeQueryParams): NodeQueryResponse;
   modify<A>(params: NodeModifyParams<A>): A & RepoNode;
   findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
+}
 
+export interface FindVersionsParams {
+  /**
+   * Path or ID of parent to get children of
+   */
+  readonly parentKey: string;
+  /**
+   * start index used for paging - default: 0
+   */
+  readonly start?: number;
+  /**
+   * number of content to fetch, used for paging - default: 10
+   */
+  readonly count?: number;
+}
+
+export interface NodeVersionQueryResult {
+  readonly total: number;
+  readonly count: number;
+  readonly hits: ReadonlyArray<NodeVersionMetadata>;
+}
+
+export interface NodeVersionMetadata {
+  readonly versionId: string;
+  readonly nodeId: string;
+  readonly nodePath: string;
+  readonly timestamp: string;
+  readonly commitId: string;
+}
+
+export interface DiffParams {
+  /**
+   * Path or id to resolve diff for
+   */
+  readonly key: string;
+  /**
+   * Branch to differentiate with
+   */
+  readonly target: string;
+  /**
+   * If set to true, differences are resolved for all children.
+   */
+  readonly includeChildren?: boolean;
+}
+
+export type CompareStatus =
+  | 'NEW'
+  | "NEW_TARGET"
+  | "NEWER"
+  | 'OLDER'
+  | 'PENDING_DELETE'
+  | 'PENDING_DELETE_TARGET'
+  | 'EQUAL'
+  | 'MOVED'
+  | 'CONFLICT_PATH_EXISTS'
+  | 'CONFLICT_VERSION_BRANCH_DIVERGS';
+
+export interface NodeComparison {
+  readonly id: string;
+  readonly status: CompareStatus;
+}
+
+export interface DiffResponse {
+  diff: ReadonlyArray<NodeComparison>
 }
