@@ -18,7 +18,7 @@ export interface Source {
   readonly principals?: ReadonlyArray<string>;
 }
 
-interface MultiRepoConnectParams {
+export interface MultiRepoConnectParams {
   sources: ReadonlyArray<Source>;
 }
 
@@ -212,15 +212,55 @@ export interface MultiRepoConnection {
 }
 
 export interface RepoConnection {
+  /**
+   * Creating a node. To create a content where the name is not important and there could be multiple instances under the
+   * same parent content, skip the name parameter and specify a displayName.
+   */
   create<A>(a: A & NodeCreateParams): A & RepoNode;
-  delete(keys: ReadonlyArray<string> | string): boolean;
+
+  /**
+   * Deleting a node or nodes.
+   */
+  delete(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+
+  /**
+   * Resolves the differences for a node between current and given branch.
+   */
   diff(params: DiffParams): DiffResponse;
+
+  /**
+   * Checking if a node or nodes exist for the current context.
+   */
   exists(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+
+  /**
+   * Fetch the versions of a node.
+   */
   findVersions(params: FindVersionsParams): NodeVersionQueryResult;
+
+  /**
+   * Fetches a specific node by path or ID.
+   */
   get<A>(key: string): A & RepoNode;
+
+  /**
+   * Fetches specific nodes by path or ID.
+   */
   get<A>(keys: ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
+
+  /**
+   * This command queries nodes.
+   */
   query<A>(params: NodeQueryParams): NodeQueryResponse;
+
+  /**
+   * This function modifies a node.
+   */
   modify<A>(params: NodeModifyParams<A>): A & RepoNode;
+
+  /**
+   * Get children for given node.
+   */
   findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
 }
 
