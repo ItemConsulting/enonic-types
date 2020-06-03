@@ -14,9 +14,15 @@ export declare interface Request {
   readonly cookies: { readonly [key: string]: string | undefined };
 }
 
+export type ResponseTypes =
+  | string
+  | object
+  | Array<any>
+  | ReadonlyArray<any>;
+
 export declare interface Response {
   readonly status: number;
-  readonly body?: string | object;
+  readonly body?: ResponseTypes;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
   readonly cookies?: { readonly [key: string]: string | Cookie };
