@@ -14,7 +14,7 @@ export declare interface Request {
   readonly cookies: { readonly [key: string]: string | undefined };
 }
 
-export type ResponseTypes =
+export type ResponseType =
   | string
   | object
   | Array<any>
@@ -22,7 +22,7 @@ export type ResponseTypes =
 
 export declare interface Response {
   readonly status: number;
-  readonly body?: ResponseTypes;
+  readonly body?: ResponseType;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
   readonly cookies?: { readonly [key: string]: string | Cookie };
