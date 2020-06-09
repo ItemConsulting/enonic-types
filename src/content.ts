@@ -54,6 +54,19 @@ export interface Image {
       readonly x: number;
       readonly y: number;
     };
+    readonly zoomPosition: {
+      readonly left: number;
+      readonly top: number;
+      readonly right: number;
+      readonly bottom: number;
+    },
+    readonly cropPosition: {
+      readonly left: number;
+      readonly top: number;
+      readonly right: number;
+      readonly bottom: number;
+      readonly zoom: number;
+    }
   };
   readonly caption?: string;
   readonly artist?: string | ReadonlyArray<string>;
