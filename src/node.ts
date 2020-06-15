@@ -241,12 +241,12 @@ export interface RepoConnection {
   /**
    * Fetches a specific node by path or ID.
    */
-  get<A>(key: string): A & RepoNode;
+  get<A>(key: string | NodeGetParams): A & RepoNode;
 
   /**
    * Fetches specific nodes by path or ID.
    */
-  get<A>(keys: ReadonlyArray<string>): ReadonlyArray<A & RepoNode>;
+  get<A>(keys: ReadonlyArray<string | NodeGetParams>): ReadonlyArray<A & RepoNode>;
 
   /**
    * This command queries nodes.
@@ -262,6 +262,11 @@ export interface RepoConnection {
    * Get children for given node.
    */
   findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
+}
+
+export interface NodeGetParams {
+  readonly key: string;
+  readonly versionId: string;
 }
 
 export interface FindVersionsParams {
