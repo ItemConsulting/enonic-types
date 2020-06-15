@@ -244,9 +244,14 @@ export interface RepoConnection {
   get<A>(key: string | NodeGetParams): A & RepoNode;
 
   /**
-   * Fetches specific nodes by path or ID.
+   * Fetches specific nodes by paths or IDs.
    */
   get<A>(keys: ReadonlyArray<string | NodeGetParams>): ReadonlyArray<A & RepoNode>;
+
+  /**
+   * Fetches specific nodes by path(s) or ID(s).
+   */
+  get<A>(keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>): A & RepoNode | ReadonlyArray<A & RepoNode>;
 
   /**
    * This command queries nodes.
