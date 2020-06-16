@@ -278,7 +278,7 @@ export interface FindVersionsParams {
   /**
    * Path or ID of parent to get children of
    */
-  readonly parentKey: string;
+  readonly key: string;
   /**
    * start index used for paging - default: 0
    */
