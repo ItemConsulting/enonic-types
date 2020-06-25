@@ -25,6 +25,12 @@ export interface ContentLibrary {
   getTypes(): ReadonlyArray<ContentType>;
 }
 
+export type WORKFLOW_STATES =
+  | "IN_PROGRESS"
+  | "PENDING_APPROVAL"
+  | "REJECTED"
+  | "READY";
+
 export interface Content<A extends object = object, PageConfig extends object = object, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
@@ -45,6 +51,10 @@ export interface Content<A extends object = object, PageConfig extends object = 
   readonly page: Page<PageConfig>;
   readonly attachments: Attachments;
   readonly publish?: ScheduleParams;
+  readonly workflow: {
+    state: WORKFLOW_STATES,
+    checks: Record<string, WORKFLOW_STATES>
+  }
 }
 
 export interface Image {
@@ -244,6 +254,7 @@ export interface HighlightResponse {
 
 export interface GetContentParams {
   readonly key: string;
+  readonly versionId?: string;
 }
 
 export interface DeleteContentParams {
