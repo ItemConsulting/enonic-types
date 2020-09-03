@@ -4,7 +4,7 @@ export interface ContentLibrary {
   get<A extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<A, PageConfig, XData> | null;
   query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B>;
   create<A extends object>(params: CreateContentParams<A>): Content<A>;
-  modify<A extends object>(params: ModifyContentParams<A>): Content<A>;
+  modify<A extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<A, PageConfig, XData>): Content<A, PageConfig, XData>;
   delete(params: DeleteContentParams): boolean;
   exists(params: ExistsParams): boolean;
   publish(params: PublishContentParams): PublishResponse;
@@ -278,9 +278,9 @@ export interface CreateContentParams<A> {
   readonly x?: Record<string, any>;
 }
 
-export interface ModifyContentParams<A extends object> {
+export interface ModifyContentParams<A extends object, PageConfig extends object = object, XData extends object = object> {
   readonly key: string;
-  readonly editor: (c: Content<A>) => Content<A>;
+  readonly editor: (c: Content<A, PageConfig, XData>) => Content<A, PageConfig, XData>;
   readonly requireValid?: boolean;
 }
 

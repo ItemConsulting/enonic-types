@@ -256,7 +256,7 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query<A>(params: NodeQueryParams): NodeQueryResponse;
+  query(params: NodeQueryParams): NodeQueryResponse;
 
   /**
    * This function modifies a node.
