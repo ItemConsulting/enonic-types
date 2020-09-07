@@ -58,6 +58,7 @@ declare const __non_webpack_require__: <K extends string = string>(path: K) => K
 ## Supported libraries
 
  * [AuthLibrary](./src/auth.ts)
+ * [CommonLibrary](./src/common.ts)
  * [ContentLibrary](./src/content.ts)
  * [ContextLibrary](./src/context.ts)
  * [ControllerLibrary](./src/controller.ts)
@@ -65,6 +66,7 @@ declare const __non_webpack_require__: <K extends string = string>(path: K) => K
  * [EventLibrary](./src/event.ts)
  * [HttpLibrary](./src/http.ts)
  * [I18nLibrary](./src/i18n.ts)
+ * [IOLibrary](./src/io.ts)
  * [MailLibrary](./src/mail.ts)
  * [MenuLibrary](./src/menu.ts)
  * [NodeLibrary](./src/node.ts)
@@ -74,3 +76,4 @@ declare const __non_webpack_require__: <K extends string = string>(path: K) => K
  * [RouterLibrary](./src/router.ts) 
  * [SessionLibrary](./src/session.ts) 
  * [ThymeleafLibrary](./src/thymeleaf.ts)
+ * [ValueLibrary](./src/value.ts)
