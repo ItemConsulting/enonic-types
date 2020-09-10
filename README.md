@@ -13,8 +13,7 @@ We recommend using this library together with its sister library: [enonic-ts-cod
 We have an Enonic service that returns an article by id.
 
 ```typescript
-import { Request, Response } from "enonic-types/lib/controller";
-import { ContentLibrary } from "enonic-types/lib/content";
+import { Request, Response } from "enonic-types/controller";
 import { Article } from "../../site/content-types/article/article"; // 1
 
 const contentLib = __non_webpack_require__("/lib/xp/content"); // 2
