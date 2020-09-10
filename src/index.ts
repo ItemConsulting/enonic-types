@@ -12,6 +12,7 @@ export interface EnonicLibraryMap {
   "/lib/menu": import("./menu").MenuLibrary;
   "/lib/xp/node": import("./node").NodeLibrary;
   "/lib/xp/portal": import("./portal").PortalLibrary;
+  "/lib/xp/project": import("./project").ProjectLibrary;
   "/lib/recaptcha": import("./recaptcha").RecaptchaLibrary;
   "/lib/xp/repo": import("./repo").RepoLibrary;
   "/lib/router": import("./router").RouterLib;
