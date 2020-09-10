@@ -71,6 +71,7 @@ declare const __non_webpack_require__: <K extends string = string>(path: K) => K
  * [MenuLibrary](./src/menu.ts)
  * [NodeLibrary](./src/node.ts)
  * [PortalLibrary](./src/portal.ts)
+ * [ProjectLibrary](./src/project.ts)
  * [RecaptchaLibrary](./src/recaptcha.ts)
  * [RepoLibrary](./src/repo.ts) 
  * [RouterLibrary](./src/router.ts) 
