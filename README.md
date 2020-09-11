@@ -77,3 +77,4 @@ declare const __non_webpack_require__: <K extends string = string>(path: K) => K
  * [SessionLibrary](./src/session.ts) 
  * [ThymeleafLibrary](./src/thymeleaf.ts)
  * [ValueLibrary](./src/value.ts)
+ * [WebsocketLibrary](./src/websocket.ts)
