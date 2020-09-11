@@ -1,6 +1,7 @@
 export interface ProjectLibrary {
   /**
-   * Adds permissions to an existing Content Project. To modify permissions, user must have Owner permissions for the project, or either system.admin or cms.admin role.
+   * Adds permissions to an existing Content Project. To modify permissions, user must have Owner permissions for the
+   * project, or either system.admin or cms.admin role.
    */
   addPermissions(params: AddPermissionsParams): boolean;
 
@@ -10,32 +11,39 @@ export interface ProjectLibrary {
   create(params: CreateProjectParams): Project;
 
   /**
-   * Deletes an existing Content Project and the project repository along with all the data inside. To delete a project, user must have either system.admin or cms.admin role.
+   * Deletes an existing Content Project and the project repository along with all the data inside. To delete a project,
+   * user must have either system.admin or cms.admin role.
    */
   delete(params: DeleteProjectParams): boolean;
 
   /**
-   * Returns an existing Content Project. To get a project, user must have permissions for this project, or either system.admin or cms.admin role.
+   * Returns an existing Content Project. To get a project, user must have permissions for this project, or either
+   * system.admin or cms.admin role.
    */
   get(params: GetProjectParams): Project | null;
 
   /**
-   * Returns all Content Projects that user in the current context has permissions for. Users with system.admin or cms.admin roles will get the list of all projects.
+   * Returns all Content Projects that user in the current context has permissions for. Users with system.admin or
+   * cms.admin roles will get the list of all projects.
    */
   list(): ReadonlyArray<Project>;
 
   /**
-   * Modifies an existing Content Project. To modify a project, user must have Owner permissions for this project, or either system.admin or cms.admin role.
+   * Modifies an existing Content Project. To modify a project, user must have Owner permissions for this project,
+   * or either system.admin or cms.admin role.
    */
   modify(params: ModifyProjectParams): Project;
 
   /**
-   * Toggles public/private READ access for an existing Content Project. This will modify permissions on ALL the content items inside the project repository by adding or removing READ access for system.everyone. To modify READ access, user must have Owner permissions for the project, or either system.admin or cms.admin role.
+   * Toggles public/private READ access for an existing Content Project. This will modify permissions on ALL the
+   * content items inside the project repository by adding or removing READ access for system.everyone. To modify READ
+   * access, user must have Owner permissions for the project, or either system.admin or cms.admin role.
    */
   modifyReadAccess(params: ModifyReadAccessParams): ModifyReadAccessResult;
 
   /**
-   * Removes permissions from an existing Content Project. To remove permissions, user must have Owner permissions for the project, or either system.admin or cms.admin role.
+   * Removes permissions from an existing Content Project. To remove permissions, user must have Owner permissions for
+   * the project, or either system.admin or cms.admin role.
    */
   removePermissions(params: RemovePermissionsParams): boolean;
 }
