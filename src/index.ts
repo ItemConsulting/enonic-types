@@ -19,4 +19,5 @@ export interface EnonicLibraryMap {
   "/lib/session": import("./session").SessionLibrary;
   "/lib/thymeleaf": import("./thymeleaf").ThymeleafLibrary;
   "/lib/xp/value": import("./value").ValueLibrary;
+  "/lib/xp/websocket": import("./websocket").WebsocketLibrary;
 }
