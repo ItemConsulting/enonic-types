@@ -9,7 +9,7 @@ export declare interface Request {
   readonly mode: "inline" | "edit" | "preview" | "live";
   readonly branch: "draft" | "master";
   readonly body: string;
-  readonly params: Params;
+  readonly params: { readonly [key: string]: string | undefined };
   readonly headers: { readonly [key: string]: string | undefined };
   readonly cookies: { readonly [key: string]: string | undefined };
 }
@@ -21,7 +21,7 @@ export type ResponseType =
   | ReadonlyArray<any>;
 
 export declare interface Response {
-  readonly status: number;
+  readonly status?: number;
   readonly body?: ResponseType;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
@@ -31,8 +31,6 @@ export declare interface Response {
   readonly pageContributions?: PageContributions;
   readonly applyFilters?: boolean;
 }
-
-export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
 export interface MacroContext<A = never> {
   readonly name: string;
@@ -58,6 +56,14 @@ export interface Cookie {
   readonly secure?: boolean;
   readonly httpOnly?: boolean;
 }
+
+/**
+ * Request where params potentially are typed as Arrays, reflecting the real
+ * behaviour of XP, instead of the common use case.
+ */
+export type RequestWithArrayParams = Omit<Request, 'params'> & {
+  params: { readonly [key: string]: string | ReadonlyArray<string> | undefined }
+};
 
 /**
  * Request object to be used with functions in "error.ts"

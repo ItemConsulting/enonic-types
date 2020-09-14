@@ -64,4 +64,6 @@ lib
 
 # intellij config
 .idea
+
+# Buildt files
 *.d.ts

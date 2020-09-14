@@ -1,6 +1,7 @@
 import { ByteSource, Content, Site } from "./content";
-import {Params} from "./controller";
 import {XOR} from "./types";
+
+export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
 export interface Component<A> {
   readonly path: string;
