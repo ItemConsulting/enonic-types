@@ -74,3 +74,38 @@ export interface ErrorRequest {
   readonly exception?: unknown;
   readonly request: Request;
 }
+
+/**
+ * This Request can be used by a Service that provides data to a CustomSelector input field
+ */
+export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
+  params: {
+    readonly count: string;
+    readonly start?: string;
+    readonly ids?: string;
+    readonly query?: string;
+    readonly [key: string]: string | undefined;
+  }
+}
+
+/**
+ * This Response can be used by a Service that provides data to a CustomSelector input field
+ */
+export type CustomSelectorServiceResponse = Omit<Response, "body"> & {
+  body: {
+    readonly total: number;
+    readonly count: number;
+    readonly hits: Array<CustomSelectorServiceResponseHit>;
+  }
+}
+
+export interface CustomSelectorServiceResponseHit {
+  readonly id: string;
+  readonly displayName: string;
+  readonly description?: string;
+  readonly iconUrl?: string;
+  readonly icon?: {
+    readonly data: string;
+    readonly type: string;
+  };
+}
