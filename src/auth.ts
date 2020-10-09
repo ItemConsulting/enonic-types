@@ -65,7 +65,7 @@ export interface AuthLibrary {
   /**
    * Returns the principal with the specified key.
    */
-  getPrincipal(principalKey: string): User;
+  getPrincipal(principalKey: string): User | null;
 
   /**
    * Search for principals matching the specified criteria.
