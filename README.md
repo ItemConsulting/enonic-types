@@ -48,10 +48,9 @@ Enonic XP-libraries.
 ```typescript
 type EnonicLibraryMap = import("enonic-types").EnonicLibraryMap;
 
-declare const __non_webpack_require__: <K extends string = string>(path: K) => K extends keyof EnonicLibraryMap
+declare const __non_webpack_require__: <K extends keyof EnonicLibraryMap | string = string>(path: K) => K extends keyof EnonicLibraryMap
   ? EnonicLibraryMap[K]
   : any;
-
 ```
  
 ## Supported libraries
