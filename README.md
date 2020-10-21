@@ -46,10 +46,10 @@ If you add (or replace the existing)
 Enonic XP-libraries. 
 
 ```typescript
-type EnonicLibraryMap = import("enonic-types").EnonicLibraryMap;
+type LibMap = import("enonic-types").EnonicLibraryMap;
 
-declare const __non_webpack_require__: <K extends keyof EnonicLibraryMap | string = string>(path: K) => K extends keyof EnonicLibraryMap
-  ? EnonicLibraryMap[K]
+declare const __non_webpack_require__: <K extends keyof LibMap | string = string>(path: K) => K extends keyof LibMap
+  ? LibMap[K]
   : any;
 ```
  
