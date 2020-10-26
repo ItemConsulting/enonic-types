@@ -74,6 +74,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [RepoLibrary](./src/repo.ts) 
  * [RouterLibrary](./src/router.ts) 
  * [SessionLibrary](./src/session.ts) 
+ * [TestingLibrary](./src/testing.ts) 
  * [ThymeleafLibrary](./src/thymeleaf.ts)
  * [ValueLibrary](./src/value.ts)
  * [WebsocketLibrary](./src/websocket.ts)
