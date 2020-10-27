@@ -1,4 +1,4 @@
-import {Aggregation, AggregationsResponse, Highlight, PermissionsParams} from "./content";
+import {Aggregation, AggregationsResponse, ByteSource, Highlight, PermissionsParams} from "./content";
 
 export interface NodeLibrary {
   /**
@@ -32,6 +32,18 @@ export interface NodeQueryResponse<B extends string> {
   readonly count: number;
   readonly hits: ReadonlyArray<NodeQueryHit>;
   readonly aggregations: AggregationsResponse<B>;
+}
+
+export interface GetBinaryParams {
+  /**
+   * Path or id to the node.
+   */
+  key: string;
+
+  /**
+   * Reference to the binary
+   */
+  binaryReference: string;
 }
 
 export interface NodeQueryParams<B extends string> {
@@ -176,6 +188,19 @@ export interface NodeModifyParams<A> {
   readonly editor: (node: A & RepoNode) => A & RepoNode;
 }
 
+export interface NodeMoveParams {
+  /**
+   * Path or id of the node to be moved or renamed.
+   */
+  readonly source: string;
+
+  /**
+   * New path or name for the node. If the target ends in slash '/', it specifies the parent path where to be moved.
+   * Otherwise it means the new desired path or name for the node.
+   */
+  readonly target: string;
+}
+
 export interface NodeFindChildrenParams {
   /**
    * Path or ID of parent to get children of
@@ -219,6 +244,12 @@ export interface MultiRepoConnection {
 
 export interface RepoConnection {
   /**
+   * Commits the active version of nodes.
+   */
+  commit(params: CommitParams): CommitResponse;
+  commit(params: MultiCommitParams): ReadonlyArray<CommitResponse>;
+
+  /**
    * Creating a node. To create a content where the name is not important and there could be multiple instances under the
    * same parent content, skip the name parameter and specify a displayName.
    */
@@ -260,9 +291,29 @@ export interface RepoConnection {
   get<A>(keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>): A & RepoNode | ReadonlyArray<A & RepoNode>;
 
   /**
+   * This function returns the active version of a node.
+   */
+  getActiveVersion(params: GetActiveVersionParams): any;
+
+  /**
+   * This function sets the active version of a node.
+   */
+  setActiveVersion(params: SetActiveVersionParams): boolean;
+
+  /**
+   * This function returns a binary stream.
+   */
+  getBinary(params: GetBinaryParams): ByteSource;
+
+  /**
    * This command queries nodes.
    */
   query<B extends string>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
+
+  /**
+   * Refresh the index for the current repoConnection
+   */
+  refresh(mode?: "ALL" | "SEARCH" | "STORAGE"): void;
 
   /**
    * This function modifies a node.
@@ -270,14 +321,144 @@ export interface RepoConnection {
   modify<A>(params: NodeModifyParams<A>): A & RepoNode;
 
   /**
+   * Rename a node or move it to a new path.
+   */
+  move(params: NodeMoveParams): boolean;
+
+  /**
+   * Pushes a node to a given branch.
+   */
+  push(params: PushNodeParams): PushNodeResult;
+
+  /**
+   * Set the order of the node’s children.
+   */
+  setChildOrder<A>(params: SetChildOrderParams): A & RepoNode
+
+  /**
+   * Set the root node permissions and inheritance.
+   */
+  setRootPermission<A>(params: SetRootPermissionParams): A & RepoNode;
+
+  /**
    * Get children for given node.
    */
   findChildren(params: NodeFindChildrenParams): NodeQueryResponse<never>;
 }
 
-export interface NodeGetParams {
+export interface PushNodeParams {
+  /**
+   * Id or path to the nodes
+   */
   readonly key: string;
+
+  /**
+   * Array of ids or paths to the nodes
+   */
+  readonly keys: ReadonlyArray<string>;
+
+  /**
+   * Branch to push to
+   */
+  readonly target: string;
+
+  /**
+   * Also push children of given nodes. Default is false.
+   */
+  readonly includeChildren?: boolean
+
+  /**
+   * Resolve dependencies before pushing, meaning that references will also be pushed. Default is true.
+   */
+  readonly resolve?: boolean
+
+  /**
+   * Optional array of ids or paths to nodes not to be pushed.
+   * If using this, be aware that nodes need to maintain data integrity (e.g parents must be present in target).
+   * If data integrity is not maintained with excluded nodes, they will be pushed anyway.
+   */
+  readonly exclude?: ReadonlyArray<string>
+}
+
+export interface PushNodeResult {
+  readonly success: ReadonlyArray<string>;
+  readonly failed: ReadonlyArray<{
+    readonly id: string;
+    readonly reason: string;
+  }>;
+  readonly deleted: ReadonlyArray<string>;
+}
+
+export interface SetChildOrderParams {
+  readonly key: string;
+  readonly childOrder: string;
+}
+
+export interface SetRootPermissionParams {
+  readonly _permissions: ReadonlyArray<PermissionsParams>;
+  readonly _inheritsPermissions: boolean;
+}
+
+export interface CommitParams {
+  /**
+   * Node key to commit. It could be an id or a path. Prefer the usage of ID rather than paths.
+   */
+  readonly keys: string;
+
+  /**
+   * Optional commit message
+   */
+  readonly message?: string;
+}
+
+export interface MultiCommitParams {
+  /**
+   * Node keys to commit. Each argument could be an array of the ids and paths. Prefer the usage of ID rather than paths.
+   */
+  readonly keys: ReadonlyArray<string>;
+
+  /**
+   * Optional commit message
+   */
+  readonly message?: string;
+}
+
+export interface CommitResponse {
+  readonly id: string;
+  readonly message: string;
+  readonly committer: string;
+  readonly timestamp: string;
+}
+
+export interface NodeGetParams {
+  /**
+   * Path or ID of the node.
+   */
+  readonly key: string;
+
+  /**
+   * Version to get
+   */
   readonly versionId: string;
+}
+
+export interface GetActiveVersionParams {
+  /**
+   * Path or ID of the node
+   */
+  readonly key: string;
+}
+
+export interface SetActiveVersionParams {
+  /**
+   * Path or ID of the node.
+   */
+  key: 	string;
+
+  /**
+   * Version to set as active.
+   */
+  versionId:	string;
 }
 
 export interface FindVersionsParams {
