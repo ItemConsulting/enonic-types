@@ -2,7 +2,8 @@ import {Region} from "./portal";
 
 export interface ContentLibrary {
   get<A extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<A, PageConfig, XData> | null;
-  query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B>;
+  query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B, QueryResponseMetaDataScore>;
+  query<A extends object, B extends string = never>(params: QueryContentParamsWithSort<B>): QueryResponse<A, B, QueryResponseMetaDataSort>;
   create<A extends object>(params: CreateContentParams<A>): Content<A>;
   modify<A extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<A, PageConfig, XData>): Content<A, PageConfig, XData>;
   delete(params: DeleteContentParams): boolean;
@@ -109,18 +110,30 @@ export interface QueryContentParams<B extends string = never> {
   readonly count: number;
   readonly query: string;
   readonly filters?: object;
-  readonly sort?: string;
   readonly aggregations?: Record<B, Aggregation>;
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
 }
 
-export interface QueryResponse<A extends object, B extends string = never> {
+export type QueryContentParamsWithSort<B extends string = never> = QueryContentParams<B> & {
+  readonly sort: string;
+}
+
+export interface QueryResponse<A extends object, B extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
   readonly count: number;
-  readonly hits: ReadonlyArray<Content<A>>;
+  readonly hits: ReadonlyArray<Content<A> & QueryMetaData>;
   readonly total: number;
   readonly aggregations: AggregationsResponse<B>;
   readonly highlight: HighlightResponse;
+}
+
+export interface QueryResponseMetaDataSort {
+  readonly _score: null;
+  readonly _sort: Array<string>;
+}
+
+export interface QueryResponseMetaDataScore {
+  readonly _score: number;
 }
 
 export type Aggregation =
