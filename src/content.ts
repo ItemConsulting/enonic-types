@@ -243,7 +243,7 @@ export interface AggregationsResponseEntry {
   readonly buckets: Array<AggregationsResponseBucket>;
 }
 
-export type AggregationsResponse<B extends string = string> = { [K in B]: AggregationsResponseEntry }
+export type AggregationsResponse<B extends string> = { [K in B]: AggregationsResponseEntry }
 
 export interface Highlight {
   encoder?: 'default' | 'html';

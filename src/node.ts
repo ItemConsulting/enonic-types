@@ -1,4 +1,4 @@
-import { PermissionsParams } from "./content";
+import {Aggregation, AggregationsResponse, Highlight, PermissionsParams} from "./content";
 
 export interface NodeLibrary {
   /**
@@ -27,13 +27,14 @@ export interface NodeQueryHit {
   readonly score: number;
 }
 
-export interface NodeQueryResponse {
+export interface NodeQueryResponse<B extends string> {
   readonly total: number;
   readonly count: number;
   readonly hits: ReadonlyArray<NodeQueryHit>;
+  readonly aggregations: AggregationsResponse<B>;
 }
 
-export interface NodeQueryParams {
+export interface NodeQueryParams<B extends string> {
   /**
    * Start index (used for paging).
    */
@@ -62,7 +63,12 @@ export interface NodeQueryParams {
   /**
    * Aggregations expression.
    */
-  readonly aggregations?: string;
+  readonly aggregations?: Record<B, Aggregation>;
+
+  /**
+   * Highlighting config
+   */
+  readonly highlight?: Highlight;
 
   /**
    * Return score calculation explanation.
@@ -208,7 +214,7 @@ export interface RepoNode {
 }
 
 export interface MultiRepoConnection {
-  query(params: NodeQueryParams): NodeQueryResponse;
+  query<B extends string>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
 }
 
 export interface RepoConnection {
@@ -256,7 +262,7 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query(params: NodeQueryParams): NodeQueryResponse;
+  query<B extends string>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
 
   /**
    * This function modifies a node.
@@ -266,7 +272,7 @@ export interface RepoConnection {
   /**
    * Get children for given node.
    */
-  findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
+  findChildren(params: NodeFindChildrenParams): NodeQueryResponse<never>;
 }
 
 export interface NodeGetParams {
