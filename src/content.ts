@@ -353,7 +353,7 @@ export interface Site<A extends object, PageConfig extends object = never, XData
   readonly hasChildren: boolean;
   readonly valid: boolean;
   readonly data: {
-    readonly siteConfig: SiteConfig<A>;
+    readonly siteConfig: SiteConfig<A> | ReadonlyArray<SiteConfig<A>>;
   };
   readonly x: Record<string, Record<string, XData>>;
   readonly page: Page<PageConfig>;
