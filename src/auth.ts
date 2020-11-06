@@ -35,7 +35,8 @@ export interface AuthLibrary {
   /**
    * Search for users matching the specified query.
    */
-  findUsers<A>(params: FindUsersParams): UserQueryResult<A>;
+  findUsers<A>(params: FindUsersParams & { includeProfile: true }): UserQueryResult<UserWithProfile<A>>;
+  findUsers(params: FindUsersParams  & { includeProfile?: false }): UserQueryResult<User>;
 
   /**
    * Retrieves the user specified and updates it with the changes applied through the editor.
@@ -170,8 +171,8 @@ export interface User extends Principal {
   readonly idProvider: string;
 }
 
-export interface WithProfile<A> {
-  readonly profile?: A;
+export interface UserWithProfile<A> extends User {
+  readonly profile: A;
 }
 
 export interface Role extends Principal {
@@ -202,13 +203,12 @@ export interface FindUsersParams {
   readonly count: number;
   readonly query: string;
   readonly sort?: string;
-  readonly includeProfile?: boolean;
 }
 
 export interface UserQueryResult<A> {
   readonly total: number;
   readonly count: number;
-  readonly hits: ReadonlyArray<User & WithProfile<A>>;
+  readonly hits: ReadonlyArray<A>;
 }
 
 export interface ModifyUserParams {
