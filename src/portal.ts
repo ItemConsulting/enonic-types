@@ -33,8 +33,21 @@ interface ByComponent {
 }
 
 export interface PortalLibrary {
-  getComponent<A>():  Component<A> | null;
-  getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig> | null;
+  /**
+   * This function returns the component corresponding to the current execution context. It is meant to be called
+   * from a layout or part controller.
+   */
+  getComponent<A>(): Component<A>;
+
+  /**
+   * his function returns the content corresponding to the current execution context. It is meant to be called from a
+   * page, layout or part controller
+   */
+  getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig>;
+
+  /**
+   * This function returns the id provider key corresponding to the current execution context.
+   */
   getIdProviderKey(): string | null;
 
   /**
@@ -57,20 +70,86 @@ export interface PortalLibrary {
    */
   getMultipartText(name: string, index?: number): string | undefined;
 
+  /**
+   * This function returns the parent site of the content corresponding to the current execution context. It is meant
+   * to be called from a page, layout or part controller.
+   */
   getSite<A extends object>(): Site<A>;
+
+  /**
+   * This function returns the site configuration for this app in the parent site of the content corresponding to the
+   * current execution context. It is meant to be called from a page, layout or part controller.
+   */
   getSiteConfig<A>(): A;
+
+  /**
+   * This function generates a URL pointing to an ID provider.
+   */
   idProviderUrl(params: IdProviderUrlParams): string;
+
+  /**
+   * This function generates a URL to an image placeholder.
+   */
   imagePlaceholder(params: ImagePlaceHolderParams): string;
+
+  /**
+   * This function generates a URL pointing to a static file.
+   */
   assetUrl(params: AssetUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to an attachment.
+   */
   attachmentUrl(params: AttachmentUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to a component.
+   */
   componentUrl(params: ComponentUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to a service.
+   */
   serviceUrl(params: ServiceUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to an image.
+   */
   imageUrl(params: ImageUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to the login function of an ID provider.
+   */
   loginUrl(params: LoginUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to the logout function of the application corresponding to the current user.
+   */
   logoutUrl(params: LogoutUrlParams): string;
+
+  /**
+   * This function generates a URL pointing to a page.
+   */
   pageUrl(params: PageUrlParams): string;
+
+  /**
+   * This function generates a URL.
+   */
   url(params: UrlParams): string;
+
+  /**
+   * This function replaces abstract internal links contained in an HTML text by generated URLs.
+   *
+   * When outputting processed HTML in Thymeleaf, use attribute `data-th-utext="${processedHtml}"`.
+   */
   processHtml(params: ProcessHtmlParams): string;
+
+  /**
+   * This function sanitizes an HTML string by stripping all potentially unsafe tags and attributes.
+   *
+   * HTML sanitization can be used to protect against cross-site scripting (XSS) attacks by sanitizing any HTML code
+   * submitted by a user.
+   */
   sanitizeHtml(html: string): string;
 }
 
