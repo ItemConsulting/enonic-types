@@ -27,7 +27,7 @@ export interface NodeQueryHit {
   readonly score: number;
 }
 
-export interface NodeQueryResponse<B extends string> {
+export interface NodeQueryResponse<B extends string = never> {
   readonly total: number;
   readonly count: number;
   readonly hits: ReadonlyArray<NodeQueryHit>;
@@ -308,7 +308,7 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query<B extends string>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
+  query<B extends string = never>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
 
   /**
    * Refresh the index for the current repoConnection
