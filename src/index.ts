@@ -1,5 +1,7 @@
 export interface EnonicLibraryMap {
+  "/lib/xp/admin": import("./admin").AdminLibrary;
   "/lib/xp/auth": import("./auth").AuthLibrary;
+  "/lib/xp/cluster": import("./cluster").ClusterLibrary;
   "/lib/xp/common": import("./common").CommonLibrary;
   "/lib/xp/content": import("./content").ContentLibrary;
   "/lib/xp/context": import("./context").ContextLibrary;
@@ -17,6 +19,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/repo": import("./repo").RepoLibrary;
   "/lib/router": import("./router").RouterLib;
   "/lib/session": import("./session").SessionLibrary;
+  "/lib/xp/task": import("./task").TaskLibrary;
   "/lib/xp/testing": import("./testing").TestingLibrary;
   "/lib/thymeleaf": import("./thymeleaf").ThymeleafLibrary;
   "/lib/xp/value": import("./value").ValueLibrary;

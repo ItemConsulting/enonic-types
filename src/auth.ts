@@ -145,6 +145,11 @@ export interface LoginParams {
    * Session timeout (in seconds). By default, the value of session.timeout from com.enonic.xp.web.jetty.cfg
    */
   readonly sessionTimeout?: number;
+
+  /**
+   * Defines the scope of the login.
+   */
+  readonly scope?: 'SESSION' | 'REQUEST'
 }
 
 export interface LoginResult {
@@ -222,8 +227,19 @@ export interface GetProfileParams {
 }
 
 export interface ModifyProfileParams<A> {
+  /**
+   * Principal key of the user.
+   */
   readonly key: string;
+
+  /**
+   * Scope of the data to retrieve and update.
+   */
   readonly scope?: string;
+
+  /**
+   * Profile editor function to apply.
+   */
   readonly editor: (c: A) => A;
 }
 

@@ -55,7 +55,9 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  
 ## Supported libraries
 
+ * [AdminLibrary](./src/admin.ts)
  * [AuthLibrary](./src/auth.ts)
+ * [ClusterLibrary](./src/cluster.ts)
  * [CommonLibrary](./src/common.ts)
  * [ContentLibrary](./src/content.ts)
  * [ContextLibrary](./src/context.ts)
@@ -74,6 +76,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [RepoLibrary](./src/repo.ts) 
  * [RouterLibrary](./src/router.ts) 
  * [SessionLibrary](./src/session.ts) 
+ * [TaskLibrary](./src/task.ts) 
  * [TestingLibrary](./src/testing.ts) 
  * [ThymeleafLibrary](./src/thymeleaf.ts)
  * [ValueLibrary](./src/value.ts)
