@@ -1,4 +1,6 @@
-export declare interface Request {
+import {XOR} from "./types";
+
+export interface Request {
   readonly method: "GET" | "PUT" | "POST" | "DELETE";
   readonly scheme: string;
   readonly host: string;
@@ -12,6 +14,7 @@ export declare interface Request {
   readonly params: { readonly [key: string]: string | undefined };
   readonly headers: { readonly [key: string]: string | undefined };
   readonly cookies: { readonly [key: string]: string | undefined };
+  readonly webSocket?: boolean;
 }
 
 export type ResponseType =
@@ -20,9 +23,9 @@ export type ResponseType =
   | Array<any>
   | ReadonlyArray<any>;
 
-export declare interface Response {
+export interface HttpResponse<A> {
   readonly status?: number;
-  readonly body?: ResponseType;
+  readonly body?: A | ResponseType;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
   readonly cookies?: { readonly [key: string]: string | Cookie };
@@ -31,6 +34,15 @@ export declare interface Response {
   readonly pageContributions?: PageContributions;
   readonly applyFilters?: boolean;
 }
+
+export interface WebSocketResponse<A = {}> {
+  readonly webSocket: {
+    readonly data?: A;
+    readonly subProtocols?: ReadonlyArray<string>;
+  }
+}
+
+export type Response<A = {}> = XOR<HttpResponse<A>, WebSocketResponse<A>>;
 
 export interface MacroContext<A = never> {
   readonly name: string;
@@ -109,3 +121,20 @@ export interface CustomSelectorServiceResponseHit {
     readonly type: string;
   };
 }
+
+interface AbstractWebSocketEvent<A = {}> {
+  readonly session: {
+    readonly id: string;
+    readonly path: string;
+    readonly params: Record<string, string>;
+  },
+  readonly data: A;
+}
+
+type WebSocketType =
+  | { readonly type: 'open' }
+  | { readonly type: 'message'; readonly message: string; }
+  | { readonly type: 'error'; readonly error: string; }
+  | { readonly type: 'close'; readonly closeReason: number; };
+
+export type WebSocketEvent<A = {}> = AbstractWebSocketEvent<A> & WebSocketType;
