@@ -122,19 +122,36 @@ export interface CustomSelectorServiceResponseHit {
   };
 }
 
-interface AbstractWebSocketEvent<A = {}> {
+export interface AbstractWebSocketEvent<A = {}> {
   readonly session: {
     readonly id: string;
     readonly path: string;
-    readonly params: Record<string, string>;
-  },
+    readonly params: { readonly [key: string]: string | undefined };
+  };
   readonly data: A;
 }
 
-type WebSocketType =
-  | { readonly type: 'open' }
-  | { readonly type: 'message'; readonly message: string; }
-  | { readonly type: 'error'; readonly error: string; }
-  | { readonly type: 'close'; readonly closeReason: number; };
+export interface OpenWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+  readonly type: 'open';
+}
 
-export type WebSocketEvent<A = {}> = AbstractWebSocketEvent<A> & WebSocketType;
+export interface MessageWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+  readonly type: 'message';
+  readonly message: string;
+}
+
+export interface CloseWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+  readonly type: 'close';
+  readonly closeReason: number;
+}
+
+export interface ErrorWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+  readonly type: 'error';
+  readonly error: string;
+}
+
+export type WebSocketEvent<A = {}> =
+  | OpenWebSocketEvent<A>
+  | MessageWebSocketEvent<A>
+  | CloseWebSocketEvent<A>
+  | ErrorWebSocketEvent<A>;
