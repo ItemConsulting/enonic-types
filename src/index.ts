@@ -13,6 +13,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/mail": import("./mail").MailLibrary;
   "/lib/menu": import("./menu").MenuLibrary;
   "/lib/xp/node": import("./node").NodeLibrary;
+  "/lib/notifications": import("./notifications").NotificationsLibrary;
   "/lib/xp/portal": import("./portal").PortalLibrary;
   "/lib/xp/project": import("./project").ProjectLibrary;
   "/lib/recaptcha": import("./recaptcha").RecaptchaLibrary;
