@@ -1,4 +1,4 @@
-import {Content} from "./content";
+import {Content, Site} from "./content";
 
 export interface MenuLibrary {
   /**
@@ -9,12 +9,24 @@ export interface MenuLibrary {
   /**
    * Get menu tree
    */
-  getMenuTree(levels: number, params?: GetMenuParams): ReadonlyArray<MenuItem>;
+  getMenuTree(levels: number, params?: GetMenuTreeParams): MenuTree;
 
   /**
    * Returns submenus of a parent menuitem.
    */
-  getSubMenus(parentContent: Content<any>, levels?: number, params?: GetMenuParams): ReadonlyArray<MenuItem>;
+  getSubMenus(parentContent: Content<any> | Site<any>, levels?: number, params?: GetMenuParams): ReadonlyArray<MenuItem>;
+}
+
+export interface MenuTree {
+  /**
+   * The list of menuItems and children
+   */
+  readonly menuItems: ReadonlyArray<MenuItem>;
+
+  /**
+   * The ariaLabel used for this menu
+   */
+  readonly ariaLabel?: string;
 }
 
 export interface GetBreadcrumbMenuParams {
@@ -42,6 +54,11 @@ export interface GetBreadcrumbMenuParams {
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
   readonly urlType?: 'server' | 'absolute';
+
+  /**
+   * The 'aria-label' attribute text on the '<nav>' element. This should be the name of the navigation, e.g "Breadcrumbs".
+   */
+  readonly ariaLabel?: string;
 }
 
 export interface BreadcrumbMenu {
@@ -53,13 +70,29 @@ export interface BreadcrumbMenu {
     readonly active: boolean;
     readonly type: string;
   }>;
+
+  readonly ariaLabel?: string;
 }
+
+export type GetMenuTreeParams = GetMenuParams & {
+  readonly ariaLabel?: string;
+};
 
 export interface GetMenuParams {
   /**
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
   readonly urlType?: 'server' | 'absolute';
+
+  /**
+   * Controls what info to return
+   */
+  readonly returnContent?: boolean;
+
+  /**
+   * Query string to add when searching for menu items
+   */
+  readonly query?: string;
 }
 
 export interface MenuItem {
