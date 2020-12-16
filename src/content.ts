@@ -442,5 +442,44 @@ export interface ContentType {
   readonly allowChildContent: boolean;
   readonly displayNameExpression: string;
   readonly icon: ReadonlyArray<IconType>;
-  readonly form: ReadonlyArray<any>;
+  readonly form: ReadonlyArray<FormItem>;
+}
+
+export type InputType =
+  | "Time"
+  | "DateTime"
+  | "CheckBox"
+  | "ComboBox"
+  | "Long"
+  | "Double"
+  | "RadioButton"
+  | "TextArea"
+  | "ContentTypeFilter"
+  | "GeoPoint"
+  | "TextLine"
+  | "Tag"
+  | "CustomSelector"
+  | "AttachmentUploader"
+  | "ContentSelector"
+  | "MediaSelector"
+  | "ImageSelector"
+  | "HtmlArea";
+
+export type FormItemType =
+  | "Input"
+  | "ItemSet"
+  | "Layout"
+  | "OptionSet";
+
+export interface FormItem<A = unknown> {
+  readonly formItemType: FormItemType | string;
+  readonly name: string,
+  readonly label: string,
+  readonly maximize: boolean,
+  readonly inputType: InputType,
+  readonly occurrences: {
+    readonly maximum: 1,
+    readonly minimum: 1
+  },
+  readonly config: A;
 }
