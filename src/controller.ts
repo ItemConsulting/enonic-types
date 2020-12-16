@@ -23,9 +23,9 @@ export type ResponseType =
   | Array<any>
   | ReadonlyArray<any>;
 
-export interface HttpResponse<A> {
+export interface HttpResponse<A = ResponseType> {
   readonly status?: number;
-  readonly body?: A | ResponseType;
+  readonly body?: A;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
   readonly cookies?: { readonly [key: string]: string | Cookie };
@@ -42,7 +42,7 @@ export interface WebSocketResponse<A = {}> {
   }
 }
 
-export type Response<A = {}> = XOR<HttpResponse<A>, WebSocketResponse<A>>;
+export type Response<A = ResponseType> = XOR<HttpResponse<A>, WebSocketResponse<A>>;
 
 export interface MacroContext<A = never> {
   readonly name: string;
@@ -103,13 +103,11 @@ export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
 /**
  * This Response can be used by a Service that provides data to a CustomSelector input field
  */
-export type CustomSelectorServiceResponse = Omit<Response, "body"> & {
-  body: {
-    readonly total: number;
-    readonly count: number;
-    readonly hits: Array<CustomSelectorServiceResponseHit>;
-  }
-}
+export type CustomSelectorServiceResponse = HttpResponse<{
+  readonly total: number;
+  readonly count: number;
+  readonly hits: Array<CustomSelectorServiceResponseHit>;
+}>;
 
 export interface CustomSelectorServiceResponseHit {
   readonly id: string;
