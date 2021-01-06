@@ -21,6 +21,7 @@ export interface EnonicLibraryMap {
   "/lib/router": import("./router").RouterLib;
   "/lib/session": import("./session").SessionLibrary;
   "/lib/xp/task": import("./task").TaskLibrary;
+  "/lib/turbo-streams": import("./turbo").TurboStreamsLibrary;
   "/lib/xp/testing": import("./testing").TestingLibrary;
   "/lib/thymeleaf": import("./thymeleaf").ThymeleafLibrary;
   "/lib/xp/value": import("./value").ValueLibrary;
