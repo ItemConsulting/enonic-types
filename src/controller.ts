@@ -100,14 +100,16 @@ export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
   }
 }
 
-/**
- * This Response can be used by a Service that provides data to a CustomSelector input field
- */
-export type CustomSelectorServiceResponse = HttpResponse<{
+export interface CustomSelectorServiceResponseBody {
   readonly total: number;
   readonly count: number;
   readonly hits: Array<CustomSelectorServiceResponseHit>;
-}>;
+}
+
+/**
+ * This Response can be used by a Service that provides data to a CustomSelector input field
+ */
+export type CustomSelectorServiceResponse = HttpResponse<CustomSelectorServiceResponseBody>;
 
 export interface CustomSelectorServiceResponseHit {
   readonly id: string;
