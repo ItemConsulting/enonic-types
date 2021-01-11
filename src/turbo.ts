@@ -27,10 +27,9 @@ export interface TurboStreamsLibrary {
   remove(params: TurboStreamsParamsWithoutContent): void;
 
   /**
-   * Returns a page contribution that initializes the turbo stream frontend connecting it to the "turbo-streams" service,
-   * or another service specified by the developer.
+   * Returns a url to a service, but using the web socket protocols
    */
-  getTurboStreamPageContribution(params?: GetTurboStreamPageContributionParams): Array<string>;
+  getWebSocketUrl(params?: GetWebSocketUrlParams): string;
 }
 
 /**
@@ -78,8 +77,8 @@ export type TurboStreamsParams = {
 export type TurboStreamsParamsWithoutContent = Omit<TurboStreamsParams, "content">;
 
 /**
- * Params for configuring page contributions
+ * Params for configuring web socket urls
  */
-export interface GetTurboStreamPageContributionParams {
+export interface GetWebSocketUrlParams {
   readonly service: string;
 }
