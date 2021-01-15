@@ -1,6 +1,6 @@
 export interface ContextLibrary {
   get(): Context;
-  run<A>(runContext: RunContext, f: () => A): A;
+  run<Result>(runContext: RunContext, f: () => Result): Result;
 }
 
 export interface Context {

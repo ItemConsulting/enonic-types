@@ -8,7 +8,7 @@ export interface ResourceKey {
 }
 
 export interface ThymeleafLibrary {
-  render<A extends object>(view: ResourceKey, model?: A, options?: ThymeleafRenderOptions): string;
+  render<Model extends object>(view: ResourceKey, model?: Model, options?: ThymeleafRenderOptions): string;
 }
 
 export interface ThymeleafRenderOptions {

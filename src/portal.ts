@@ -3,11 +3,11 @@ import {XOR} from "./types";
 
 export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
-export interface Component<A> {
+export interface Component<Config> {
   readonly path: string;
   readonly type: string;
   readonly descriptor: string;
-  readonly config: A;
+  readonly config: Config;
   readonly regions?: Record<string, Region>;
 }
 
@@ -37,13 +37,13 @@ export interface PortalLibrary {
    * This function returns the component corresponding to the current execution context. It is meant to be called
    * from a layout or part controller.
    */
-  getComponent<A>(): Component<A>;
+  getComponent<Config extends object = never>(): Component<Config>;
 
   /**
    * his function returns the content corresponding to the current execution context. It is meant to be called from a
    * page, layout or part controller
    */
-  getContent<A extends object, PageConfig extends object = never>(): Content<A, PageConfig>;
+  getContent<Data extends object, PageConfig extends object = never>(): Content<Data, PageConfig>;
 
   /**
    * This function returns the id provider key corresponding to the current execution context.
@@ -74,13 +74,13 @@ export interface PortalLibrary {
    * This function returns the parent site of the content corresponding to the current execution context. It is meant
    * to be called from a page, layout or part controller.
    */
-  getSite<A extends object>(): Site<A>;
+  getSite<Config extends object>(): Site<Config>;
 
   /**
    * This function returns the site configuration for this app in the parent site of the content corresponding to the
    * current execution context. It is meant to be called from a page, layout or part controller.
    */
-  getSiteConfig<A>(): A;
+  getSiteConfig<Config>(): Config;
 
   /**
    * This function generates a URL pointing to an ID provider.

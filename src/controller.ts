@@ -23,9 +23,9 @@ export type ResponseType =
   | Array<any>
   | ReadonlyArray<any>;
 
-export interface HttpResponse<A = ResponseType> {
+export interface HttpResponse<ResponseBody = ResponseType> {
   readonly status?: number;
-  readonly body?: A;
+  readonly body?: ResponseBody;
   readonly contentType?: string;
   readonly headers?: { readonly [key: string]: string };
   readonly cookies?: { readonly [key: string]: string | Cookie };
@@ -35,19 +35,19 @@ export interface HttpResponse<A = ResponseType> {
   readonly applyFilters?: boolean;
 }
 
-export interface WebSocketResponse<A = {}> {
+export interface WebSocketResponse<WebSocketData = {}> {
   readonly webSocket: {
-    readonly data?: A;
+    readonly data?: WebSocketData;
     readonly subProtocols?: ReadonlyArray<string>;
   }
 }
 
-export type Response<A = ResponseType> = XOR<HttpResponse<A>, WebSocketResponse<A>>;
+export type Response<ResponseBody = ResponseType, WebSocketData = {}> = XOR<HttpResponse<ResponseBody>, WebSocketResponse<WebSocketData>>;
 
-export interface MacroContext<A = never> {
+export interface MacroContext<Params = never> {
   readonly name: string;
   readonly body: string;
-  readonly params: A;
+  readonly params: Params;
   readonly document: string;
   readonly request: Request;
 }
@@ -122,36 +122,36 @@ export interface CustomSelectorServiceResponseHit {
   };
 }
 
-export interface AbstractWebSocketEvent<A = {}> {
+export interface AbstractWebSocketEvent<WebSocketData = {}> {
   readonly session: {
     readonly id: string;
     readonly path: string;
     readonly params: { readonly [key: string]: string | undefined };
   };
-  readonly data: A;
+  readonly data: WebSocketData;
 }
 
-export interface OpenWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+export interface OpenWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
   readonly type: 'open';
 }
 
-export interface MessageWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+export interface MessageWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
   readonly type: 'message';
   readonly message: string;
 }
 
-export interface CloseWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+export interface CloseWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
   readonly type: 'close';
   readonly closeReason: number;
 }
 
-export interface ErrorWebSocketEvent<A = {}> extends AbstractWebSocketEvent<A> {
+export interface ErrorWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
   readonly type: 'error';
   readonly error: string;
 }
 
-export type WebSocketEvent<A = {}> =
-  | OpenWebSocketEvent<A>
-  | MessageWebSocketEvent<A>
-  | CloseWebSocketEvent<A>
-  | ErrorWebSocketEvent<A>;
+export type WebSocketEvent<WebSocketData = {}> =
+  | OpenWebSocketEvent<WebSocketData>
+  | MessageWebSocketEvent<WebSocketData>
+  | CloseWebSocketEvent<WebSocketData>
+  | ErrorWebSocketEvent<WebSocketData>;

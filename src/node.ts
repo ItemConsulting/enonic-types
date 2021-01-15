@@ -46,7 +46,7 @@ export interface GetBinaryParams {
   binaryReference: string;
 }
 
-export interface NodeQueryParams<B extends string> {
+export interface NodeQueryParams<AggregationKeys extends string> {
   /**
    * Start index (used for paging).
    */
@@ -75,7 +75,7 @@ export interface NodeQueryParams<B extends string> {
   /**
    * Aggregations expression.
    */
-  readonly aggregations?: Record<B, Aggregation>;
+  readonly aggregations?: Record<AggregationKeys, Aggregation>;
 
   /**
    * Highlighting config
@@ -176,7 +176,7 @@ export interface NodeCreateParams {
   readonly _childOrder?: string;
 }
 
-export interface NodeModifyParams<A> {
+export interface NodeModifyParams<NodeData> {
   /**
    * Path or ID of the node
    */
@@ -185,7 +185,7 @@ export interface NodeModifyParams<A> {
   /**
    * Editor callback function
    */
-  readonly editor: (node: A & RepoNode) => A & RepoNode;
+  readonly editor: (node: NodeData & RepoNode) => NodeData & RepoNode;
 }
 
 export interface NodeMoveParams {
@@ -239,7 +239,7 @@ export interface RepoNode {
 }
 
 export interface MultiRepoConnection {
-  query<B extends string>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
+  query<AggregationKeys extends string>(params: NodeQueryParams<AggregationKeys>): NodeQueryResponse<AggregationKeys>;
 }
 
 export interface RepoConnection {
@@ -253,7 +253,7 @@ export interface RepoConnection {
    * Creating a node. To create a content where the name is not important and there could be multiple instances under the
    * same parent content, skip the name parameter and specify a displayName.
    */
-  create<A>(a: A & NodeCreateParams): A & RepoNode;
+  create<NodeData>(a: NodeData & NodeCreateParams): NodeData & RepoNode;
 
   /**
    * Deleting a node or nodes.
@@ -278,17 +278,17 @@ export interface RepoConnection {
   /**
    * Fetches a specific node by path or ID.
    */
-  get<A>(key: string | NodeGetParams): A & RepoNode;
+  get<NodeData>(key: string | NodeGetParams): NodeData & RepoNode;
 
   /**
    * Fetches specific nodes by paths or IDs.
    */
-  get<A>(keys: ReadonlyArray<string | NodeGetParams>): ReadonlyArray<A & RepoNode>;
+  get<NodeData>(keys: ReadonlyArray<string | NodeGetParams>): ReadonlyArray<NodeData & RepoNode>;
 
   /**
    * Fetches specific nodes by path(s) or ID(s).
    */
-  get<A>(keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>): A & RepoNode | ReadonlyArray<A & RepoNode>;
+  get<NodeData>(keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>): NodeData & RepoNode | ReadonlyArray<NodeData & RepoNode>;
 
   /**
    * This function returns the active version of a node.
@@ -308,7 +308,7 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query<B extends string = never>(params: NodeQueryParams<B>): NodeQueryResponse<B>;
+  query<NodeData extends string = never>(params: NodeQueryParams<NodeData>): NodeQueryResponse<NodeData>;
 
   /**
    * Refresh the index for the current repoConnection
@@ -318,7 +318,7 @@ export interface RepoConnection {
   /**
    * This function modifies a node.
    */
-  modify<A>(params: NodeModifyParams<A>): A & RepoNode;
+  modify<NodeData>(params: NodeModifyParams<NodeData>): NodeData & RepoNode;
 
   /**
    * Rename a node or move it to a new path.
@@ -333,17 +333,17 @@ export interface RepoConnection {
   /**
    * Set the order of the node’s children.
    */
-  setChildOrder<A>(params: SetChildOrderParams): A & RepoNode
+  setChildOrder<NodeData>(params: SetChildOrderParams): NodeData & RepoNode
 
   /**
    * Set the root node permissions and inheritance.
    */
-  setRootPermission<A>(params: SetRootPermissionParams): A & RepoNode;
+  setRootPermission<NodeData>(params: SetRootPermissionParams): NodeData & RepoNode;
 
   /**
    * Get children for given node.
    */
-  findChildren(params: NodeFindChildrenParams): NodeQueryResponse<never>;
+  findChildren(params: NodeFindChildrenParams): NodeQueryResponse;
 }
 
 export interface PushNodeParams {

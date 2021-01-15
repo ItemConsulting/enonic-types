@@ -1,21 +1,21 @@
 import {Region} from "./portal";
 
 export interface ContentLibrary {
-  get<A extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<A, PageConfig, XData> | null;
-  query<A extends object, B extends string = never>(params: QueryContentParams<B>): QueryResponse<A, B, QueryResponseMetaDataScore>;
-  query<A extends object, B extends string = never>(params: QueryContentParamsWithSort<B>): QueryResponse<A, B, QueryResponseMetaDataSort>;
-  create<A extends object>(params: CreateContentParams<A>): Content<A>;
-  modify<A extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<A, PageConfig, XData>): Content<A, PageConfig, XData>;
+  get<Data extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<Data, PageConfig, XData> | null;
+  query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParams<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataScore>;
+  query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParamsWithSort<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataSort>;
+  create<Data extends object>(params: CreateContentParams<Data>): Content<Data>;
+  modify<Data extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<Data, PageConfig, XData>): Content<Data, PageConfig, XData>;
   delete(params: DeleteContentParams): boolean;
   exists(params: ExistsParams): boolean;
   publish(params: PublishContentParams): PublishResponse;
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
-  getChildren<A extends object>(params: GetChildrenParams): QueryResponse<A>;
+  getChildren<Data extends object>(params: GetChildrenParams): QueryResponse<Data>;
   getOutboundDependencies(params: GetOutboundDependenciesParams): ReadonlyArray<string>;
-  move<A extends object>(params: MoveParams): Content<A>;
-  getSite<A extends object, PageConfig extends object = never>(params: GetSiteParams): Site<A, PageConfig>;
-  getSiteConfig<A extends object>(params: GetSiteConfigParams): A;
-  createMedia<A extends object>(params: CreateMediaParams): Content<A>;
+  move<Data extends object>(params: MoveParams): Content<Data>;
+  getSite<Config extends object, PageConfig extends object = never>(params: GetSiteParams): Site<Config, PageConfig>;
+  getSiteConfig<Config extends object>(params: GetSiteConfigParams): Config;
+  createMedia<Data extends object>(params: CreateMediaParams): Content<Data>;
   addAttachment(params: AddAttachmentParams): void;
   getAttachments(key: string): Attachments | null;
   getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
@@ -32,7 +32,7 @@ export type WORKFLOW_STATES =
   | "REJECTED"
   | "READY";
 
-export interface Content<A extends object = object, PageConfig extends object = object, XData extends object = object> {
+export interface Content<Data extends object = object, PageConfig extends object = object, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -47,7 +47,7 @@ export interface Content<A extends object = object, PageConfig extends object = 
   readonly language?: string;
   readonly valid: boolean;
   readonly childOrder: string;
-  readonly data: A;
+  readonly data: Data;
   readonly x: Record<string, Record<string, XData>>;
   readonly page: Page<PageConfig>;
   readonly attachments: Attachments;
@@ -86,11 +86,11 @@ export interface Image {
   readonly altText?: string;
 }
 
-export interface Page<A> {
+export interface Page<Config> {
   readonly type: string;
   readonly path: string;
   readonly descriptor: string;
-  readonly config: A;
+  readonly config: Config;
   readonly regions: Record<string, Region>;
 }
 
@@ -105,25 +105,25 @@ export interface Attachments {
   readonly [key: string]: Attachment;
 }
 
-export interface QueryContentParams<B extends string = never> {
+export interface QueryContentParams<AggregationKeys extends string = never> {
   readonly start?: number;
   readonly count: number;
   readonly query: string;
   readonly filters?: object;
-  readonly aggregations?: Record<B, Aggregation>;
+  readonly aggregations?: Record<AggregationKeys, Aggregation>;
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
 }
 
-export type QueryContentParamsWithSort<B extends string = never> = QueryContentParams<B> & {
+export type QueryContentParamsWithSort<AggregationKeys extends string = never> = QueryContentParams<AggregationKeys> & {
   readonly sort: string;
 }
 
-export interface QueryResponse<A extends object, B extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
+export interface QueryResponse<Data extends object, AggregationKeys extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
   readonly count: number;
-  readonly hits: ReadonlyArray<Content<A> & QueryMetaData>;
+  readonly hits: ReadonlyArray<Content<Data> & QueryMetaData>;
   readonly total: number;
-  readonly aggregations: AggregationsResponse<B>;
+  readonly aggregations: AggregationsResponse<AggregationKeys>;
   readonly highlight: HighlightResponse;
 }
 
@@ -243,7 +243,7 @@ export interface AggregationsResponseEntry {
   readonly buckets: Array<AggregationsResponseBucket>;
 }
 
-export type AggregationsResponse<B extends string> = { [K in B]: AggregationsResponseEntry }
+export type AggregationsResponse<AggregationKeys extends string> = { [K in AggregationKeys]: AggregationsResponseEntry }
 
 export interface Highlight {
   encoder?: 'default' | 'html';
@@ -278,7 +278,7 @@ export interface ExistsParams {
   readonly key: string;
 }
 
-export interface CreateContentParams<A> {
+export interface CreateContentParams<Data> {
   readonly name: string;
   readonly parentPath: string;
   readonly displayName?: string;
@@ -287,13 +287,13 @@ export interface CreateContentParams<A> {
   readonly contentType: string;
   readonly language?: string;
   readonly childOrder?: string;
-  readonly data: A;
+  readonly data: Data;
   readonly x?: Record<string, any>;
 }
 
-export interface ModifyContentParams<A extends object, PageConfig extends object = object, XData extends object = object> {
+export interface ModifyContentParams<Data extends object, PageConfig extends object = object, XData extends object = object> {
   readonly key: string;
-  readonly editor: (c: Content<A, PageConfig, XData>) => Content<A, PageConfig, XData>;
+  readonly editor: (c: Content<Data, PageConfig, XData>) => Content<Data, PageConfig, XData>;
   readonly requireValid?: boolean;
 }
 
@@ -345,7 +345,7 @@ export interface GetSiteParams {
   readonly key: string;
 }
 
-export interface Site<A extends object, PageConfig extends object = never, XData extends object = object> {
+export interface Site<Config extends object, PageConfig extends object = never, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -353,7 +353,7 @@ export interface Site<A extends object, PageConfig extends object = never, XData
   readonly hasChildren: boolean;
   readonly valid: boolean;
   readonly data: {
-    readonly siteConfig: SiteConfig<A> | ReadonlyArray<SiteConfig<A>>;
+    readonly siteConfig: SiteConfig<Config> | ReadonlyArray<SiteConfig<Config>>;
   };
   readonly x: Record<string, Record<string, XData>>;
   readonly page: Page<PageConfig>;
@@ -361,9 +361,9 @@ export interface Site<A extends object, PageConfig extends object = never, XData
   readonly publish: ScheduleParams;
 }
 
-export interface SiteConfig<A> {
+export interface SiteConfig<Config> {
   readonly applicationKey: string;
-  readonly config: A;
+  readonly config: Config;
 }
 
 export interface GetSiteConfigParams {
@@ -471,7 +471,7 @@ export type FormItemType =
   | "Layout"
   | "OptionSet";
 
-export interface FormItem<A = unknown> {
+export interface FormItem<Config = unknown> {
   readonly formItemType: FormItemType | string;
   readonly name: string,
   readonly label: string,
@@ -481,5 +481,5 @@ export interface FormItem<A = unknown> {
     readonly maximum: 1,
     readonly minimum: 1
   },
-  readonly config: A;
+  readonly config: Config;
 }

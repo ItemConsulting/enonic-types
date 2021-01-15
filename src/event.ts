@@ -1,11 +1,11 @@
 export interface EventLibrary {
-  listener<A extends object = EnonicEventData>(params: ListenerParams<A>): null;
+  listener<EventData extends object = EnonicEventData>(params: ListenerParams<EventData>): null;
   send(params: SendParams): null;
 }
 
-export interface ListenerParams<A extends object = EnonicEventData> {
+export interface ListenerParams<EventData extends object = EnonicEventData> {
   readonly type?: EnonicEventTypes | string;
-  readonly callback: (event: EnonicEvent<A>) => void;
+  readonly callback: (event: EnonicEvent<EventData>) => void;
   readonly localOnly?: boolean;
 }
 
@@ -15,12 +15,12 @@ export interface SendParams {
   readonly data?: object;
 }
 
-export interface EnonicEvent<A extends object = EnonicEventData> {
+export interface EnonicEvent<EventData extends object = EnonicEventData> {
   readonly type: EnonicEventTypes | string;
   readonly timestamp: number;
   readonly localOrigin: boolean;
   readonly distributed: boolean;
-  readonly data: A;
+  readonly data: EventData;
 }
 
 export interface EnonicEventData {

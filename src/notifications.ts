@@ -9,12 +9,12 @@ export interface NotificationsLibrary {
   /**
    * Send a push notification to a client.
    */
-  send<A extends object | string>(params: SendParams<A>): number;
+  send<Payload extends object | string>(params: SendParams<Payload>): number;
 
   /**
    * Send a push notification to a client. The notification will be sent asynchronously.
    */
-  sendAsync<A extends object | string>(params: SendAsyncParams<A>): void;
+  sendAsync<Payload extends object | string>(params: SendAsyncParams<Payload>): void;
 }
 
 export interface KeyPair {
@@ -39,7 +39,7 @@ export interface KeyPair {
   readonly publicKeyBytes: ByteSource;
 }
 
-export interface SendParams<A extends object | string> {
+export interface SendParams<Payload extends object | string> {
   /**
    * VAPID private key.
    */
@@ -68,10 +68,10 @@ export interface SendParams<A extends object | string> {
   /**
    * Message payload to send.
    */
-  payload: A;
+  payload: Payload;
 }
 
-export type SendAsyncParams<A extends object | string> = SendParams<A> & {
+export type SendAsyncParams<Payload extends object | string> = SendParams<Payload> & {
   /**
    * A function to be called if the sending succeeds. The function gets passed the status from the HTTP request made.
    */

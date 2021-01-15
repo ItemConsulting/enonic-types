@@ -40,7 +40,7 @@ export interface TaskLibrary {
    * Submits a named task to be executed in the background and returns an id representing the task.
    * This function returns immediately. The callback function will be executed asynchronously.
    */
-  submitNamed<A extends object = never>(params: SubmitNamedParams<A>): string;
+  submitNamed<Config extends object = never>(params: SubmitNamedParams<Config>): string;
 }
 
 export type TaskState =
@@ -132,7 +132,7 @@ export interface SubmitParams {
   readonly task: () => void;
 }
 
-export interface SubmitNamedParams<A extends object = never> {
+export interface SubmitNamedParams<Config extends object = never> {
   /**
    * Name of the task to execute.
    * Name can be relative to the current application, or a fully qualified task name (<appname>:<taskname>)
@@ -143,5 +143,5 @@ export interface SubmitNamedParams<A extends object = never> {
    * Configuration parameters to pass to the task to be executed.
    * The object must be valid according to the schema defined in the form of the task descriptor XML.
    */
-  readonly config?: A
+  readonly config?: Config
 }

@@ -30,12 +30,12 @@ export interface AuthLibrary {
   /**
    * This function returns the ID provider configuration. It is meant to be called from an ID provider controller.
    */
-  getIdProviderConfig<A>(): A;
+  getIdProviderConfig<IdProviderConfig>(): IdProviderConfig;
 
   /**
    * Search for users matching the specified query.
    */
-  findUsers<A>(params: FindUsersParams & { includeProfile: true }): UserQueryResult<UserWithProfile<A>>;
+  findUsers<Profile>(params: FindUsersParams & { includeProfile: true }): UserQueryResult<UserWithProfile<Profile>>;
   findUsers(params: FindUsersParams  & { includeProfile?: false }): UserQueryResult<User>;
 
   /**
@@ -111,12 +111,12 @@ export interface AuthLibrary {
   /**
    * Returns the profile of a user.
    */
-  getProfile<A>(params: GetProfileParams): A;
+  getProfile<Profile>(params: GetProfileParams): Profile;
 
   /**
    * This function retrieves the profile of a user and updates it.
    */
-  modifyProfile<A>(params: ModifyProfileParams<A>): A;
+  modifyProfile<Profile>(params: ModifyProfileParams<Profile>): Profile;
 }
 
 export interface LoginParams {
@@ -176,8 +176,8 @@ export interface User extends Principal {
   readonly idProvider: string;
 }
 
-export interface UserWithProfile<A> extends User {
-  readonly profile: A;
+export interface UserWithProfile<Profile> extends User {
+  readonly profile: Profile;
 }
 
 export interface Role extends Principal {
@@ -210,10 +210,10 @@ export interface FindUsersParams {
   readonly sort?: string;
 }
 
-export interface UserQueryResult<A> {
+export interface UserQueryResult<User> {
   readonly total: number;
   readonly count: number;
-  readonly hits: ReadonlyArray<A>;
+  readonly hits: ReadonlyArray<User>;
 }
 
 export interface ModifyUserParams {
@@ -226,7 +226,7 @@ export interface GetProfileParams {
   readonly scope?: string;
 }
 
-export interface ModifyProfileParams<A> {
+export interface ModifyProfileParams<Profile> {
   /**
    * Principal key of the user.
    */
@@ -240,7 +240,7 @@ export interface ModifyProfileParams<A> {
   /**
    * Profile editor function to apply.
    */
-  readonly editor: (c: A) => A;
+  readonly editor: (c: Profile) => Profile;
 }
 
 export interface ModifyGroupParams {
