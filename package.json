@@ -1,7 +1,7 @@
 {
   "name": "enonic-types",
   "sideEffects": false,
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "scripts": {
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.13.0",
-    "@typescript-eslint/parser": "^4.13.0",
-    "eslint": "^7.17.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.1.3"
   }

@@ -57,6 +57,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
 
  * [AdminLibrary](./src/admin.ts)
  * [AuthLibrary](./src/auth.ts)
+ * [CacheLibrary](./src/cache.ts)
  * [ClusterLibrary](./src/cluster.ts)
  * [CommonLibrary](./src/common.ts)
  * [ContentLibrary](./src/content.ts)

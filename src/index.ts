@@ -1,6 +1,7 @@
 export interface EnonicLibraryMap {
   "/lib/xp/admin": import("./admin").AdminLibrary;
   "/lib/xp/auth": import("./auth").AuthLibrary;
+  "/lib/cache": import("./cache").CacheLibrary,
   "/lib/xp/cluster": import("./cluster").ClusterLibrary;
   "/lib/xp/common": import("./common").CommonLibrary;
   "/lib/xp/content": import("./content").ContentLibrary;
