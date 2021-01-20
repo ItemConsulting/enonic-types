@@ -58,32 +58,63 @@ export interface Content<Data extends object = object, PageConfig extends object
   }
 }
 
-export interface Image {
-  readonly media: {
-    readonly attachment: string;
-    readonly focalPoint: {
-      readonly x: number;
-      readonly y: number;
-    };
-    readonly zoomPosition: {
-      readonly left: number;
-      readonly top: number;
-      readonly right: number;
-      readonly bottom: number;
-    },
-    readonly cropPosition: {
-      readonly left: number;
-      readonly top: number;
-      readonly right: number;
-      readonly bottom: number;
-      readonly zoom: number;
-    }
-  };
+/**
+ * Implements the "data" of type "base:shortcut"
+ */
+export interface BaseShortcut {
+  readonly target: string;
+  readonly parameters?: ReadonlyArray<BaseShortcutParameter> | BaseShortcutParameter;
+}
+
+export interface BaseShortcutParameter {
+  readonly name: string;
+  readonly value: string;
+}
+
+/**
+ * Implements the "data" of type "base:media"
+ */
+export interface BaseMedia<Media extends object = BaseMediaConfig> {
+  readonly media: Media;
   readonly caption?: string;
   readonly artist?: string | ReadonlyArray<string>;
   readonly copyright?: string;
   readonly tags?: string | ReadonlyArray<string>;
+}
+
+export interface BaseMediaConfig {
+  readonly attachment: string;
+}
+
+/**
+ * Implements the "data" of type "media:image"
+ */
+export interface MediaImage extends BaseMedia<ImageConfig> {
   readonly altText?: string;
+}
+
+// Image is alias for MediaImage
+export type Image = MediaImage;
+
+export interface ImageConfig {
+  readonly attachment: string;
+  readonly focalPoint: {
+    readonly x: number;
+    readonly y: number;
+  };
+  readonly zoomPosition: {
+    readonly left: number;
+    readonly top: number;
+    readonly right: number;
+    readonly bottom: number;
+  },
+  readonly cropPosition: {
+    readonly left: number;
+    readonly top: number;
+    readonly right: number;
+    readonly bottom: number;
+    readonly zoom: number;
+  }
 }
 
 export interface Page<Config> {
