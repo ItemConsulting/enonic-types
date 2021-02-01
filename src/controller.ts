@@ -1,5 +1,3 @@
-import {XOR} from "./types";
-
 export interface Request {
   readonly method: "GET" | "PUT" | "POST" | "DELETE";
   readonly scheme: string;
@@ -23,26 +21,24 @@ export type ResponseType =
   | Array<any>
   | ReadonlyArray<any>;
 
-export interface HttpResponse<ResponseBody = ResponseType> {
-  readonly status?: number;
-  readonly body?: ResponseBody;
-  readonly contentType?: string;
-  readonly headers?: { readonly [key: string]: string };
-  readonly cookies?: { readonly [key: string]: string | Cookie };
-  readonly redirect?: string;
-  readonly postProcess?: boolean;
-  readonly pageContributions?: PageContributions;
-  readonly applyFilters?: boolean;
+export interface Response<ResponseBody extends ResponseType = string> {
+  status?: number;
+  body?: ResponseBody;
+  contentType?: string;
+  headers?: { readonly [key: string]: string };
+  cookies?: { readonly [key: string]: string | Cookie };
+  redirect?: string;
+  postProcess?: boolean;
+  pageContributions?: PageContributions;
+  applyFilters?: boolean;
 }
 
 export interface WebSocketResponse<WebSocketData = {}> {
-  readonly webSocket: {
-    readonly data?: WebSocketData;
-    readonly subProtocols?: ReadonlyArray<string>;
+  webSocket: {
+    data?: WebSocketData;
+    subProtocols?: ReadonlyArray<string>;
   }
 }
-
-export type Response<ResponseBody = ResponseType, WebSocketData = {}> = XOR<HttpResponse<ResponseBody>, WebSocketResponse<WebSocketData>>;
 
 export interface MacroContext<Params = never> {
   readonly name: string;
@@ -53,10 +49,10 @@ export interface MacroContext<Params = never> {
 }
 
 export interface PageContributions {
-  readonly headBegin?: string | ReadonlyArray<string>;
-  readonly headEnd?: string | ReadonlyArray<string>;
-  readonly bodyBegin?: string | ReadonlyArray<string>;
-  readonly bodyEnd?: string | ReadonlyArray<string>;
+  headBegin?: string | ReadonlyArray<string>;
+  headEnd?: string | ReadonlyArray<string>;
+  bodyBegin?: string | ReadonlyArray<string>;
+  bodyEnd?: string | ReadonlyArray<string>;
 }
 
 export interface Cookie {
@@ -109,7 +105,7 @@ export interface CustomSelectorServiceResponseBody {
 /**
  * This Response can be used by a Service that provides data to a CustomSelector input field
  */
-export type CustomSelectorServiceResponse = HttpResponse<CustomSelectorServiceResponseBody>;
+export type CustomSelectorServiceResponse = Response<CustomSelectorServiceResponseBody>;
 
 export interface CustomSelectorServiceResponseHit {
   readonly id: string;
