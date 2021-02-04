@@ -49,10 +49,10 @@ export interface MacroContext<Params = never> {
 }
 
 export interface PageContributions {
-  headBegin?: string | ReadonlyArray<string>;
-  headEnd?: string | ReadonlyArray<string>;
-  bodyBegin?: string | ReadonlyArray<string>;
-  bodyEnd?: string | ReadonlyArray<string>;
+  headBegin?: string | Array<string>;
+  headEnd?: string | Array<string>;
+  bodyBegin?: string | Array<string>;
+  bodyEnd?: string | Array<string>;
 }
 
 export interface Cookie {
