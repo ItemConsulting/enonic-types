@@ -18,4 +18,10 @@ export interface WebsocketLibrary {
    * Send message to all sockets in group.
    */
   sendToGroup(group: string, message: string): void;
+
+  /**
+   * Get number of all sockets in group.
+   * @since 7.6.0
+   */
+  getGroupSize(group: string): number;
 }

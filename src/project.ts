@@ -71,6 +71,13 @@ export interface Project {
   readonly displayName: string;
 
   /**
+   * Parent project id. If provided, the new project will be a Content Layer that automatically inherits changes from
+   * the parent project.
+   * @since 7.6.0
+   */
+  readonly parent: string;
+
+  /**
    * Project description.
    */
   readonly description?: string;

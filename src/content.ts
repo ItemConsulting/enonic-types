@@ -20,10 +20,39 @@ export interface ContentLibrary {
   getAttachments(key: string): Attachments | null;
   getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
   removeAttachment(params: RemoveAttachmentParams): void;
+
+  /**
+   * Resets custom inheritance flags of a content item. For an item that was inherited from a parent content
+   * project/layer this action will reset specified changes made inside a specified layer.
+   * @since 7.6.0
+   */
+  resetInheritance(params: ResetInheritanceParams): void;
   getPermissions(params: GetPermissionsParams): GetPermissionsResult;
   setPermissions(params: SetPermissionsParams): GetPermissionsResult;
   getType(name: string): ContentType | null;
   getTypes(): ReadonlyArray<ContentType>;
+}
+
+export interface ResetInheritanceParams {
+  /**
+   * Path or id to the content
+   */
+  key: string;
+
+  /**
+   * A unique id of a Content Layer in which the inherited content item should be reset
+   */
+  projectName: string;
+
+  /**
+   * Array of inheritance flags (case-sensitive, all upper-case).
+   * Supported values are:
+   *  - CONTENT (resets any customized content data)
+   *  - PARENT (resets item moved under a different parent)
+   *  - NAME (resets renamed item)
+   *  - SORT (resets custom sorting)
+   */
+  inherit: ReadonlyArray<"CONTENT" | "PARENT" | "NAME" | "SORT">;
 }
 
 export type WORKFLOW_STATES =
