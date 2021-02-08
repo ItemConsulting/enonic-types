@@ -21,7 +21,7 @@ export type ResponseType =
   | Array<any>
   | ReadonlyArray<any>;
 
-export interface Response<ResponseBody extends ResponseType = string> {
+export interface Response<ResponseBody extends ResponseType = ResponseType> {
   status?: number;
   body?: ResponseBody;
   contentType?: string;
