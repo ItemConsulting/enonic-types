@@ -33,21 +33,6 @@ export interface ContentLibrary {
   getTypes(): ReadonlyArray<ContentType>;
 }
 
-/**
- * Role that every user in the system has
- */
-export const ROLE_SYSTEM_EVERYONE = "role:system.everyone";
-
-/**
- * Role for authenticated users
- */
-export const ROLE_SYSTEM_AUTHENTICATED = "role:system.authenticated";
-
-/**
- * Role for administrators
- */
-export const ROLE_SYSTEM_ADMIN = "role:system.admin";
-
 export interface ResetInheritanceParams {
   /**
    * Path or id to the content
@@ -499,16 +484,6 @@ export type Permission =
   | "PUBLISH"
   | "READ_PERMISSIONS"
   | "WRITE_PERMISSIONS";
-
-export const ALL_PERMISSIONS: Array<Permission> = [
-  "READ",
-  "CREATE",
-  "MODIFY",
-  "DELETE",
-  "PUBLISH",
-  "READ_PERMISSIONS",
-  "WRITE_PERMISSIONS"
-];
 
 export interface PermissionsParams {
   readonly principal: string;
