@@ -384,8 +384,8 @@ export interface UnpublishContentParams {
 
 export interface GetChildrenParams {
   readonly key: string;
+  readonly count: number;
   readonly start?: number;
-  readonly count?: number;
   readonly sort?: string;
 }
 
