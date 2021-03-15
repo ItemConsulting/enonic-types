@@ -56,7 +56,12 @@ export interface HttpRequestParams {
    * 'name', 'value', and optionally 'fileName' and 'contentType' properties. Where 'value' can be either a string or a
    * Stream object.
    */
-  readonly multipart?: ReadonlyArray<object>;
+  readonly multipart?: ReadonlyArray<{
+    readonly name: string;
+    readonly value: string | ByteSource;
+    readonly fileName?: string;
+    readonly contentType?: string;
+  }>;
 
   /** Settings for basic authentication. */
   readonly auth?: HttpRequestParamsAuth;
