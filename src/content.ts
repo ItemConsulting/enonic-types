@@ -1,24 +1,98 @@
 import {Region} from "./portal";
 
+type EmptyObject = Record<string, never>;
+
 export interface ContentLibrary {
-  get<Data extends object, PageConfig extends object = never, XData extends object = object>(params: GetContentParams): Content<Data, PageConfig, XData> | null;
+  /**
+   * This function fetches a content
+   */
+  get<Data extends object, XData extends object = object>(params: GetContentParams): Content<Data, EmptyObject, XData> | null;
+
+  /**
+   * This command queries content
+   */
   query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParams<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataScore>;
+
   query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParamsWithSort<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataSort>;
+
+  /**
+   * This function creates a content.
+   */
   create<Data extends object>(params: CreateContentParams<Data>): Content<Data>;
+
+  /**
+   * Modifies properties of a content
+   */
   modify<Data extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<Data, PageConfig, XData>): Content<Data, PageConfig, XData>;
+
+  /**
+   * This function deletes a content
+   */
   delete(params: DeleteContentParams): boolean;
+
+  /**
+   * This function checks if a content exists for the current context.
+   */
   exists(params: ExistsParams): boolean;
+
+  /**
+   * This function publishes content to a branch
+   */
   publish(params: PublishContentParams): PublishResponse;
+
+  /**
+   * This function unpublishes content that had been published to the master branch
+   */
   unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
+
+  /**
+   * This function fetches children of a content
+   */
   getChildren<Data extends object>(params: GetChildrenParams): QueryResponse<Data>;
+
+  /**
+   * This function returns the list of content items that are outbound dependencies of specified content.
+   */
   getOutboundDependencies(params: GetOutboundDependenciesParams): ReadonlyArray<string>;
+
+  /**
+   * Rename a content or move it to a new path
+   */
   move<Data extends object>(params: MoveParams): Content<Data>;
+
+  /**
+   * This function returns the parent site of a content
+   */
   getSite<Config extends object, PageConfig extends object = never>(params: GetSiteParams): Site<Config, PageConfig>;
+
+  /**
+   * This function returns the site configuration for this app in the parent site of a content
+   */
   getSiteConfig<Config extends object>(params: GetSiteConfigParams): Config;
+
+  /**
+   * Creates a media content
+   */
   createMedia<Data extends object>(params: CreateMediaParams): Content<Data>;
+
+  /**
+   * Adds an attachment to an existing content.
+   */
   addAttachment(params: AddAttachmentParams): void;
+
+  /**
+   * This function returns a content attachments
+   */
   getAttachments(key: string): Attachments | null;
+
+  /**
+   * This function returns a data-stream for the specified content attachment
+   */
   getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
+
+  /**
+   * Removes an attachment from an existing content
+   */
   removeAttachment(params: RemoveAttachmentParams): void;
 
   /**
@@ -27,9 +101,25 @@ export interface ContentLibrary {
    * @since 7.6.0
    */
   resetInheritance(params: ResetInheritanceParams): void;
+
+  /**
+   * Gets permissions on a content
+   */
   getPermissions(params: GetPermissionsParams): GetPermissionsResult;
+
+  /**
+   * Sets permissions on a content
+   */
   setPermissions(params: SetPermissionsParams): GetPermissionsResult;
+
+  /**
+   * Returns the properties and icon of the specified content type
+   */
   getType(name: string): ContentType | null;
+
+  /**
+   * Returns the list of all the content types currently registered in the system
+   */
   getTypes(): ReadonlyArray<ContentType>;
 }
 
@@ -168,11 +258,50 @@ export interface Attachments {
 export interface QueryContentParams<AggregationKeys extends string = never> {
   readonly start?: number;
   readonly count: number;
-  readonly query: string;
-  readonly filters?: object;
+  readonly query?: string;
+  readonly filters?: BasicFilters | BooleanFilter;
   readonly aggregations?: Record<AggregationKeys, Aggregation>;
   readonly contentTypes?: ReadonlyArray<string>;
   readonly highlight?: Highlight;
+}
+
+export interface ExistsFilter {
+  readonly exists: {
+    readonly field: string;
+  };
+}
+
+export interface NotExistsFilter {
+  readonly notExists: {
+    readonly field: string;
+  };
+}
+
+export interface HasValueFilter {
+  readonly hasValue: {
+    readonly field: string;
+    readonly values: ReadonlyArray<unknown>;
+  };
+}
+
+export interface IdsFilter {
+  readonly ids: {
+    readonly values: ReadonlyArray<string>;
+  },
+}
+
+export type BasicFilters =
+  | ExistsFilter
+  | NotExistsFilter
+  | HasValueFilter
+  | IdsFilter;
+
+export interface BooleanFilter {
+  readonly boolean: {
+    readonly must?: BasicFilters | ReadonlyArray<BasicFilters>;
+    readonly mustNot?: BasicFilters | ReadonlyArray<BasicFilters>;
+    readonly should?: BasicFilters | ReadonlyArray<BasicFilters>;
+  }
 }
 
 export type QueryContentParamsWithSort<AggregationKeys extends string = never> = QueryContentParams<AggregationKeys> & {
@@ -181,7 +310,7 @@ export type QueryContentParamsWithSort<AggregationKeys extends string = never> =
 
 export interface QueryResponse<Data extends object, AggregationKeys extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
   readonly count: number;
-  readonly hits: ReadonlyArray<Content<Data> & QueryMetaData>;
+  readonly hits: ReadonlyArray<Content<Data, EmptyObject> & QueryMetaData>;
   readonly total: number;
   readonly aggregations: AggregationsResponse<AggregationKeys>;
   readonly highlight: HighlightResponse;
@@ -296,6 +425,7 @@ export interface AggregationsResponseBucket {
   readonly key: string;
   readonly from?: number | string;
   readonly to?: number | string;
+
   readonly [key2: string]: any; // sub aggregations
 }
 
@@ -339,21 +469,80 @@ export interface ExistsParams {
 }
 
 export interface CreateContentParams<Data> {
-  readonly name: string;
+  /**
+   * Name of content
+   *
+   * The parameter name is optional, but if it is not set then displayName must be specified.
+   * When name is not set, the system will auto-generate a name based on the displayName,
+   * by lower-casing and replacing certain characters. If there is already a content with the
+   * auto-generated name, a suffix will be added to the name in order to make it unique.
+   */
+  readonly name?: string;
+
+  /**
+   * Path to place content under
+   */
   readonly parentPath: string;
+
+  /**
+   * Display name. Default is same as name
+   */
   readonly displayName?: string;
+
+  /**
+   * The content has to be valid, according to the content type, to be created.
+   * If requireValid=true and the content is not strictly valid, an error will be thrown
+   */
   readonly requireValid?: boolean;
+
+  /**
+   * If refresh is true, the created content will to be searchable through queries immediately,
+   * else within 1 second. Since there is a performance penalty doing this refresh,
+   * refresh should be set to false for bulk operations
+   */
   readonly refresh?: boolean;
+
+  /**
+   * Content type to use
+   */
   readonly contentType: string;
+
+  /**
+   * The language tag representing the content’s locale
+   */
   readonly language?: string;
+
+  /**
+   * Default ordering of children when doing getChildren if no order is given in query
+   */
   readonly childOrder?: string;
+
+  /**
+   * Actual content data
+   */
   readonly data: Data;
+
+  /**
+   * eXtra data to use
+   */
   readonly x?: Record<string, any>;
 }
 
 export interface ModifyContentParams<Data extends object, PageConfig extends object = object, XData extends object = object> {
+  /**
+   * Path or id to the content
+   */
   readonly key: string;
+
+  /**
+   * Editor callback function
+   */
   readonly editor: (c: Content<Data, PageConfig, XData>) => Content<Data, PageConfig, XData>;
+
+  /**
+   * The content has to be valid, according to the content type, to be updated.
+   * If requireValid=true and the content is not strictly valid, an error will be thrown
+   */
   readonly requireValid?: boolean;
 }
 

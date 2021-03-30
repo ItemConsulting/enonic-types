@@ -27,11 +27,11 @@ export interface NodeQueryHit {
   readonly score: number;
 }
 
-export interface NodeQueryResponse<B extends string = never> {
+export interface NodeQueryResponse<AggregationKeys extends string = never> {
   readonly total: number;
   readonly count: number;
   readonly hits: ReadonlyArray<NodeQueryHit>;
-  readonly aggregations: AggregationsResponse<B>;
+  readonly aggregations: AggregationsResponse<AggregationKeys>;
 }
 
 export interface GetBinaryParams {
@@ -308,7 +308,7 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query<NodeData extends string = never>(params: NodeQueryParams<NodeData>): NodeQueryResponse<NodeData>;
+  query<AggregationKeys extends string = never>(params: NodeQueryParams<AggregationKeys>): NodeQueryResponse<AggregationKeys>;
 
   /**
    * Refresh the index for the current repoConnection
