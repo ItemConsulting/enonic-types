@@ -88,6 +88,8 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [EncodingLibrary](./src/encoding.ts)
  * [EventLibrary](./src/event.ts)
  * [FreeMarkerLibrary](./src/freemarker.ts)
+ * [GraphQLLibrary](./src/graphql.ts)
+ * [GuillotineLibrary](./src/guillotine.ts)
  * [HttpLibrary](./src/http.ts)
  * [I18nLibrary](./src/i18n.ts)
  * [IOLibrary](./src/io.ts)

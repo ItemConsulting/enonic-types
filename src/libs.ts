@@ -10,6 +10,9 @@ export interface EnonicLibraryMap {
   "/lib/text-encoding": import("./encoding").EncodingLibrary;
   "/lib/xp/event": import("./event").EventLibrary;
   "/lib/tineikt/freemarker": import("./freemarker").FreeMarkerLibrary;
+  "/lib/graphql": import("./graphql").GraphQlLibrary;
+  "/lib/graphql-playground": import("./graphql").GraphQlPlaygroundLibrary;
+  "/lib/guillotine": import("./guillotine").LibGuillotine;
   "/lib/http-client": import("./http").HttpLibrary;
   "/lib/xp/i18n": import("./i18n").I18nLibrary;
   "/lib/xp/io": import("./io").IOLibrary;

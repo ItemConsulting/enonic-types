@@ -53,6 +53,21 @@ declare module "*/lib/tineikt/freemarker" {
   export = lib;
 }
 
+declare module "*/lib/graphql" {
+  const lib: import("./graphql").GraphQlLibrary;
+  export = lib;
+}
+
+declare module "*/lib/graphql-playground" {
+  const lib: import("./graphql").GraphQlPlaygroundLibrary;
+  export = lib;
+}
+
+declare module "*/lib/guillotine" {
+  const lib: import("./guillotine").LibGuillotine;
+  export = lib;
+}
+
 declare module "*/lib/http-client" {
   const lib: import("./http").HttpLibrary;
   export = lib;
