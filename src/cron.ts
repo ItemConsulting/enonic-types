@@ -54,7 +54,7 @@ export interface ScheduleByCron {
   /**
    * Context of the task run.
    */
-  readonly context?: RunContext;
+  readonly context?: CronRunContext;
 }
 
 export interface ScheduleByDelay {
