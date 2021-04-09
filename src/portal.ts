@@ -185,8 +185,16 @@ export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
   readonly params?: Params;
 };
 
+export type ImageScale =
+  | `block(${number},${number})`
+  | `height(${number})`
+  | `max(${number})`
+  | `square(${number})`
+  | `wide(${number},${number})`
+  | `width(${number})`;
+
 export type ImageUrlParams = XOR<ById, ByPath> & {
-  readonly scale: string;
+  readonly scale: ImageScale;
   readonly quality?: number;
   readonly background?: string;
   readonly format?: string;
