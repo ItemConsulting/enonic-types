@@ -186,11 +186,11 @@ export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
 };
 
 export type ImageScale =
-  | `block(${number},${number})`
+  | `block(${number},${'' | ' '}${number})`
   | `height(${number})`
   | `max(${number})`
   | `square(${number})`
-  | `wide(${number},${number})`
+  | `wide(${number},${'' | ' '}${number})`
   | `width(${number})`;
 
 export type ImageUrlParams = XOR<ById, ByPath> & {
