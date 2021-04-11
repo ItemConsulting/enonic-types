@@ -4,6 +4,14 @@
 
 This library contains TypeScript types for Enonic XP.
 
+## Installing *enonic-types*
+
+To install *enonic-types* from npm, run the following command:
+
+```bash
+npm i --save enonic-types
+```
+
 ## Code generation
 
 We recommend using this library together with the [xp-codegen-plugin](https://github.com/ItemConsulting/xp-codegen-plugin) Gradle plugin. *xp-codegen-plugin* will create TypeScript `interfaces` for your content-types. Those interfaces will be very useful together with this library.
