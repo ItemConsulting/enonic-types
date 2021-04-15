@@ -6,11 +6,24 @@ This library contains TypeScript types for Enonic XP.
 
 ## Installing *enonic-types*
 
-To install *enonic-types* from npm, run the following command:
+Install *enonic-types* from npm by running:
 
 ```bash
 npm i --save enonic-types
 ```
+
+Add support to use typed `import` updating your *tsconfig.json* file with the `"types"` field:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["node", "enonic-types"]
+  }
+}
+
+```
+
+And you're ready to start coding!
 
 ## Code generation
 
@@ -45,16 +58,16 @@ export function get(req: Request): Response { // 3
  3. We use the imported `Request` and `Response` to control the shape of our controller.
  4. `content` is of the type `Content<Article> | null`, so we have to do a null check before proceiding.
  
-## Declare `__non_webpack_require__`
+## Using `__non_webpack_require__`
 
-Your project should have a *types.ts* file where you can specify declarations. 
+If your project is using `__non_webpack_require__`, you should update your *types.ts* file to add type support to it.
 
 If you add (or replace the existing)
 `__non_webpack_require__()` function with the following code, it will automatically look up the correct interfaces for 
 Enonic XP-libraries. 
 
 ```typescript
-type LibMap = import("enonic-types").EnonicLibraryMap;
+type LibMap = import("enonic-types/libs").EnonicLibraryMap;
 
 declare const __non_webpack_require__: <K extends keyof LibMap | string = string>(path: K) => K extends keyof LibMap
   ? LibMap[K]

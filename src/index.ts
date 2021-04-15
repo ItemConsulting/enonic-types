@@ -1,32 +1,149 @@
-export interface EnonicLibraryMap {
-  "/lib/xp/admin": import("./admin").AdminLibrary;
-  "/lib/xp/auth": import("./auth").AuthLibrary;
-  "/lib/cache": import("./cache").CacheLibrary,
-  "/lib/xp/cluster": import("./cluster").ClusterLibrary;
-  "/lib/xp/common": import("./common").CommonLibrary;
-  "/lib/xp/content": import("./content").ContentLibrary;
-  "/lib/xp/context": import("./context").ContextLibrary;
-  "/lib/cron": import("./cron").CronLibrary;
-  "/lib/text-encoding": import("./encoding").EncodingLibrary;
-  "/lib/xp/event": import("./event").EventLibrary;
-  "/lib/tineikt/freemarker": import('./freemarker').FreeMarkerLibrary;
-  "/lib/http-client": import("./http").HttpLibrary;
-  "/lib/xp/i18n": import("./i18n").I18nLibrary;
-  "/lib/xp/io": import("./io").IOLibrary;
-  "/lib/xp/mail": import("./mail").MailLibrary;
-  "/lib/menu": import("./menu").MenuLibrary;
-  "/lib/xp/node": import("./node").NodeLibrary;
-  "/lib/notifications": import("./notifications").NotificationsLibrary;
-  "/lib/xp/portal": import("./portal").PortalLibrary;
-  "/lib/xp/project": import("./project").ProjectLibrary;
-  "/lib/recaptcha": import("./recaptcha").RecaptchaLibrary;
-  "/lib/xp/repo": import("./repo").RepoLibrary;
-  "/lib/router": import("./router").RouterLib;
-  "/lib/session": import("./session").SessionLibrary;
-  "/lib/xp/task": import("./task").TaskLibrary;
-  "/lib/turbo-streams": import("./turbo").TurboStreamsLibrary;
-  "/lib/xp/testing": import("./testing").TestingLibrary;
-  "/lib/thymeleaf": import("./thymeleaf").ThymeleafLibrary;
-  "/lib/xp/value": import("./value").ValueLibrary;
-  "/lib/xp/websocket": import("./websocket").WebsocketLibrary;
+declare module "*/lib/xp/admin" {
+  const lib: import("./admin").AdminLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/auth" {
+  const lib: import("./auth").AuthLibrary;
+  export = lib;
+}
+
+declare module "*/lib/cache" {
+  const lib: import("./cache").CacheLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/cluster" {
+  const lib: import("./cluster").ClusterLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/common" {
+  const lib: import("./common").CommonLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/content" {
+  const lib: import("./content").ContentLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/context" {
+  const lib: import("./context").ContextLibrary;
+  export = lib;
+}
+
+declare module "*/lib/cron" {
+  const lib: import("./cron").CronLibrary;
+  export = lib;
+}
+
+declare module "*/lib/text-encoding" {
+  const lib: import("./encoding").EncodingLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/event" {
+  const lib: import("./event").EventLibrary;
+  export = lib;
+}
+
+declare module "*/lib/tineikt/freemarker" {
+  const lib: import('./freemarker').FreeMarkerLibrary;
+  export = lib;
+}
+
+declare module "*/lib/http-client" {
+  const lib: import("./http").HttpLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/i18n" {
+  const lib: import("./i18n").I18nLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/io" {
+  const lib: import("./io").IOLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/mail" {
+  const lib: import("./mail").MailLibrary;
+  export = lib;
+}
+
+declare module "*/lib/menu" {
+  const lib: import("./menu").MenuLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/node" {
+  const lib: import("./node").NodeLibrary;
+  export = lib;
+}
+
+declare module "*/lib/notifications" {
+  const lib: import("./notifications").NotificationsLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/portal" {
+  const lib: import("./portal").PortalLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/project" {
+  const lib: import("./project").ProjectLibrary;
+  export = lib;
+}
+
+declare module "*/lib/recaptcha" {
+  const lib: import("./recaptcha").RecaptchaLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/repo" {
+  const lib: import("./repo").RepoLibrary;
+  export = lib;
+}
+
+declare module "*/lib/router" {
+  const lib: import("./router").RouterLib;
+  export = lib;
+}
+
+declare module "*/lib/session" {
+  const lib: import("./session").SessionLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/task" {
+  const lib: import("./task").TaskLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/testing" {
+  const lib: import("./testing").TestingLibrary;
+  export = lib;
+}
+
+declare module "*/lib/thymeleaf" {
+  const lib: import("./thymeleaf").ThymeleafLibrary;
+  export = lib;
+}
+
+declare module "*/lib/turbo-streams" {
+  const lib: import("./turbo").TurboStreamsLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/value" {
+  const lib: import("./value").ValueLibrary;
+  export = lib;
+}
+
+declare module "*/lib/xp/websocket" {
+  const lib: import("./websocket").WebsocketLibrary;
+  export = lib;
 }
