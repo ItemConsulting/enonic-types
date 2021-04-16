@@ -9,7 +9,7 @@ This library contains TypeScript types for Enonic XP.
 Install *enonic-types* from npm by running:
 
 ```bash
-npm i --save enonic-types
+npm i --save-dev enonic-types
 ```
 
 Add support to use typed `import` updating your *tsconfig.json* file (or *src/main/resources/tsconfig.server.json* if 
