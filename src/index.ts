@@ -118,6 +118,11 @@ declare module "*/lib/session" {
   export = lib;
 }
 
+declare module "*/lib/enonic/static" {
+  const lib: import("./static").StaticLibrary;
+  export = lib;
+}
+
 declare module "*/lib/xp/task" {
   const lib: import("./task").TaskLibrary;
   export = lib;
