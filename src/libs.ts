@@ -23,6 +23,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/repo": import("./repo").RepoLibrary;
   "/lib/router": import("./router").RouterLib;
   "/lib/session": import("./session").SessionLibrary;
+  "/lib/enonic/static": import("./static").StaticLibrary;
   "/lib/xp/task": import("./task").TaskLibrary;
   "/lib/xp/testing": import("./testing").TestingLibrary;
   "/lib/thymeleaf": import("./thymeleaf").ThymeleafLibrary;
