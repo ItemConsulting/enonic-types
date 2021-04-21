@@ -45,7 +45,7 @@ export interface AdminLibrary {
   /**
    * Returns all i18n phrases.
    */
-  getPhrases(): any;
+  getPhrases(): string;
 
   /**
    * Returns the URL for an admin tool of specific application.

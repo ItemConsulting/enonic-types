@@ -1,4 +1,12 @@
-import {Aggregation, AggregationsResponse, ByteSource, Highlight, PermissionsParams} from "./content";
+import {
+  Aggregation,
+  AggregationsResponse,
+  BasicFilters,
+  BooleanFilter,
+  ByteSource,
+  Highlight,
+  PermissionsParams
+} from "./content";
 
 export interface NodeLibrary {
   /**
@@ -65,7 +73,7 @@ export interface NodeQueryParams<AggregationKeys extends string> {
   /**
    * Query filters
    */
-  readonly filters?: any;
+  readonly filters?: BasicFilters | BooleanFilter;
 
   /**
    * Sorting expression.

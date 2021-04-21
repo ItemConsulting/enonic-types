@@ -12,7 +12,7 @@ export interface Component<Config> {
 }
 
 export interface Region {
-  components: Array<Component<any>>;
+  components: Array<Component<unknown>>;
   name: string;
 }
 
