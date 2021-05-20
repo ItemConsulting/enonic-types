@@ -97,6 +97,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [NodeLibrary](./src/node.ts)
  * [NotificationsLibrary](./src/notifications.ts)
  * [PortalLibrary](./src/portal.ts)
+ * [QRLibrary](./src/qr.ts)
  * [ProjectLibrary](./src/project.ts)
  * [RecaptchaLibrary](./src/recaptcha.ts)
  * [RepoLibrary](./src/repo.ts) 

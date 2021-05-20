@@ -1,3 +1,5 @@
+import { QRCodeLibrary } from "./qr";
+
 export interface EnonicLibraryMap {
   "/lib/xp/admin": import("./admin").AdminLibrary;
   "/lib/xp/auth": import("./auth").AuthLibrary;
@@ -20,6 +22,7 @@ export interface EnonicLibraryMap {
   "/lib/notifications": import("./notifications").NotificationsLibrary;
   "/lib/xp/portal": import("./portal").PortalLibrary;
   "/lib/xp/project": import("./project").ProjectLibrary;
+  "/lib/qrcode": import("./qr").QRCodeLibrary;
   "/lib/recaptcha": import("./recaptcha").RecaptchaLibrary;
   "/lib/xp/repo": import("./repo").RepoLibrary;
   "/lib/router": import("./router").RouterLib;

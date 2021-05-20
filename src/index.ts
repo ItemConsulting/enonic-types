@@ -102,6 +102,11 @@ declare module "*/lib/xp/project" {
   export = lib;
 }
 
+declare module "*/lib/qrcode" {
+  const lib: import("./qr").QRCodeLibrary;
+  export = lib;
+}
+
 declare module "*/lib/recaptcha" {
   const lib: import("./recaptcha").RecaptchaLibrary;
   export = lib;
