@@ -11,6 +11,12 @@ export interface HttpRequestParams {
   /** The HTTP method to use for the request (e.g. "POST", "GET", "HEAD", "PUT", "DELETE"). */
   method?: string;
 
+  /**
+   * Query parameters to be sent with the request.
+   * @since 2.2.0
+   */
+  queryParams?: { readonly [key: string]: string };
+
   /** Query or form parameters to be sent with the request. */
   params?: { readonly [key: string]: string };
 
@@ -28,6 +34,12 @@ export interface HttpRequestParams {
 
   /** Content type of the request. */
   contentType?: string;
+
+  /**
+   * If set to false redirect responses (status=3xx) will not trigger a new internal request, and the function will
+   * return directly with the 3xx status.
+   */
+  followRedirects?: boolean;
 
   /**
    * Multipart form data to send with the request, an array of part objects. Each part object contains
@@ -48,10 +60,16 @@ export interface HttpRequestParams {
   proxy?: HttpRequestParamsProxy;
 
   /**
-   * If set to false redirect responses (status=3xx) will not trigger a new internal request, and the function will
-   * return directly with the 3xx status.
+   * Stream of PEM encoded certificates. Replaces the host platform’s certificate authorities with a custom certificate.
+   * @since 2.1.0
    */
-  followRedirects?: boolean;
+  certificates?: ByteSource;
+
+  /**
+   * Stream of PEM encoded certificate: Private key (in PKCS #8 format) and the client certificate concatenated.
+   * @since 2.2.0
+   */
+  clientCertificate?: ByteSource;
 }
 
 export interface HttpRequestParamsAuth {
