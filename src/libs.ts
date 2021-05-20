@@ -30,4 +30,5 @@ export interface EnonicLibraryMap {
   "/lib/turbo-streams": import("./turbo").TurboStreamsLibrary;
   "/lib/xp/value": import("./value").ValueLibrary;
   "/lib/xp/websocket": import("./websocket").WebsocketLibrary;
+  "/lib/xslt": import("./xslt").XsltLibrary;
 }

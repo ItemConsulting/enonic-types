@@ -152,3 +152,8 @@ declare module "*/lib/xp/websocket" {
   const lib: import("./websocket").WebsocketLibrary;
   export = lib;
 }
+
+declare module "*/lib/xslt" {
+  const lib: import("./xslt").XsltLibrary;
+  export = lib;
+}

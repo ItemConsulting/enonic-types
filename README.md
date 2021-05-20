@@ -107,3 +107,4 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [TurboLibrary](./src/turbo.ts)
  * [ValueLibrary](./src/value.ts)
  * [WebsocketLibrary](./src/websocket.ts)
+ * [XsltLibrary](./src/xslt.ts)
