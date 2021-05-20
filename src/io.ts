@@ -1,5 +1,5 @@
-import {ByteSource} from "./content";
-import {ResourceKey} from "./thymeleaf";
+import { ByteSource } from "./content";
+import { ResourceKey } from "./thymeleaf";
 
 export interface IOLibrary {
   /**

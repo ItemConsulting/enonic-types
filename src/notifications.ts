@@ -1,4 +1,4 @@
-import {ByteSource} from "./content";
+import { ByteSource } from "./content";
 
 export interface NotificationsLibrary {
   /**

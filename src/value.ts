@@ -1,4 +1,4 @@
-import {ByteSource} from "./content";
+import { ByteSource } from "./content";
 
 export interface ValueLibrary {
   /**
@@ -43,38 +43,38 @@ export interface ValueLibrary {
 }
 
 export interface BinaryAttachment {
-  URI: 'com.enonic.xp.node.BinaryAttachment';
+  URI: "com.enonic.xp.node.BinaryAttachment";
   getReference(): BinaryReference;
   getByteSource(): ByteSource;
 }
 
 export interface BinaryReference {
-  URI: 'com.enonic.xp.util.BinaryReference'
+  URI: "com.enonic.xp.util.BinaryReference";
 }
 
 export interface GeoPoint {
-  URI: 'com.enonic.xp.util.GeoPoint';
+  URI: "com.enonic.xp.util.GeoPoint";
   getLatitude(): number;
   getLongitude(): number;
   toString(): string;
 }
 
 export interface Instant {
-  URI: 'java.time.Instant'
+  URI: "java.time.Instant";
 }
 
 export interface LocalDate {
-  URI: 'java.time.LocalDate'
+  URI: "java.time.LocalDate";
 }
 
 export interface LocalTime {
-  URI: 'java.time.LocalTime'
+  URI: "java.time.LocalTime";
 }
 
 export interface LocalDateTime {
-  URI: 'java.time.LocalDateTime'
+  URI: "java.time.LocalDateTime";
 }
 
 export interface Reference {
-  URI: 'com.enonic.xp.util.Reference'
+  URI: "com.enonic.xp.util.Reference";
 }

@@ -1,0 +1,9 @@
+{
+  "extends": ["plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended",  "prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules":  {
+    "prettier/prettier": ["warn"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off"
+  }
+}

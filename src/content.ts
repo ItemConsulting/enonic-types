@@ -1,4 +1,4 @@
-import {Region} from "./portal";
+import { Region } from "./portal";
 
 type EmptyObject = Record<string, never>;
 
@@ -6,14 +6,20 @@ export interface ContentLibrary {
   /**
    * This function fetches a content
    */
-  get<Data extends object, XData extends object = object>(params: GetContentParams): Content<Data, EmptyObject, XData> | null;
+  get<Data extends object, XData extends object = object>(
+    params: GetContentParams
+  ): Content<Data, EmptyObject, XData> | null;
 
   /**
    * This command queries content
    */
-  query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParams<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataScore>;
+  query<Data extends object, AggregationKeys extends string = never>(
+    params: QueryContentParams<AggregationKeys>
+  ): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataScore>;
 
-  query<Data extends object, AggregationKeys extends string = never>(params: QueryContentParamsWithSort<AggregationKeys>): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataSort>;
+  query<Data extends object, AggregationKeys extends string = never>(
+    params: QueryContentParamsWithSort<AggregationKeys>
+  ): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataSort>;
 
   /**
    * This function creates a content.
@@ -23,7 +29,9 @@ export interface ContentLibrary {
   /**
    * Modifies properties of a content
    */
-  modify<Data extends object, PageConfig extends object = object, XData extends object = object>(params: ModifyContentParams<Data, PageConfig, XData>): Content<Data, PageConfig, XData>;
+  modify<Data extends object, PageConfig extends object = object, XData extends object = object>(
+    params: ModifyContentParams<Data, PageConfig, XData>
+  ): Content<Data, PageConfig, XData>;
 
   /**
    * This function deletes a content
@@ -145,13 +153,13 @@ export interface ResetInheritanceParams {
   inherit: Array<"CONTENT" | "PARENT" | "NAME" | "SORT">;
 }
 
-export type WORKFLOW_STATES =
-  | "IN_PROGRESS"
-  | "PENDING_APPROVAL"
-  | "REJECTED"
-  | "READY";
+export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
 
-export interface Content<Data extends object = object, PageConfig extends object = object, XData extends object = object> {
+export interface Content<
+  Data extends object = object,
+  PageConfig extends object = object,
+  XData extends object = object
+> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
@@ -172,9 +180,9 @@ export interface Content<Data extends object = object, PageConfig extends object
   attachments: Attachments;
   publish?: ScheduleParams;
   workflow: {
-    state: WORKFLOW_STATES,
-    checks: Record<string, WORKFLOW_STATES>
-  }
+    state: WORKFLOW_STATES;
+    checks: Record<string, WORKFLOW_STATES>;
+  };
 }
 
 /**
@@ -226,14 +234,14 @@ export interface ImageConfig {
     top: number;
     right: number;
     bottom: number;
-  },
+  };
   cropPosition: {
     left: number;
     top: number;
     right: number;
     bottom: number;
     zoom: number;
-  }
+  };
 }
 
 export interface Page<Config> {
@@ -287,28 +295,28 @@ export interface HasValueFilter {
 export interface IdsFilter {
   ids: {
     values: Array<string>;
-  },
+  };
 }
 
-export type BasicFilters =
-  | ExistsFilter
-  | NotExistsFilter
-  | HasValueFilter
-  | IdsFilter;
+export type BasicFilters = ExistsFilter | NotExistsFilter | HasValueFilter | IdsFilter;
 
 export interface BooleanFilter {
   boolean: {
     must?: BasicFilters | Array<BasicFilters>;
     mustNot?: BasicFilters | Array<BasicFilters>;
     should?: BasicFilters | Array<BasicFilters>;
-  }
+  };
 }
 
 export type QueryContentParamsWithSort<AggregationKeys extends string = never> = QueryContentParams<AggregationKeys> & {
   sort: string;
-}
+};
 
-export interface QueryResponse<Data extends object, AggregationKeys extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
+export interface QueryResponse<
+  Data extends object,
+  AggregationKeys extends string = never,
+  QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}
+> {
   readonly count: number;
   readonly hits: ReadonlyArray<Content<Data, EmptyObject> & QueryMetaData>;
   readonly total: number;
@@ -433,15 +441,17 @@ export interface AggregationsResponseEntry {
   readonly buckets: Array<AggregationsResponseBucket>;
 }
 
-export type AggregationsResponse<AggregationKeys extends string> = { [K in AggregationKeys]: AggregationsResponseEntry }
+export type AggregationsResponse<AggregationKeys extends string> = {
+  [K in AggregationKeys]: AggregationsResponseEntry;
+};
 
 export interface Highlight {
-  encoder?: 'default' | 'html';
-  fragmenter?: 'simple' | 'span';
+  encoder?: "default" | "html";
+  fragmenter?: "simple" | "span";
   fragmentSize?: number;
   numberOfFragments?: number;
   noMatchSize?: number;
-  order?: 'score' | 'none';
+  order?: "score" | "none";
   preTag?: string;
   postTag?: string;
   requireFieldMatch?: boolean;
@@ -450,9 +460,11 @@ export interface Highlight {
 }
 
 export interface HighlightResponse {
-  readonly [uuid: string]: {
-    [name: string]: ReadonlyArray<string>;
-  } | undefined;
+  readonly [uuid: string]:
+    | {
+        [name: string]: ReadonlyArray<string>;
+      }
+    | undefined;
 }
 
 export interface GetContentParams {
@@ -528,7 +540,11 @@ export interface CreateContentParams<Data> {
   x?: Record<string, any>;
 }
 
-export interface ModifyContentParams<Data extends object, PageConfig extends object = object, XData extends object = object> {
+export interface ModifyContentParams<
+  Data extends object,
+  PageConfig extends object = object,
+  XData extends object = object
+> {
   /**
    * Path or id to the content
    */
@@ -665,14 +681,7 @@ export interface GetPermissionsResult {
 /**
  * From enum "com.enonic.xp.security.acl.Permission"
  */
-export type Permission =
-  | "READ"
-  | "CREATE"
-  | "MODIFY"
-  | "DELETE"
-  | "PUBLISH"
-  | "READ_PERMISSIONS"
-  | "WRITE_PERMISSIONS";
+export type Permission = "READ" | "CREATE" | "MODIFY" | "DELETE" | "PUBLISH" | "READ_PERMISSIONS" | "WRITE_PERMISSIONS";
 
 export interface PermissionsParams {
   principal: string;
@@ -726,21 +735,17 @@ export type InputType =
   | "ImageSelector"
   | "HtmlArea";
 
-export type FormItemType =
-  | "Input"
-  | "ItemSet"
-  | "Layout"
-  | "OptionSet";
+export type FormItemType = "Input" | "ItemSet" | "Layout" | "OptionSet";
 
 export interface FormItem<Config = unknown> {
   readonly formItemType: FormItemType | string;
-  readonly name: string,
-  readonly label: string,
-  readonly maximize: boolean,
-  readonly inputType: InputType,
+  readonly name: string;
+  readonly label: string;
+  readonly maximize: boolean;
+  readonly inputType: InputType;
   readonly occurrences: {
-    readonly maximum: 1,
-    readonly minimum: 1
-  },
+    readonly maximum: 1;
+    readonly minimum: 1;
+  };
   readonly config: Config;
 }

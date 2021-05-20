@@ -15,11 +15,7 @@ export interface Request {
   readonly webSocket?: boolean;
 }
 
-export type ResponseType =
-  | string
-  | object
-  | Array<any>
-  | ReadonlyArray<any>;
+export type ResponseType = string | object | Array<any> | ReadonlyArray<any>;
 
 export interface Response<ResponseBody extends ResponseType = ResponseType> {
   status?: number;
@@ -37,7 +33,7 @@ export interface WebSocketResponse<WebSocketData = {}> {
   webSocket: {
     data?: WebSocketData;
     subProtocols?: ReadonlyArray<string>;
-  }
+  };
 }
 
 export interface MacroContext<Params = never> {
@@ -69,8 +65,8 @@ export interface Cookie {
  * Request where params potentially are typed as Arrays, reflecting the real
  * behaviour of XP, instead of the common use case.
  */
-export type RequestWithArrayParams = Omit<Request, 'params'> & {
-  params: { readonly [key: string]: string | ReadonlyArray<string> | undefined }
+export type RequestWithArrayParams = Omit<Request, "params"> & {
+  params: { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 };
 
 /**
@@ -93,8 +89,8 @@ export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
     readonly ids?: string;
     readonly query?: string;
     readonly [key: string]: string | undefined;
-  }
-}
+  };
+};
 
 export interface CustomSelectorServiceResponseBody {
   total: number;
@@ -128,21 +124,21 @@ export interface AbstractWebSocketEvent<WebSocketData = {}> {
 }
 
 export interface OpenWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: 'open';
+  readonly type: "open";
 }
 
 export interface MessageWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: 'message';
+  readonly type: "message";
   readonly message: string;
 }
 
 export interface CloseWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: 'close';
+  readonly type: "close";
   readonly closeReason: number;
 }
 
 export interface ErrorWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: 'error';
+  readonly type: "error";
   readonly error: string;
 }
 

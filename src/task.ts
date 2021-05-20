@@ -43,11 +43,7 @@ export interface TaskLibrary {
   submitNamed<Config extends object = never>(params: SubmitNamedParams<Config>): string;
 }
 
-export type TaskState =
-  | 'WAITING'
-  | 'RUNNING'
-  | 'FINISHED'
-  | 'FAILED';
+export type TaskState = "WAITING" | "RUNNING" | "FINISHED" | "FAILED";
 
 export interface TaskInfo {
   /**
@@ -143,5 +139,5 @@ export interface SubmitNamedParams<Config extends object = never> {
    * Configuration parameters to pass to the task to be executed.
    * The object must be valid according to the schema defined in the form of the task descriptor XML.
    */
-  config?: Config
+  config?: Config;
 }

@@ -1,8 +1,8 @@
-import {Request, Response} from "./controller";
+import { Request, Response } from "./controller";
 
 export type RouterLib = () => Router;
 
-export type RouterRequest = Request & { pathParams: Record<string, string | undefined> }
+export type RouterRequest = Request & { pathParams: Record<string, string | undefined> };
 
 export interface Router {
   get(pattern: string, handler: (req: RouterRequest) => Response): void;

@@ -9,7 +9,7 @@ export interface EnonicLibraryMap {
   "/lib/cron": import("./cron").CronLibrary;
   "/lib/text-encoding": import("./encoding").EncodingLibrary;
   "/lib/xp/event": import("./event").EventLibrary;
-  "/lib/tineikt/freemarker": import('./freemarker').FreeMarkerLibrary;
+  "/lib/tineikt/freemarker": import("./freemarker").FreeMarkerLibrary;
   "/lib/http-client": import("./http").HttpLibrary;
   "/lib/xp/i18n": import("./i18n").I18nLibrary;
   "/lib/xp/io": import("./io").IOLibrary;

@@ -60,7 +60,7 @@ export interface AdminLibrary {
 
 export interface GetHomeToolUrlParams {
   path?: string;
-  type: 'server' | 'absolute';
+  type: "server" | "absolute";
 }
 
 export interface GetToolUrlParams {

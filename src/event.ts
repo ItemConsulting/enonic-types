@@ -44,4 +44,4 @@ export type EnonicEventTypes =
   | "node.renamed"
   | "node.sorted"
   | "node.stateUpdated"
-  | "node.permissionsUpdated"
+  | "node.permissionsUpdated";

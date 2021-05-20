@@ -5,7 +5,7 @@ import {
   BooleanFilter,
   ByteSource,
   Highlight,
-  PermissionsParams
+  PermissionsParams,
 } from "./content";
 
 export interface NodeLibrary {
@@ -132,12 +132,7 @@ export interface IndexConfigEntry {
   readonly languages: ReadonlyArray<any>;
 }
 
-export type IndexConfigTemplates =
-  | "none"
-  | "byType"
-  | "fulltext"
-  | "path"
-  | "minimal";
+export type IndexConfigTemplates = "none" | "byType" | "fulltext" | "path" | "minimal";
 
 export interface IndexConfig {
   readonly default: IndexConfigEntry | IndexConfigTemplates;
@@ -296,7 +291,9 @@ export interface RepoConnection {
   /**
    * Fetches specific nodes by path(s) or ID(s).
    */
-  get<NodeData>(keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>): NodeData & RepoNode | ReadonlyArray<NodeData & RepoNode>;
+  get<NodeData>(
+    keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>
+  ): (NodeData & RepoNode) | ReadonlyArray<NodeData & RepoNode>;
 
   /**
    * This function returns the active version of a node.
@@ -316,7 +313,9 @@ export interface RepoConnection {
   /**
    * This command queries nodes.
    */
-  query<AggregationKeys extends string = never>(params: NodeQueryParams<AggregationKeys>): NodeQueryResponse<AggregationKeys>;
+  query<AggregationKeys extends string = never>(
+    params: NodeQueryParams<AggregationKeys>
+  ): NodeQueryResponse<AggregationKeys>;
 
   /**
    * Refresh the index for the current repoConnection
@@ -341,7 +340,7 @@ export interface RepoConnection {
   /**
    * Set the order of the node’s children.
    */
-  setChildOrder<NodeData>(params: SetChildOrderParams): NodeData & RepoNode
+  setChildOrder<NodeData>(params: SetChildOrderParams): NodeData & RepoNode;
 
   /**
    * Set the root node permissions and inheritance.
@@ -373,19 +372,19 @@ export interface PushNodeParams {
   /**
    * Also push children of given nodes. Default is false.
    */
-  includeChildren?: boolean
+  includeChildren?: boolean;
 
   /**
    * Resolve dependencies before pushing, meaning that references will also be pushed. Default is true.
    */
-  resolve?: boolean
+  resolve?: boolean;
 
   /**
    * Optional array of ids or paths to nodes not to be pushed.
    * If using this, be aware that nodes need to maintain data integrity (e.g parents must be present in target).
    * If data integrity is not maintained with excluded nodes, they will be pushed anyway.
    */
-  exclude?: Array<string>
+  exclude?: Array<string>;
 }
 
 export interface PushNodeResult {
@@ -461,12 +460,12 @@ export interface SetActiveVersionParams {
   /**
    * Path or ID of the node.
    */
-  key: 	string;
+  key: string;
 
   /**
    * Version to set as active.
    */
-  versionId:	string;
+  versionId: string;
 }
 
 export interface FindVersionsParams {
@@ -514,16 +513,16 @@ export interface DiffParams {
 }
 
 export type CompareStatus =
-  | 'NEW'
+  | "NEW"
   | "NEW_TARGET"
   | "NEWER"
-  | 'OLDER'
-  | 'PENDING_DELETE'
-  | 'PENDING_DELETE_TARGET'
-  | 'EQUAL'
-  | 'MOVED'
-  | 'CONFLICT_PATH_EXISTS'
-  | 'CONFLICT_VERSION_BRANCH_DIVERGS';
+  | "OLDER"
+  | "PENDING_DELETE"
+  | "PENDING_DELETE_TARGET"
+  | "EQUAL"
+  | "MOVED"
+  | "CONFLICT_PATH_EXISTS"
+  | "CONFLICT_VERSION_BRANCH_DIVERGS";
 
 export interface NodeComparison {
   readonly id: string;
@@ -531,5 +530,5 @@ export interface NodeComparison {
 }
 
 export interface DiffResponse {
-  diff: ReadonlyArray<NodeComparison>
+  diff: ReadonlyArray<NodeComparison>;
 }

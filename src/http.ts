@@ -2,7 +2,7 @@ export interface HttpLibrary {
   request(params: HttpRequestParams): HttpResponse;
 }
 
-import {ByteSource} from "./content";
+import { ByteSource } from "./content";
 
 export interface HttpRequestParams {
   /** URL to which the request is sent. */

@@ -1,4 +1,4 @@
-import {PermissionsParams } from "./content";
+import { PermissionsParams } from "./content";
 
 export interface RepoLibrary {
   create(params: CreateRepoParams): RepositoryConfig;

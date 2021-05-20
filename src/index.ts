@@ -49,7 +49,7 @@ declare module "*/lib/xp/event" {
 }
 
 declare module "*/lib/tineikt/freemarker" {
-  const lib: import('./freemarker').FreeMarkerLibrary;
+  const lib: import("./freemarker").FreeMarkerLibrary;
   export = lib;
 }
 

@@ -14,4 +14,3 @@ export interface ThymeleafLibrary {
 export interface ThymeleafRenderOptions {
   mode: "HTML" | "XML" | "TEXT" | "JAVASCRIPT" | "CSS" | "RAW";
 }
-

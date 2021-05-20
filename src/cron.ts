@@ -1,5 +1,5 @@
-import {RunContext} from "./context";
-import {XOR} from "./types";
+import { RunContext } from "./context";
+import { XOR } from "./types";
 
 export interface CronLibrary {
   /**
@@ -145,9 +145,9 @@ export interface TaskMapper {
   readonly nextExecTime: string;
 }
 
-export type CronRunContext = Omit<RunContext, 'user'> & {
+export type CronRunContext = Omit<RunContext, "user"> & {
   user?: {
     login?: string;
     userStore?: string;
-  }
+  };
 };

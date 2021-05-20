@@ -1,4 +1,4 @@
-import {Content, Site} from "./content";
+import { Content, Site } from "./content";
 
 export interface MenuLibrary {
   /**
@@ -14,7 +14,11 @@ export interface MenuLibrary {
   /**
    * Returns submenus of a parent menuitem.
    */
-  getSubMenus(parentContent: Content<any> | Site<any>, levels?: number, params?: GetMenuParams): ReadonlyArray<MenuItem>;
+  getSubMenus(
+    parentContent: Content<any> | Site<any>,
+    levels?: number,
+    params?: GetMenuParams
+  ): ReadonlyArray<MenuItem>;
 }
 
 export interface MenuTree {
@@ -53,7 +57,7 @@ export interface GetBreadcrumbMenuParams {
   /**
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
-  urlType?: 'server' | 'absolute';
+  urlType?: "server" | "absolute";
 
   /**
    * The 'aria-label' attribute text on the '<nav>' element. This should be the name of the navigation, e.g "Breadcrumbs".
@@ -82,7 +86,7 @@ export interface GetMenuParams {
   /**
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
-  urlType?: 'server' | 'absolute';
+  urlType?: "server" | "absolute";
 
   /**
    * Controls what info to return
@@ -103,8 +107,8 @@ export interface MenuItem {
   readonly name: string;
   readonly id: string;
   readonly hasChildren: boolean;
-  readonly inPath:  boolean;
-  readonly isActive:  boolean;
+  readonly inPath: boolean;
+  readonly isActive: boolean;
   readonly newWindow: boolean;
   readonly type: string;
   readonly url: string;

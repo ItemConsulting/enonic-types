@@ -1,5 +1,5 @@
 import { ByteSource, Content, Site } from "./content";
-import {XOR} from "./types";
+import { XOR } from "./types";
 
 export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
@@ -178,7 +178,7 @@ export type AttachmentUrlParams = XOR<ById, ByPath> & {
   download?: boolean;
   params?: Params;
   type?: "server" | "absolute";
-}
+};
 
 export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
   type?: "server" | "absolute";
@@ -186,11 +186,11 @@ export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
 };
 
 export type ImageScale =
-  | `block(${number},${'' | ' '}${number})`
+  | `block(${number},${"" | " "}${number})`
   | `height(${number})`
   | `max(${number})`
   | `square(${number})`
-  | `wide(${number},${'' | ' '}${number})`
+  | `wide(${number},${"" | " "}${number})`
   | `width(${number})`;
 
 export type ImageUrlParams = XOR<ById, ByPath> & {
@@ -201,12 +201,12 @@ export type ImageUrlParams = XOR<ById, ByPath> & {
   filter?: string;
   type?: "server" | "absolute";
   params?: Params;
-}
+};
 
 export type PageUrlParams = XOR<ById, ByPath> & {
   type?: "server" | "absolute";
   params?: Params;
-}
+};
 
 export interface LoginUrlParams {
   idProvider?: string;

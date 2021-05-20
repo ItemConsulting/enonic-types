@@ -1,5 +1,5 @@
-import {XOR} from "./types";
-import {Request} from "./controller";
+import { XOR } from "./types";
+import { Request } from "./controller";
 
 export interface TurboStreamsLibrary {
   /**

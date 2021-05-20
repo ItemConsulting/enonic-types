@@ -1,5 +1,5 @@
-import {Request, Response} from "./controller";
-import {Resource} from "./io";
+import { Request, Response } from "./controller";
+import { Resource } from "./io";
 
 export interface StaticLibrary {
   /**

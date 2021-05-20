@@ -1,10 +1,4 @@
-export type Primitive =
-  | string
-  | number
-  | bigint
-  | boolean
-  | undefined
-  | symbol;
+export type Primitive = string | number | bigint | boolean | undefined | symbol;
 
 export interface TestingLibrary {
   /**
@@ -56,7 +50,6 @@ export interface TestingLibrary {
    * Assert null.
    */
   assertNull(value: unknown, message?: string): void;
-
 
   /**
    * Assert not null.

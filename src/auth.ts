@@ -36,7 +36,7 @@ export interface AuthLibrary {
    * Search for users matching the specified query.
    */
   findUsers<Profile>(params: FindUsersParams & { includeProfile: true }): UserQueryResult<UserWithProfile<Profile>>;
-  findUsers(params: FindUsersParams  & { includeProfile?: false }): UserQueryResult<User>;
+  findUsers(params: FindUsersParams & { includeProfile?: false }): UserQueryResult<User>;
 
   /**
    * Retrieves the user specified and updates it with the changes applied through the editor.
@@ -149,7 +149,7 @@ export interface LoginParams {
   /**
    * Defines the scope of the login.
    */
-  scope?: 'SESSION' | 'REQUEST'
+  scope?: "SESSION" | "REQUEST";
 }
 
 export interface LoginResult {
