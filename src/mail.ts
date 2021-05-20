@@ -20,6 +20,6 @@ export interface EmailParams {
   readonly subject: string;
   readonly body: string;
   readonly contentType?: string;
-  readonly headers?: object;
+  readonly headers?: Record<string, string>;
   readonly attachments?: ReadonlyArray<EmailAttachment>;
 }
