@@ -95,41 +95,41 @@ export interface ListParams {
   /**
    * Filter by name
    */
-  readonly name?: string;
+  name?: string;
 
   /**
    * Filter by task state
    */
-  readonly state?: TaskState;
+  state?: TaskState;
 }
 
 export interface ProgressParams {
   /**
    * Integer value representing the number of items that have been processed in the task
    */
-  readonly current: number;
+  current: number;
 
   /**
    * Integer value representing the total number of items to process in the task
    */
-  readonly total: number;
+  total: number;
 
   /**
    * Text describing the current progress for the task
    */
-  readonly info: string;
+  info: string;
 }
 
 export interface SubmitParams {
   /**
    * Text describing the task to be executed
    */
-  readonly description: string;
+  description: string;
 
   /**
    * Callback function to be executed asynchronously
    */
-  readonly task: () => void;
+  task: () => void;
 }
 
 export interface SubmitNamedParams<Config extends object = never> {
@@ -137,11 +137,11 @@ export interface SubmitNamedParams<Config extends object = never> {
    * Name of the task to execute.
    * Name can be relative to the current application, or a fully qualified task name (<appname>:<taskname>)
    */
-  readonly name: string;
+  name: string;
 
   /**
    * Configuration parameters to pass to the task to be executed.
    * The object must be valid according to the schema defined in the form of the task descriptor XML.
    */
-  readonly config?: Config
+  config?: Config
 }

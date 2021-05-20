@@ -59,11 +59,11 @@ export interface AdminLibrary {
 }
 
 export interface GetHomeToolUrlParams {
-  readonly path?: string;
-  readonly type: 'server' | 'absolute';
+  path?: string;
+  type: 'server' | 'absolute';
 }
 
 export interface GetToolUrlParams {
-  readonly application: string;
-  readonly tool: string;
+  application: string;
+  tool: string;
 }

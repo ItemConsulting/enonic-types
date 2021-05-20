@@ -4,15 +4,15 @@ export interface EventLibrary {
 }
 
 export interface ListenerParams<EventData extends object = EnonicEventData> {
-  readonly type?: EnonicEventTypes | string;
-  readonly callback: (event: EnonicEvent<EventData>) => void;
-  readonly localOnly?: boolean;
+  type?: EnonicEventTypes | string;
+  callback: (event: EnonicEvent<EventData>) => void;
+  localOnly?: boolean;
 }
 
 export interface SendParams {
-  readonly type?: EnonicEventTypes | string;
-  readonly distributed?: boolean;
-  readonly data?: object;
+  type?: EnonicEventTypes | string;
+  distributed?: boolean;
+  data?: object;
 }
 
 export interface EnonicEvent<EventData extends object = EnonicEventData> {

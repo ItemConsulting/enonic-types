@@ -5,21 +5,21 @@ export interface MailLibrary {
 }
 
 export interface EmailAttachment {
-  readonly fileName: string;
-  readonly data: ByteSource;
-  readonly mimeType?: string;
-  readonly headers?: Record<string, string>;
+  fileName: string;
+  data: ByteSource;
+  mimeType?: string;
+  headers?: Record<string, string>;
 }
 
 export interface EmailParams {
-  readonly from: string;
-  readonly to: string | ReadonlyArray<string>;
-  readonly cc?: string | ReadonlyArray<string>;
-  readonly bcc?: string | ReadonlyArray<string>;
-  readonly replyTo?: string;
-  readonly subject: string;
-  readonly body: string;
-  readonly contentType?: string;
-  readonly headers?: string;
-  readonly attachments?: ReadonlyArray<EmailAttachment>;
+  from: string;
+  to: string | ReadonlyArray<string>;
+  cc?: string | ReadonlyArray<string>;
+  bcc?: string | ReadonlyArray<string>;
+  replyTo?: string;
+  subject: string;
+  body: string;
+  contentType?: string;
+  headers?: string;
+  attachments?: ReadonlyArray<EmailAttachment>;
 }

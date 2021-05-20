@@ -142,7 +142,7 @@ export interface ResetInheritanceParams {
    *  - NAME (resets renamed item)
    *  - SORT (resets custom sorting)
    */
-  inherit: ReadonlyArray<"CONTENT" | "PARENT" | "NAME" | "SORT">;
+  inherit: Array<"CONTENT" | "PARENT" | "NAME" | "SORT">;
 }
 
 export type WORKFLOW_STATES =
@@ -159,19 +159,19 @@ export interface Content<Data extends object = object, PageConfig extends object
   readonly modifier: string;
   readonly createdTime: string;
   readonly modifiedTime: string;
-  readonly owner: string;
-  readonly type: string;
-  readonly displayName: string;
+  owner: string;
+  type: string;
+  displayName: string;
   readonly hasChildren: boolean;
-  readonly language?: string;
+  language?: string;
   readonly valid: boolean;
-  readonly childOrder: string;
-  readonly data: Data;
-  readonly x: Record<string, Record<string, XData>>;
-  readonly page: Page<PageConfig>;
-  readonly attachments: Attachments;
-  readonly publish?: ScheduleParams;
-  readonly workflow: {
+  childOrder: string;
+  data: Data;
+  x: Record<string, Record<string, XData>>;
+  page: Page<PageConfig>;
+  attachments: Attachments;
+  publish?: ScheduleParams;
+  workflow: {
     state: WORKFLOW_STATES,
     checks: Record<string, WORKFLOW_STATES>
   }
@@ -181,58 +181,58 @@ export interface Content<Data extends object = object, PageConfig extends object
  * Implements the "data" of type "base:shortcut"
  */
 export interface BaseShortcut {
-  readonly target: string;
-  readonly parameters?: ReadonlyArray<BaseShortcutParameter> | BaseShortcutParameter;
+  target: string;
+  parameters?: Array<BaseShortcutParameter> | BaseShortcutParameter;
 }
 
 export interface BaseShortcutParameter {
-  readonly name: string;
-  readonly value: string;
+  name: string;
+  value: string;
 }
 
 /**
  * Implements the "data" of type "base:media"
  */
 export interface BaseMedia<Media extends object = BaseMediaConfig> {
-  readonly media: Media;
-  readonly caption?: string;
-  readonly artist?: string | ReadonlyArray<string>;
-  readonly copyright?: string;
-  readonly tags?: string | ReadonlyArray<string>;
+  media: Media;
+  caption?: string;
+  artist?: string | Array<string>;
+  copyright?: string;
+  tags?: string | Array<string>;
 }
 
 export interface BaseMediaConfig {
-  readonly attachment: string;
+  attachment: string;
 }
 
 /**
  * Implements the "data" of type "media:image"
  */
 export interface MediaImage extends BaseMedia<ImageConfig> {
-  readonly altText?: string;
+  altText?: string;
 }
 
 // Image is alias for MediaImage
 export type Image = MediaImage;
 
 export interface ImageConfig {
-  readonly attachment: string;
-  readonly focalPoint: {
-    readonly x: number;
-    readonly y: number;
+  attachment: string;
+  focalPoint: {
+    x: number;
+    y: number;
   };
-  readonly zoomPosition: {
-    readonly left: number;
-    readonly top: number;
-    readonly right: number;
-    readonly bottom: number;
+  zoomPosition: {
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
   },
-  readonly cropPosition: {
-    readonly left: number;
-    readonly top: number;
-    readonly right: number;
-    readonly bottom: number;
-    readonly zoom: number;
+  cropPosition: {
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
+    zoom: number;
   }
 }
 
@@ -245,48 +245,48 @@ export interface Page<Config> {
 }
 
 export interface Attachment {
-  readonly name: string;
-  readonly label?: string;
-  readonly size: number;
-  readonly mimeType: string;
+  name: string;
+  label?: string;
+  size: number;
+  mimeType: string;
 }
 
 export interface Attachments {
-  readonly [key: string]: Attachment;
+  [key: string]: Attachment;
 }
 
 export interface QueryContentParams<AggregationKeys extends string = never> {
-  readonly start?: number;
-  readonly count: number;
-  readonly query?: string;
-  readonly filters?: BasicFilters | BooleanFilter;
-  readonly aggregations?: Record<AggregationKeys, Aggregation>;
-  readonly contentTypes?: ReadonlyArray<string>;
-  readonly highlight?: Highlight;
+  start?: number;
+  count: number;
+  query?: string;
+  filters?: BasicFilters | BooleanFilter;
+  aggregations?: Record<AggregationKeys, Aggregation>;
+  contentTypes?: Array<string>;
+  highlight?: Highlight;
 }
 
 export interface ExistsFilter {
-  readonly exists: {
-    readonly field: string;
+  exists: {
+    field: string;
   };
 }
 
 export interface NotExistsFilter {
-  readonly notExists: {
-    readonly field: string;
+  notExists: {
+    field: string;
   };
 }
 
 export interface HasValueFilter {
-  readonly hasValue: {
-    readonly field: string;
-    readonly values: ReadonlyArray<unknown>;
+  hasValue: {
+    field: string;
+    values: Array<unknown>;
   };
 }
 
 export interface IdsFilter {
-  readonly ids: {
-    readonly values: ReadonlyArray<string>;
+  ids: {
+    values: Array<string>;
   },
 }
 
@@ -297,15 +297,15 @@ export type BasicFilters =
   | IdsFilter;
 
 export interface BooleanFilter {
-  readonly boolean: {
-    readonly must?: BasicFilters | ReadonlyArray<BasicFilters>;
-    readonly mustNot?: BasicFilters | ReadonlyArray<BasicFilters>;
-    readonly should?: BasicFilters | ReadonlyArray<BasicFilters>;
+  boolean: {
+    must?: BasicFilters | Array<BasicFilters>;
+    mustNot?: BasicFilters | Array<BasicFilters>;
+    should?: BasicFilters | Array<BasicFilters>;
   }
 }
 
 export type QueryContentParamsWithSort<AggregationKeys extends string = never> = QueryContentParams<AggregationKeys> & {
-  readonly sort: string;
+  sort: string;
 }
 
 export interface QueryResponse<Data extends object, AggregationKeys extends string = never, QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}> {
@@ -456,16 +456,16 @@ export interface HighlightResponse {
 }
 
 export interface GetContentParams {
-  readonly key: string;
-  readonly versionId?: string;
+  key: string;
+  versionId?: string;
 }
 
 export interface DeleteContentParams {
-  readonly key: string;
+  key: string;
 }
 
 export interface ExistsParams {
-  readonly key: string;
+  key: string;
 }
 
 export interface CreateContentParams<Data> {
@@ -477,88 +477,88 @@ export interface CreateContentParams<Data> {
    * by lower-casing and replacing certain characters. If there is already a content with the
    * auto-generated name, a suffix will be added to the name in order to make it unique.
    */
-  readonly name?: string;
+  name?: string;
 
   /**
    * Path to place content under
    */
-  readonly parentPath: string;
+  parentPath: string;
 
   /**
    * Display name. Default is same as name
    */
-  readonly displayName?: string;
+  displayName?: string;
 
   /**
    * The content has to be valid, according to the content type, to be created.
    * If requireValid=true and the content is not strictly valid, an error will be thrown
    */
-  readonly requireValid?: boolean;
+  requireValid?: boolean;
 
   /**
    * If refresh is true, the created content will to be searchable through queries immediately,
    * else within 1 second. Since there is a performance penalty doing this refresh,
    * refresh should be set to false for bulk operations
    */
-  readonly refresh?: boolean;
+  refresh?: boolean;
 
   /**
    * Content type to use
    */
-  readonly contentType: string;
+  contentType: string;
 
   /**
    * The language tag representing the content’s locale
    */
-  readonly language?: string;
+  language?: string;
 
   /**
    * Default ordering of children when doing getChildren if no order is given in query
    */
-  readonly childOrder?: string;
+  childOrder?: string;
 
   /**
    * Actual content data
    */
-  readonly data: Data;
+  data: Data;
 
   /**
    * eXtra data to use
    */
-  readonly x?: Record<string, any>;
+  x?: Record<string, any>;
 }
 
 export interface ModifyContentParams<Data extends object, PageConfig extends object = object, XData extends object = object> {
   /**
    * Path or id to the content
    */
-  readonly key: string;
+  key: string;
 
   /**
    * Editor callback function
    */
-  readonly editor: (c: Content<Data, PageConfig, XData>) => Content<Data, PageConfig, XData>;
+  editor: (c: Content<Data, PageConfig, XData>) => Content<Data, PageConfig, XData>;
 
   /**
    * The content has to be valid, according to the content type, to be updated.
    * If requireValid=true and the content is not strictly valid, an error will be thrown
    */
-  readonly requireValid?: boolean;
+  requireValid?: boolean;
 }
 
 export interface PublishContentParams {
-  readonly keys: ReadonlyArray<string>;
-  readonly sourceBranch: string;
-  readonly targetBranch: string;
-  readonly schedule?: ScheduleParams;
-  readonly excludeChildrenIds?: ReadonlyArray<string>;
-  readonly includeDependencies?: boolean;
+  keys: Array<string>;
+  sourceBranch: string;
+  targetBranch: string;
+  schedule?: ScheduleParams;
+  excludeChildrenIds?: Array<string>;
+  includeDependencies?: boolean;
 }
 
 export interface ScheduleParams {
-  readonly from?: string;
-  readonly to?: string;
-  readonly first?: string;
+  from?: string;
+  to?: string;
+  first?: string;
 }
 
 export interface PublishResponse {
@@ -572,62 +572,62 @@ export interface UnpublishContentParams {
 }
 
 export interface GetChildrenParams {
-  readonly key: string;
-  readonly count: number;
-  readonly start?: number;
-  readonly sort?: string;
+  key: string;
+  count: number;
+  start?: number;
+  sort?: string;
 }
 
 export interface GetOutboundDependenciesParams {
   /**
    * Path or id to the content
    */
-  readonly key: string;
+  key: string;
 }
 
 export interface MoveParams {
-  readonly source: string;
-  readonly target: string;
+  source: string;
+  target: string;
 }
 
 export interface GetSiteParams {
-  readonly key: string;
+  key: string;
 }
 
 export interface Site<Config extends object, PageConfig extends object = never, XData extends object = object> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
-  readonly type: string;
+  type: string;
   readonly hasChildren: boolean;
   readonly valid: boolean;
-  readonly data: {
-    readonly siteConfig: SiteConfig<Config> | ReadonlyArray<SiteConfig<Config>>;
+  data: {
+    siteConfig: SiteConfig<Config> | Array<SiteConfig<Config>>;
   };
-  readonly x: Record<string, Record<string, XData>>;
-  readonly page: Page<PageConfig>;
-  readonly attachments: object;
-  readonly publish: ScheduleParams;
+  x: Record<string, Record<string, XData>>;
+  page: Page<PageConfig>;
+  attachments: Attachments;
+  publish: ScheduleParams;
 }
 
 export interface SiteConfig<Config> {
-  readonly applicationKey: string;
-  readonly config: Config;
+  applicationKey: string;
+  config: Config;
 }
 
 export interface GetSiteConfigParams {
-  readonly key: string;
-  readonly applicationKey: string;
+  key: string;
+  applicationKey: string;
 }
 
 export interface AttachmentStreamParams {
-  readonly key: string;
-  readonly name: string;
+  key: string;
+  name: string;
 }
 
 export interface RemoveAttachmentParams {
-  readonly key: string;
-  readonly name: string | ReadonlyArray<string>;
+  key: string;
+  name: string | Array<string>;
 }
 
 // com.google.common.io.ByteSource
@@ -637,24 +637,24 @@ export interface ByteSource {
 }
 
 export interface CreateMediaParams {
-  readonly name: string;
-  readonly parentPath: string;
-  readonly mimeType?: string;
-  readonly focalX?: number;
-  readonly focalY?: number;
-  readonly data: ByteSource;
+  name: string;
+  parentPath: string;
+  mimeType?: string;
+  focalX?: number;
+  focalY?: number;
+  data: ByteSource;
 }
 
 export interface AddAttachmentParams {
-  readonly key: string;
-  readonly name: string;
-  readonly mimeType: string;
-  readonly label?: string;
-  readonly data?: ByteSource;
+  key: string;
+  name: string;
+  mimeType: string;
+  label?: string;
+  data?: ByteSource;
 }
 
 export interface GetPermissionsParams {
-  readonly key: string;
+  key: string;
 }
 
 export interface GetPermissionsResult {
@@ -675,16 +675,16 @@ export type Permission =
   | "WRITE_PERMISSIONS";
 
 export interface PermissionsParams {
-  readonly principal: string;
-  readonly allow: ReadonlyArray<Permission>;
-  readonly deny: ReadonlyArray<Permission>;
+  principal: string;
+  allow: Array<Permission>;
+  deny: Array<Permission>;
 }
 
 export interface SetPermissionsParams {
-  readonly key: string;
-  readonly inheritPermissions: boolean;
-  readonly overwriteChildPermissions: boolean;
-  readonly permissions: ReadonlyArray<PermissionsParams>;
+  key: string;
+  inheritPermissions: boolean;
+  overwriteChildPermissions: boolean;
+  permissions: Array<PermissionsParams>;
 }
 
 export interface IconType {

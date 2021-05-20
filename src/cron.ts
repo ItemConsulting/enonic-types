@@ -34,73 +34,73 @@ export interface ScheduleByCron {
   /**
    *  Unique task name.
    */
-  readonly name: string;
+  name: string;
 
   /**
    * Cron-pattern (https://en.wikipedia.org/wiki/Cron).
    */
-  readonly cron: string;
+  cron: string;
 
   /**
    * Number of task runs. Leave it empty for infinite calls.
    */
-  readonly times?: number;
+  times?: number;
 
   /**
    * Code of task which should be called.
    */
-  readonly callback: () => void;
+  callback: () => void;
 
   /**
    * Context of the task run.
    */
-  readonly context?: CronRunContext;
+  context?: CronRunContext;
 }
 
 export interface ScheduleByDelay {
   /**
    *  Unique task name.
    */
-  readonly name: string;
+  name: string;
 
   /**
    * The delay between the termination of one execution and the commencement of the next.
    */
-  readonly fixedDelay: number;
+  fixedDelay: number;
 
   /**
    * The time to delay first execution.
    */
-  readonly delay: number;
+  delay: number;
 
   /**
    * Number of task runs. Leave it empty for infinite calls.
    */
-  readonly times?: number;
+  times?: number;
 
   /**
    * Code of task which should be called.
    */
-  readonly callback: () => void;
+  callback: () => void;
 
   /**
    * Context of the task run.
    */
-  readonly context?: CronRunContext;
+  context?: CronRunContext;
 }
 
 export interface UnscheduleParams {
   /**
    * Name of a scheduled task.
    */
-  readonly name: string;
+  name: string;
 }
 
 export interface GetParams {
   /**
    * Name of a scheduled task.
    */
-  readonly name: string;
+  name: string;
 }
 
 export interface TaskMapper {
@@ -146,8 +146,8 @@ export interface TaskMapper {
 }
 
 export type CronRunContext = Omit<RunContext, 'user'> & {
-  readonly user?: {
-    readonly login?: string;
-    readonly userStore?: string;
+  user?: {
+    login?: string;
+    userStore?: string;
   }
 };

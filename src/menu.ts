@@ -33,32 +33,32 @@ export interface GetBreadcrumbMenuParams {
   /**
    *  Wrap the active (current content) item with a link
    */
-  readonly linkActiveItem?: boolean;
+  linkActiveItem?: boolean;
 
   /**
    * Disable return of item for the site homepage
    */
-  readonly showHomepage?: boolean;
+  showHomepage?: boolean;
 
   /**
    * Customize (overwrite) the displayName of home/site link (if used). Common usage: "Home" or "Start".
    */
-  readonly homepageTitle?: string;
+  homepageTitle?: string;
 
   /**
    * Any custom html you want appended to each item, except the last one. Common usage: '<span class="divider">/</span>'.
    */
-  readonly dividerHtml?: string;
+  dividerHtml?: string;
 
   /**
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
-  readonly urlType?: 'server' | 'absolute';
+  urlType?: 'server' | 'absolute';
 
   /**
    * The 'aria-label' attribute text on the '<nav>' element. This should be the name of the navigation, e.g "Breadcrumbs".
    */
-  readonly ariaLabel?: string;
+  ariaLabel?: string;
 }
 
 export interface BreadcrumbMenu {
@@ -75,24 +75,24 @@ export interface BreadcrumbMenu {
 }
 
 export type GetMenuTreeParams = GetMenuParams & {
-  readonly ariaLabel?: string;
+  ariaLabel?: string;
 };
 
 export interface GetMenuParams {
   /**
    * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
    */
-  readonly urlType?: 'server' | 'absolute';
+  urlType?: 'server' | 'absolute';
 
   /**
    * Controls what info to return
    */
-  readonly returnContent?: boolean;
+  returnContent?: boolean;
 
   /**
    * Query string to add when searching for menu items
    */
-  readonly query?: string;
+  query?: string;
 }
 
 export interface MenuItem {

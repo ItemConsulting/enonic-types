@@ -51,35 +51,35 @@ export interface RunContext {
   /**
    * Repository context.
    */
-  readonly repository?: string;
+  repository?: string;
 
   /**
    * Branch context.
    */
-  readonly branch?: string;
+  branch?: string;
 
   /**
    * Specify a valid user/idprovider combination
    */
-  readonly user?: {
+  user?: {
     /**
      * User
      */
-    readonly login: string;
+    login: string;
 
     /**
      * ID provider
      */
-    readonly idProvider?: string;
+    idProvider?: string;
   };
 
   /**
    * Roles or group principals applicable for current user
    */
-  readonly principals?: ReadonlyArray<string>;
+  principals?: ReadonlyArray<string>;
 
   /**
    * Custom attributes
    */
-  readonly attributes?: { readonly [key: string]: string | boolean | number };
+  attributes?: { readonly [key: string]: string | boolean | number };
 }

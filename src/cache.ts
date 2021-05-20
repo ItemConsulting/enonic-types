@@ -13,12 +13,12 @@ export interface NewCacheParams {
   /**
    * Size of the cache (in number of items).
    */
-  readonly size: number;
+  size: number;
 
   /**
    * Expire time in number of seconds.
    */
-  readonly expire: number;
+  expire: number;
 }
 
 export interface Cache {

@@ -50,53 +50,53 @@ export interface ProjectLibrary {
 
 type ProjectRoleId = "owner" | "editor" | "author" | "contributor" | "viewer";
 
-type ProjectPermissions = Record<ProjectRoleId, ReadonlyArray<string>>;
+type ProjectPermissions = Record<ProjectRoleId, Array<string>>;
 
 export interface ReadAccess {
   /**
    * Public read access (READ permissions for system.everyone).
    */
-  readonly public: boolean;
+  public: boolean;
 }
 
 export interface Project {
   /**
    * Unique project id (alpha-numeric characters and hyphens allowed).
    */
-  readonly id: string;
+  id: string;
 
   /**
    * Project display name.
    */
-  readonly displayName: string;
+  displayName: string;
 
   /**
    * Parent project id. If provided, the new project will be a Content Layer that automatically inherits changes from
    * the parent project.
    * @since 7.6.0
    */
-  readonly parent: string;
+  parent: string;
 
   /**
    * Project description.
    */
-  readonly description?: string;
+  description?: string;
 
   /**
    * Default project language.
    */
-  readonly language?: string;
+  language?: string;
 
   /**
    * Project permissions. 1 to 5 properties where key is role id and value is an array of principals.
    */
-  readonly permissions?: ProjectPermissions;
+  permissions?: ProjectPermissions;
 
   // Note: In XP8 `readAccess` can not be undefined
   /**
    * Read access settings.
    */
-  readonly readAccess?: ReadAccess;
+  readAccess?: ReadAccess;
 }
 
 export type CreateProjectParams = Project;
@@ -105,48 +105,48 @@ export interface DeleteProjectParams {
   /**
    * Unique project id to identify the project.
    */
-  readonly id: string;
+  id: string;
 }
 
 export interface GetProjectParams {
   /**
    * Unique project id to identify the project.
    */
-  readonly id: string;
+  id: string;
 }
 
 export interface ModifyProjectParams {
   /**
    * Unique project id (alpha-numeric characters and hyphens allowed).
    */
-  readonly id: string;
+  id: string;
 
   /**
    * Project display name.
    */
-  readonly displayName: string;
+  displayName: string;
 
   /**
    * Project description.
    */
-  readonly description?: string;
+  description?: string;
 
   /**
    * Default project language.
    */
-  readonly language?: string;
+  language?: string;
 }
 
 export interface ModifyReadAccessParams {
   /**
    * Unique project id (alpha-numeric characters and hyphens allowed).
    */
-  readonly id: string;
+  id: string;
 
   /**
    * Read access settings.
    */
-  readonly readAccess: ReadAccess;
+  readAccess: ReadAccess;
 }
 
 export type ModifyReadAccessResult = ModifyReadAccessParams;
@@ -155,22 +155,22 @@ export interface AddPermissionsParams {
   /**
    * Unique project id to identify the project.
    */
-  readonly id: string;
+  id: string;
 
   /**
    * Project permissions to add. 1 to 5 properties where key is role id and value is an array of principals.
    */
-  readonly permissions: ProjectPermissions;
+  permissions: ProjectPermissions;
 }
 
 export interface RemovePermissionsParams {
   /**
    * Unique project id (alpha-numeric characters and hyphens allowed).
    */
-  readonly id: string;
+  id: string;
 
   /**
    * Project permissions to delete. 1 to 5 properties where key is role id and value is an array of principals.
    */
-  readonly permissions: ProjectPermissions;
+  permissions: ProjectPermissions;
 }

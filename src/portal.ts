@@ -154,35 +154,35 @@ export interface PortalLibrary {
 }
 
 export interface IdProviderUrlParams {
-  readonly idProvider?: string;
-  readonly contextPath?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  idProvider?: string;
+  contextPath?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface ImagePlaceHolderParams {
-  readonly width: number;
-  readonly height: number;
+  width: number;
+  height: number;
 }
 
 export interface AssetUrlParams {
-  readonly path: string;
-  readonly application?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  path: string;
+  application?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export type AttachmentUrlParams = XOR<ById, ByPath> & {
-  readonly name?: string;
-  readonly label?: string; // source
-  readonly download?: boolean;
-  readonly params?: Params;
-  readonly type?: "server" | "absolute";
+  name?: string;
+  label?: string; // source
+  download?: boolean;
+  params?: Params;
+  type?: "server" | "absolute";
 }
 
 export declare type ComponentUrlParams = XOR<ByComponent, XOR<ById, ByPath>> & {
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  type?: "server" | "absolute";
+  params?: Params;
 };
 
 export type ImageScale =
@@ -194,51 +194,51 @@ export type ImageScale =
   | `width(${number})`;
 
 export type ImageUrlParams = XOR<ById, ByPath> & {
-  readonly scale: ImageScale;
-  readonly quality?: number;
-  readonly background?: string;
-  readonly format?: string;
-  readonly filter?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  scale: ImageScale;
+  quality?: number;
+  background?: string;
+  format?: string;
+  filter?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export type PageUrlParams = XOR<ById, ByPath> & {
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface LoginUrlParams {
-  readonly idProvider?: string;
-  readonly redirect?: string;
-  readonly contextPath?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  idProvider?: string;
+  redirect?: string;
+  contextPath?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface LogoutUrlParams {
-  readonly redirect?: string;
-  readonly contextPath?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  redirect?: string;
+  contextPath?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface ServiceUrlParams {
-  readonly service: string;
-  readonly application?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  service: string;
+  application?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface UrlParams {
-  readonly path?: string;
-  readonly type?: "server" | "absolute";
-  readonly params?: Params;
+  path?: string;
+  type?: "server" | "absolute";
+  params?: Params;
 }
 
 export interface ProcessHtmlParams {
-  readonly value: string;
-  readonly type?: "server" | "absolute";
+  value: string;
+  type?: "server" | "absolute";
 }
 
 export interface MultipartItem {

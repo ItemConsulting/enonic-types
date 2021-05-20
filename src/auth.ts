@@ -51,7 +51,7 @@ export interface AuthLibrary {
   /**
    * Adds members to a principal (user or role).
    */
-  addMembers(principalKey: string, members: ReadonlyArray<string>): void;
+  addMembers(principalKey: string, members: Array<string>): void;
 
   /**
    * Returns a list of principals that are members of the specified principal.
@@ -61,7 +61,7 @@ export interface AuthLibrary {
   /**
    * Removes members from a principal (group or role).
    */
-  removeMembers(principalKey: string, members: ReadonlyArray<string>): void;
+  removeMembers(principalKey: string, members: Array<string>): void;
 
   /**
    * Returns the principal with the specified key.
@@ -123,33 +123,33 @@ export interface LoginParams {
   /**
    * Mandatory name of the user to log in
    */
-  readonly user: string;
+  user: string;
 
   /**
    * Password for the user. Ignored if skipAuth is set to true, mandatory otherwise.
    */
-  readonly password?: string;
+  password?: string;
 
   /**
    * Name of id provider where the user is stored. If not specified it will try all available id providers,
    * in alphabetical order.
    */
-  readonly idProvider?: string;
+  idProvider?: string;
 
   /**
    * Skip authentication. Default is false if not specified.
    */
-  readonly skipAuth?: boolean;
+  skipAuth?: boolean;
 
   /**
    * Session timeout (in seconds). By default, the value of session.timeout from com.enonic.xp.web.jetty.cfg
    */
-  readonly sessionTimeout?: number;
+  sessionTimeout?: number;
 
   /**
    * Defines the scope of the login.
    */
-  readonly scope?: 'SESSION' | 'REQUEST'
+  scope?: 'SESSION' | 'REQUEST'
 }
 
 export interface LoginResult {
@@ -158,8 +158,8 @@ export interface LoginResult {
 }
 
 export interface ChangePasswordParams {
-  readonly userKey: string;
-  readonly password: string;
+  userKey: string;
+  password: string;
 }
 
 export interface Principal {
@@ -189,25 +189,25 @@ export interface Group extends Principal {
 }
 
 export interface FindPrincipalsParams {
-  readonly type?: string;
-  readonly idProvider?: string;
-  readonly start?: string;
-  readonly count?: string;
-  readonly name?: string;
-  readonly searchText?: string;
+  type?: string;
+  idProvider?: string;
+  start?: string;
+  count?: string;
+  name?: string;
+  searchText?: string;
 }
 
 export interface FindPrincipalsResult {
-  readonly total: number;
-  readonly count: number;
-  readonly hits: ReadonlyArray<Principal>;
+  total: number;
+  count: number;
+  hits: ReadonlyArray<Principal>;
 }
 
 export interface FindUsersParams {
-  readonly start?: number;
-  readonly count: number;
-  readonly query: string;
-  readonly sort?: string;
+  start?: number;
+  count: number;
+  query: string;
+  sort?: string;
 }
 
 export interface UserQueryResult<User> {
@@ -217,58 +217,58 @@ export interface UserQueryResult<User> {
 }
 
 export interface ModifyUserParams {
-  readonly key: string;
-  readonly editor: (c: User) => User;
+  key: string;
+  editor: (c: User) => User;
 }
 
 export interface GetProfileParams {
-  readonly principalKey: string;
-  readonly scope?: string;
+  principalKey: string;
+  scope?: string;
 }
 
 export interface ModifyProfileParams<Profile> {
   /**
    * Principal key of the user.
    */
-  readonly key: string;
+  key: string;
 
   /**
    * Scope of the data to retrieve and update.
    */
-  readonly scope?: string;
+  scope?: string;
 
   /**
    * Profile editor function to apply.
    */
-  readonly editor: (c: Profile) => Profile;
+  editor: (c: Profile) => Profile;
 }
 
 export interface ModifyGroupParams {
-  readonly key: string;
-  readonly editor: (c: Group) => Group;
+  key: string;
+  editor: (c: Group) => Group;
 }
 
 export interface ModifyRoleParams {
-  readonly key: string;
-  readonly editor: (c: Role) => Role;
+  key: string;
+  editor: (c: Role) => Role;
 }
 
 export interface CreateUserParams {
-  readonly idProvider: string;
-  readonly name: string;
-  readonly displayName: string;
-  readonly email?: string;
+  idProvider: string;
+  name: string;
+  displayName: string;
+  email?: string;
 }
 
 export interface CreateRoleParams {
-  readonly name: string;
-  readonly displayName: string;
-  readonly description?: string;
+  name: string;
+  displayName: string;
+  description?: string;
 }
 
 export interface CreateGroupParams {
-  readonly idProvider: string;
-  readonly name: string;
-  readonly displayName: string;
-  readonly description: string;
+  idProvider: string;
+  name: string;
+  displayName: string;
+  description: string;
 }

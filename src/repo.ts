@@ -11,25 +11,25 @@ export interface RepoLibrary {
 }
 
 export interface IndexDefinition {
-  readonly settings: any;
-  readonly mapping: any;
+  settings: any;
+  mapping: any;
 }
 
 export interface CreateRepoParams {
-  readonly id: string;
-  readonly rootPermissions?: ReadonlyArray<PermissionsParams>;
-  readonly settings?: {
-    readonly definitions?: {
-      readonly search?: IndexDefinition;
-      readonly version?: IndexDefinition;
-      readonly branch?: IndexDefinition;
+  id: string;
+  rootPermissions?: ReadonlyArray<PermissionsParams>;
+  settings?: {
+    definitions?: {
+      search?: IndexDefinition;
+      version?: IndexDefinition;
+      branch?: IndexDefinition;
     };
   };
 }
 
 export interface CreateBranchParams {
-  readonly branchId: string;
-  readonly repoId: string;
+  branchId: string;
+  repoId: string;
 }
 
 export interface RepositoryConfig {
@@ -39,12 +39,12 @@ export interface RepositoryConfig {
 }
 
 export interface RefreshParams {
-  readonly mode?: string;
-  readonly repo?: string;
-  readonly branch?: string;
+  mode?: string;
+  repo?: string;
+  branch?: string;
 }
 
 export interface DeleteBranchParams {
-  readonly branchId: string;
-  readonly repoId: string;
+  branchId: string;
+  repoId: string;
 }

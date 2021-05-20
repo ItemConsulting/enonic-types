@@ -12,6 +12,6 @@ export interface ThymeleafLibrary {
 }
 
 export interface ThymeleafRenderOptions {
-  readonly mode: "HTML" | "XML" | "TEXT" | "JAVASCRIPT" | "CSS" | "RAW";
+  mode: "HTML" | "XML" | "TEXT" | "JAVASCRIPT" | "CSS" | "RAW";
 }
 

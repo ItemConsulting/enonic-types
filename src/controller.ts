@@ -56,13 +56,13 @@ export interface PageContributions {
 }
 
 export interface Cookie {
-  readonly value: string;
-  readonly path?: string;
-  readonly domain?: string;
-  readonly comment?: string;
-  readonly maxAge?: number;
-  readonly secure?: boolean;
-  readonly httpOnly?: boolean;
+  value: string;
+  path?: string;
+  domain?: string;
+  comment?: string;
+  maxAge?: number;
+  secure?: boolean;
+  httpOnly?: boolean;
 }
 
 /**
@@ -97,9 +97,9 @@ export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
 }
 
 export interface CustomSelectorServiceResponseBody {
-  readonly total: number;
-  readonly count: number;
-  readonly hits: Array<CustomSelectorServiceResponseHit>;
+  total: number;
+  count: number;
+  hits: Array<CustomSelectorServiceResponseHit>;
 }
 
 /**
@@ -108,13 +108,13 @@ export interface CustomSelectorServiceResponseBody {
 export type CustomSelectorServiceResponse = Response<CustomSelectorServiceResponseBody>;
 
 export interface CustomSelectorServiceResponseHit {
-  readonly id: string;
-  readonly displayName: string;
-  readonly description?: string;
-  readonly iconUrl?: string;
-  readonly icon?: {
-    readonly data: string;
-    readonly type: string;
+  id: string;
+  displayName: string;
+  description?: string;
+  iconUrl?: string;
+  icon?: {
+    data: string;
+    type: string;
   };
 }
 

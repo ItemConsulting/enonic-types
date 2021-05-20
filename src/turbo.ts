@@ -56,8 +56,8 @@ export interface TurboStreamsLibrary {
    * Serializes actions to frames that can be sent over the wire
    */
   serialize(action: TurboStreamAction): string;
-  serialize(actions: ReadonlyArray<TurboStreamAction>): string;
-  serialize(actions: TurboStreamAction | ReadonlyArray<TurboStreamAction>): string;
+  serialize(actions: Array<TurboStreamAction>): string;
+  serialize(actions: TurboStreamAction | Array<TurboStreamAction>): string;
 
   /**
    * Checks the request header if the response can be of mime type "text/vnd.turbo-stream.html"
@@ -72,17 +72,17 @@ export interface TurboStreamChangeAction {
   /**
    * Action to perform
    */
-  readonly action: "append" | "prepend" | "replace" | "update";
+  action: "append" | "prepend" | "replace" | "update";
 
   /**
    * Dom ID to update
    */
-  readonly target: string;
+  target: string;
 
   /**
    * The new content to insert into the dom
    */
-  readonly content: string;
+  content: string;
 }
 
 /**
@@ -92,12 +92,12 @@ export interface TurboStreamRemoveAction {
   /**
    * Action to perform
    */
-  readonly action: "remove";
+  action: "remove";
 
   /**
    * Dom ID to update
    */
-  readonly target: string;
+  target: string;
 }
 
 /**
@@ -129,7 +129,7 @@ interface BySocketId {
    * The web socket id to send to.
    * Default value is socket id stored on user session by websocket service
    */
-  readonly socketId: string;
+  socketId: string;
 }
 
 /**
@@ -139,7 +139,7 @@ interface ByGroupId {
   /**
    * A group of web socket connections to send content to
    */
-  readonly groupId?: string;
+  groupId?: string;
 }
 
 /**
@@ -151,5 +151,5 @@ type SendByWebSocketTarget = XOR<BySocketId, ByGroupId>;
  * Params for configuring web socket urls
  */
 export interface GetWebSocketUrlParams {
-  readonly service: string;
+  service: string;
 }

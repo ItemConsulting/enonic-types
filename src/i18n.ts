@@ -5,9 +5,9 @@ export interface I18nLibrary {
 }
 
 export interface LocalizeParams {
-  readonly key: string;
-  readonly locale?: string | ReadonlyArray<string>;
-  readonly values?: ReadonlyArray<string>;
-  readonly bundles?: ReadonlyArray<string>;
-  readonly application?: string;
+  key: string;
+  locale?: string | ReadonlyArray<string>;
+  values?: ReadonlyArray<string>;
+  bundles?: ReadonlyArray<string>;
+  application?: string;
 }

@@ -17,17 +17,17 @@ export interface NodeLibrary {
 }
 
 export interface Source {
-  readonly repoId: string;
-  readonly branch: string;
-  readonly user?: {
-    readonly login: string;
-    readonly idProvider?: string;
+  repoId: string;
+  branch: string;
+  user?: {
+    login: string;
+    idProvider?: string;
   };
-  readonly principals?: ReadonlyArray<string>;
+  principals?: Array<string>;
 }
 
 export interface MultiRepoConnectParams {
-  sources: ReadonlyArray<Source>;
+  sources: Array<Source>;
 }
 
 export interface NodeQueryHit {
@@ -358,34 +358,34 @@ export interface PushNodeParams {
   /**
    * Id or path to the nodes
    */
-  readonly key: string;
+  key: string;
 
   /**
    * Array of ids or paths to the nodes
    */
-  readonly keys: ReadonlyArray<string>;
+  keys: Array<string>;
 
   /**
    * Branch to push to
    */
-  readonly target: string;
+  target: string;
 
   /**
    * Also push children of given nodes. Default is false.
    */
-  readonly includeChildren?: boolean
+  includeChildren?: boolean
 
   /**
    * Resolve dependencies before pushing, meaning that references will also be pushed. Default is true.
    */
-  readonly resolve?: boolean
+  resolve?: boolean
 
   /**
    * Optional array of ids or paths to nodes not to be pushed.
    * If using this, be aware that nodes need to maintain data integrity (e.g parents must be present in target).
    * If data integrity is not maintained with excluded nodes, they will be pushed anyway.
    */
-  readonly exclude?: ReadonlyArray<string>
+  exclude?: Array<string>
 }
 
 export interface PushNodeResult {
@@ -398,37 +398,37 @@ export interface PushNodeResult {
 }
 
 export interface SetChildOrderParams {
-  readonly key: string;
-  readonly childOrder: string;
+  key: string;
+  childOrder: string;
 }
 
 export interface SetRootPermissionParams {
-  readonly _permissions: ReadonlyArray<PermissionsParams>;
-  readonly _inheritsPermissions: boolean;
+  _permissions: ReadonlyArray<PermissionsParams>;
+  _inheritsPermissions: boolean;
 }
 
 export interface CommitParams {
   /**
    * Node key to commit. It could be an id or a path. Prefer the usage of ID rather than paths.
    */
-  readonly keys: string;
+  keys: string;
 
   /**
    * Optional commit message
    */
-  readonly message?: string;
+  message?: string;
 }
 
 export interface MultiCommitParams {
   /**
    * Node keys to commit. Each argument could be an array of the ids and paths. Prefer the usage of ID rather than paths.
    */
-  readonly keys: ReadonlyArray<string>;
+  keys: Array<string>;
 
   /**
    * Optional commit message
    */
-  readonly message?: string;
+  message?: string;
 }
 
 export interface CommitResponse {
@@ -442,19 +442,19 @@ export interface NodeGetParams {
   /**
    * Path or ID of the node.
    */
-  readonly key: string;
+  key: string;
 
   /**
    * Version to get
    */
-  readonly versionId: string;
+  versionId: string;
 }
 
 export interface GetActiveVersionParams {
   /**
    * Path or ID of the node
    */
-  readonly key: string;
+  key: string;
 }
 
 export interface SetActiveVersionParams {
@@ -473,15 +473,15 @@ export interface FindVersionsParams {
   /**
    * Path or ID of parent to get children of
    */
-  readonly key: string;
+  key: string;
   /**
    * start index used for paging - default: 0
    */
-  readonly start?: number;
+  start?: number;
   /**
    * number of content to fetch, used for paging - default: 10
    */
-  readonly count?: number;
+  count?: number;
 }
 
 export interface NodeVersionQueryResult {
@@ -502,15 +502,15 @@ export interface DiffParams {
   /**
    * Path or id to resolve diff for
    */
-  readonly key: string;
+  key: string;
   /**
    * Branch to differentiate with
    */
-  readonly target: string;
+  target: string;
   /**
    * If set to true, differences are resolved for all children.
    */
-  readonly includeChildren?: boolean;
+  includeChildren?: boolean;
 }
 
 export type CompareStatus =
