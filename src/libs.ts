@@ -1,5 +1,3 @@
-import { QRCodeLibrary } from "./qr";
-
 export interface EnonicLibraryMap {
   "/lib/xp/admin": import("./admin").AdminLibrary;
   "/lib/xp/auth": import("./auth").AuthLibrary;
