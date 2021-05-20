@@ -15,6 +15,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/io": import("./io").IOLibrary;
   "/lib/xp/mail": import("./mail").MailLibrary;
   "/lib/menu": import("./menu").MenuLibrary;
+  "/lib/mustache": import("./mustache").MustacheLibrary;
   "/lib/xp/node": import("./node").NodeLibrary;
   "/lib/notifications": import("./notifications").NotificationsLibrary;
   "/lib/xp/portal": import("./portal").PortalLibrary;

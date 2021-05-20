@@ -77,6 +77,10 @@ declare module "*/lib/menu" {
   const lib: import("./menu").MenuLibrary;
   export = lib;
 }
+declare module "*/lib/mustache" {
+  const lib: import("./mustache").MustacheLibrary;
+  export = lib;
+}
 
 declare module "*/lib/xp/node" {
   const lib: import("./node").NodeLibrary;
