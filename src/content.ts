@@ -339,13 +339,17 @@ export type Aggregation =
   | RangeAggregation
   | GeoDistanceAggregation
   | DateRangeAggregation
-  | DateHistogramAggregation;
+  | DateHistogramAggregation
+  | MinAggregation
+  | MaxAggregation
+  | ValueCountAggregation;
 
 export interface TermsAggregation {
   terms: {
     field: string;
     order: string;
     size: number;
+    minDocCount?: number;
   };
   aggregations?: {
     [subaggregation: string]: Aggregation;
@@ -422,6 +426,42 @@ export interface DateHistogramAggregation {
     interval: string;
     minDocCount: number;
     format: string;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+/**
+ * @since 7.7.0
+ */
+export interface MinAggregation {
+  min: {
+    field: string;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+/**
+ * @since 7.7.0
+ */
+export interface MaxAggregation {
+  max: {
+    field: string;
+  };
+  aggregations?: {
+    [subaggregation: string]: Aggregation;
+  };
+}
+
+/**
+ * @since 7.7.0
+ */
+export interface ValueCountAggregation {
+  count: {
+    field: string;
   };
   aggregations?: {
     [subaggregation: string]: Aggregation;
