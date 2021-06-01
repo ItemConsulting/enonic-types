@@ -24,6 +24,7 @@ export interface EnonicLibraryMap {
   "/lib/recaptcha": import("./recaptcha").RecaptchaLibrary;
   "/lib/xp/repo": import("./repo").RepoLibrary;
   "/lib/router": import("./router").RouterLib;
+  "/lib/xp/scheduler": import("./scheduler").SchedulerLibrary;
   "/lib/session": import("./session").SessionLibrary;
   "/lib/enonic/static": import("./static").StaticLibrary;
   "/lib/sql": import("./sql").SqlLibrary;

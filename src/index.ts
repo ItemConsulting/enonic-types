@@ -122,6 +122,11 @@ declare module "*/lib/router" {
   export = lib;
 }
 
+declare module "*/lib/xp/scheduler" {
+  const lib: import("./scheduler").SchedulerLibrary;
+  export = lib;
+}
+
 declare module "*/lib/session" {
   const lib: import("./session").SessionLibrary;
   export = lib;
