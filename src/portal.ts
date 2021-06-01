@@ -237,8 +237,22 @@ export interface UrlParams {
 }
 
 export interface ProcessHtmlParams {
+  /**
+   * Html value string to process.
+   */
   value: string;
+
+  /**
+   * URL type. Either server (server-relative URL) or absolute.
+   */
   type?: "server" | "absolute";
+
+  /**
+   * A comma-separated list of image widths. If this parameter is provided, all <img> tags will have an additional
+   * srcset attribute with image URLs generated for specified widths.
+   * @since 7.7.0
+   */
+  imageWidths?: Array<number>;
 }
 
 export interface MultipartItem {
