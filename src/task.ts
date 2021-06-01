@@ -33,14 +33,29 @@ export interface TaskLibrary {
   /**
    * Submits an inlined task (function) to be executed in the background. Returns an id representing the task.
    * This function returns immediately. The callback function will be executed asynchronously.
+   * @deprecated Please use {@link executeFunction}.
    */
   submit(params: SubmitParams): string;
 
   /**
+   * Runs a task function in the background and returns an id representing the task.
+   * This function returns immediately. The callback function will be executed asynchronously.
+   * @since 7.7.0
+   */
+  executeFunction(params: ExecuteFunctionParams): string;
+
+  /**
    * Submits a named task to be executed in the background and returns an id representing the task.
    * This function returns immediately. The callback function will be executed asynchronously.
+   * @deprecated Please use {@link submitTask}.
    */
   submitNamed<Config extends object = never>(params: SubmitNamedParams<Config>): string;
+
+  /**
+   * Submits a task to be executed in the background and returns an id representing the task.
+   * This function returns immediately. The callback function will be executed asynchronously.
+   */
+  submitTask<Config extends object = never>(params: SubmitTaskParams<Config>): string;
 }
 
 export type TaskState = "WAITING" | "RUNNING" | "FINISHED" | "FAILED";
@@ -116,6 +131,9 @@ export interface ProgressParams {
   info: string;
 }
 
+/**
+ * @deprecated
+ */
 export interface SubmitParams {
   /**
    * Text describing the task to be executed
@@ -128,12 +146,47 @@ export interface SubmitParams {
   task: () => void;
 }
 
+/**
+ * @since 7.7.0
+ */
+export interface ExecuteFunctionParams {
+  /**
+   * Text describing the task to be executed
+   */
+  description: string;
+
+  /**
+   * Callback function to be executed asynchronously.
+   */
+  func: () => void;
+}
+
+/**
+ * @deprecated
+ */
 export interface SubmitNamedParams<Config extends object = never> {
   /**
    * Name of the task to execute.
    * Name can be relative to the current application, or a fully qualified task name (<appname>:<taskname>)
    */
   name: string;
+
+  /**
+   * Configuration parameters to pass to the task to be executed.
+   * The object must be valid according to the schema defined in the form of the task descriptor XML.
+   */
+  config?: Config;
+}
+
+/**
+ * @since 7.7.0
+ */
+export interface SubmitTaskParams<Config extends object = never> {
+  /**
+   * Name of the task to execute.
+   * Name can be relative to the current application, or a fully qualified task name (<appname>:<taskname>)
+   */
+  descriptor: string;
 
   /**
    * Configuration parameters to pass to the task to be executed.
