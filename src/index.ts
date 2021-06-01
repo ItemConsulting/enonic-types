@@ -127,6 +127,11 @@ declare module "*/lib/session" {
   export = lib;
 }
 
+declare module "*/lib/sql" {
+  const lib: import("./sql").SqlLibrary;
+  export = lib;
+}
+
 declare module "*/lib/enonic/static" {
   const lib: import("./static").StaticLibrary;
   export = lib;
