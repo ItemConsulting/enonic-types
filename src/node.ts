@@ -296,6 +296,12 @@ export interface RepoConnection {
   ): (NodeData & RepoNode) | ReadonlyArray<NodeData & RepoNode>;
 
   /**
+   * This function fetches commit by id.
+   * @since 7.7.0
+   */
+  getCommit(params: GetCommitParams): CommitResponse;
+
+  /**
    * This function returns the active version of a node.
    */
   getActiveVersion(params: GetActiveVersionParams): any;
@@ -447,6 +453,10 @@ export interface NodeGetParams {
    * Version to get
    */
   versionId: string;
+}
+
+export interface GetCommitParams {
+  id: string;
 }
 
 export interface GetActiveVersionParams {
