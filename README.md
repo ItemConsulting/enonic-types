@@ -37,17 +37,24 @@ We have an Enonic service that returns an article by id.
 ```typescript
 import { Request, Response } from "enonic-types/controller";
 import { Article } from "../../site/content-types/article/article"; // 1
-import contentLib from "/lib/xp/content"; // 2
+import * as contentLib from "/lib/xp/content"; // 2
 
 export function get(req: Request): Response { // 3
-  const content = contentLib.get<Article>({ key: req.params.id! });
+  const content = contentLib.get<Article>({ 
+    key: req.params.id!
+  });
 
   if (content !== null) { // 4
     const article: Article = content.data;
 
-    return { status: 200, body: article }
+    return {
+      status: 200,
+      body: article
+    }
   } else {
-    return { status: 404 };
+    return { 
+      status: 404
+    };
   }
 }
 ```
