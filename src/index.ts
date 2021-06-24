@@ -3,6 +3,11 @@ declare module "*/lib/xp/admin" {
   export = lib;
 }
 
+declare module "*/lib/xp/auditlog" {
+  const lib: import("./auditlog").AuditLogLibrary;
+  export = lib;
+}
+
 declare module "*/lib/xp/auth" {
   const lib: import("./auth").AuthLibrary;
   export = lib;

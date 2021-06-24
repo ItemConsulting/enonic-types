@@ -77,6 +77,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
 ## Supported libraries
 
  * [AdminLibrary](./src/admin.ts)
+ * [AuditLogLibrary](src/auditlog.ts)
  * [AuthLibrary](./src/auth.ts)
  * [CacheLibrary](./src/cache.ts)
  * [ClusterLibrary](./src/cluster.ts)
