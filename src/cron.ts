@@ -1,6 +1,9 @@
 import { RunContext } from "./context";
 import { XOR } from "./types";
 
+/**
+ * @deprecated since 7.7.0 Please use {@link SchedulerLibrary}.
+ */
 export interface CronLibrary {
   /**
    * Schedule a task
