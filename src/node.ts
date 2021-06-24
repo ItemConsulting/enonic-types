@@ -241,11 +241,27 @@ export interface RepoNode {
   readonly _nodeType: string;
 }
 
-export interface MultiRepoConnection {
-  query<AggregationKeys extends string>(params: NodeQueryParams<AggregationKeys>): NodeQueryResponse<AggregationKeys>;
+/**
+ * Common interface for MultiRepoConnection and RepoConnection
+ */
+export interface QueryableRepoConnection {
+  /**
+   * This command queries nodes.
+   */
+  query<AggregationKeys extends string = never>(
+    params: NodeQueryParams<AggregationKeys>
+  ): NodeQueryResponse<AggregationKeys>;
 }
 
-export interface RepoConnection {
+/**
+ * A MultiRepoConnection makes it possible to search across multiple repositories. The object has only one method: query.
+ */
+export type MultiRepoConnection = QueryableRepoConnection;
+
+/**
+ * A single repo connections with lots of methods to work on the repo
+ */
+export interface RepoConnection extends QueryableRepoConnection {
   /**
    * Commits the active version of nodes.
    */
@@ -315,13 +331,6 @@ export interface RepoConnection {
    * This function returns a binary stream.
    */
   getBinary(params: GetBinaryParams): ByteSource;
-
-  /**
-   * This command queries nodes.
-   */
-  query<AggregationKeys extends string = never>(
-    params: NodeQueryParams<AggregationKeys>
-  ): NodeQueryResponse<AggregationKeys>;
 
   /**
    * Refresh the index for the current repoConnection
