@@ -80,16 +80,21 @@ export interface ErrorRequest {
 }
 
 /**
+ * Predefined parameters that CustomSelector service always has
+ */
+export interface CustomSelectorServiceRequestParams {
+  readonly count: string;
+  readonly start?: string;
+  readonly ids?: string;
+  readonly query?: string;
+  readonly [key: string]: string | undefined;
+}
+
+/**
  * This Request can be used by a Service that provides data to a CustomSelector input field
  */
 export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
-  params: {
-    readonly count: string;
-    readonly start?: string;
-    readonly ids?: string;
-    readonly query?: string;
-    readonly [key: string]: string | undefined;
-  };
+  params: CustomSelectorServiceRequestParams;
 };
 
 export interface CustomSelectorServiceResponseBody {
