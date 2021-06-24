@@ -35,12 +35,24 @@ export interface NodeQueryHit {
   readonly score: number;
 }
 
+export interface MultiRepoNodeQueryHit extends NodeQueryHit {
+  readonly repoId: string;
+  readonly branch: string;
+}
+
 export interface NodeQueryResponse<AggregationKeys extends string = never> {
   readonly total: number;
   readonly count: number;
   readonly hits: ReadonlyArray<NodeQueryHit>;
   readonly aggregations: AggregationsResponse<AggregationKeys>;
 }
+
+export type MultiRepoNodeQueryResponse<AggregationKeys extends string = never> = Omit<
+  NodeQueryResponse<AggregationKeys>,
+  "hits"
+> & {
+  hits: ReadonlyArray<MultiRepoNodeQueryHit>;
+};
 
 export interface GetBinaryParams {
   /**
@@ -241,27 +253,13 @@ export interface RepoNode {
   readonly _nodeType: string;
 }
 
-/**
- * Common interface for MultiRepoConnection and RepoConnection
- */
-export interface QueryableRepoConnection {
-  /**
-   * This command queries nodes.
-   */
-  query<AggregationKeys extends string = never>(
+export interface MultiRepoConnection {
+  query<AggregationKeys extends string>(
     params: NodeQueryParams<AggregationKeys>
-  ): NodeQueryResponse<AggregationKeys>;
+  ): MultiRepoNodeQueryResponse<AggregationKeys>;
 }
 
-/**
- * A MultiRepoConnection makes it possible to search across multiple repositories. The object has only one method: query.
- */
-export type MultiRepoConnection = QueryableRepoConnection;
-
-/**
- * A single repo connections with lots of methods to work on the repo
- */
-export interface RepoConnection extends QueryableRepoConnection {
+export interface RepoConnection {
   /**
    * Commits the active version of nodes.
    */
@@ -331,6 +329,13 @@ export interface RepoConnection extends QueryableRepoConnection {
    * This function returns a binary stream.
    */
   getBinary(params: GetBinaryParams): ByteSource;
+
+  /**
+   * This command queries nodes.
+   */
+  query<AggregationKeys extends string = never>(
+    params: NodeQueryParams<AggregationKeys>
+  ): NodeQueryResponse<AggregationKeys>;
 
   /**
    * Refresh the index for the current repoConnection
