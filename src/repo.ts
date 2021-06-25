@@ -4,7 +4,7 @@ export interface RepoLibrary {
   /**
    * Creates a repository.
    */
-  create(params: CreateRepoParams): RepositoryConfig<EmptyObject>;
+  create(params: CreateRepoParams): RepositoryConfig;
 
   /**
    * Creates a branch
@@ -71,7 +71,7 @@ export interface CreateBranchParams {
   repoId: string;
 }
 
-export interface RepositoryConfig<Data> {
+export interface RepositoryConfig<Data = EmptyObject> {
   readonly id: string;
   readonly branches: ReadonlyArray<string>;
   readonly settings: RepositorySettings;
