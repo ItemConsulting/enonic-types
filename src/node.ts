@@ -26,8 +26,13 @@ export interface Source {
   principals?: Array<string>;
 }
 
+// Multi repo connect requires principles to be present for sources
+export type SourceWithPrincipals = Omit<Source, "principals"> & {
+  principals: Array<string>;
+};
+
 export interface MultiRepoConnectParams {
-  sources: Array<Source>;
+  sources: Array<SourceWithPrincipals>;
 }
 
 export interface NodeQueryHit {
@@ -66,7 +71,7 @@ export interface GetBinaryParams {
   binaryReference: string;
 }
 
-export interface NodeQueryParams<AggregationKeys extends string> {
+export interface NodeQueryParams<AggregationKeys extends string = never> {
   /**
    * Start index (used for paging).
    */
@@ -80,7 +85,7 @@ export interface NodeQueryParams<AggregationKeys extends string> {
   /**
    * Query expression.
    */
-  readonly query: string;
+  readonly query?: string;
 
   /**
    * Query filters

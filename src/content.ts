@@ -1,6 +1,6 @@
 import { Region } from "./portal";
 
-type EmptyObject = Record<string, never>;
+export type EmptyObject = Record<string, never>;
 
 export interface ContentLibrary {
   /**
