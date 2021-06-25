@@ -2,7 +2,8 @@ import { RunContext } from "./context";
 import { XOR } from "./types";
 
 /**
- * @deprecated since 7.7.0 Please use {@link SchedulerLibrary}.
+ * Since 7.7.0 you can use {@link SchedulerLibrary} to be safe for custers
+ * https://discuss.enonic.com/t/scheduler-task-and-cron-what-to-use-where/2539/6
  */
 export interface CronLibrary {
   /**
