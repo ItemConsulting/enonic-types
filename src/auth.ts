@@ -222,7 +222,7 @@ export interface ModifyUserParams {
 }
 
 export interface GetProfileParams {
-  principalKey: string;
+  key: string;
   scope?: string;
 }
 
