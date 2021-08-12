@@ -15,7 +15,7 @@ export interface Request {
   readonly webSocket?: boolean;
 }
 
-export type ResponseType = string | object | Array<any> | ReadonlyArray<any>;
+export type ResponseType = string | object | Array<any> | ReadonlyArray<any> | null;
 
 export interface Response<ResponseBody extends ResponseType = ResponseType> {
   status?: number;
