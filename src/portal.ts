@@ -53,7 +53,7 @@ export interface PortalLibrary {
   /**
    * This function returns a JSON containing multipart items.
    */
-  getMultipartForm(): ReadonlyArray<MultipartItem | ReadonlyArray<MultipartItem>>;
+  getMultipartForm(): Record<string, MultipartItem | ReadonlyArray<MultipartItem>>;
 
   /**
    * This function returns a JSON containing a named multipart item.
