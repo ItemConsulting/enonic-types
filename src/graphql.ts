@@ -157,6 +157,7 @@ export interface CreateEnumTypeParams {
 
 export interface GraphQLResolver {
   type: GraphQLType;
+  args?: Record<string, GraphQLScalarType>;
   resolve?: (env: any) => unknown;
 }
 
