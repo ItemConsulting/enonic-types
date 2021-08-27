@@ -17,7 +17,7 @@ export interface SchedulerLibrary {
   /**
    * Creates a scheduled job .
    */
-  create<Config = never>(params: CreateScheduledJobParams): ScheduledJob<Config>;
+  create<Config = never>(params: CreateScheduledJobParams<Config>): ScheduledJob<Config>;
 
   /**
    * Modifies a job. The previous task will be rescheduled, lastRun and lastTaskId properties will be cleaned.
@@ -51,7 +51,7 @@ export type ScheduleTypeCron = {
   /**
    * Time zone of cron scheduling.
    */
-  timezone: string;
+  timeZone: string;
 };
 
 export type ScheduleTypeOneTime = {
