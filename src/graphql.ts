@@ -1,3 +1,5 @@
+import type { Content } from "./content";
+
 export interface GraphQlPlaygroundLibrary {
   render(): string;
 }
@@ -15,11 +17,35 @@ export interface GraphQlLibrary {
   LocalDateTime: GraphQLLocalDateTime;
   LocalTime: GraphQLLocalTime;
 
+  /**
+   * Create an instance of SchemaGenerator
+   */
   newSchemaGenerator(): SchemaGenerator;
+
+  /**
+   * Returns a modified type that indicates a list of the underlying wrapped type
+   */
   list(type: GraphQLScalarType): GraphQLListType;
+
+  /**
+   * Returns a modified type that indicates the underlying wrapped type will not be null
+   */
   nonNull(type: GraphQLScalarType): GraphQLNonNullType;
+
+  /**
+   * Returns a special type that allows an object/interface type to reference a type by its key. Necessary for self reference.
+   */
   reference(typeKey: string): GraphQLScalarType;
-  execute<T>(schema: GraphQLSchema, query: string, variables: object, context?: object): T;
+
+  /**
+   * Executes a GraphQL query and variables against a schema
+   */
+  execute<ExecuteContext = undefined, Result = any>(
+    schema: GraphQLSchema,
+    query: string,
+    variables: object,
+    context?: ExecuteContext
+  ): Result;
 }
 
 export type GraphQLSchema = unknown & { kind?: "SCHEMA" };
@@ -133,12 +159,45 @@ export type GraphQLType =
   | GraphQLListType;
 
 export interface SchemaGenerator {
+  /**
+   * Creates a GraphQL schema
+   */
   createSchema(params: CreateSchemaParams): GraphQLSchema;
-  createPageInfoObjectType(params: CreatePageInfoObjectTypeParams): GraphQLInfoObjectType;
-  createObjectType(params: CreateObjectTypeParams): GraphQLObjectType;
-  createInputObjectType(params: CreateInputObjectTypeParams): GraphQLInputObjectType;
-  createInterfaceType(params: CreateInterfaceTypeParams): GraphQLInterfaceType;
-  createUnionType(params: CreateUnionTypeParams): GraphQLUnionType;
+
+  /**
+   * Creates a GraphQL page info object type
+   */
+  createPageInfoObjectType<ExecuteContext = undefined>(
+    params: CreatePageInfoObjectTypeParams<ExecuteContext>
+  ): GraphQLInfoObjectType;
+
+  /**
+   * Creates a GraphQL object type
+   */
+  createObjectType<ExecuteContext = undefined>(params: CreateObjectTypeParams<ExecuteContext>): GraphQLObjectType;
+
+  /**
+   * createInputObjectType
+   */
+  createInputObjectType<ExecuteContext = undefined>(
+    params: CreateInputObjectTypeParams<ExecuteContext>
+  ): GraphQLInputObjectType;
+
+  /**
+   * Creates a GraphQL interface type
+   */
+  createInterfaceType<ExecuteContext = undefined>(
+    params: CreateInterfaceTypeParams<ExecuteContext>
+  ): GraphQLInterfaceType;
+
+  /**
+   * Creates a GraphQL union type
+   */
+  createUnionType<ExecuteContext = undefined>(params: CreateUnionTypeParams<ExecuteContext>): GraphQLUnionType;
+
+  /**
+   * Creates a GraphQL enum type
+   */
   createEnumType(params: CreateEnumTypeParams): GraphQLEnumType;
 }
 
@@ -155,42 +214,48 @@ export interface CreateEnumTypeParams {
   readonly description?: string;
 }
 
-export interface GraphQLResolver {
+export interface GraphQLResolver<ExecuteContext> {
   type: GraphQLType;
   args?: Record<string, GraphQLType>;
-  resolve?: (env: any) => unknown;
+  resolve?: <Data extends object>(env: GraphQLResolverEnvironment<Data, ExecuteContext>) => unknown;
 }
 
-export interface CreateInterfaceTypeParams {
+export interface GraphQLResolverEnvironment<Data extends object, ExecuteContext> {
+  source: Content<Data>;
+  args: Record<string, any>;
+  context: ExecuteContext;
+}
+
+export interface CreateInterfaceTypeParams<ExecuteContext> {
   readonly name: string;
-  readonly fields: Record<string, GraphQLResolver>;
+  readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
   readonly typeResolver: (env: any) => any;
   readonly description?: string;
 }
 
-export interface CreateUnionTypeParams {
+export interface CreateUnionTypeParams<ExecuteContext> {
   readonly name: string;
-  readonly fields: Record<string, GraphQLResolver>;
+  readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
   readonly typeResolver: (env: any) => any;
 }
 
-export interface CreatePageInfoObjectTypeParams {
+export interface CreatePageInfoObjectTypeParams<ExecuteContext> {
   readonly name: string;
-  readonly fields: Record<string, GraphQLResolver>;
+  readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
   readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
   description: string;
 }
 
-export interface CreateObjectTypeParams {
+export interface CreateObjectTypeParams<ExecuteContext> {
   readonly name: string;
   readonly description: string;
-  readonly fields: Record<string, GraphQLResolver>;
+  readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
   readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
 }
 
-export interface CreateInputObjectTypeParams {
+export interface CreateInputObjectTypeParams<ExecuteContext> {
   readonly name: string;
   readonly description: string;
-  readonly fields: Record<string, GraphQLResolver>;
+  readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
   readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
 }
