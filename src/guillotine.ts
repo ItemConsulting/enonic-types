@@ -1,13 +1,14 @@
 import { WebSocketEvent } from "./controller";
 import { CreateObjectTypeParams, GraphQLSchema, GraphQLType, SchemaGenerator } from "./graphql";
 import { XOR } from "./types";
+import { EmptyObject } from "./content";
 
 export interface LibGuillotine {
-  createSchema<ExecuteContext = undefined>(params?: ContextOptions<ExecuteContext>): GraphQLSchema;
+  createSchema<ExecuteContext = EmptyObject>(params?: ContextOptions<ExecuteContext>): GraphQLSchema;
 
   createHeadlessCmsType(): GraphQLType;
 
-  createContext<ExecuteContext = undefined>(options?: ContextOptions<ExecuteContext>): Context<ExecuteContext>;
+  createContext<ExecuteContext = EmptyObject>(options?: ContextOptions<ExecuteContext>): Context<ExecuteContext>;
 
   initWebSockets(schema: GraphQLSchema): (event: WebSocketEvent) => void;
 
@@ -16,7 +17,7 @@ export interface LibGuillotine {
   execute(params: XOR<ExecuteBySchemaParams, ExecuteByConfigParams>): string;
 }
 
-export interface ContextOptions<ExecuteContext> {
+export interface ContextOptions<ExecuteContext = EmptyObject> {
   applications?: Array<string>;
   allowPaths?: Array<string>;
   subscriptionEventTypes?: Array<string>;
@@ -28,7 +29,7 @@ export interface ContextOptions<ExecuteContext> {
   [key: string]: unknown;
 }
 
-export interface Context<ExecuteContext> {
+export interface Context<ExecuteContext = EmptyObject> {
   types: Record<string, GraphQLType>;
   dictionary: Array<unknown>;
   nameCountMap: Record<string, number>;
