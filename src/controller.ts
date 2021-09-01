@@ -2,17 +2,20 @@ export interface Request {
   readonly method: "GET" | "PUT" | "POST" | "DELETE";
   readonly scheme: string;
   readonly host: string;
-  readonly port: string;
+  readonly port: number;
   readonly path: string;
+  readonly rawPath: string;
   readonly url: string;
   readonly remoteAddress: string;
   readonly mode: "inline" | "edit" | "preview" | "live";
+  readonly webSocket?: boolean;
+  readonly repositoryId: string;
   readonly branch: "draft" | "master";
+  readonly contextPath: string;
   readonly body: string;
   readonly params: { readonly [key: string]: string | undefined };
   readonly headers: { readonly [key: string]: string | undefined };
   readonly cookies: { readonly [key: string]: string | undefined };
-  readonly webSocket?: boolean;
 }
 
 export type ResponseType = string | object | Array<any> | ReadonlyArray<any> | null;
