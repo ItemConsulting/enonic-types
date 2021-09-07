@@ -62,13 +62,13 @@ interface WebSocketData {
 
 export interface ExecuteBySchemaParams {
   query: string;
-  variables: unknown;
+  variables?: unknown;
   schema: GraphQLSchema;
 }
 
 export interface ExecuteByConfigParams {
   query: string;
-  variables: unknown;
+  variables?: unknown;
   siteId?: string;
   branch?: string;
   schemaOptions?: unknown;
