@@ -16,6 +16,7 @@ export interface Request {
   readonly params: { readonly [key: string]: string | undefined };
   readonly headers: { readonly [key: string]: string | undefined };
   readonly cookies: { readonly [key: string]: string | undefined };
+  readonly contentType: string;
 }
 
 export type ResponseType = string | object | Array<any> | ReadonlyArray<any> | null;
@@ -24,8 +25,8 @@ export interface Response<ResponseBody extends ResponseType = ResponseType> {
   status?: number;
   body?: ResponseBody;
   contentType?: string;
-  headers?: { readonly [key: string]: string };
-  cookies?: { readonly [key: string]: string | Cookie };
+  headers?: { readonly [key: string]: string | undefined };
+  cookies?: { readonly [key: string]: string | Cookie | undefined };
   redirect?: string;
   postProcess?: boolean;
   pageContributions?: PageContributions;
