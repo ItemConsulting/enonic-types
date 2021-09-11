@@ -15,13 +15,13 @@ export interface HttpRequestParams {
    * Query parameters to be sent with the request.
    * @since 2.2.0
    */
-  queryParams?: { readonly [key: string]: string };
+  queryParams?: { readonly [key: string]: string | undefined };
 
   /** Query or form parameters to be sent with the request. */
-  params?: { readonly [key: string]: string };
+  params?: { readonly [key: string]: string | undefined };
 
   /** HTTP headers, an object where the keys are header names and the values the header values. */
-  headers?: { readonly [key: string]: string };
+  headers?: { readonly [key: string]: string | undefined };
 
   /** The timeout on establishing the connection, in milliseconds. */
   connectionTimeout?: number;
