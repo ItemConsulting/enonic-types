@@ -25,17 +25,17 @@ export interface GraphQlLibrary {
   /**
    * Returns a modified type that indicates a list of the underlying wrapped type
    */
-  list(type: GraphQLScalarType): GraphQLListType;
+  list(type: GraphQLType): GraphQLListType;
 
   /**
    * Returns a modified type that indicates the underlying wrapped type will not be null
    */
-  nonNull(type: GraphQLScalarType): GraphQLNonNullType;
+  nonNull(type: GraphQLType): GraphQLNonNullType;
 
   /**
    * Returns a special type that allows an object/interface type to reference a type by its key. Necessary for self reference.
    */
-  reference(typeKey: string): GraphQLScalarType;
+  reference(typeKey: string): GraphQLType;
 
   /**
    * Executes a GraphQL query and variables against a schema
