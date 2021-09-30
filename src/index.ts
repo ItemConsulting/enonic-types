@@ -1,198 +1,40 @@
-declare module "*/lib/xp/admin" {
-  const lib: import("./admin").AdminLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/auditlog" {
-  const lib: import("./auditlog").AuditLogLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/auth" {
-  const lib: import("./auth").AuthLibrary;
-  export = lib;
-}
-
-declare module "*/lib/cache" {
-  const lib: import("./cache").CacheLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/cluster" {
-  const lib: import("./cluster").ClusterLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/common" {
-  const lib: import("./common").CommonLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/content" {
-  const lib: import("./content").ContentLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/context" {
-  const lib: import("./context").ContextLibrary;
-  export = lib;
-}
-
-declare module "*/lib/cron" {
-  const lib: import("./cron").CronLibrary;
-  export = lib;
-}
-
-declare module "*/lib/text-encoding" {
-  const lib: import("./encoding").EncodingLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/event" {
-  const lib: import("./event").EventLibrary;
-  export = lib;
-}
-
-declare module "*/lib/tineikt/freemarker" {
-  const lib: import("./freemarker").FreeMarkerLibrary;
-  export = lib;
-}
-
-declare module "*/lib/graphql" {
-  const lib: import("./graphql").GraphQlLibrary;
-  export = lib;
-}
-
-declare module "*/lib/graphql-playground" {
-  const lib: import("./graphql").GraphQlPlaygroundLibrary;
-  export = lib;
-}
-
-declare module "*/lib/guillotine" {
-  const lib: import("./guillotine").LibGuillotine;
-  export = lib;
-}
-
-declare module "*/lib/http-client" {
-  const lib: import("./http").HttpLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/i18n" {
-  const lib: import("./i18n").I18nLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/io" {
-  const lib: import("./io").IOLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/mail" {
-  const lib: import("./mail").MailLibrary;
-  export = lib;
-}
-
-declare module "*/lib/menu" {
-  const lib: import("./menu").MenuLibrary;
-  export = lib;
-}
-declare module "*/lib/mustache" {
-  const lib: import("./mustache").MustacheLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/node" {
-  const lib: import("./node").NodeLibrary;
-  export = lib;
-}
-
-declare module "*/lib/notifications" {
-  const lib: import("./notifications").NotificationsLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/portal" {
-  const lib: import("./portal").PortalLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/project" {
-  const lib: import("./project").ProjectLibrary;
-  export = lib;
-}
-
-declare module "*/lib/qrcode" {
-  const lib: import("./qr").QRCodeLibrary;
-  export = lib;
-}
-
-declare module "*/lib/recaptcha" {
-  const lib: import("./recaptcha").RecaptchaLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/repo" {
-  const lib: import("./repo").RepoLibrary;
-  export = lib;
-}
-
-declare module "*/lib/router" {
-  const lib: import("./router").RouterLib;
-  export = lib;
-}
-
-declare module "*/lib/xp/scheduler" {
-  const lib: import("./scheduler").SchedulerLibrary;
-  export = lib;
-}
-
-declare module "*/lib/session" {
-  const lib: import("./session").SessionLibrary;
-  export = lib;
-}
-
-declare module "*/lib/sql" {
-  const lib: import("./sql").SqlLibrary;
-  export = lib;
-}
-
-declare module "*/lib/enonic/static" {
-  const lib: import("./static").StaticLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/task" {
-  const lib: import("./task").TaskLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/testing" {
-  const lib: import("./testing").TestingLibrary;
-  export = lib;
-}
-
-declare module "*/lib/thymeleaf" {
-  const lib: import("./thymeleaf").ThymeleafLibrary;
-  export = lib;
-}
-
-declare module "*/lib/turbo-streams" {
-  const lib: import("./turbo").TurboStreamsLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/value" {
-  const lib: import("./value").ValueLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xp/websocket" {
-  const lib: import("./websocket").WebsocketLibrary;
-  export = lib;
-}
-
-declare module "*/lib/xslt" {
-  const lib: import("./xslt").XsltLibrary;
-  export = lib;
-}
+/// <reference path="admin.ts" />
+/// <reference path="auditlog.ts" />
+/// <reference path="auth.ts" />
+/// <reference path="cache.ts" />
+/// <reference path="cluster.ts" />
+/// <reference path="common.ts" />
+/// <reference path="content.ts" />
+/// <reference path="context.ts" />
+/// <reference path="controller.ts" />
+/// <reference path="cron.ts" />
+/// <reference path="encoding.ts" />
+/// <reference path="event.ts" />
+/// <reference path="freemarker.ts" />
+/// <reference path="graphql.ts" />
+/// <reference path="guillotine.ts" />
+/// <reference path="http.ts" />
+/// <reference path="i18n.ts" />
+/// <reference path="io.ts" />
+/// <reference path="mail.ts" />
+/// <reference path="menu.ts" />
+/// <reference path="mustache.ts" />
+/// <reference path="node.ts" />
+/// <reference path="notifications.ts" />
+/// <reference path="portal.ts" />
+/// <reference path="project.ts" />
+/// <reference path="qr.ts" />
+/// <reference path="recaptcha.ts" />
+/// <reference path="repo.ts" />
+/// <reference path="router.ts" />
+/// <reference path="scheduler.ts" />
+/// <reference path="session.ts" />
+/// <reference path="sql.ts" />
+/// <reference path="static.ts" />
+/// <reference path="task.ts" />
+/// <reference path="testing.ts" />
+/// <reference path="thymeleaf.ts" />
+/// <reference path="turbo.ts" />
+/// <reference path="value.ts" />
+/// <reference path="websocket.ts" />
+/// <reference path="xslt.ts" />

@@ -1,5 +1,9 @@
-import { ResourceKey } from "./thymeleaf";
-
-export interface FreeMarkerLibrary {
-  render<Model extends object>(view: ResourceKey, model?: Model): string;
+declare module "*/lib/tineikt/freemarker" {
+  namespace freemarkerLib {
+    interface FreeMarkerLibrary {
+      render<Model extends object>(view: import("/lib/thymeleaf").ResourceKey, model?: Model): string;
+    }
+  }
+  const freemarkerLib: freemarkerLib.FreeMarkerLibrary;
+  export = freemarkerLib;
 }

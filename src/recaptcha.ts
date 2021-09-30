@@ -1,38 +1,47 @@
-export interface RecaptchaLibrary {
-  getSiteKey(): string;
-  getSecretKey(): string;
-  verify(res: string): VerifyResponse;
-  isConfigured(): boolean;
-}
+declare module "*/lib/recaptcha" {
+  namespace recaptchaLib {
+    interface RecaptchaLibrary {
+      getSiteKey(): string;
 
-export interface VerifyResponse {
-  /**
-   * Whether this request was a valid reCAPTCHA token for your site
-   */
-  success: boolean;
+      getSecretKey(): string;
 
-  /**
-   * The score for this request (0.0 - 1.0)
-   */
-  score: number;
+      verify(res: string): VerifyResponse;
 
-  /**
-   * the action name for this request (important to verify)
-   */
-  action: string;
+      isConfigured(): boolean;
+    }
 
-  /**
-   * Timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
-   */
-  challenge_ts: string;
+    export interface VerifyResponse {
+      /**
+       * Whether this request was a valid reCAPTCHA token for your site
+       */
+      success: boolean;
 
-  /**
-   * The hostname of the site where the reCAPTCHA was solved
-   */
-  hostname: string;
+      /**
+       * The score for this request (0.0 - 1.0)
+       */
+      score: number;
 
-  /**
-   * Error codes
-   */
-  errorcodes?: Array<string>;
+      /**
+       * the action name for this request (important to verify)
+       */
+      action: string;
+
+      /**
+       * Timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+       */
+      challenge_ts: string;
+
+      /**
+       * The hostname of the site where the reCAPTCHA was solved
+       */
+      hostname: string;
+
+      /**
+       * Error codes
+       */
+      errorcodes?: Array<string>;
+    }
+  }
+  const recaptchaLib: recaptchaLib.RecaptchaLibrary;
+  export = recaptchaLib;
 }

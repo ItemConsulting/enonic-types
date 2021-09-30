@@ -1,47 +1,83 @@
-export interface EventLibrary {
-  listener<EventData extends object = EnonicEventData>(params: ListenerParams<EventData>): null;
-  send(params: SendParams): null;
-}
+declare module "*/lib/xp/event" {
+  namespace eventLib {
+    interface EventLibrary {
+      /**
+       * Adds an event listener to the system
+       */
+      listener<EventData extends object = EnonicEventData>(params: ListenerParams<EventData>): null;
 
-export interface ListenerParams<EventData extends object = EnonicEventData> {
-  type?: EnonicEventTypes | string;
-  callback: (event: EnonicEvent<EventData>) => void;
-  localOnly?: boolean;
-}
+      /**
+       * Sends a custom event. All custom events are prefixed with "custom.".
+       */
+      send(params: SendParams): null;
+    }
 
-export interface SendParams {
-  type?: EnonicEventTypes | string;
-  distributed?: boolean;
-  data?: object;
-}
+    export interface ListenerParams<EventData extends object = EnonicEventData> {
+      /**
+       * Event type pattern
+       */
+      type?: EnonicEventTypes | string;
 
-export interface EnonicEvent<EventData extends object = EnonicEventData> {
-  readonly type: EnonicEventTypes | string;
-  readonly timestamp: number;
-  readonly localOrigin: boolean;
-  readonly distributed: boolean;
-  readonly data: EventData;
-}
+      /**
+       * Callback event listener
+       */
+      callback: (event: EnonicEvent<EventData>) => void;
 
-export interface EnonicEventData {
-  readonly nodes: ReadonlyArray<{
-    readonly id: string;
-    readonly path: string;
-    readonly branch: string;
-    readonly repo: string;
-    readonly newPath?: string; // for type="node.moved", type="node.renamed"
-  }>;
-  readonly state?: string; // for type="node.stateUpdated"
-}
+      /**
+       * Local events only (default to false)
+       */
+      localOnly?: boolean;
+    }
 
-export type EnonicEventTypes =
-  | "node.created"
-  | "node.deleted"
-  | "node.pushed"
-  | "node.duplicated"
-  | "node.updated"
-  | "node.moved"
-  | "node.renamed"
-  | "node.sorted"
-  | "node.stateUpdated"
-  | "node.permissionsUpdated";
+    export interface SendParams {
+      /**
+       * Event type
+       */
+      type?: EnonicEventTypes | string;
+
+      /**
+       * `true` if it should be distributed in cluster
+       */
+      distributed?: boolean;
+
+      /**
+       * Additional data for event.
+       */
+      data?: object;
+    }
+
+    export interface EnonicEvent<EventData extends object = EnonicEventData> {
+      readonly type: EnonicEventTypes | string;
+      readonly timestamp: number;
+      readonly localOrigin: boolean;
+      readonly distributed: boolean;
+      readonly data: EventData;
+    }
+
+    export interface EnonicEventData {
+      readonly nodes: ReadonlyArray<{
+        readonly id: string;
+        readonly path: string;
+        readonly branch: string;
+        readonly repo: string;
+        readonly newPath?: string; // for type="node.moved", type="node.renamed"
+      }>;
+      readonly state?: string; // for type="node.stateUpdated"
+    }
+
+    export type EnonicEventTypes =
+      | "node.created"
+      | "node.deleted"
+      | "node.pushed"
+      | "node.duplicated"
+      | "node.updated"
+      | "node.moved"
+      | "node.renamed"
+      | "node.sorted"
+      | "node.stateUpdated"
+      | "node.permissionsUpdated";
+  }
+
+  const eventLib: eventLib.EventLibrary;
+  export = eventLib;
+}
