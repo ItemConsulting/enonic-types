@@ -2,7 +2,10 @@
 
 [![npm version](https://badge.fury.io/js/enonic-types.svg)](https://badge.fury.io/js/enonic-types)
 
-This library contains TypeScript types for Enonic XP.
+This library contains TypeScript types for Enonic XP. You can get an introduction to usage in this recording from the 
+Enonic Meetup 13 Apr 2021:
+
+[![TypeScript in Enonic XP | 13 Apr 2021](https://img.youtube.com/vi/2sf-nsG2qU8/default.jpg)](https://www.youtube.com/watch?v=2sf-nsG2qU8)
 
 ## Installing *enonic-types*
 
