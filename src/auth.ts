@@ -53,22 +53,28 @@ declare module "*/lib/xp/auth" {
       /**
        * Adds members to a principal (user or role).
        */
-      addMembers(principalKey: string, members: Array<string>): void;
+      addMembers(
+        principalKey: PrincipalKeyRole | PrincipalKeyGroup,
+        members: Array<PrincipalKeyGroup | PrincipalKeyUser>
+      ): void;
 
       /**
        * Returns a list of principals that are members of the specified principal.
        */
-      getMembers(principalKey: string): ReadonlyArray<User>;
+      getMembers(principalKey: PrincipalKeyRole | PrincipalKeyGroup): ReadonlyArray<User | Group>;
 
       /**
        * Removes members from a principal (group or role).
        */
-      removeMembers(principalKey: string, members: Array<string>): void;
+      removeMembers(
+        principalKey: PrincipalKeyRole | PrincipalKeyGroup,
+        members: Array<PrincipalKeyGroup | PrincipalKeyUser>
+      ): void;
 
       /**
        * Returns the principal with the specified key.
        */
-      getPrincipal(principalKey: string): User | null;
+      getPrincipal(principalKey: PrincipalKey): Principal | null;
 
       /**
        * Search for principals matching the specified criteria.
@@ -78,12 +84,15 @@ declare module "*/lib/xp/auth" {
       /**
        * Returns the list of principals which the specified principal is a member of.
        */
-      getMemberships(principalKey: string, transitive?: boolean): ReadonlyArray<Principal>;
+      getMemberships(
+        principalKey: PrincipalKeyUser | PrincipalKeyGroup,
+        transitive?: boolean
+      ): ReadonlyArray<Principal>;
 
       /**
        * Deletes the principal with the specified key.
        */
-      deletePrincipal(principalKey: string): boolean;
+      deletePrincipal(principalKey: PrincipalKey): boolean;
 
       /**
        * Creates a role.
@@ -120,6 +129,22 @@ declare module "*/lib/xp/auth" {
        */
       modifyProfile<Profile>(params: ModifyProfileParams<Profile>): Profile;
     }
+
+    type PrincipalKeySystem =
+      | "role:system.everyone"
+      | "role:system.authenticated"
+      | "role:system.admin"
+      | "role:system.admin.login"
+      | "role:system.auditlog"
+      | "role:system.user.admin"
+      | "role:system.user.app"
+      | "user:system:su";
+
+    type PrincipalKeyUser = `user:${string}:${string}`;
+    type PrincipalKeyGroup = `group:${string}:${string}`;
+    type PrincipalKeyRole = `role:${string}`;
+
+    type PrincipalKey = PrincipalKeySystem | PrincipalKeyUser | PrincipalKeyGroup | PrincipalKeyRole;
 
     export interface LoginParams {
       /**
@@ -160,18 +185,17 @@ declare module "*/lib/xp/auth" {
     }
 
     export interface ChangePasswordParams {
-      userKey: string;
+      userKey: PrincipalKeyUser;
       password: string;
     }
 
-    export interface Principal {
-      readonly type: string;
-      readonly key: string;
+    export type Principal = User | Role | Group;
+
+    export interface User {
+      readonly type: "user";
+      readonly key: PrincipalKeyUser;
       readonly displayName: string;
       readonly modifiedTime: string;
-    }
-
-    export interface User extends Principal {
       readonly disabled: boolean;
       readonly email: string;
       readonly login: string;
@@ -182,19 +206,27 @@ declare module "*/lib/xp/auth" {
       readonly profile: Profile;
     }
 
-    export interface Role extends Principal {
+    export interface Role {
+      readonly type: "role";
+      readonly key: PrincipalKeyRole;
+      readonly displayName: string;
+      readonly modifiedTime: string;
       readonly description?: string;
     }
 
-    export interface Group extends Principal {
+    export interface Group {
+      readonly type: "group";
+      readonly key: PrincipalKeyGroup;
+      readonly displayName: string;
+      readonly modifiedTime: string;
       readonly description?: string;
     }
 
     export interface FindPrincipalsParams {
-      type?: string;
+      type?: Principal["type"];
       idProvider?: string;
-      start?: string;
-      count?: string;
+      start?: number;
+      count?: number;
       name?: string;
       searchText?: string;
     }
@@ -219,12 +251,12 @@ declare module "*/lib/xp/auth" {
     }
 
     export interface ModifyUserParams {
-      key: string;
+      key: PrincipalKeyUser;
       editor: (c: User) => User;
     }
 
     export interface GetProfileParams {
-      key: string;
+      key: PrincipalKeyUser;
       scope?: string;
     }
 
@@ -232,7 +264,7 @@ declare module "*/lib/xp/auth" {
       /**
        * Principal key of the user.
        */
-      key: string;
+      key: PrincipalKeyUser;
 
       /**
        * Scope of the data to retrieve and update.
@@ -246,12 +278,12 @@ declare module "*/lib/xp/auth" {
     }
 
     export interface ModifyGroupParams {
-      key: string;
+      key: PrincipalKeyGroup;
       editor: (c: Group) => Group;
     }
 
     export interface ModifyRoleParams {
-      key: string;
+      key: PrincipalKeyRole;
       editor: (c: Role) => Role;
     }
 

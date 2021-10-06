@@ -711,7 +711,7 @@ declare module "*/lib/xp/content" {
       | "WRITE_PERMISSIONS";
 
     export interface PermissionsParams {
-      principal: string;
+      principal: import("/lib/xp/auth").PrincipalKey;
       allow: Array<Permission>;
       deny: Array<Permission>;
     }

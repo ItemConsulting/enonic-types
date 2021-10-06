@@ -13,6 +13,8 @@ declare module "*/lib/xp/context" {
       run<Result>(runContext: RunContext, f: () => Result): Result;
     }
 
+    export type PrincipalKey = import("/lib/xp/auth").PrincipalKey;
+
     export interface Context {
       /**
        * Repository context.
@@ -36,7 +38,7 @@ declare module "*/lib/xp/context" {
       /**
        * Roles or group principals
        */
-      readonly principals: ReadonlyArray<string>;
+      readonly principals: ReadonlyArray<PrincipalKey>;
     }
 
     export interface User {
@@ -78,7 +80,7 @@ declare module "*/lib/xp/context" {
       /**
        * Roles or group principals applicable for current user
        */
-      principals?: ReadonlyArray<string>;
+      principals?: ReadonlyArray<PrincipalKey>;
 
       /**
        * Custom attributes

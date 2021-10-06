@@ -9,6 +9,8 @@ declare module "*/lib/xp/node" {
       multiRepoConnect(params: MultiRepoConnectParams): MultiRepoConnection;
     }
 
+    export type PrincipalKey = import("/lib/xp/auth").PrincipalKey;
+
     export interface Source {
       repoId: string;
       branch: string;
@@ -16,12 +18,12 @@ declare module "*/lib/xp/node" {
         login: string;
         idProvider?: string;
       };
-      principals?: Array<string>;
+      principals?: Array<PrincipalKey>;
     }
 
     // Multi repo connect requires principles to be present for sources
     export type SourceWithPrincipals = Omit<Source, "principals"> & {
-      principals: Array<string>;
+      principals: Array<PrincipalKey>;
     };
 
     export interface MultiRepoConnectParams {
