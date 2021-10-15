@@ -27,7 +27,13 @@ declare namespace XP {
   interface Response<ResponseBody extends ResponseType = ResponseType> {
     status?: number;
     body?: ResponseBody;
-    contentType?: string;
+    contentType?:
+      | "text/html"
+      | "application/json"
+      | "application/problem+json"
+      | "text/xml"
+      | "application/xml"
+      | string;
     headers?: { readonly [key: string]: string | undefined };
     cookies?: { readonly [key: string]: string | Cookie | undefined };
     redirect?: string;
