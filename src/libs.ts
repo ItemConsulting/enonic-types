@@ -10,6 +10,7 @@ export interface EnonicLibraryMap {
   "/lib/cron": typeof import("/lib/cron");
   "/lib/text-encoding": typeof import("/lib/text-encoding");
   "/lib/xp/event": typeof import("/lib/xp/event");
+  "/lib/xp/export": typeof import("/lib/xp/export");
   "/lib/tineikt/freemarker": typeof import("/lib/tineikt/freemarker");
   "/lib/graphql": typeof import("/lib/graphql");
   "/lib/graphql-playground": typeof import("/lib/graphql-playground");
