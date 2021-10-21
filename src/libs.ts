@@ -38,6 +38,7 @@ export interface EnonicLibraryMap {
   "/lib/thymeleaf": typeof import("/lib/thymeleaf");
   "/lib/turbo-streams": typeof import("/lib/turbo-streams");
   "/lib/xp/value": typeof import("/lib/xp/value");
+  "/lib/xp/vhost": typeof import("/lib/xp/vhost");
   "/lib/xp/websocket": typeof import("/lib/xp/websocket");
   "/lib/xslt": typeof import("/lib/xslt");
 }

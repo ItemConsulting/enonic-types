@@ -37,5 +37,6 @@
 /// <reference path="thymeleaf.ts" />
 /// <reference path="turbo.ts" />
 /// <reference path="value.ts" />
+/// <reference path="vhost.ts" />
 /// <reference path="websocket.ts" />
 /// <reference path="xslt.ts" />
