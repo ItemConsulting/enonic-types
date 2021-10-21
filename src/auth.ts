@@ -176,7 +176,7 @@ declare module "*/lib/xp/auth" {
       /**
        * Defines the scope of the login.
        */
-      scope?: "SESSION" | "REQUEST";
+      scope?: "SESSION" | "REQUEST" | "NONE";
     }
 
     export interface LoginResult {
