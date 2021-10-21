@@ -129,6 +129,18 @@ declare module "*/lib/xp/content" {
        * Returns the list of all the content types currently registered in the system
        */
       getTypes(): ReadonlyArray<ContentType>;
+
+      /**
+       * Archive a content.
+       * @since 7.8.0
+       */
+      archive(params: ArchiveParams): Array<string>;
+
+      /**
+       * Restore a content from the archive.
+       * @since 7.8.0
+       */
+      restore(params: RestoreParams): Array<string>;
     }
 
     export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
@@ -797,6 +809,25 @@ declare module "*/lib/xp/content" {
         readonly minimum: 1;
       };
       readonly config: Config;
+    }
+
+    interface ArchiveParams {
+      /**
+       * Path or id of the content to be archived.
+       */
+      content: string;
+    }
+
+    interface RestoreParams {
+      /**
+       * Path or id of the content to be restored.
+       */
+      content: string;
+
+      /**
+       * Path of parent for restored content.
+       */
+      path: string;
     }
   }
 
