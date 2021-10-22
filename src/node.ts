@@ -70,42 +70,42 @@ declare module "*/lib/xp/node" {
       /**
        * Start index (used for paging).
        */
-      readonly start?: number;
+      start?: number;
 
       /**
        * Number of contents to fetch.
        */
-      readonly count?: number;
+      count?: number;
 
       /**
        * Query expression.
        */
-      readonly query?: string;
+      query?: string;
 
       /**
        * Query filters
        */
-      readonly filters?: import("/lib/xp/content").BasicFilters | import("/lib/xp/content").BooleanFilter;
+      filters?: import("/lib/xp/content").BasicFilters | import("/lib/xp/content").BooleanFilter;
 
       /**
        * Sorting expression.
        */
-      readonly sort?: string;
+      sort?: string;
 
       /**
        * Aggregations expression.
        */
-      readonly aggregations?: Record<AggregationKeys, import("/lib/xp/content").Aggregation>;
+      aggregations?: Record<AggregationKeys, import("/lib/xp/content").Aggregation>;
 
       /**
        * Highlighting config
        */
-      readonly highlight?: import("/lib/xp/content").Highlight;
+      highlight?: import("/lib/xp/content").Highlight;
 
       /**
        * Return score calculation explanation.
        */
-      readonly explain?: boolean;
+      explain?: boolean;
     }
 
     export interface IndexConfigEntry {
@@ -113,44 +113,44 @@ declare module "*/lib/xp/node" {
        * If true, indexing is done based on valueType, according to the table above. I.e. numeric values are indexed as
        * both string and numeric.
        */
-      readonly decideByType: boolean;
+      decideByType: boolean;
 
       /**
        * If false, indexing will be disabled for the affected properties
        */
-      readonly enabled: boolean;
+      enabled: boolean;
 
       /**
        * Values are stored as 'ngram'
        */
-      readonly nGram: boolean;
+      nGram: boolean;
 
       /**
        * Values are stored as 'ngram', 'analyzed' and also added to the _allText system property
        */
-      readonly fulltext: boolean;
+      fulltext: boolean;
 
       /**
        * Affected values will be added to the _allText property
        */
-      readonly includeInAllText: boolean;
+      includeInAllText: boolean;
 
       /**
        * Values are stored as 'path' type and applicable for the pathMatch-function
        */
-      readonly path: boolean;
+      path: boolean;
 
-      readonly indexValueProcessors: ReadonlyArray<any>;
-      readonly languages: ReadonlyArray<any>;
+      indexValueProcessors: ReadonlyArray<any>;
+      languages: ReadonlyArray<any>;
     }
 
     export type IndexConfigTemplates = "none" | "byType" | "fulltext" | "path" | "minimal";
 
     export interface IndexConfig {
-      readonly default: IndexConfigEntry | IndexConfigTemplates;
-      readonly configs?: ReadonlyArray<{
-        readonly path: string;
-        readonly config: IndexConfigEntry | IndexConfigTemplates;
+      default: IndexConfigEntry | IndexConfigTemplates;
+      configs?: ReadonlyArray<{
+        path: string;
+        config: IndexConfigEntry | IndexConfigTemplates;
       }>;
     }
 
@@ -158,89 +158,89 @@ declare module "*/lib/xp/node" {
       /**
        * Name of content.
        */
-      readonly _name?: string;
+      _name?: string;
 
       /**
        * Path to place content under.
        */
-      readonly _parentPath?: string;
+      _parentPath?: string;
 
       /**
        * How the document should be indexed. A default value "byType" will be set if no value specified.
        */
-      readonly _indexConfig?: IndexConfig;
+      _indexConfig?: IndexConfig;
 
       /**
        * The access control list for the node. By default the creator will have full access
        */
-      readonly _permissions?: ReadonlyArray<import("/lib/xp/content").PermissionsParams>;
+      _permissions?: ReadonlyArray<import("/lib/xp/content").PermissionsParams>;
 
       /**
        * true if the permissions should be inherited from the node parent. Default is false.
        */
-      readonly _inheritsPermissions?: boolean;
+      _inheritsPermissions?: boolean;
 
       /**
        * Value used to order document when ordering by parent and child-order is set to manual
        */
-      readonly _manualOrderValue?: number;
+      _manualOrderValue?: number;
 
       /**
        * Default ordering of children when doing getChildren if no order is given in query
        */
-      readonly _childOrder?: string;
+      _childOrder?: string;
     }
 
     export interface NodeModifyParams<NodeData> {
       /**
        * Path or ID of the node
        */
-      readonly key: string;
+      key: string;
 
       /**
        * Editor callback function
        */
-      readonly editor: (node: NodeData & RepoNode) => NodeData & RepoNode;
+      editor: (node: NodeData & RepoNode) => NodeData & RepoNode;
     }
 
     export interface NodeMoveParams {
       /**
        * Path or id of the node to be moved or renamed.
        */
-      readonly source: string;
+      source: string;
 
       /**
        * New path or name for the node. If the target ends in slash '/', it specifies the parent path where to be moved.
        * Otherwise it means the new desired path or name for the node.
        */
-      readonly target: string;
+      target: string;
     }
 
     export interface NodeFindChildrenParams {
       /**
        * Path or ID of parent to get children of
        */
-      readonly parentKey: string;
+      parentKey: string;
       /**
        * start index used for paging - default: 0
        */
-      readonly start?: number;
+      start?: number;
       /**
        * number of content to fetch, used for paging - default: 10
        */
-      readonly count?: number;
+      count?: number;
       /**
        * How to order the children - default is value stored on parent
        */
-      readonly childOrder?: string;
+      childOrder?: string;
       /**
        * Optimize for count children only - default is false
        */
-      readonly countOnly?: boolean;
+      countOnly?: boolean;
       /**
        * Do recursive fetching of all children of children - default is false
        */
-      readonly recursive?: boolean;
+      recursive?: boolean;
     }
 
     export interface RepoNode {
