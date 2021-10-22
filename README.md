@@ -97,6 +97,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [CronLibrary](./src/cron.ts)
  * [EncodingLibrary](./src/encoding.ts)
  * [EventLibrary](./src/event.ts)
+ * [ExplorerLibrary](./src/explorer.ts)
  * [ExportLibrary](./src/export.ts)
  * [FreeMarkerLibrary](./src/freemarker.ts)
  * [GraphQLLibrary](./src/graphql.ts)

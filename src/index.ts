@@ -10,6 +10,7 @@
 /// <reference path="cron.ts" />
 /// <reference path="encoding.ts" />
 /// <reference path="event.ts" />
+/// <reference path="explorer.ts" />
 /// <reference path="export.ts" />
 /// <reference path="freemarker.ts" />
 /// <reference path="graphql.ts" />
