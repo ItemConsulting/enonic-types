@@ -52,7 +52,7 @@ declare module "*/lib/xp/admin" {
       /**
        * Returns the URL for an admin tool of specific application.
        */
-      getToolUrl(params: GetToolUrlParams): string;
+      getToolUrl(application: string, tool: string): string;
 
       /**
        * Returns version of XP installation.
@@ -63,11 +63,6 @@ declare module "*/lib/xp/admin" {
     export interface GetHomeToolUrlParams {
       path?: string;
       type: "server" | "absolute";
-    }
-
-    export interface GetToolUrlParams {
-      application: string;
-      tool: string;
     }
   }
 
