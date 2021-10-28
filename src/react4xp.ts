@@ -82,7 +82,7 @@ declare module "*/lib/enonic/react4xp" {
       clientRender?: boolean;
     }
 
-    export interface React4xp<Props extends object = object> {
+    interface React4xp<Props extends object = object> {
       /**
        * Target id of the HTML element the entry will be rendered into (if it’s been set yet - see setId and uniqueId below).
        * Also identifies the object.
@@ -186,7 +186,7 @@ declare module "*/lib/enonic/react4xp" {
       request?: XP.Request;
     }
 
-    export interface RenderPageContributionsParams {
+    interface RenderPageContributionsParams {
       /**
        * If you already have some page contributions you want to add to the output of this rendering, add them here.
        * These added page contributions will be added before the ones that will be rendered
