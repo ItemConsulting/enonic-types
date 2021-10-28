@@ -1,7 +1,7 @@
 {
   "name": "enonic-types",
   "sideEffects": false,
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "scripts": {
