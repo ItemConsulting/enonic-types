@@ -30,6 +30,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/portal": typeof import("/lib/xp/portal");
   "/lib/xp/project": typeof import("/lib/xp/project");
   "/lib/qrcode": typeof import("/lib/qrcode");
+  "/lib/enonic/react4xp": typeof import("/lib/enonic/react4xp");
   "/lib/recaptcha": typeof import("/lib/recaptcha");
   "/lib/xp/repo": typeof import("/lib/xp/repo");
   "/lib/router": typeof import("/lib/router");

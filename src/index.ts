@@ -26,6 +26,7 @@
 /// <reference path="portal.ts" />
 /// <reference path="project.ts" />
 /// <reference path="qr.ts" />
+/// <reference path="react4xp.ts" />
 /// <reference path="recaptcha.ts" />
 /// <reference path="repo.ts" />
 /// <reference path="router.ts" />

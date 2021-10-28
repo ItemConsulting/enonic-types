@@ -113,6 +113,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [PortalLibrary](./src/portal.ts)
  * [QRLibrary](./src/qr.ts)
  * [ProjectLibrary](./src/project.ts)
+ * [React4XPLibrary](./src/react4xp.ts)
  * [RecaptchaLibrary](./src/recaptcha.ts)
  * [RepoLibrary](./src/repo.ts) 
  * [RouterLibrary](./src/router.ts) 
