@@ -4,7 +4,7 @@ declare module "*/lib/xp/context" {
       /**
        * Returns the current context
        */
-      get(): Context;
+      get<Attributes extends object | undefined = undefined>(): Context<Attributes>;
 
       /**
        * Runs a function within a custom context, for instance the one returned by the get() function call.
@@ -15,7 +15,7 @@ declare module "*/lib/xp/context" {
 
     export type PrincipalKey = import("/lib/xp/auth").PrincipalKey;
 
-    export interface Context {
+    export interface Context<Attributes> {
       /**
        * Repository context.
        */
@@ -30,6 +30,11 @@ declare module "*/lib/xp/context" {
        * Info about the current user
        */
       readonly authInfo: AuthInfo;
+
+      /**
+       * Custom attributes
+       */
+      readonly attributes: Attributes;
     }
 
     export interface AuthInfo {
