@@ -252,9 +252,16 @@ declare module "*/lib/xp/portal" {
       /**
        * A comma-separated list of image widths. If this parameter is provided, all <img> tags will have an additional
        * srcset attribute with image URLs generated for specified widths.
-       * @since 7.7.0
+       * @since XP 7.7.0
        */
       imageWidths?: Array<number>;
+
+      /**
+       * This string is used to set img[sizes].
+       * E.g a value can be '(max-width: 960px) 600px'
+       * @since XP 7.8.0
+       */
+      imageSizes: string;
     }
 
     export interface MultipartItem {
