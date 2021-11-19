@@ -33,16 +33,92 @@ declare module "*/lib/guillotine" {
       [key: string]: unknown;
     }
 
+    type GraphQLInputObjectType = import("/lib/graphql").GraphQLInputObjectType;
+    type GraphQLObjectType = import("/lib/graphql").GraphQLObjectType;
+    type GraphQLEnumType = import("/lib/graphql").GraphQLEnumType;
+    type GraphQLInterfaceType = import("/lib/graphql").GraphQLInterfaceType;
+
     export interface Context<ExecuteContext = import("./types").EmptyObject> {
-      types: Record<string, import("/lib/graphql").GraphQLType>;
-      dictionary: Array<unknown>;
+      types: {
+        // acl-types
+        principalKeyType: GraphQLObjectType;
+        permissionType: GraphQLEnumType;
+        accessControlEntryType: GraphQLObjectType;
+        permissionsType: GraphQLObjectType;
+
+        // enum-types
+        urlType: GraphQLEnumType;
+
+        // form-types
+        formItemTypeType: GraphQLEnumType;
+        formItemType: GraphQLInterfaceType;
+        occurrencesType: GraphQLObjectType;
+        defaultValueType: GraphQLObjectType;
+        formItemSetType: GraphQLObjectType;
+        formLayoutType: GraphQLObjectType;
+        formOptionSetOptionType: GraphQLObjectType;
+        formOptionSetType: GraphQLObjectType;
+        formInputType: GraphQLObjectType;
+
+        // generic-content-types
+        geoPointType: GraphQLObjectType;
+        mediaFocalPointType: GraphQLObjectType;
+        mediaUploaderType: GraphQLObjectType;
+        siteConfiguratorType: GraphQLObjectType;
+
+        // generic-types
+        publishInfoType: GraphQLObjectType;
+        attachmentType: GraphQLObjectType;
+        extraDataType: GraphQLObjectType;
+        iconType: GraphQLObjectType;
+        contentTypeType: GraphQLObjectType;
+        contentType: GraphQLInterfaceType;
+        untypedContentType: GraphQLObjectType;
+        queryContentConnectionType: GraphQLObjectType;
+
+        // input-types
+        processHtmlType: GraphQLInputObjectType;
+        numberRangeInputType: GraphQLInputObjectType;
+        dateRangeInputType: GraphQLInputObjectType;
+        geoPointInputType: GraphQLInputObjectType;
+        termsAggregationInputType: GraphQLInputObjectType;
+        statsAggregationInputType: GraphQLInputObjectType;
+        rangeAggregationInputType: GraphQLInputObjectType;
+        dateRangeAggregationInputType: GraphQLInputObjectType;
+        dateHistogramAggregationInputType: GraphQLInputObjectType;
+        geoDistanceAggregationInputType: GraphQLInputObjectType;
+        minAggregationInputType: GraphQLInputObjectType;
+        maxAggregationInputType: GraphQLInputObjectType;
+        valueCountAggregationInputType: GraphQLInputObjectType;
+        aggregationInputType: GraphQLInputObjectType;
+        existsFilterInputType: GraphQLInputObjectType;
+        notExistsFilterInputType: GraphQLInputObjectType;
+        hasValueFilterInputType: GraphQLInputObjectType;
+        idsFilterInputType: GraphQLInputObjectType;
+        booleanFilterInputType: GraphQLInputObjectType;
+        filterInputType: GraphQLInputObjectType;
+
+        // page-types
+        imageStyleType: GraphQLObjectType;
+        imageType: GraphQLObjectType;
+        richTextType: GraphQLObjectType;
+        componentTypeType: GraphQLEnumType;
+        pageComponentDataType: GraphQLObjectType;
+        layoutComponentDataType: GraphQLObjectType;
+        partComponentDataType: GraphQLObjectType;
+        imageComponentDataType: GraphQLObjectType;
+        textComponentDataType: GraphQLObjectType;
+        fragmentComponentDataType: GraphQLObjectType;
+        componentType: GraphQLObjectType;
+      };
+      dictionary: Array<GraphQLObjectType>;
       nameCountMap: Record<string, number>;
-      contentTypeMap: Record<string, unknown>;
+      contentTypeMap: Record<string, GraphQLObjectType>;
       options: ContextOptions<ExecuteContext>;
 
-      addDictionaryType(objectType: unknown): void;
+      addDictionaryType(objectType: GraphQLObjectType): void;
 
-      putContentTypeType(name: string, objectType: unknown): void;
+      putContentTypeType(name: string, objectType: GraphQLObjectType): void;
 
       uniqueName(name: string): string;
 
