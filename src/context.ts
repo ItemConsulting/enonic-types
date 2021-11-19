@@ -4,18 +4,20 @@ declare module "*/lib/xp/context" {
       /**
        * Returns the current context
        */
-      get<Attributes extends object | undefined = undefined>(): Context<Attributes>;
+      get<Attributes extends ContextAttributes>(): Context<Attributes>;
 
       /**
        * Runs a function within a custom context, for instance the one returned by the get() function call.
        * Commonly used when accessing repositories, or to override current users permissions.
        */
-      run<Result>(runContext: RunContext, f: () => Result): Result;
+      run<Result, Attributes extends ContextAttributes>(runContext: RunContext<Attributes>, f: () => Result): Result;
     }
+
+    export type ContextAttributes = Record<string, string | boolean | number>;
 
     export type PrincipalKey = import("/lib/xp/auth").PrincipalKey;
 
-    export interface Context<Attributes> {
+    export interface Context<Attributes extends ContextAttributes | undefined> {
       /**
        * Repository context.
        */
@@ -56,7 +58,7 @@ declare module "*/lib/xp/context" {
       readonly idProvider: string;
     }
 
-    export interface RunContext {
+    export interface RunContext<Attributes extends ContextAttributes | undefined> {
       /**
        * Repository context.
        */
@@ -90,7 +92,7 @@ declare module "*/lib/xp/context" {
       /**
        * Custom attributes
        */
-      attributes?: { readonly [key: string]: string | boolean | number };
+      attributes?: Attributes;
     }
   }
 

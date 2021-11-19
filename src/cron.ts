@@ -148,7 +148,10 @@ declare module "*/lib/cron" {
       readonly nextExecTime: string;
     }
 
-    export type CronRunContext = Omit<import("/lib/xp/context").RunContext, "user"> & {
+    export type CronRunContext = Omit<
+      import("/lib/xp/context").RunContext<import("/lib/xp/context").ContextAttributes>,
+      "user"
+    > & {
       user?: {
         login?: string;
         userStore?: string;
