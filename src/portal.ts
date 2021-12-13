@@ -261,7 +261,7 @@ declare module "*/lib/xp/portal" {
        * E.g a value can be '(max-width: 960px) 600px'
        * @since XP 7.8.0
        */
-      imageSizes: string;
+      imageSizes?: string;
     }
 
     export interface MultipartItem {
