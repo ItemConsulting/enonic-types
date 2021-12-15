@@ -50,7 +50,7 @@ declare module "*/lib/xp/auditlog" {
       /**
        *Log entry user.
        */
-      user: string;
+      user: import("/lib/xp/auth").PrincipalKeyUser;
 
       /**
        * URIs to objects that relate to this log entry.

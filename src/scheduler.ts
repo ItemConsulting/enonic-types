@@ -95,7 +95,7 @@ declare module "*/lib/xp/scheduler" {
       /**
        * Key of the user that submitted the task.
        */
-      user?: unknown;
+      user?: import("/lib/xp/auth").PrincipalKeyUser;
 
       /**
        * Job is active or not.
