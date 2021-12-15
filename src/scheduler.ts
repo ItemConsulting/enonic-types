@@ -1,5 +1,6 @@
 declare module "*/lib/xp/scheduler" {
   namespace schedulerLib {
+    type PrincipalKeyUser = import("/lib/xp/auth").PrincipalKeyUser;
     /**
      * @since 7.7.0
      */
@@ -7,7 +8,7 @@ declare module "*/lib/xp/scheduler" {
       /**
        * Returns scheduled job with the specified name.
        */
-      get<Config = never>(params: GetScheduledJobParams): ScheduledJob<Config>;
+      get<Config = never>(params: GetScheduledJobParams): ScheduledJob<Config> | null;
 
       /**
        * Returns the list of scheduled jobs.
@@ -95,7 +96,7 @@ declare module "*/lib/xp/scheduler" {
       /**
        * Key of the user that submitted the task.
        */
-      user?: import("/lib/xp/auth").PrincipalKeyUser;
+      user?: PrincipalKeyUser;
 
       /**
        * Job is active or not.
@@ -103,7 +104,7 @@ declare module "*/lib/xp/scheduler" {
       enabled: boolean;
     }
 
-    export interface ModifyScheduledJobParams<Config> {
+    export interface ModifyScheduledJobParams<Config = never> {
       /**
        * Unique job name.
        */
@@ -122,7 +123,7 @@ declare module "*/lib/xp/scheduler" {
       name: string;
     }
 
-    export interface ScheduledJob<Config> {
+    export interface ScheduledJob<Config = never> {
       /**
        * Job name
        */
@@ -151,7 +152,7 @@ declare module "*/lib/xp/scheduler" {
       /**
        * Principal key of the user that submitted the task
        */
-      user: string;
+      user: PrincipalKeyUser;
 
       /**
        * Job is active or not
@@ -161,12 +162,12 @@ declare module "*/lib/xp/scheduler" {
       /**
        * Principal key of user that created the task
        */
-      creator: string;
+      creator: PrincipalKeyUser;
 
       /**
        * Principal key of the last user that modified the task
        */
-      modifier: string;
+      modifier: PrincipalKeyUser;
 
       /**
        * Time of the task creation
