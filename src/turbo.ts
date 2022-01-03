@@ -37,6 +37,16 @@ declare module "*/lib/turbo-streams" {
       remove(params: TurboStreamsRemoveParams): void;
 
       /**
+       * Insert some markup before a target id in the dom over web socket
+       */
+      before(params: TurboStreamsParams): void;
+
+      /**
+       * Insert some markup after a target id in the dom over web socket
+       */
+      after(params: TurboStreamsParams): void;
+
+      /**
        * Returns a url to a service, but using the web socket protocols
        */
       getWebSocketUrl(params?: GetWebSocketUrlParams): string;
@@ -73,7 +83,7 @@ declare module "*/lib/turbo-streams" {
       /**
        * Action to perform
        */
-      action: "append" | "prepend" | "replace" | "update";
+      action: "append" | "prepend" | "replace" | "update" | "before" | "after";
 
       /**
        * Dom ID to update
