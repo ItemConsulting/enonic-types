@@ -66,7 +66,44 @@ export function get(req: XP.Request): XP.Response { // 3
     be able to add types to all the standard XP-libraries.
  3. We use `XP.Request` and `XP.Response` to control the shape of our controller.
  4. `content` is of the type `Content<Article> | null`, so we have to do a null check before proceeding.
- 
+
+# Using vanilla JavaScript
+
+If your project is using vanilla JavaScript, you can still get the benefit of code completion when using libraries.
+This is even better if you are using [JsDoc to add types to your code](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
+
+All you have to do is the following:
+ 1. Configure *./tsconfig.json* as described above
+ 2. Add a file: *./src/main/resources/types.ts* with the following content:
+    ```typescript
+    type LibMap = import('enonic-types/libs').EnonicLibraryMap;
+    
+    declare const require: <K extends keyof LibMap | string = string>(
+      path: K
+    ) => K extends keyof LibMap ? LibMap[K] : unknown;
+    
+    declare const resolve: (
+      path: string
+    ) => import('enonic-types/thymeleaf').ResourceKey;
+    
+    declare const app: {
+      name: string;
+      version: string;
+      config: { [key: string]: string };
+    };
+    
+    declare const log: {
+      info: (...args: unknown[]) => void;
+      warning: (...args: unknown[]) => void;
+      error: (...args: unknown[]) => void;
+    };
+    
+    declare const __: {
+      newBean: (bean: string) => unknown;
+      toNativeObject: <A = unknown>(beanResult: A) => A;
+    };
+    ```
+
 ## Using `__non_webpack_require__`
 
 If your project is using `__non_webpack_require__`, you should update your *types.ts* file to add type support to it.
