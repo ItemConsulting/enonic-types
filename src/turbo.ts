@@ -161,9 +161,11 @@ declare module "*/lib/turbo-streams" {
     /**
      * Params for configuring web socket urls
      */
-    export interface GetWebSocketUrlParams {
-      service: string;
-    }
+    export type GetWebSocketUrlParams = Omit<import("/lib/xp/portal").ServiceUrlParams, "params"> & {
+      params?: {
+        groupId?: string;
+      };
+    };
   }
 
   const turboStreamsLib: turboStreamsLib.TurboStreamsLibrary;
