@@ -12,6 +12,11 @@ declare module "*/lib/turbo-streams" {
       MIME_TYPE_TURBO_STREAMS: "text/vnd.turbo-stream.html";
 
       /**
+       * The name of the service created by this library
+       */
+      SERVICE_NAME_TURBO_STREAMS: "turbo-streams";
+
+      /**
        * Append some markup to a target id in the dom over web socket
        */
       append(params: TurboStreamsParams): void;
@@ -161,7 +166,7 @@ declare module "*/lib/turbo-streams" {
     /**
      * Params for configuring web socket urls
      */
-    export type GetWebSocketUrlParams = Omit<import("/lib/xp/portal").ServiceUrlParams, "params"> & {
+    export type GetWebSocketUrlParams = Omit<Partial<import("/lib/xp/portal").ServiceUrlParams>, "params"> & {
       params?: {
         groupId?: string;
       };
