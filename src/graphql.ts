@@ -212,7 +212,7 @@ declare module "*/lib/graphql" {
       query: GraphQLObjectType;
       mutation?: GraphQLObjectType;
       subscription?: GraphQLObjectType;
-      dictionary: string;
+      dictionary: Array<GraphQLObjectType>;
     }
 
     export interface CreateEnumTypeParams {
@@ -238,37 +238,37 @@ declare module "*/lib/graphql" {
     }
 
     export interface CreateInterfaceTypeParams<ExecuteContext = EmptyObject> {
-      readonly name: string;
-      readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      readonly typeResolver: (env: any) => any;
-      readonly description?: string;
+      name: string;
+      fields: Record<string, GraphQLResolver<ExecuteContext>>;
+      typeResolver: (env: any) => any;
+      description?: string;
     }
 
     export interface CreateUnionTypeParams<ExecuteContext = EmptyObject> {
-      readonly name: string;
-      readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      readonly typeResolver: (env: any) => any;
+      name: string;
+      fields: Record<string, GraphQLResolver<ExecuteContext>>;
+      typeResolver: (env: any) => any;
     }
 
     export interface CreatePageInfoObjectTypeParams<ExecuteContext = EmptyObject> {
-      readonly name: string;
-      readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
-      description: string;
+      name: string;
+      fields: Record<string, GraphQLResolver<ExecuteContext>>;
+      interfaces?: Array<GraphQLInterfaceType | GraphQLTypeReference>;
+      description?: string;
     }
 
     export interface CreateObjectTypeParams<ExecuteContext = EmptyObject> {
-      readonly name: string;
-      readonly description: string;
-      readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
+      name: string;
+      description?: string;
+      fields: Record<string, GraphQLResolver<ExecuteContext>>;
+      interfaces?: Array<GraphQLInterfaceType | GraphQLTypeReference>;
     }
 
     export interface CreateInputObjectTypeParams<ExecuteContext = EmptyObject> {
-      readonly name: string;
-      readonly description: string;
-      readonly fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      readonly interfaces: Array<GraphQLInterfaceType | GraphQLTypeReference>;
+      name: string;
+      description?: string;
+      fields: Record<string, GraphQLResolver<ExecuteContext>>;
+      interfaces?: Array<GraphQLInterfaceType | GraphQLTypeReference>;
     }
   }
 

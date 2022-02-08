@@ -1,24 +1,26 @@
 declare module "*/lib/guillotine" {
   namespace guillotineLib {
+    type EmptyObject = import("./types").EmptyObject;
+
     interface GuillotineLibrary {
-      createSchema<ExecuteContext = import("./types").EmptyObject>(
+      createSchema<ExecuteContext = EmptyObject>(
         params?: ContextOptions<ExecuteContext>
       ): import("/lib/graphql").GraphQLSchema;
 
-      createHeadlessCmsType(): import("/lib/graphql").GraphQLType;
+      createHeadlessCmsType<ExecuteContext = EmptyObject>(
+        context?: Context<ExecuteContext>
+      ): import("/lib/graphql").GraphQLType;
 
-      createContext<ExecuteContext = import("./types").EmptyObject>(
-        options?: ContextOptions<ExecuteContext>
-      ): Context<ExecuteContext>;
+      createContext<ExecuteContext = EmptyObject>(options?: ContextOptions<ExecuteContext>): Context<ExecuteContext>;
 
-      initWebSockets(schema: import("/lib/graphql").GraphQLSchema): (event: XP.WebSocketEvent) => void;
+      initWebSockets(schema?: import("/lib/graphql").GraphQLSchema): (event: XP.WebSocketEvent) => void;
 
       createWebSocketData(req: CreateWebSocketDataParams): WebSocketData;
 
       execute(params: import("./types").XOR<ExecuteBySchemaParams, ExecuteByConfigParams>): string;
     }
 
-    export interface ContextOptions<ExecuteContext = import("./types").EmptyObject> {
+    export interface ContextOptions<ExecuteContext = EmptyObject> {
       applications?: Array<string>;
       allowPaths?: Array<string>;
       subscriptionEventTypes?: Array<string>;
@@ -38,7 +40,7 @@ declare module "*/lib/guillotine" {
     type GraphQLEnumType = import("/lib/graphql").GraphQLEnumType;
     type GraphQLInterfaceType = import("/lib/graphql").GraphQLInterfaceType;
 
-    export interface Context<ExecuteContext = import("./types").EmptyObject> {
+    export interface Context<ExecuteContext = EmptyObject> {
       types: {
         // acl-types
         principalKeyType: GraphQLObjectType;
