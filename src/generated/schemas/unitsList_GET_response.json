@@ -1,0 +1,51 @@
+{
+  "title": "List of units",
+  "description":"Response of a GET request. Lists units matching specified search filters, or all.",
+  "type": "array",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "cristin_unit_id": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Cristin-unit-IDs consist of 4 numbers separated by '.'."
+    },
+    "language_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string",
+          "pattern": "\\w"
+        }
+      }
+    }
+  },
+  "items": {
+    "type": "object",
+    "required": ["cristin_unit_id", "unit_name", "url"],
+    "properties": {
+      "cristin_unit_id": {
+        "$ref":"#/definitions/cristin_unit_id"
+      },
+      "unit_name": {
+        "$ref":"#/definitions/language_object"
+      },
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL for extended information about this unit."
+      },
+      "institution": {
+        "type": "object",
+        "properties": {
+          "acronym": {
+            "type": "string"
+          }
+        }
+      },
+      "acronym": {
+        "type":"string"
+      }
+    }
+  }
+}

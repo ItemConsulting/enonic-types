@@ -1,0 +1,60 @@
+{
+  "title": "List of institutions",
+  "description": "Response of a GET request. Lists institutions matching specified search filters, or all.",
+  "type": "array",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "cristin_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "minLength": 1,
+      "maxLength": 8,
+      "description": "Cristin-IDs consist of 1 to 8 digits."
+    },
+    "language_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string",
+          "pattern": "\\w"
+        }
+      }
+    },
+    "country_code": {
+      "type":"string",
+      "pattern":"^[A-Z]{2}$",
+      "description":"Upper case ISO 3166-1 alpha-2 country code."
+    }
+  },
+  "items": {
+    "type": "object",
+    "required": ["cristin_institution_id", "url"],
+    "properties": {
+      "cristin_institution_id": {
+        "$ref": "#/definitions/cristin_id"
+      },
+      "institution_name": {
+        "$ref":"#/definitions/language_object"
+      },
+      "old_name": {
+        "type": "string",
+        "description": "If the search criteria matches an expired name, say so here."
+      },
+      "acronym": {
+        "type": "string"
+      },
+      "country": {
+        "$ref":"#/definitions/country_code"
+      },
+      "cristin_user_institution": {
+        "type": "boolean"
+      },
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL for extended information about this institution."
+      }
+    }
+  }
+}

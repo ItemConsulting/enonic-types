@@ -1,0 +1,122 @@
+{
+  "title": "Person",
+  "description": "Response of a GET lookup request.",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "cristin_id":{
+      "type":"string",
+      "pattern":"^[0-9]+$",
+      "minLength":1,
+      "maxLength":8,
+      "description":"Cristin-IDs consist of 1 to 8 digits."
+    },
+    "cristin_unit_id": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Cristin-unit-IDs consist of 4 numbers separated by '.'."
+    },
+    "language_object":{
+      "type":"object",
+      "additionalProperties":false,
+      "patternProperties":{
+        "^[a-z]{2}$":{
+          "type": "string",
+          "pattern": "\\w"
+        }
+      }
+    }
+  },
+  "properties": {
+    "first_name": {
+      "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "first_name_preferred": {
+      "type": "string",
+      "description": "Preferred form of first name, returned only if a differing first or surname is registered."
+    },
+    "surname_preferred": {
+      "type": "string",
+      "description": "Preferred form of surname, returned only if a differing first or surname is registered."
+    },
+    "tel": {
+      "type": "string"
+    },
+    "cristin_person_id": {
+      "$ref": "#/definitions/cristin_id"
+    },
+    "orcid": {
+      "type": "object",
+      "description": "The ORCID (Open Researcher and Contributor ID) verified for this person.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-([0-9]{4}|[0-9]{3}X)$",
+          "description": "The ORCID ID presented as its 16-character, four-groups-of-four identifier."
+        }
+      }
+    },
+    "identified_cristin_person": {
+      "type": "boolean"
+    },
+    "picture_url": {
+      "type": "string",
+      "description": "URL for separate webservice."
+    },
+    "cristin_profile_url": {
+      "type": "string"
+    },
+    "norwegian_national_id": {
+      "type": "string",
+      "description": "National identity number. Only visible to authorized clients"
+    },
+    "reserved": {
+      "type": "boolean",
+      "description": "If the user profile is restricted for public view. Only visible to authorized clients"
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "position": {
+            "$ref": "#/definitions/language_object"
+          },
+          "institution": {
+            "type": "object",
+            "properties": {
+              "cristin_institution_id": {
+                "$ref": "#/definitions/cristin_id",
+                "description": "Cristin institution ID of the institution."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of the Web service that returns extended information about this institution."
+              }
+            }
+          },
+          "unit": {
+            "type": "object",
+            "properties": {
+              "cristin_unit_id": {
+                "$ref": "#/definitions/cristin_unit_id"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of the Web service that returns extended information about this unit."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

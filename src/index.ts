@@ -42,3 +42,4 @@
 /// <reference path="vhost.ts" />
 /// <reference path="websocket.ts" />
 /// <reference path="xslt.ts" />
+/// <reference path="cristin.ts" />

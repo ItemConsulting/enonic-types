@@ -7,6 +7,10 @@ export interface EnonicLibraryMap {
   "/lib/xp/common": typeof import("/lib/xp/common");
   "/lib/xp/content": typeof import("/lib/xp/content");
   "/lib/xp/context": typeof import("/lib/xp/context");
+  "/lib/cristin": typeof import("/lib/cristin");
+  "/lib/cristin/service": typeof import("/lib/cristin/service");
+  "/lib/cristin/storage": typeof import("/lib/cristin/storage");
+  "/lib/cristin/constants": typeof import("/lib/cristin/constants");
   "/lib/cron": typeof import("/lib/cron");
   "/lib/text-encoding": typeof import("/lib/text-encoding");
   "/lib/xp/event": typeof import("/lib/xp/event");

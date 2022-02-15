@@ -131,6 +131,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [ContentLibrary](./src/content.ts)
  * [ContextLibrary](./src/context.ts)
  * [ControllerLibrary](./src/controller.ts)
+ * [CristinLibrary](./src/cristin/index.ts)
  * [CronLibrary](./src/cron.ts)
  * [EncodingLibrary](./src/encoding.ts)
  * [EventLibrary](./src/event.ts)

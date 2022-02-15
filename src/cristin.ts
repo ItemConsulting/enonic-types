@@ -1,0 +1,248 @@
+declare module "*/lib/cristin" {
+  namespace cristinLib {
+    type RepoConnection = import("/lib/xp/node").RepoConnection;
+    type ListOfPersons = import("./generated").ListOfPersons;
+    type Person = import("./generated").Person;
+    type ListOfProjects = import("./generated").ListOfProjects;
+    type Project = import("./generated").Project;
+    type ListOfResults = import("./generated").ListOfResults;
+    type Result = import("./generated").Result;
+    type ListOfInstitutions = import("./generated").ListOfInstitutions;
+    type Institution = import("./generated").Institution;
+    type ListOfUnits = import("./generated").ListOfUnits;
+    type Unit = import("./generated").Unit;
+
+    type Unarray<T> = import("./types").Unarray<T>;
+    type CristinPersonAffiliation = NonNullable<Unarray<Person["affiliations"]>>;
+    type CristinProjectCoordinatingInstitution = Project["coordinating_institution"];
+    type CristinProjectParticipant = Unarray<NonNullable<Project["participants"]>>;
+    type CristinProjectParticipantRole = Unarray<CristinProjectParticipant["roles"]>;
+    type CristinResultCategory = NonNullable<Result["category"]>;
+
+    export interface CristinResultJournal {
+      cristin_journal_id: string;
+      name: string;
+      international_standard_numbers: Array<{
+        type: string;
+        value: string;
+      }>;
+      nvi_level: string;
+    }
+
+    /**
+     * This library lets the developer interact with Cristin
+     */
+    interface CristinLibrary {
+      getCristinPerson(id: string, connection?: RepoConnection): Person | void;
+      getCristinInstitution(id: string, connection?: RepoConnection): Institution | void;
+      getCristinProject(id: string, connection?: RepoConnection): Project | void;
+      getCristinUnit(id: string, connection?: RepoConnection): Unit | void;
+      getCristinResult(id: string, connection?: RepoConnection): Result | void;
+    }
+  }
+
+  const cristinLib: cristinLib.CristinLibrary;
+  export = cristinLib;
+}
+
+declare module "*/lib/cristin/constants" {
+  namespace cristinConstantsLib {
+    interface CristinConstantsLibrary {
+      REPO_CRISTIN_INSTITUTIONS: "no.item.cristin.institutions";
+      REPO_CRISTIN_PERSONS: "no.item.cristin.persons";
+      REPO_CRISTIN_PROJECTS: "no.item.cristin.projects";
+      REPO_CRISTIN_RESULTS: "no.item.cristin.results";
+      REPO_CRISTIN_UNITS: "no.item.cristin.units";
+      BRANCH_MASTER: "master";
+      URL_CRISTIN: "https://api.cristin.no/v2";
+      BINARY_REFERENCE_PICTURE: "picture";
+      LANG_PARAMS_DEFAULT: "en,nb";
+    }
+  }
+
+  const cristinConstantsLib: cristinConstantsLib.CristinConstantsLibrary;
+  export = cristinConstantsLib;
+}
+
+declare module "*/lib/cristin/storage" {
+  namespace cristinStorageLib {
+    type Person = import("./generated").Person;
+    type Project = import("./generated").Project;
+    type Result = import("./generated").Result;
+    type Institution = import("./generated").Institution;
+    type Unit = import("./generated").Unit;
+
+    interface CristinStorageLibrary {
+      lookupPerson(id: string): Person | undefined;
+      lookupInstitution(id: string): Institution | undefined;
+      lookupProject(id: string): Project | undefined;
+      lookupUnit(id: string): Unit | undefined;
+      lookupResult(id: string): Result | undefined;
+    }
+  }
+
+  const cristinStorageLib: cristinStorageLib.CristinStorageLibrary;
+  export = cristinStorageLib;
+}
+
+declare module "*/lib/cristin/graphql" {
+  namespace cristinGraphqlLib {
+    type GraphQLType = import("/lib/graphql").GraphQLTime;
+    type GraphQLObjectType = import("/lib/graphql").GraphQLObjectType;
+    type Context<ExecuteContext = EmptyObject> = import("/lib/guillotine").Context<ExecuteContext>;
+    type EmptyObject = import("/lib/guillotine").EmptyObject;
+    interface ContextOptions<ExecuteContext = EmptyObject> {
+      creationCallbacks: Record<
+        string,
+        (
+          context: Context<ExecuteContext>,
+          params: import("/lib/graphql").CreateObjectTypeParams<ExecuteContext>
+        ) => void
+      >;
+    }
+
+    interface CristinGraphqlLibrary {
+      GRAPHQL_OBJECT_NAME_CRISTIN_UNIT: "no_item_cristin_Unit";
+      GRAPHQL_OBJECT_NAME_CRISTIN_INSTITUTION: "no_item_cristin_Institution";
+      GRAPHQL_OBJECT_NAME_CRISTIN_PERSON: "no_item_cristin_Person";
+      GRAPHQL_OBJECT_NAME_CRISTIN_PROJECT: "no_item_cristin_Project";
+      GRAPHQL_OBJECT_NAME_CRISTIN_RESULT: "no_item_cristin_Result";
+
+      GraphQLCristinPerson: GraphQLType;
+      GraphQLCristinInstitution: GraphQLType;
+      GraphQLCristinProject: GraphQLType;
+      GraphQLCristinResult: GraphQLType;
+      GraphQLCristinUnit: GraphQLType;
+
+      createObjectTypeCristinPerson(context: Context, options?: ContextOptions): GraphQLObjectType;
+      createObjectTypeCristinInstitution(context: Context, options?: ContextOptions): GraphQLObjectType;
+      createObjectTypeCristinProject(context: Context, options?: ContextOptions): GraphQLObjectType;
+      createObjectTypeCristinResult(context: Context, options?: ContextOptions): GraphQLObjectType;
+      createObjectTypeCristinUnit(context: Context, options?: ContextOptions): GraphQLObjectType;
+    }
+  }
+
+  const cristinGraphqlLib: cristinGraphqlLib.CristinGraphqlLibrary;
+  export = cristinGraphqlLib;
+}
+
+declare module "*/lib/cristin/service" {
+  namespace cristinServiceLib {
+    type ListOfPersons = import("./generated").ListOfPersons;
+    type Person = import("./generated").Person;
+    type ListOfProjects = import("./generated").ListOfProjects;
+    type Project = import("./generated").Project;
+    type ListOfResults = import("./generated").ListOfResults;
+    type Result = import("./generated").Result;
+    type ListOfInstitutions = import("./generated").ListOfInstitutions;
+    type Institution = import("./generated").Institution;
+    type ListOfUnits = import("./generated").ListOfUnits;
+    type Unit = import("./generated").Unit;
+
+    interface CristinServiceLibrary {
+      fetchPersons(params: GetPersonsParams): ListOfPersons;
+      fetchPerson(params: GetSingleParams): Person;
+      fetchProjects(params: GetProjectsParams): ListOfProjects;
+      fetchProject(params: GetSingleParams): Project;
+      fetchResults(params: GetResultsParams): ListOfResults;
+      fetchResult(params: GetSingleParams): Result;
+      fetchInstitutions(params: GetInstitutionsParams): ListOfInstitutions;
+      fetchInstitution(params: GetSingleParams): Institution;
+      fetchUnits(params: GetUnitsParams): ListOfUnits;
+      fetchUnit(params: GetSingleParams): Unit;
+    }
+
+    interface GetSingleParams {
+      id: string | number;
+      lang?: string;
+    }
+
+    interface GetPersonsParams {
+      id?: string;
+      national_id?: string;
+      name?: string;
+      institution?: string;
+      parent_unit_id?: string;
+      levels?: string;
+      user?: string;
+      page?: string;
+      per_page?: string;
+    }
+
+    interface GetProjectsParams {
+      id?: string;
+      title?: string;
+      institution?: string;
+      user?: string;
+      biobank?: string;
+      project_manager?: string;
+      participant?: string;
+      approval_reference_id?: string;
+      approved_by?: string;
+      modified_since?: string;
+      keyword?: string;
+      unit?: string;
+      parent_unit_id?: string;
+      levels?: string;
+      status?: string;
+      project_code?: string;
+      funding_source?: string;
+      funding?: string;
+      lang?: string;
+      page?: string;
+      per_page?: string;
+      sort?: string;
+    }
+
+    interface GetResultsParams {
+      id?: string;
+      doi?: string;
+      title?: string;
+      contributor?: string;
+      issn?: string;
+      unit?: string;
+      institution?: string;
+      user?: string;
+      category?: string;
+      published_since?: string;
+      published_before?: string;
+      created_since?: string;
+      created_before?: string;
+      modified_since?: string;
+      modified_before?: string;
+      year_reported?: string;
+      project_code?: string;
+      funding_source?: string;
+      funding?: string;
+      lang?: string;
+      page?: string;
+      per_page?: string;
+      sort?: string;
+      fields?: "all";
+    }
+
+    interface GetInstitutionsParams {
+      id?: string;
+      name?: string;
+      country?: string;
+      cristin_institution?: "true" | "false";
+      lang?: string;
+      page?: string;
+      per_page?: string;
+    }
+
+    interface GetUnitsParams {
+      id?: string;
+      name?: string;
+      institution?: string;
+      parent_unit_id?: string;
+      levels?: string;
+      lang?: string;
+      page?: string;
+      per_page?: string;
+    }
+  }
+
+  const cristinServiceLib: cristinServiceLib.CristinServiceLibrary;
+  export = cristinServiceLib;
+}

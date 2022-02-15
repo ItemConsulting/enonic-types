@@ -1,0 +1,138 @@
+{
+  "title": "Unit",
+  "description": "Response of a GET lookup request.",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "required": ["cristin_unit_id"],
+  "definitions":{
+    "cristin_id":{
+      "type":"string",
+      "pattern":"^[0-9]+$",
+      "minLength":1,
+      "maxLength":8,
+      "description":"Cristin-IDs consist of 1 to 8 digits."
+    },
+    "cristin_unit_id":{
+      "type":"string",
+      "pattern":"^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description":"Cristin-unit-IDs consist of 4 numbers separated by '.'."
+    },
+    "language_code":{
+      "type":"string",
+      "pattern":"^[a-z]{2}$",
+      "description":"Lower case ISO 639-1 language code."
+    },
+    "language_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string",
+          "pattern": "\\w"
+        }
+      }
+    }
+  },
+  "properties": {
+    "cristin_unit_id": {
+      "$ref":"#/definitions/cristin_unit_id"
+    },
+    "unit_name": {
+      "$ref":"#/definitions/language_object",
+      "description":"Name of the unit."
+    },
+    "institution": {
+      "type":"object",
+      "description":"Parent institution.",
+      "required":["cristin_institution_id"],
+      "properties":{
+        "cristin_institution_id":{
+          "$ref":"#/definitions/cristin_id",
+          "description":"Cristin institution ID of the institution."
+        },
+        "institution_name":{
+          "$ref":"#/definitions/language_object",
+          "description":"Name of the institution."
+        },
+        "url":{
+          "type":"string",
+          "format":"uri",
+          "description":"URL of the Web service that returns extended information about this institution."
+        }
+      }
+    },
+    "parent_unit": {
+      "type":"object",
+      "description":"Parent unit.",
+      "required":["cristin_unit_id"],
+      "properties":{
+        "cristin_unit_id":{
+          "$ref":"#/definitions/cristin_unit_id",
+          "description":"Cristin unit ID of the parent unit."
+        },
+        "unit_name":{
+          "$ref":"#/definitions/language_object",
+          "description":"Name of the unit."
+        },
+        "url":{
+          "type":"string",
+          "format":"uri",
+          "description":"URL of the Web service that returns extended information about this unit."
+        }
+      }
+    },
+    "parent_units":{
+      "type":"array",
+      "description":"Parent units. Ordered from topmost to closest parent in the unit hierarchy",
+      "items":{
+        "type":"object",
+        "description":"Parent unit.",
+        "required":["cristin_unit_id"],
+        "properties":{
+          "cristin_unit_id":{
+            "$ref":"#/definitions/cristin_unit_id",
+            "description":"Cristin unit ID of the parent unit."
+          },
+          "unit_name":{
+            "$ref":"#/definitions/language_object",
+            "description":"Name of the unit."
+          },
+          "url":{
+            "type":"string",
+            "format":"uri",
+            "description":"URL of the Web service that returns extended information about this unit."
+          }
+        }
+      }
+    },
+    "subunits": {
+      "type":"array",
+      "description":"Direct children of this unit",
+      "items":{
+        "type":"object",
+        "description":"Child unit / subunit.",
+        "required":["cristin_unit_id"],
+        "properties":{
+          "cristin_unit_id":{
+            "$ref":"#/definitions/cristin_unit_id",
+            "description":"Cristin unit ID of the child unit / subunit."
+          },
+          "unit_name":{
+            "$ref":"#/definitions/language_object",
+            "description":"Name of the unit."
+          },
+          "url":{
+            "type":"string",
+            "format":"uri",
+            "description":"URL of the Web service that returns extended information about this unit."
+          }
+        }
+      }
+    },
+    "url": {
+      "type":"string",
+      "format":"uri",
+      "description":"URL of the Web service that returns extended information about this unit."
+    }
+  }
+}

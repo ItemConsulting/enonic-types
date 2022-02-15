@@ -1,7 +1,10 @@
 declare module "*/lib/guillotine" {
   namespace guillotineLib {
     type EmptyObject = import("./types").EmptyObject;
-
+    type ContextCreationCallbacks<ExecuteContext = EmptyObject> = Record<
+      string,
+      (context: Context<ExecuteContext>, params: import("/lib/graphql").CreateObjectTypeParams<ExecuteContext>) => void
+    >;
     interface GuillotineLibrary {
       createSchema<ExecuteContext = EmptyObject>(
         params?: ContextOptions<ExecuteContext>
@@ -24,13 +27,7 @@ declare module "*/lib/guillotine" {
       applications?: Array<string>;
       allowPaths?: Array<string>;
       subscriptionEventTypes?: Array<string>;
-      creationCallbacks: Record<
-        string,
-        (
-          context: Context<ExecuteContext>,
-          params: import("/lib/graphql").CreateObjectTypeParams<ExecuteContext>
-        ) => void
-      >;
+      creationCallbacks: ContextCreationCallbacks<ExecuteContext>;
 
       [key: string]: unknown;
     }
