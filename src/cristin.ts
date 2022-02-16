@@ -157,16 +157,22 @@ declare module "*/lib/cristin/service" {
     type ListOfUnits = import("./generated").ListOfUnits;
     type Unit = import("./generated").Unit;
 
+    export interface FetchResponse<Data> {
+      count: number;
+      total: number;
+      data: Data;
+    }
+
     interface CristinServiceLibrary {
-      fetchPersons(params: GetPersonsParams): ListOfPersons;
+      fetchPersons(params: GetPersonsParams): FetchResponse<ListOfPersons>;
       fetchPerson(params: GetSingleParams): Person;
-      fetchProjects(params: GetProjectsParams): ListOfProjects;
+      fetchProjects(params: GetProjectsParams): FetchResponse<ListOfProjects>;
       fetchProject(params: GetSingleParams): Project;
-      fetchResults(params: GetResultsParams): ListOfResults;
+      fetchResults(params: GetResultsParams): FetchResponse<ListOfResults>;
       fetchResult(params: GetSingleParams): Result;
-      fetchInstitutions(params: GetInstitutionsParams): ListOfInstitutions;
+      fetchInstitutions(params: GetInstitutionsParams): FetchResponse<ListOfInstitutions>;
       fetchInstitution(params: GetSingleParams): Institution;
-      fetchUnits(params: GetUnitsParams): ListOfUnits;
+      fetchUnits(params: GetUnitsParams): FetchResponse<ListOfUnits>;
       fetchUnit(params: GetSingleParams): Unit;
     }
 
