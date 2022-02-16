@@ -33,10 +33,19 @@ declare module "*/lib/cristin" {
      * This library lets the developer interact with Cristin
      */
     interface CristinLibrary {
+      getCristinPersons(ids: Array<string>): Array<Person>;
       getCristinPerson(id: string, connection?: RepoConnection): Person | void;
+
+      getCristinInstitutions(ids: Array<string>): Array<Institution>;
       getCristinInstitution(id: string, connection?: RepoConnection): Institution | void;
+
+      getCristinProjects(ids: Array<string>): Array<Project>;
       getCristinProject(id: string, connection?: RepoConnection): Project | void;
+
+      getCristinUnits(ids: Array<string>): Array<Unit>;
       getCristinUnit(id: string, connection?: RepoConnection): Unit | void;
+
+      getCristinResults(ids: Array<string>): Array<Result>;
       getCristinResult(id: string, connection?: RepoConnection): Result | void;
     }
   }
@@ -73,10 +82,19 @@ declare module "*/lib/cristin/storage" {
     type Unit = import("./generated").Unit;
 
     interface CristinStorageLibrary {
+      lookupPerson(ids: Array<string>): Array<Person>;
       lookupPerson(id: string): Person | undefined;
+
+      lookupInstitution(ids: Array<string>): Array<Institution>;
       lookupInstitution(id: string): Institution | undefined;
+
+      lookupProject(ids: Array<string>): Array<Project>;
       lookupProject(id: string): Project | undefined;
+
+      lookupUnit(ids: Array<string>): Array<Unit>;
       lookupUnit(id: string): Unit | undefined;
+
+      lookupResult(ids: Array<string>): Array<Result>;
       lookupResult(id: string): Result | undefined;
     }
   }
