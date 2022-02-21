@@ -41,7 +41,7 @@ declare module "*/lib/graphql" {
       /**
        * Returns a special type that allows an object/interface type to reference a type by its key. Necessary for self reference.
        */
-      reference(typeKey: string): GraphQLType;
+      reference(typeKey: string): GraphQLTypeReference;
 
       /**
        * Executes a GraphQL query and variables against a schema
@@ -240,14 +240,14 @@ declare module "*/lib/graphql" {
     export interface CreateInterfaceTypeParams<ExecuteContext = EmptyObject> {
       name: string;
       fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      typeResolver: (env: any) => any;
+      typeResolver: (env: any) => GraphQLObjectType;
       description?: string;
     }
 
     export interface CreateUnionTypeParams<ExecuteContext = EmptyObject> {
       name: string;
-      fields: Record<string, GraphQLResolver<ExecuteContext>>;
-      typeResolver: (env: any) => any;
+      types: Array<GraphQLObjectType | GraphQLTypeReference>;
+      typeResolver: (env: any) => GraphQLObjectType;
     }
 
     export interface CreatePageInfoObjectTypeParams<ExecuteContext = EmptyObject> {
