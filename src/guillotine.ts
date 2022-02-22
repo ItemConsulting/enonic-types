@@ -157,3 +157,36 @@ declare module "*/lib/guillotine" {
   const guillotineLib: guillotineLib.GuillotineLibrary;
   export = guillotineLib;
 }
+
+declare module "*/lib/guillotine/macro" {
+  namespace guillotineMacroLib {
+    interface GuillotineMacroLibrary {
+      processHtml(params: ProcessHtmlParams): ProcessHtmlResult;
+    }
+
+    interface ProcessHtmlParams {
+      value: string;
+      type?: string;
+      imageWidths?: Array<number>;
+      imageSizes?: string;
+    }
+
+    interface ProcessHtmlResult<MacroConfig = unknown> {
+      raw: string;
+      processedHtml: string;
+      macrosAsJson: Array<{
+        ref: string;
+        name: string;
+        descriptor: string;
+        config: MacroConfig;
+      }>;
+      images: Array<{
+        imageId: string;
+        imageRef: string;
+      }>;
+    }
+  }
+
+  const guillotineMacroLib: guillotineMacroLib.GuillotineMacroLibrary;
+  export = guillotineMacroLib;
+}
