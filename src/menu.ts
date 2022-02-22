@@ -18,19 +18,19 @@ declare module "*/lib/menu" {
         parentContent: import("/lib/xp/content").Content<any> | import("/lib/xp/content").Site<any>,
         levels?: number,
         params?: GetMenuParams
-      ): ReadonlyArray<MenuItem>;
+      ): Array<MenuItem>;
     }
 
     export interface MenuTree {
       /**
        * The list of menuItems and children
        */
-      readonly menuItems: ReadonlyArray<MenuItem>;
+      menuItems: Array<MenuItem>;
 
       /**
        * The ariaLabel used for this menu
        */
-      readonly ariaLabel?: string;
+      ariaLabel?: string;
     }
 
     export interface GetBreadcrumbMenuParams {
@@ -66,16 +66,16 @@ declare module "*/lib/menu" {
     }
 
     export interface BreadcrumbMenu {
-      readonly divider: string | null;
-      readonly items: ReadonlyArray<{
-        readonly title: string;
-        readonly text: string;
-        readonly url: string;
-        readonly active: boolean;
-        readonly type: string;
+      divider: string | null;
+      items: Array<{
+        title: string;
+        text: string;
+        url: string;
+        active: boolean;
+        type: string;
       }>;
 
-      readonly ariaLabel?: string;
+      ariaLabel?: string;
     }
 
     export type GetMenuTreeParams = GetMenuParams & {
@@ -100,19 +100,19 @@ declare module "*/lib/menu" {
     }
 
     export interface MenuItem {
-      readonly title: string;
-      readonly displayName: string;
-      readonly menuName: string | null;
-      readonly path: string;
-      readonly name: string;
-      readonly id: string;
-      readonly hasChildren: boolean;
-      readonly inPath: boolean;
-      readonly isActive: boolean;
-      readonly newWindow: boolean;
-      readonly type: string;
-      readonly url: string;
-      readonly children: ReadonlyArray<MenuItem>;
+      title: string;
+      displayName: string;
+      menuName: string | null;
+      path: string;
+      name: string;
+      id: string;
+      hasChildren: boolean;
+      inPath: boolean;
+      isActive: boolean;
+      newWindow: boolean;
+      type: string;
+      url: string;
+      children: Array<MenuItem>;
     }
   }
 
