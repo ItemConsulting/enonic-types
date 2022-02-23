@@ -31,27 +31,27 @@ declare module "*/lib/xp/node" {
     }
 
     export interface NodeQueryHit {
-      readonly id: string;
-      readonly score: number;
+      id: string;
+      score: number;
     }
 
     export interface MultiRepoNodeQueryHit extends NodeQueryHit {
-      readonly repoId: string;
-      readonly branch: string;
+      repoId: string;
+      branch: string;
     }
 
     export interface NodeQueryResponse<AggregationKeys extends string = never> {
-      readonly total: number;
-      readonly count: number;
-      readonly hits: ReadonlyArray<NodeQueryHit>;
-      readonly aggregations: import("/lib/xp/content").AggregationsResponse<AggregationKeys>;
+      total: number;
+      count: number;
+      hits: Array<NodeQueryHit>;
+      aggregations: import("/lib/xp/content").AggregationsResponse<AggregationKeys>;
     }
 
     export type MultiRepoNodeQueryResponse<AggregationKeys extends string = never> = Omit<
       NodeQueryResponse<AggregationKeys>,
       "hits"
     > & {
-      hits: ReadonlyArray<MultiRepoNodeQueryHit>;
+      hits: Array<MultiRepoNodeQueryHit>;
     };
 
     export interface GetBinaryParams {
@@ -140,15 +140,15 @@ declare module "*/lib/xp/node" {
        */
       path: boolean;
 
-      indexValueProcessors: ReadonlyArray<any>;
-      languages: ReadonlyArray<any>;
+      indexValueProcessors: Array<any>;
+      languages: Array<any>;
     }
 
     export type IndexConfigTemplates = "none" | "byType" | "fulltext" | "path" | "minimal";
 
     export interface IndexConfig {
       default: IndexConfigEntry | IndexConfigTemplates;
-      configs?: ReadonlyArray<{
+      configs?: Array<{
         path: string;
         config: IndexConfigEntry | IndexConfigTemplates;
       }>;
@@ -173,7 +173,7 @@ declare module "*/lib/xp/node" {
       /**
        * The access control list for the node. By default the creator will have full access
        */
-      _permissions?: ReadonlyArray<import("/lib/xp/content").PermissionsParams>;
+      _permissions?: Array<import("/lib/xp/content").PermissionsParams>;
 
       /**
        * true if the permissions should be inherited from the node parent. Default is false.
@@ -244,13 +244,17 @@ declare module "*/lib/xp/node" {
     }
 
     export interface RepoNode {
-      readonly _id: string;
-      readonly _childOrder: string;
-      readonly _indexConfig: IndexConfig;
-      readonly _inheritsPermissions: boolean;
-      readonly _permissions: ReadonlyArray<import("/lib/xp/content").PermissionsParams>;
-      readonly _state: string;
-      readonly _nodeType: string;
+      _id: string;
+      _name: string;
+      _path: string;
+      _childOrder: string;
+      _indexConfig: IndexConfig;
+      _inheritsPermissions: boolean;
+      _permissions: Array<import("/lib/xp/content").PermissionsParams>;
+      _state: string;
+      _nodeType: string;
+      _versionKey: string;
+      _ts: string;
     }
 
     export interface MultiRepoConnection {
@@ -265,7 +269,7 @@ declare module "*/lib/xp/node" {
        */
       commit(params: CommitParams): CommitResponse;
 
-      commit(params: MultiCommitParams): ReadonlyArray<CommitResponse>;
+      commit(params: MultiCommitParams): Array<CommitResponse>;
 
       /**
        * Creating a node. To create a content where the name is not important and there could be multiple instances under the
@@ -276,7 +280,7 @@ declare module "*/lib/xp/node" {
       /**
        * Deleting a node or nodes.
        */
-      delete(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+      delete(keys: string | Array<string>): Array<string>;
 
       /**
        * Resolves the differences for a node between current and given branch.
@@ -286,7 +290,7 @@ declare module "*/lib/xp/node" {
       /**
        * Checking if a node or nodes exist for the current context.
        */
-      exists(keys: string | ReadonlyArray<string>): ReadonlyArray<string>;
+      exists(keys: string | Array<string>): Array<string>;
 
       /**
        * Fetch the versions of a node.
@@ -301,14 +305,14 @@ declare module "*/lib/xp/node" {
       /**
        * Fetches specific nodes by paths or IDs.
        */
-      get<NodeData>(keys: ReadonlyArray<string | NodeGetParams>): ReadonlyArray<NodeData & RepoNode>;
+      get<NodeData>(keys: Array<string | NodeGetParams>): Array<NodeData & RepoNode>;
 
       /**
        * Fetches specific nodes by path(s) or ID(s).
        */
       get<NodeData>(
-        keys: string | NodeGetParams | ReadonlyArray<string | NodeGetParams>
-      ): (NodeData & RepoNode) | ReadonlyArray<NodeData & RepoNode>;
+        keys: string | NodeGetParams | Array<string | NodeGetParams>
+      ): (NodeData & RepoNode) | Array<NodeData & RepoNode>;
 
       /**
        * This function fetches commit by id.
@@ -409,12 +413,12 @@ declare module "*/lib/xp/node" {
     }
 
     export interface PushNodeResult {
-      readonly success: ReadonlyArray<string>;
-      readonly failed: ReadonlyArray<{
-        readonly id: string;
-        readonly reason: string;
+      success: Array<string>;
+      failed: Array<{
+        id: string;
+        reason: string;
       }>;
-      readonly deleted: ReadonlyArray<string>;
+      deleted: Array<string>;
     }
 
     export interface SetChildOrderParams {
@@ -423,7 +427,7 @@ declare module "*/lib/xp/node" {
     }
 
     export interface SetRootPermissionParams {
-      _permissions: ReadonlyArray<import("/lib/xp/content").PermissionsParams>;
+      _permissions: Array<import("/lib/xp/content").PermissionsParams>;
       _inheritsPermissions: boolean;
     }
 
@@ -452,10 +456,10 @@ declare module "*/lib/xp/node" {
     }
 
     export interface CommitResponse {
-      readonly id: string;
-      readonly message: string;
-      readonly committer: string;
-      readonly timestamp: string;
+      id: string;
+      message: string;
+      committer: string;
+      timestamp: string;
     }
 
     export interface NodeGetParams {
@@ -509,17 +513,17 @@ declare module "*/lib/xp/node" {
     }
 
     export interface NodeVersionQueryResult {
-      readonly total: number;
-      readonly count: number;
-      readonly hits: ReadonlyArray<NodeVersionMetadata>;
+      total: number;
+      count: number;
+      hits: Array<NodeVersionMetadata>;
     }
 
     export interface NodeVersionMetadata {
-      readonly versionId: string;
-      readonly nodeId: string;
-      readonly nodePath: string;
-      readonly timestamp: string;
-      readonly commitId: string;
+      versionId: string;
+      nodeId: string;
+      nodePath: string;
+      timestamp: string;
+      commitId: string;
     }
 
     export interface DiffParams {
@@ -550,12 +554,12 @@ declare module "*/lib/xp/node" {
       | "CONFLICT_VERSION_BRANCH_DIVERGS";
 
     export interface NodeComparison {
-      readonly id: string;
-      readonly status: CompareStatus;
+      id: string;
+      status: CompareStatus;
     }
 
     export interface DiffResponse {
-      diff: ReadonlyArray<NodeComparison>;
+      diff: Array<NodeComparison>;
     }
   }
 
