@@ -276,3 +276,37 @@ declare module "*/lib/cristin/service" {
   const cristinServiceLib: cristinServiceLib.CristinServiceLibrary;
   export = cristinServiceLib;
 }
+
+declare module "*/lib/cristin/utils/repos" {
+  namespace cristinUtilsReposLib {
+    type RepoConnection = import("/lib/xp/node").RepoConnection;
+
+    interface CristinNode<Data> {
+      _name: string;
+      data: Data;
+      topics: Array<string>;
+    }
+
+    interface SaveToRepoParams<NodeData> {
+      id: string;
+      connection: RepoConnection;
+      data?: NodeData;
+    }
+
+    interface CristinUtilReposLibrary {
+      getOrCreateRepoConnection(repoName: string): RepoConnection;
+      getNodeByDataId(
+        connection: RepoConnection,
+        ids: string | Array<string>
+      ): Array<import("/lib/xp/node").NodeQueryHit>;
+      getEntriesByName<NodeData>(
+        repoId: string,
+        name: Array<string>
+      ): Array<NodeData & import("/lib/xp/node").RepoNode>;
+      saveToRepo<NodeData>({ data, id, connection }: SaveToRepoParams<NodeData>): NodeData | void;
+    }
+  }
+
+  const cristinUtilsReposLib: cristinUtilsReposLib.CristinUtilReposLibrary;
+  export = cristinUtilsReposLib;
+}
