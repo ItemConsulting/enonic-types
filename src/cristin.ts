@@ -152,6 +152,7 @@ declare module "*/lib/cristin/service" {
     type Project = import("./generated").Project;
     type ListOfResults = import("./generated").ListOfResults;
     type Result = import("./generated").Result;
+    type CristinResultCategory = NonNullable<Result["category"]>;
     type ListOfInstitutions = import("./generated").ListOfInstitutions;
     type Institution = import("./generated").Institution;
     type ListOfUnits = import("./generated").ListOfUnits;
@@ -166,12 +167,17 @@ declare module "*/lib/cristin/service" {
     interface CristinServiceLibrary {
       fetchPersons(params: GetPersonsParams): FetchResponse<ListOfPersons>;
       fetchPerson(params: GetSingleParams): Person;
+
       fetchProjects(params: GetProjectsParams): FetchResponse<ListOfProjects>;
       fetchProject(params: GetSingleParams): Project;
+
       fetchResults(params: GetResultsParams): FetchResponse<ListOfResults>;
       fetchResult(params: GetSingleParams): Result;
+      fetchResultCategories(params?: { lang?: string }): FetchResponse<Array<CristinResultCategory>>;
+
       fetchInstitutions(params: GetInstitutionsParams): FetchResponse<ListOfInstitutions>;
       fetchInstitution(params: GetSingleParams): Institution;
+
       fetchUnits(params: GetUnitsParams): FetchResponse<ListOfUnits>;
       fetchUnit(params: GetSingleParams): Unit;
     }
