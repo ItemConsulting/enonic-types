@@ -284,7 +284,8 @@ declare module "*/lib/cristin/utils/repos" {
     interface CristinNode<Data> {
       _name: string;
       data: Data;
-      topics: Array<string>;
+      topics?: Array<string>;
+      hidden?: boolean;
     }
 
     interface SaveToRepoParams<NodeData> {
