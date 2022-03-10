@@ -730,9 +730,9 @@ declare module "*/lib/xp/content" {
 
     export interface SetPermissionsParams {
       key: string;
-      inheritPermissions: boolean;
-      overwriteChildPermissions: boolean;
-      permissions: Array<PermissionsParams>;
+      inheritPermissions?: boolean;
+      overwriteChildPermissions?: boolean;
+      permissions?: Array<PermissionsParams>;
     }
 
     export interface IconType {
