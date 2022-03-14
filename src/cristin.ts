@@ -295,7 +295,7 @@ declare module "*/lib/cristin/utils/repos" {
     }
 
     interface CristinUtilReposLibrary {
-      getOrCreateRepoConnection(repoName: string): RepoConnection;
+      ensureRepoExist(repoName: string): boolean;
       getNodeByDataId(
         connection: RepoConnection,
         ids: string | Array<string>
