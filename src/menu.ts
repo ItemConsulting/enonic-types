@@ -63,6 +63,11 @@ declare module "*/lib/menu" {
        * The 'aria-label' attribute text on the '<nav>' element. This should be the name of the navigation, e.g "Breadcrumbs".
        */
       ariaLabel?: string;
+
+      /**
+       * Key to content used to get the current site, Also gets content is in path or active based on this.
+       */
+      currentContent?: string;
     }
 
     export interface BreadcrumbMenu {
@@ -83,6 +88,11 @@ declare module "*/lib/menu" {
     };
 
     export interface GetMenuParams {
+      /**
+       * The content that sets the context of the menu. CurrentContent defaults to the current context content: portal.getContent().
+       */
+      currentContent?: string;
+
       /**
        * Control type of URL to be generated for menu items, default is 'server', only other option is 'absolute'.
        */
