@@ -39,6 +39,7 @@ export interface EnonicLibraryMap {
   "/lib/xp/repo": typeof import("/lib/xp/repo");
   "/lib/router": typeof import("/lib/router");
   "/lib/xp/scheduler": typeof import("/lib/xp/scheduler");
+  "/lib/sentry": typeof import("/lib/sentry");
   "/lib/session": typeof import("/lib/session");
   "/lib/enonic/static": typeof import("/lib/enonic/static");
   "/lib/sql": typeof import("/lib/sql");

@@ -156,6 +156,7 @@ declare const __non_webpack_require__: <K extends keyof LibMap | string = string
  * [RepoLibrary](./src/repo.ts) 
  * [RouterLibrary](./src/router.ts) 
  * [SchedulerLibrary](./src/scheduler.ts) 
+ * [SentryLibrary](./src/sentry.ts) 
  * [SessionLibrary](./src/session.ts) 
  * [SqlLibrary](./src/sql.ts) 
  * [TaskLibrary](./src/task.ts) 

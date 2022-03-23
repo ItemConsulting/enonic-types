@@ -31,6 +31,7 @@
 /// <reference path="repo.ts" />
 /// <reference path="router.ts" />
 /// <reference path="scheduler.ts" />
+/// <reference path="sentry.ts" />
 /// <reference path="session.ts" />
 /// <reference path="sql.ts" />
 /// <reference path="static.ts" />
