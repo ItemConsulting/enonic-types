@@ -9,11 +9,11 @@ declare module "*/lib/xp/content" {
       /**
        * This command queries content
        */
-      query<Data extends object, XData extends object, AggregationKeys extends string = never>(
+      query<Data extends object = object, XData extends object = object, AggregationKeys extends string = never>(
         params: QueryContentParams<AggregationKeys>
       ): QueryResponse<Data, XData, QueryResponseMetaDataScore, AggregationKeys>;
 
-      query<Data extends object, XData extends object, AggregationKeys extends string = never>(
+      query<Data extends object = object, XData extends object = object, AggregationKeys extends string = never>(
         params: QueryContentParamsWithSort<AggregationKeys>
       ): QueryResponse<Data, XData, QueryResponseMetaDataSort, AggregationKeys>;
 
