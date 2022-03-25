@@ -55,14 +55,16 @@ declare module "*/lib/xp/event" {
     }
 
     export interface EnonicEventData {
-      readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly path: string;
-        readonly branch: string;
-        readonly repo: string;
-        readonly newPath?: string; // for type="node.moved", type="node.renamed"
-      }>;
+      readonly nodes: ReadonlyArray<EnonicEventDataNode>;
       readonly state?: string; // for type="node.stateUpdated"
+    }
+
+    export interface EnonicEventDataNode {
+      readonly id: string;
+      readonly path: string;
+      readonly branch: string;
+      readonly repo: string;
+      readonly newPath?: string; // for type="node.moved", type="node.renamed"
     }
 
     export type EnonicEventTypes =
