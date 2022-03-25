@@ -11,9 +11,9 @@ declare module "*/lib/xp/portal" {
        * his function returns the content corresponding to the current execution context. It is meant to be called from a
        * page, layout or part controller
        */
-      getContent<Data extends object, PageConfig extends object = never>(): import("/lib/xp/content").Content<
+      getContent<Data extends object = object, XData extends object = object>(): import("/lib/xp/content").Content<
         Data,
-        PageConfig
+        XData
       >;
 
       /**
@@ -126,7 +126,7 @@ declare module "*/lib/xp/portal" {
 
     export type Params = { readonly [key: string]: string | ReadonlyArray<string> | undefined };
 
-    export interface Component<Config> {
+    export interface Component<Config = unknown> {
       readonly path: string;
       readonly type: string;
       readonly descriptor: string;
@@ -135,7 +135,7 @@ declare module "*/lib/xp/portal" {
     }
 
     export interface Region {
-      components: Array<Component<unknown>>;
+      components: Array<Component>;
       name: string;
     }
 

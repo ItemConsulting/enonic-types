@@ -15,7 +15,7 @@ declare module "*/lib/menu" {
        * Returns submenus of a parent menuitem.
        */
       getSubMenus(
-        parentContent: import("/lib/xp/content").Content<any> | import("/lib/xp/content").Site<any>,
+        parentContent: import("/lib/xp/content").Content,
         levels?: number,
         params?: GetMenuParams
       ): Array<MenuItem>;

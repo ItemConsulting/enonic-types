@@ -4,32 +4,32 @@ declare module "*/lib/xp/content" {
       /**
        * This function fetches a content
        */
-      get<Data extends object, XData extends object = object>(
-        params: GetContentParams
-      ): Content<Data, import("./types").EmptyObject, XData> | null;
+      get<Data extends object, XData extends object = object>(params: GetContentParams): Content<Data, XData> | null;
 
       /**
        * This command queries content
        */
-      query<Data extends object, AggregationKeys extends string = never>(
+      query<Data extends object, XData extends object, AggregationKeys extends string = never>(
         params: QueryContentParams<AggregationKeys>
-      ): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataScore>;
+      ): QueryResponse<Data, XData, QueryResponseMetaDataScore, AggregationKeys>;
 
-      query<Data extends object, AggregationKeys extends string = never>(
+      query<Data extends object, XData extends object, AggregationKeys extends string = never>(
         params: QueryContentParamsWithSort<AggregationKeys>
-      ): QueryResponse<Data, AggregationKeys, QueryResponseMetaDataSort>;
+      ): QueryResponse<Data, XData, QueryResponseMetaDataSort, AggregationKeys>;
 
       /**
        * This function creates a content.
        */
-      create<Data extends object>(params: CreateContentParams<Data>): Content<Data>;
+      create<Data extends object, XData extends object = object>(
+        params: CreateContentParams<Data, XData>
+      ): Content<Data, XData>;
 
       /**
        * Modifies properties of a content
        */
-      modify<Data extends object, PageConfig extends object = object, XData extends object = object>(
-        params: ModifyContentParams<Data, PageConfig, XData>
-      ): Content<Data, PageConfig, XData>;
+      modify<Data extends object, XData extends object = object>(
+        params: ModifyContentParams<Data, XData>
+      ): Content<Data, XData>;
 
       /**
        * This function deletes a content
@@ -54,7 +54,7 @@ declare module "*/lib/xp/content" {
       /**
        * This function fetches children of a content
        */
-      getChildren<Data extends object>(params: GetChildrenParams): QueryResponse<Data>;
+      getChildren<Data extends object, XData extends object>(params: GetChildrenParams): QueryResponse<Data, XData>;
 
       /**
        * This function returns the list of content items that are outbound dependencies of specified content.
@@ -64,14 +64,12 @@ declare module "*/lib/xp/content" {
       /**
        * Rename a content or move it to a new path
        */
-      move<Data extends object>(params: MoveParams): Content<Data>;
+      move<Data extends object = object, XData extends object = object>(params: MoveParams): Content<Data, XData>;
 
       /**
        * This function returns the parent site of a content
        */
-      getSite<Config extends object, PageConfig extends object = never>(
-        params: GetSiteParams
-      ): Site<Config, PageConfig>;
+      getSite<Config extends object, XData extends object = object>(params: GetSiteParams): Site<Config, XData>;
 
       /**
        * This function returns the site configuration for this app in the parent site of a content
@@ -145,11 +143,7 @@ declare module "*/lib/xp/content" {
 
     export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
 
-    export interface Content<
-      Data extends object = object,
-      PageConfig extends object = object,
-      XData extends object = object
-    > {
+    export interface Content<Data extends object = object, XData extends object = object> {
       readonly _id: string;
       readonly _name: string;
       readonly _path: string;
@@ -165,8 +159,8 @@ declare module "*/lib/xp/content" {
       readonly valid: boolean;
       childOrder: string;
       data: Data;
-      x: Record<string, Record<string, XData>>;
-      page: Page<PageConfig>;
+      page: import("/lib/xp/portal").Component;
+      x: XData;
       attachments: Attachments;
       publish?: ScheduleParams;
       workflow: {
@@ -174,6 +168,12 @@ declare module "*/lib/xp/content" {
         checks: Record<string, WORKFLOW_STATES>;
       };
     }
+
+    export type Site<Config extends object, XData extends object = object> = Content<SiteData<Config>, XData>;
+
+    export type SiteData<Config extends object> = {
+      siteConfig: SiteConfig<Config> | Array<SiteConfig<Config>>;
+    };
 
     /**
      * Implements the "data" of type "base:shortcut"
@@ -232,14 +232,6 @@ declare module "*/lib/xp/content" {
         bottom: number;
         zoom: number;
       };
-    }
-
-    export interface Page<Config> {
-      readonly type: string;
-      readonly path: string;
-      readonly descriptor: string;
-      readonly config: Config;
-      readonly regions: Record<string, import("/lib/xp/portal").Region>;
     }
 
     export interface Attachment {
@@ -305,11 +297,12 @@ declare module "*/lib/xp/content" {
 
     export interface QueryResponse<
       Data extends object,
-      AggregationKeys extends string = never,
-      QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}
+      XData extends object,
+      QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {},
+      AggregationKeys extends string = never
     > {
       readonly count: number;
-      readonly hits: ReadonlyArray<Content<Data, import("./types").EmptyObject> & QueryMetaData>;
+      readonly hits: ReadonlyArray<Content<Data, XData> & QueryMetaData>;
       readonly total: number;
       readonly aggregations: AggregationsResponse<AggregationKeys>;
       readonly highlight: HighlightResponse;
@@ -511,7 +504,7 @@ declare module "*/lib/xp/content" {
       key: string;
     }
 
-    export interface CreateContentParams<Data> {
+    export interface CreateContentParams<Data extends object, XData extends object> {
       /**
        * Name of content
        *
@@ -568,14 +561,10 @@ declare module "*/lib/xp/content" {
       /**
        * eXtra data to use
        */
-      x?: Record<string, any>;
+      x?: XData;
     }
 
-    export interface ModifyContentParams<
-      Data extends object,
-      PageConfig extends object = object,
-      XData extends object = object
-    > {
+    export interface ModifyContentParams<Data extends object, XData extends object = object> {
       /**
        * Path or id to the content
        */
@@ -584,7 +573,7 @@ declare module "*/lib/xp/content" {
       /**
        * Editor callback function
        */
-      editor: (c: Content<Data, PageConfig, XData>) => Content<Data, PageConfig, XData>;
+      editor: (c: Content<Data, XData>) => Content<Data, XData>;
 
       /**
        * The content has to be valid, according to the content type, to be updated.
@@ -639,22 +628,6 @@ declare module "*/lib/xp/content" {
 
     export interface GetSiteParams {
       key: string;
-    }
-
-    export interface Site<Config extends object, PageConfig extends object = never, XData extends object = object> {
-      readonly _id: string;
-      readonly _name: string;
-      readonly _path: string;
-      type: string;
-      readonly hasChildren: boolean;
-      readonly valid: boolean;
-      data: {
-        siteConfig: SiteConfig<Config> | Array<SiteConfig<Config>>;
-      };
-      x: Record<string, Record<string, XData>>;
-      page: Page<PageConfig>;
-      attachments: Attachments;
-      publish: ScheduleParams;
     }
 
     export interface SiteConfig<Config> {

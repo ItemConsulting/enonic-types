@@ -12,7 +12,7 @@ declare module "*/lib/enonic/react4xp" {
          * - or if the entry is a JSX file with the same name in the same folder as the controller,
          * you can use a portal.getComponent() object here. Corresponds to the template argument in thymeleaf.render.
          */
-        entry: string | import("/lib/xp/portal").Component<unknown>,
+        entry: string | import("/lib/xp/portal").Component,
         /**
          * Data model passed into the react component.
          * JS object must be serializable (no functions can be passed).
