@@ -210,9 +210,6 @@ declare module "*/lib/xp/content" {
       altText?: string;
     }
 
-    // Image is alias for MediaImage
-    export type Image = MediaImage;
-
     export interface ImageConfig {
       attachment: string;
       focalPoint: {
@@ -231,6 +228,41 @@ declare module "*/lib/xp/content" {
         right: number;
         bottom: number;
         zoom: number;
+      };
+    }
+
+    export interface MediaImageXData {
+      media: {
+        imageInfo: {
+          imageHeight: number;
+          imageWidth: string;
+          contentType: string;
+          colorSpace: string;
+          pixelSize: string;
+          byteSize: string;
+          description: string;
+          fileSource: string;
+        };
+        cameraInfo: {
+          make: string;
+          model: string;
+          lens: string;
+          iso: string;
+          focalLength: string;
+          focalLength35: string;
+          exposureBias: string;
+          aperture: string;
+          shutterTime: string;
+          flash: string;
+          autoFlashCompensation: string;
+          whiteBalance: string;
+          exposureProgram: string;
+          shootingMode: string;
+          meteringMode: string;
+          exposureMode: string;
+          focusDistance: string;
+          orientation: string;
+        };
       };
     }
 
