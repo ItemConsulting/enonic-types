@@ -235,11 +235,11 @@ declare module "*/lib/xp/content" {
       media: {
         imageInfo: {
           imageHeight: number;
-          imageWidth: string;
+          imageWidth: number;
           contentType: string;
           colorSpace: string;
-          pixelSize: string;
-          byteSize: string;
+          pixelSize: number;
+          byteSize: number;
           description: string;
           fileSource: string;
         };
