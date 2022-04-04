@@ -136,6 +136,7 @@ declare module "*/lib/cristin/graphql" {
       createObjectTypeCristinInstitution(context: Context, options?: ContextOptions): GraphQLObjectType;
       createObjectTypeCristinProject(context: Context, options?: ContextOptions): GraphQLObjectType;
       createObjectTypeCristinResult(context: Context, options?: ContextOptions): GraphQLObjectType;
+      createObjectTypeCristinResultCategory(context: Context, options?: ContextOptions): GraphQLObjectType;
       createObjectTypeCristinUnit(context: Context, options?: ContextOptions): GraphQLObjectType;
     }
   }
