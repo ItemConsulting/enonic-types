@@ -68,3 +68,4 @@ lib
 # Buildt files
 *.d.ts
 ./generated
+!src/generated/*.d.ts

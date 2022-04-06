@@ -7,12 +7,14 @@ declare module "*/lib/cristin" {
     type Project = import("./generated").Project;
     type ListOfResults = import("./generated").ListOfResults;
     type Result = import("./generated").Result;
+    type ListOfResultContributors = import("./generated").ListOfResultContributors;
     type ListOfInstitutions = import("./generated").ListOfInstitutions;
     type Institution = import("./generated").Institution;
     type ListOfUnits = import("./generated").ListOfUnits;
     type Unit = import("./generated").Unit;
 
     type Unarray<T> = import("./types").Unarray<T>;
+    type CristinResultContributor = Unarray<ListOfResultContributors>;
     type CristinPersonAffiliation = NonNullable<Unarray<Person["affiliations"]>>;
     type CristinProjectCoordinatingInstitution = Project["coordinating_institution"];
     type CristinProjectParticipant = Unarray<NonNullable<Project["participants"]>>;
@@ -47,6 +49,7 @@ declare module "*/lib/cristin" {
 
       getCristinResults(ids: Array<string>): Array<Result>;
       getCristinResult(id: string, connection?: RepoConnection): Result | void;
+      getCristinResultContributors(id: string, repoConnection?: RepoConnection): ListOfResultContributors | void;
     }
   }
 
@@ -61,6 +64,7 @@ declare module "*/lib/cristin/constants" {
       REPO_CRISTIN_PERSONS: "no.item.cristin.persons";
       REPO_CRISTIN_PROJECTS: "no.item.cristin.projects";
       REPO_CRISTIN_RESULTS: "no.item.cristin.results";
+      REPO_CRISTIN_RESULT_CONTRIBUTORS: "no.item.cristin.resultcontributors";
       REPO_CRISTIN_UNITS: "no.item.cristin.units";
       BRANCH_MASTER: "master";
       URL_CRISTIN: "https://api.cristin.no/v2";
@@ -80,6 +84,7 @@ declare module "*/lib/cristin/storage" {
     type Result = import("./generated").Result;
     type Institution = import("./generated").Institution;
     type Unit = import("./generated").Unit;
+    type ListOfResultContributors = import("./generated").ListOfResultContributors;
 
     interface CristinStorageLibrary {
       lookupPerson(ids: Array<string>): Array<Person>;
@@ -96,6 +101,9 @@ declare module "*/lib/cristin/storage" {
 
       lookupResult(ids: Array<string>): Array<Result>;
       lookupResult(id: string): Result | undefined;
+
+      lookupResultContributors(id: string): ListOfResultContributors | undefined;
+      lookupResultContributors(ids: Array<string>): Array<ListOfResultContributors>;
     }
   }
 
@@ -153,6 +161,7 @@ declare module "*/lib/cristin/service" {
     type Project = import("./generated").Project;
     type ListOfResults = import("./generated").ListOfResults;
     type Result = import("./generated").Result;
+    type ListOfResultContributors = import("./generated").ListOfResultContributors;
     type CristinResultCategory = NonNullable<Result["category"]>;
     type ListOfInstitutions = import("./generated").ListOfInstitutions;
     type Institution = import("./generated").Institution;
@@ -175,6 +184,7 @@ declare module "*/lib/cristin/service" {
       fetchResults(params: GetResultsParams): FetchResponse<ListOfResults>;
       fetchResult(params: GetSingleParams): Result;
       fetchResultCategories(params?: { lang?: string }): FetchResponse<Array<CristinResultCategory>>;
+      fetchResultContributors(params: GetSingleParams): ListOfResultContributors;
 
       fetchInstitutions(params: GetInstitutionsParams): FetchResponse<ListOfInstitutions>;
       fetchInstitution(params: GetSingleParams): Institution;
