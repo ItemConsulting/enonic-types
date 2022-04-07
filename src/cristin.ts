@@ -8,6 +8,7 @@ declare module "*/lib/cristin" {
     type ListOfResults = import("./generated").ListOfResults;
     type Result = import("./generated").Result;
     type ListOfResultContributors = import("./generated").ListOfResultContributors;
+    type CristinResultContributorAffiliations = NonNullable<Unarray<CristinResultContributor["affiliations"]>>;
     type ListOfInstitutions = import("./generated").ListOfInstitutions;
     type Institution = import("./generated").Institution;
     type ListOfUnits = import("./generated").ListOfUnits;
@@ -302,6 +303,7 @@ declare module "*/lib/cristin/utils/repos" {
     interface SaveToRepoParams<NodeData> {
       id: string;
       connection: RepoConnection;
+      repoId: string;
       data?: NodeData;
     }
 
