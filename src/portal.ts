@@ -228,7 +228,7 @@ declare module "*/lib/xp/portal" {
     export interface ServiceUrlParams {
       service: string;
       application?: string;
-      type?: "server" | "absolute";
+      type?: "server" | "absolute" | "websocket";
       params?: Params;
     }
 
