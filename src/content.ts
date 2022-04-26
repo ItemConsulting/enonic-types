@@ -280,11 +280,167 @@ declare module "*/lib/xp/content" {
     export interface QueryContentParams {
       start?: number;
       count: number;
-      query?: string;
+      query?: string | QueryDSL;
       filters?: BasicFilters | BooleanFilter;
       aggregations?: Record<string, Aggregation>;
       contentTypes?: Array<string>;
       highlight?: Highlight;
+    }
+
+    /**
+     * @since 7.9.0
+     */
+    export type QueryDSL =
+      | TermQuery
+      | InQuery
+      | LikeQuery
+      | RangeQuery
+      | PathMatchQuery
+      | MatchAllQuery
+      | FulltextQuery
+      | NgramQuery
+      | StemmedQuery
+      | BooleanQuery;
+
+    type ValueTypeTimeValue = string | import("/lib/xp/value").LocalTime;
+
+    type ValueTypeDateTimeValue =
+      | string
+      | number
+      | import("/lib/xp/value").Instant
+      | import("/lib/xp/value").LocalDate
+      | import("/lib/xp/value").LocalDateTime;
+
+    export interface TermQuery {
+      term:
+        | {
+            type?: never;
+            field: string;
+            value: unknown;
+            boost?: number;
+          }
+        | {
+            type: "time";
+            field: string;
+            value: ValueTypeTimeValue;
+            boost?: number;
+          }
+        | {
+            type: "dateTime";
+            field: string;
+            value: ValueTypeDateTimeValue;
+            boost?: number;
+          };
+    }
+
+    export interface InQuery {
+      in:
+        | {
+            type?: never;
+            field: string;
+            value: Array<unknown>;
+            boost?: number;
+          }
+        | {
+            type: "time";
+            field: string;
+            value: Array<ValueTypeTimeValue>;
+            boost?: number;
+          }
+        | {
+            type: "dateTime";
+            field: string;
+            value: Array<ValueTypeDateTimeValue>;
+            boost?: number;
+          };
+    }
+
+    export interface LikeQuery {
+      like: {
+        field: string;
+        value: string;
+        type?: "time" | "dateTime";
+        boost?: number;
+      };
+    }
+
+    export interface RangeQuery {
+      range:
+        | {
+            type?: never;
+            field: string;
+            lt?: unknown;
+            lte?: unknown;
+            gt?: unknown;
+            gte?: unknown;
+            boost?: number;
+          }
+        | {
+            type: "time";
+            field: string;
+            lt?: ValueTypeTimeValue;
+            lte?: ValueTypeTimeValue;
+            gt?: ValueTypeTimeValue;
+            gte?: ValueTypeTimeValue;
+            boost?: number;
+          }
+        | {
+            type: "dateTime";
+            field: string;
+            lt?: ValueTypeDateTimeValue;
+            lte?: ValueTypeDateTimeValue;
+            gt?: ValueTypeDateTimeValue;
+            gte?: ValueTypeDateTimeValue;
+            boost?: number;
+          };
+    }
+
+    export interface PathMatchQuery {
+      pathMatch: {
+        field: string;
+        path: string;
+        minimumMatch?: number;
+        boost?: number;
+      };
+    }
+
+    export interface MatchAllQuery {
+      matchAll: {
+        boost?: number;
+      };
+    }
+
+    export interface FulltextQuery {
+      fulltext: {
+        fields: Array<string>;
+        query: string;
+        operator?: "AND" | "OR";
+      };
+    }
+
+    export interface NgramQuery {
+      ngram: {
+        fields: Array<string>;
+        query: string;
+        operator?: "AND" | "OR";
+      };
+    }
+
+    export interface StemmedQuery {
+      stemmed: {
+        fields?: string;
+        field?: string;
+        query: string;
+        language: string;
+      };
+    }
+
+    export interface BooleanQuery {
+      boolean: {
+        must?: QueryDSL | Array<QueryDSL>;
+        mustNot?: QueryDSL | Array<QueryDSL>;
+        should?: QueryDSL | Array<QueryDSL>;
+      };
     }
 
     export interface ExistsFilter {
@@ -322,9 +478,52 @@ declare module "*/lib/xp/content" {
       };
     }
 
+    export type Direction = "ASC" | "DESC";
+
     export type QueryContentParamsWithSort = QueryContentParams & {
-      sort: string;
+      sort: string | SortDSL;
     };
+
+    /**
+     * @since 7.9.0
+     */
+    export type SortDSL = FieldSort | GeoDistanceSort;
+
+    export interface FieldSort {
+      field: string;
+      direction?: Direction; // Default is ASC (except for when field='_score')
+    }
+
+    export type DistanceUnit =
+      | "m"
+      | "meters"
+      | "in"
+      | "inch"
+      | "yd"
+      | "yards"
+      | "ft"
+      | "feet"
+      | "km"
+      | "kilometers"
+      | "NM"
+      | "nmi"
+      | "nauticalmiles"
+      | "mm"
+      | "millimeters"
+      | "cm"
+      | "centimeters"
+      | "mi"
+      | "miles";
+
+    export interface GeoDistanceSort {
+      field: string;
+      direction?: Direction;
+      location: {
+        lat: number;
+        lon: number;
+      };
+      unit?: DistanceUnit; // Defaults to "m"
+    }
 
     export interface QueryResponse<
       Data extends object,
