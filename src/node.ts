@@ -40,17 +40,14 @@ declare module "*/lib/xp/node" {
       branch: string;
     }
 
-    export interface NodeQueryResponse<AggregationKeys extends string = never> {
+    export interface NodeQueryResponse {
       total: number;
       count: number;
       hits: Array<NodeQueryHit>;
-      aggregations: import("/lib/xp/content").AggregationsResponse<AggregationKeys>;
+      aggregations: Record<string, import("/lib/xp/content").AggregationsResponseEntry>;
     }
 
-    export type MultiRepoNodeQueryResponse<AggregationKeys extends string = never> = Omit<
-      NodeQueryResponse<AggregationKeys>,
-      "hits"
-    > & {
+    export type MultiRepoNodeQueryResponse = Omit<NodeQueryResponse, "hits"> & {
       hits: Array<MultiRepoNodeQueryHit>;
     };
 
@@ -66,7 +63,7 @@ declare module "*/lib/xp/node" {
       binaryReference: string;
     }
 
-    export interface NodeQueryParams<AggregationKeys extends string = never> {
+    export interface NodeQueryParams {
       /**
        * Start index (used for paging).
        */
@@ -95,7 +92,7 @@ declare module "*/lib/xp/node" {
       /**
        * Aggregations expression.
        */
-      aggregations?: Record<AggregationKeys, import("/lib/xp/content").Aggregation>;
+      aggregations?: Record<string, import("/lib/xp/content").Aggregation>;
 
       /**
        * Highlighting config
@@ -258,9 +255,7 @@ declare module "*/lib/xp/node" {
     }
 
     export interface MultiRepoConnection {
-      query<AggregationKeys extends string>(
-        params: NodeQueryParams<AggregationKeys>
-      ): MultiRepoNodeQueryResponse<AggregationKeys>;
+      query(params: NodeQueryParams): MultiRepoNodeQueryResponse;
     }
 
     export interface RepoConnection {
@@ -338,9 +333,7 @@ declare module "*/lib/xp/node" {
       /**
        * This command queries nodes.
        */
-      query<AggregationKeys extends string = never>(
-        params: NodeQueryParams<AggregationKeys>
-      ): NodeQueryResponse<AggregationKeys>;
+      query(params: NodeQueryParams): NodeQueryResponse;
 
       /**
        * Refresh the index for the current repoConnection

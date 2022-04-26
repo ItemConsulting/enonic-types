@@ -9,13 +9,13 @@ declare module "*/lib/xp/content" {
       /**
        * This command queries content
        */
-      query<Data extends object = object, XData extends object = object, AggregationKeys extends string = never>(
-        params: QueryContentParams<AggregationKeys>
-      ): QueryResponse<Data, XData, QueryResponseMetaDataScore, AggregationKeys>;
+      query<Data extends object = object, XData extends object = object>(
+        params: QueryContentParams
+      ): QueryResponse<Data, XData, QueryResponseMetaDataScore>;
 
-      query<Data extends object = object, XData extends object = object, AggregationKeys extends string = never>(
-        params: QueryContentParamsWithSort<AggregationKeys>
-      ): QueryResponse<Data, XData, QueryResponseMetaDataSort, AggregationKeys>;
+      query<Data extends object = object, XData extends object = object>(
+        params: QueryContentParamsWithSort
+      ): QueryResponse<Data, XData, QueryResponseMetaDataSort>;
 
       /**
        * This function creates a content.
@@ -277,12 +277,12 @@ declare module "*/lib/xp/content" {
       [key: string]: Attachment;
     }
 
-    export interface QueryContentParams<AggregationKeys extends string = never> {
+    export interface QueryContentParams {
       start?: number;
       count: number;
       query?: string;
       filters?: BasicFilters | BooleanFilter;
-      aggregations?: Record<AggregationKeys, Aggregation>;
+      aggregations?: Record<string, Aggregation>;
       contentTypes?: Array<string>;
       highlight?: Highlight;
     }
@@ -322,21 +322,19 @@ declare module "*/lib/xp/content" {
       };
     }
 
-    export type QueryContentParamsWithSort<AggregationKeys extends string = never> =
-      QueryContentParams<AggregationKeys> & {
-        sort: string;
-      };
+    export type QueryContentParamsWithSort = QueryContentParams & {
+      sort: string;
+    };
 
     export interface QueryResponse<
       Data extends object,
       XData extends object,
-      QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {},
-      AggregationKeys extends string = never
+      QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}
     > {
       readonly count: number;
       readonly hits: ReadonlyArray<Content<Data, XData> & QueryMetaData>;
       readonly total: number;
-      readonly aggregations: AggregationsResponse<AggregationKeys>;
+      readonly aggregations: Record<string, AggregationsResponseEntry>;
       readonly highlight: HighlightResponse;
     }
 
@@ -496,10 +494,6 @@ declare module "*/lib/xp/content" {
     export interface AggregationsResponseEntry {
       readonly buckets: Array<AggregationsResponseBucket>;
     }
-
-    export type AggregationsResponse<AggregationKeys extends string> = {
-      [K in AggregationKeys]: AggregationsResponseEntry;
-    };
 
     export interface Highlight {
       encoder?: "default" | "html";
