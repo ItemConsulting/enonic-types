@@ -560,8 +560,11 @@ declare module "*/lib/xp/content" {
     export interface TermsAggregation {
       terms: {
         field: string;
-        order: string;
+        order?: string; // defaults to '_term ASC'
         size: number;
+        /**
+         * @since 7.7.0
+         */
         minDocCount?: number;
       };
       aggregations?: {
