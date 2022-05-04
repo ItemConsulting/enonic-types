@@ -300,7 +300,7 @@ declare module "*/lib/xp/node" {
       /**
        * Fetches specific nodes by paths or IDs.
        */
-      get<NodeData>(keys: Array<string | NodeGetParams>): Array<NodeData & RepoNode>;
+      get<NodeData>(keys: Array<string | NodeGetParams>): Array<NodeData & RepoNode> | (NodeData & RepoNode);
 
       /**
        * Fetches specific nodes by path(s) or ID(s).
