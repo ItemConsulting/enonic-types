@@ -21,7 +21,7 @@ declare module "*/lib/cristin" {
     type CristinProjectParticipant = Unarray<NonNullable<Project["participants"]>>;
     type CristinProjectParticipantRole = Unarray<CristinProjectParticipant["roles"]>;
     type CristinResultCategory = NonNullable<Result["category"]>;
-
+    export type CristinResultLink = Unarray<NonNullable<Result["links"]>>;
     export interface CristinResultJournal {
       cristin_journal_id: string;
       name: string;
