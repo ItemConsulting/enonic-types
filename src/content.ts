@@ -172,6 +172,7 @@ declare module "*/lib/xp/content" {
     export type Site<Config extends object, XData extends object = object> = Content<SiteData<Config>, XData>;
 
     export type SiteData<Config extends object> = {
+      description?: string;
       siteConfig: SiteConfig<Config> | Array<SiteConfig<Config>>;
     };
 
