@@ -10,3 +10,7 @@ export type PickSelectedValue<
   OPTION_SET extends { _selected: string },
   SELECTED extends string
 > = SELECTED extends keyof PickSelected<OPTION_SET, SELECTED> ? PickSelected<OPTION_SET, SELECTED>[SELECTED] : never;
+
+export type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
+  [Property in Key]-?: Type[Property];
+};
