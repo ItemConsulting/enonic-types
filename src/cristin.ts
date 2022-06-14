@@ -1,6 +1,5 @@
 declare module "*/lib/cristin" {
   namespace cristinLib {
-    type RepoConnection = import("/lib/xp/node").RepoConnection;
     type ListOfPersons = import("./generated").ListOfPersons;
     type Person = import("./generated").Person;
     type ListOfProjects = import("./generated").ListOfProjects;
@@ -37,20 +36,20 @@ declare module "*/lib/cristin" {
      */
     interface CristinLibrary {
       getCristinPersons(ids: Array<string>): Array<Person>;
-      getCristinPerson(id: string, connection?: RepoConnection): Person | void;
+      getCristinPerson(id: string): Person | void;
 
       getCristinInstitutions(ids: Array<string>): Array<Institution>;
-      getCristinInstitution(id: string, connection?: RepoConnection): Institution | void;
+      getCristinInstitution(id: string): Institution | void;
 
       getCristinProjects(ids: Array<string>): Array<Project>;
-      getCristinProject(id: string, connection?: RepoConnection): Project | void;
+      getCristinProject(id: string): Project | void;
 
       getCristinUnits(ids: Array<string>): Array<Unit>;
-      getCristinUnit(id: string, connection?: RepoConnection): Unit | void;
+      getCristinUnit(id: string): Unit | void;
 
       getCristinResults(ids: Array<string>): Array<Result>;
-      getCristinResult(id: string, connection?: RepoConnection): Result | void;
-      getCristinResultContributors(id: string, repoConnection?: RepoConnection): ListOfResultContributors | void;
+      getCristinResult(id: string): Result | void;
+      getCristinResultContributors(id: string): ListOfResultContributors | void;
     }
   }
 
@@ -178,6 +177,7 @@ declare module "*/lib/cristin/service" {
     interface CristinServiceLibrary {
       fetchPersons(params: GetPersonsParams): FetchResponse<ListOfPersons>;
       fetchPerson(params: GetSingleParams): Person;
+      fetchPersonResults(params: GetPersonResultsParams): ListOfResults;
 
       fetchProjects(params: GetProjectsParams): FetchResponse<ListOfProjects>;
       fetchProject(params: GetSingleParams): Project;
@@ -263,6 +263,13 @@ declare module "*/lib/cristin/service" {
       fields?: "all";
     }
 
+    interface GetPersonResultsParams {
+      id?: string;
+      lang?: string;
+      page?: string;
+      per_page?: string;
+    }
+
     interface GetInstitutionsParams {
       id?: string;
       name?: string;
@@ -302,7 +309,6 @@ declare module "*/lib/cristin/utils/repos" {
 
     interface SaveToRepoParams<NodeData> {
       id: string;
-      connection: RepoConnection;
       repoId: string;
       data?: NodeData;
     }
@@ -315,9 +321,9 @@ declare module "*/lib/cristin/utils/repos" {
       ): Array<import("/lib/xp/node").NodeQueryHit>;
       getEntriesByName<NodeData>(
         repoId: string,
-        name: Array<string>
+        names: Array<string>
       ): Array<NodeData & import("/lib/xp/node").RepoNode>;
-      saveToRepo<NodeData>({ data, id, connection }: SaveToRepoParams<NodeData>): NodeData | void;
+      saveToRepo<NodeData>(params: SaveToRepoParams<NodeData>): NodeData | void;
     }
   }
 
