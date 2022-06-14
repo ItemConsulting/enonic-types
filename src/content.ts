@@ -173,8 +173,13 @@ declare module "*/lib/xp/content" {
 
     export type SiteData<Config extends object> = {
       description?: string;
-      siteConfig: SiteConfig<Config> | Array<SiteConfig<Config>>;
+      siteConfig: SiteDataSiteConfig<Config> | Array<SiteDataSiteConfig<Config>>;
     };
+
+    export interface SiteDataSiteConfig<Config> {
+      applicationKey: string;
+      config: Config;
+    }
 
     /**
      * Implements the "data" of type "base:shortcut"
@@ -857,11 +862,6 @@ declare module "*/lib/xp/content" {
 
     export interface GetSiteParams {
       key: string;
-    }
-
-    export interface SiteConfig<Config> {
-      applicationKey: string;
-      config: Config;
     }
 
     export interface GetSiteConfigParams {
