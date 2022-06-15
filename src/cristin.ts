@@ -69,7 +69,8 @@ declare module "*/lib/cristin/constants" {
       BRANCH_MASTER: "master";
       URL_CRISTIN: "https://api.cristin.no/v2";
       BINARY_REFERENCE_PICTURE: "picture";
-      LANG_PARAMS_DEFAULT: "en,nb";
+      DEFAULT_PARAMS_LANG: "en,nb";
+      DEFAULT_PARAMS_PER_PAGE: "10000";
     }
   }
 
