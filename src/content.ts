@@ -1,35 +1,79 @@
 declare module "*/lib/xp/content" {
+  global {
+    namespace XP {
+      interface ContentTypes {
+        "base:unstructured": Record<string, never>;
+        "base:folder": Record<string, never>;
+        "base:shortcut": contentLib.BaseShortcut;
+        "base:media": contentLib.BaseMedia;
+        "media:text": contentLib.BaseMedia;
+        "media:data": contentLib.BaseMedia;
+        "media:audio": contentLib.BaseMedia;
+        "media:video": contentLib.BaseMedia;
+        "media:image": contentLib.MediaImage;
+        "media:vector": contentLib.BaseMedia;
+        "media:archive": contentLib.BaseMedia;
+        "media:document": contentLib.BaseMedia;
+        "media:spreadsheet": contentLib.BaseMedia;
+        "media:presentation": contentLib.BaseMedia;
+        "media:code": contentLib.BaseMedia;
+        "media:executable": contentLib.BaseMedia;
+        "portal:site": contentLib.SiteData;
+      }
+
+      interface SiteConfig {}
+
+      interface XData {
+        media?: {
+          imageInfo?: {
+            imageHeight: number;
+            imageWidth: number;
+            contentType: string;
+            pixelSize: number;
+            byteSize: number;
+          };
+        };
+      }
+    }
+  }
+
   namespace contentLib {
+    type ContentTypeByName<ContentTypeName, FallbackType> = ContentTypeName extends keyof XP.ContentTypes
+      ? XP.ContentTypes[ContentTypeName]
+      : FallbackType;
+
+    export type KeyOfContentType<Data> = import("./types").KeysOfType<XP.ContentTypes, Data>;
+
+    type LiteralContentTypeNames = import("./types").LiteralUnion<keyof XP.ContentTypes>;
+
     interface ContentLibrary {
       /**
        * This function fetches a content
        */
-      get<Data extends object, XData extends object = object>(params: GetContentParams): Content<Data, XData> | null;
+      get<Data>(params: GetContentParams): import("./types").WrapDataInContent<Data> | null;
 
       /**
        * This command queries content
        */
-      query<Data extends object = object, XData extends object = object>(
-        params: QueryContentParams
-      ): QueryResponse<Data, XData, QueryResponseMetaDataScore>;
+      query<Data, ContentTypeName extends LiteralContentTypeNames = KeyOfContentType<Data>>(
+        params: QueryContentParams<ContentTypeName>
+      ): QueryResponse<ContentTypeByName<ContentTypeName, Data>>;
 
-      query<Data extends object = object, XData extends object = object>(
-        params: QueryContentParamsWithSort
-      ): QueryResponse<Data, XData, QueryResponseMetaDataSort>;
+      query<Data, ContentTypeName extends LiteralContentTypeNames = KeyOfContentType<Data>>(
+        params: QueryContentParamsWithSort<ContentTypeName>
+      ): QueryResponseSorted<ContentTypeByName<ContentTypeName, Data>>;
 
       /**
        * This function creates a content.
        */
-      create<Data extends object, XData extends object = object>(
-        params: CreateContentParams<Data, XData>
-      ): Content<Data, XData>;
+      create<Data, ContentTypeName extends LiteralContentTypeNames>(
+        params: CreateContentParams<Data, ContentTypeName>
+      ): Content<ContentTypeByName<ContentTypeName, Data>>;
 
       /**
        * Modifies properties of a content
        */
-      modify<Data extends object, XData extends object = object>(
-        params: ModifyContentParams<Data, XData>
-      ): Content<Data, XData>;
+      modify<Data>(params: ModifyContentParams<Data>): Content<Data>;
 
       /**
        * This function deletes a content
@@ -54,7 +98,7 @@ declare module "*/lib/xp/content" {
       /**
        * This function fetches children of a content
        */
-      getChildren<Data extends object, XData extends object>(params: GetChildrenParams): QueryResponse<Data, XData>;
+      getChildren<Data>(params: GetChildrenParams): QueryResponse<Data>;
 
       /**
        * This function returns the list of content items that are outbound dependencies of specified content.
@@ -64,22 +108,23 @@ declare module "*/lib/xp/content" {
       /**
        * Rename a content or move it to a new path
        */
-      move<Data extends object = object, XData extends object = object>(params: MoveParams): Content<Data, XData>;
+      move<Data>(params: MoveParams): Content<Data>;
 
       /**
        * This function returns the parent site of a content
        */
-      getSite<Config extends object, XData extends object = object>(params: GetSiteParams): Site<Config, XData>;
+      getSite(params: GetSiteParams): Site;
 
       /**
        * This function returns the site configuration for this app in the parent site of a content
        */
-      getSiteConfig<Config extends object>(params: GetSiteConfigParams): Config;
+      getSiteConfig(params: GetSiteConfigParams): XP.SiteConfig;
 
       /**
        * Creates a media content
        */
-      createMedia<Data extends object>(params: CreateMediaParams): Content<Data>;
+      createMedia<Data = MediaImage>(params: CreateMediaImageParams): Content<Data>;
+      createMedia<Data>(params: CreateMediaParams): Content<Data>;
 
       /**
        * Adds an attachment to an existing content.
@@ -143,7 +188,7 @@ declare module "*/lib/xp/content" {
 
     export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
 
-    export interface Content<Data extends object = object, XData extends object = object> {
+    export interface Content<Data = unknown, Type extends KeyOfContentType<Data> = KeyOfContentType<Data>> {
       readonly _id: string;
       readonly _name: string;
       readonly _path: string;
@@ -152,15 +197,15 @@ declare module "*/lib/xp/content" {
       readonly createdTime: string;
       readonly modifiedTime: string;
       owner: string;
-      type: string;
+      type: Type;
       displayName: string;
       readonly hasChildren: boolean;
       language?: string;
       readonly valid: boolean;
       childOrder: string;
-      data: Data;
+      data: Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data;
       page: import("/lib/xp/portal").Component;
-      x: XData;
+      x: XP.XData;
       attachments: Attachments;
       publish?: ScheduleParams;
       workflow: {
@@ -169,16 +214,16 @@ declare module "*/lib/xp/content" {
       };
     }
 
-    export type Site<Config extends object, XData extends object = object> = Content<SiteData<Config>, XData>;
+    export type Site = Content<SiteData>;
 
-    export type SiteData<Config extends object> = {
+    export type SiteData = {
       description?: string;
-      siteConfig: SiteDataSiteConfig<Config> | Array<SiteDataSiteConfig<Config>>;
+      siteConfig: SiteDataSiteConfig | Array<SiteDataSiteConfig>;
     };
 
-    export interface SiteDataSiteConfig<Config> {
+    export interface SiteDataSiteConfig {
       applicationKey: string;
-      config: Config;
+      config: XP.SiteConfig;
     }
 
     /**
@@ -283,13 +328,13 @@ declare module "*/lib/xp/content" {
       [key: string]: Attachment;
     }
 
-    export interface QueryContentParams {
+    export interface QueryContentParams<ContentTypeName extends LiteralContentTypeNames> {
       start?: number;
       count: number;
       query?: string | QueryDSL;
       filters?: BasicFilters | BooleanFilter;
       aggregations?: Record<string, Aggregation>;
-      contentTypes?: Array<string>;
+      contentTypes?: Array<ContentTypeName>;
       highlight?: Highlight;
     }
 
@@ -486,9 +531,10 @@ declare module "*/lib/xp/content" {
 
     export type Direction = "ASC" | "DESC";
 
-    export type QueryContentParamsWithSort = QueryContentParams & {
-      sort: string | SortDSL;
-    };
+    export type QueryContentParamsWithSort<ContentTypeName extends LiteralContentTypeNames> =
+      QueryContentParams<ContentTypeName> & {
+        sort: string | SortDSL;
+      };
 
     /**
      * @since 7.9.0
@@ -531,26 +577,35 @@ declare module "*/lib/xp/content" {
       unit?: DistanceUnit; // Defaults to "m"
     }
 
-    export interface QueryResponse<
-      Data extends object,
-      XData extends object,
-      QueryMetaData extends QueryResponseMetaDataSort | QueryResponseMetaDataScore | {} = {}
-    > {
+    export interface BaseQueryResponse {
       readonly count: number;
-      readonly hits: ReadonlyArray<Content<Data, XData> & QueryMetaData>;
       readonly total: number;
       readonly aggregations: Record<string, AggregationsResponseEntry>;
       readonly highlight: HighlightResponse;
     }
 
-    export interface QueryResponseMetaDataSort {
-      readonly _score: null;
-      readonly _sort: Array<string>;
-    }
+    export type QueryResponse<Data> = BaseQueryResponse & {
+      readonly hits: ReadonlyArray<
+        import("./types").WrapDataInContent<
+          Data,
+          {
+            readonly _score: number;
+          }
+        >
+      >;
+    };
 
-    export interface QueryResponseMetaDataScore {
-      readonly _score: number;
-    }
+    export type QueryResponseSorted<Data> = BaseQueryResponse & {
+      readonly hits: ReadonlyArray<
+        import("./types").WrapDataInContent<
+          Data,
+          {
+            readonly _score: null;
+            readonly _sort: Array<string>;
+          }
+        >
+      >;
+    };
 
     export type Aggregation =
       | TermsAggregation
@@ -738,7 +793,7 @@ declare module "*/lib/xp/content" {
       key: string;
     }
 
-    export interface CreateContentParams<Data extends object, XData extends object> {
+    export interface CreateContentParams<Data, ContentTypeName extends LiteralContentTypeNames> {
       /**
        * Name of content
        *
@@ -775,7 +830,7 @@ declare module "*/lib/xp/content" {
       /**
        * Content type to use
        */
-      contentType: string;
+      contentType: ContentTypeName;
 
       /**
        * The language tag representing the content’s locale
@@ -790,15 +845,15 @@ declare module "*/lib/xp/content" {
       /**
        * Actual content data
        */
-      data: Data;
+      data: ContentTypeByName<ContentTypeName, Data>;
 
       /**
        * eXtra data to use
        */
-      x?: XData;
+      x?: XP.XData;
     }
 
-    export interface ModifyContentParams<Data extends object, XData extends object = object> {
+    export interface ModifyContentParams<Data> {
       /**
        * Path or id to the content
        */
@@ -807,7 +862,7 @@ declare module "*/lib/xp/content" {
       /**
        * Editor callback function
        */
-      editor: (c: Content<Data, XData>) => Content<Data, XData>;
+      editor: (c: Content<Data>) => Content<Data>;
 
       /**
        * The content has to be valid, according to the content type, to be updated.
@@ -888,12 +943,15 @@ declare module "*/lib/xp/content" {
 
     export interface CreateMediaParams {
       name: string;
-      parentPath: string;
+      parentPath?: string;
       mimeType?: string;
-      focalX?: number;
-      focalY?: number;
       data: ByteSource;
     }
+
+    export type CreateMediaImageParams = CreateMediaParams & {
+      focalX: number;
+      focalY: number;
+    };
 
     export interface AddAttachmentParams {
       key: string;

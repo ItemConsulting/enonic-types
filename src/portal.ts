@@ -5,15 +5,17 @@ declare module "*/lib/xp/portal" {
        * This function returns the component corresponding to the current execution context. It is meant to be called
        * from a layout or part controller.
        */
-      getComponent<Config extends object = never>(): Component<Config>;
+      getComponent<Config = unknown>(): Component<Config>;
 
       /**
        * his function returns the content corresponding to the current execution context. It is meant to be called from a
        * page, layout or part controller
        */
-      getContent<Data extends object = object, XData extends object = object>(): import("/lib/xp/content").Content<
+      getContent<Data, PageConfig = unknown>(): import("./types").WrapDataInContent<
         Data,
-        XData
+        {
+          page: Component<PageConfig>;
+        }
       >;
 
       /**
@@ -45,13 +47,13 @@ declare module "*/lib/xp/portal" {
        * This function returns the parent site of the content corresponding to the current execution context. It is meant
        * to be called from a page, layout or part controller.
        */
-      getSite<Config extends object>(): import("/lib/xp/content").Site<Config>;
+      getSite(): import("/lib/xp/content").Site;
 
       /**
        * This function returns the site configuration for this app in the parent site of the content corresponding to the
        * current execution context. It is meant to be called from a page, layout or part controller.
        */
-      getSiteConfig<Config>(): Config;
+      getSiteConfig(): XP.SiteConfig;
 
       /**
        * This function generates a URL pointing to an ID provider.
