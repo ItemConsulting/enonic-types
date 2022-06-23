@@ -42,7 +42,11 @@ declare module "*/lib/xp/content" {
       ? XP.ContentTypes[ContentTypeName]
       : FallbackType;
 
-    export type KeyOfContentType<Data> = import("./types").KeysOfType<XP.ContentTypes, Data>;
+    type KeysOfType<O, T> = import("./types").KeysOfType<O, T>;
+
+    export type KeyOfContentType<Data> = KeysOfType<XP.ContentTypes, Data> extends never
+      ? string
+      : KeysOfType<XP.ContentTypes, Data>;
 
     type LiteralContentTypeNames = import("./types").LiteralUnion<keyof XP.ContentTypes>;
 
@@ -188,7 +192,7 @@ declare module "*/lib/xp/content" {
 
     export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
 
-    export interface Content<Data = unknown, Type extends KeyOfContentType<Data> = KeyOfContentType<Data>> {
+    export interface Content<Data = unknown, Type extends string = KeyOfContentType<Data>> {
       readonly _id: string;
       readonly _name: string;
       readonly _path: string;
@@ -203,7 +207,11 @@ declare module "*/lib/xp/content" {
       language?: string;
       readonly valid: boolean;
       childOrder: string;
-      data: Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data;
+      data: Type extends keyof XP.ContentTypes
+        ? Data extends XP.ContentTypes[Type]
+          ? XP.ContentTypes[Type]
+          : Data
+        : Data;
       page: import("/lib/xp/portal").Component;
       x: XP.XData;
       attachments: Attachments;

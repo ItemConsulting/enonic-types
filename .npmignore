@@ -4,4 +4,4 @@ src
 .editorconfig
 .eslintrc.json
 .prettierrc.json
-
+*.test-d.d.ts

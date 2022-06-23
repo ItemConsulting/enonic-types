@@ -35,6 +35,7 @@
     "json-schema-to-typescript": "^10.1.5",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
+    "tsd": "^0.21.0",
     "typescript": "^4.7.4"
   }
 }
