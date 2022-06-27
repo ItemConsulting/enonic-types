@@ -22,6 +22,7 @@ export interface EnonicLibraryMap {
   "/lib/tineikt/freemarker": typeof import("/lib/tineikt/freemarker");
   "/lib/graphql": typeof import("/lib/graphql");
   "/lib/graphql-playground": typeof import("/lib/graphql-playground");
+  "/lib/xp/grid": typeof import("/lib/xp/grid");
   "/lib/guillotine": typeof import("/lib/guillotine");
   "/lib/http-client": typeof import("/lib/http-client");
   "/lib/xp/i18n": typeof import("/lib/xp/i18n");

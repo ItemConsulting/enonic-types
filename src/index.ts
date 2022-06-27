@@ -14,6 +14,7 @@
 /// <reference path="export.ts" />
 /// <reference path="freemarker.ts" />
 /// <reference path="graphql.ts" />
+/// <reference path="grid.ts" />
 /// <reference path="guillotine.ts" />
 /// <reference path="http.ts" />
 /// <reference path="i18n.ts" />
