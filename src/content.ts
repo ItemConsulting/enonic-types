@@ -2,22 +2,23 @@ declare module "*/lib/xp/content" {
   global {
     namespace XP {
       interface ContentTypes {
-        "base:unstructured": Record<string, never>;
-        "base:folder": Record<string, never>;
-        "base:shortcut": contentLib.BaseShortcut;
-        "base:media": contentLib.BaseMedia;
-        "media:text": contentLib.BaseMedia;
-        "media:data": contentLib.BaseMedia;
-        "media:audio": contentLib.BaseMedia;
-        "media:video": contentLib.BaseMedia;
+        "base:unstructured": Record<string, never> & contentLib.WithTypeName<"base_Unstructured_Data">;
+        "base:structured": Record<string, never> & contentLib.WithTypeName<"base_Structured_Data">;
+        "base:folder": Record<string, never> & contentLib.WithTypeName<"base_Folder_Data">;
+        "base:shortcut": contentLib.BaseShortcut<"base_Shortcut_Data">;
+        "base:media": contentLib.BaseMedia<"base_Media_Data">;
+        "media:audio": contentLib.BaseMedia<"media_Audio_Data">;
+        "media:text": contentLib.BaseMedia<"media_Text_Data">;
+        "media:data": contentLib.BaseMedia<"media_Data_Data">;
+        "media:video": contentLib.BaseMedia<"media_Video_Data">;
         "media:image": contentLib.MediaImage;
-        "media:vector": contentLib.BaseMedia;
-        "media:archive": contentLib.BaseMedia;
-        "media:document": contentLib.BaseMedia;
-        "media:spreadsheet": contentLib.BaseMedia;
-        "media:presentation": contentLib.BaseMedia;
-        "media:code": contentLib.BaseMedia;
-        "media:executable": contentLib.BaseMedia;
+        "media:vector": contentLib.BaseMedia<"media_Vector_Data">;
+        "media:archive": contentLib.BaseMedia<"media_Archive_Data">;
+        "media:document": contentLib.BaseMedia<"media_Document_Data">;
+        "media:spreadsheet": contentLib.BaseMedia<"media_Spreadsheet_Data">;
+        "media:presentation": contentLib.BaseMedia<"media_Presentation_Data">;
+        "media:code": contentLib.BaseMedia<"media_Code_Data">;
+        "media:executable": contentLib.BaseMedia<"media_Executable_Data">;
         "portal:site": contentLib.SiteData;
       }
 
@@ -38,6 +39,8 @@ declare module "*/lib/xp/content" {
   }
 
   namespace contentLib {
+    type WithTypeName<TypeName extends string> = { __typename?: TypeName };
+
     type ContentTypeByName<ContentTypeName, FallbackType> = ContentTypeName extends keyof XP.ContentTypes
       ? XP.ContentTypes[ContentTypeName]
       : FallbackType;
@@ -224,7 +227,7 @@ declare module "*/lib/xp/content" {
 
     export type Site = Content<SiteData>;
 
-    export type SiteData = {
+    export type SiteData = WithTypeName<"portal_Site_Data"> & {
       description?: string;
       siteConfig: SiteDataSiteConfig | Array<SiteDataSiteConfig>;
     };
@@ -237,7 +240,7 @@ declare module "*/lib/xp/content" {
     /**
      * Implements the "data" of type "base:shortcut"
      */
-    export interface BaseShortcut {
+    export interface BaseShortcut<TypeName extends string> extends WithTypeName<TypeName> {
       target: string;
       parameters?: Array<BaseShortcutParameter> | BaseShortcutParameter;
     }
@@ -250,7 +253,8 @@ declare module "*/lib/xp/content" {
     /**
      * Implements the "data" of type "base:media"
      */
-    export interface BaseMedia<Media extends object = BaseMediaConfig> {
+    export interface BaseMedia<TypeName extends string, Media extends object = BaseMediaConfig> {
+      __typename: TypeName;
       media: Media;
       caption?: string;
       artist?: string | Array<string>;
@@ -265,7 +269,7 @@ declare module "*/lib/xp/content" {
     /**
      * Implements the "data" of type "media:image"
      */
-    export interface MediaImage extends BaseMedia<ImageConfig> {
+    export interface MediaImage extends BaseMedia<"media_Image_Data", ImageConfig> {
       altText?: string;
     }
 

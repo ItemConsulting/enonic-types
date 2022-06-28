@@ -20,7 +20,7 @@ export type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
 export type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
 
 export type KeysOfType<O, T> = {
-  [K in keyof O]: Required<O[K]> extends Required<T> ? K : never;
+  [K in keyof O]: O[K] extends T ? K : never;
 }[keyof O];
 
 // https://stackoverflow.com/a/51691257/1758634
