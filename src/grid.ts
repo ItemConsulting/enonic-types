@@ -44,7 +44,7 @@ declare module "*/lib/xp/grid" {
       /**
        * Value of the entry
        */
-      value: Map[Key];
+      value: Map[Key] | null;
 
       /**
        * Maximum time to live in seconds for this entry to stay in the map. (0 means infinite, negative means map config
@@ -64,7 +64,7 @@ declare module "*/lib/xp/grid" {
        * The returned value replaces the existing mapped value for the specified key.
        * If returned value is null then the value is removed from the map
        */
-      func: (value: Map[Key]) => Map[Key];
+      func: (value: Map[Key] | null) => Map[Key] | null;
 
       /**
        * Maximum time to live in seconds for this entry to stay in the map.
