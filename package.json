@@ -1,7 +1,7 @@
 {
   "name": "enonic-types",
   "sideEffects": false,
-  "version": "0.5.0-next.0",
+  "version": "0.5.0-next.1",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "scripts": {
@@ -31,11 +31,11 @@
     "copyfiles": "^2.4.1",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.1.0",
-    "json-schema-to-typescript": "^10.1.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "json-schema-to-typescript": "^11.0.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "tsd": "^0.21.0",
+    "tsd": "^0.22.0",
     "typescript": "^4.7.4"
   }
 }

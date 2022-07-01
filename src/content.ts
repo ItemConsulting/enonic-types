@@ -2,10 +2,10 @@ declare module "*/lib/xp/content" {
   global {
     namespace XP {
       interface ContentTypes {
-        "base:unstructured": Record<string, never> & contentLib.WithTypeName<"base_Unstructured_Data">;
-        "base:structured": Record<string, never> & contentLib.WithTypeName<"base_Structured_Data">;
-        "base:folder": Record<string, never> & contentLib.WithTypeName<"base_Folder_Data">;
-        "base:shortcut": contentLib.BaseShortcut<"base_Shortcut_Data">;
+        "base:unstructured": contentLib.BaseUnstructured;
+        "base:structured": contentLib.BaseStructured;
+        "base:folder": contentLib.BaseFolder;
+        "base:shortcut": contentLib.BaseShortcut;
         "base:media": contentLib.BaseMedia<"base_Media_Data">;
         "media:audio": contentLib.BaseMedia<"media_Audio_Data">;
         "media:text": contentLib.BaseMedia<"media_Text_Data">;
@@ -39,8 +39,6 @@ declare module "*/lib/xp/content" {
   }
 
   namespace contentLib {
-    type WithTypeName<TypeName extends string> = { __typename?: TypeName };
-
     type ContentTypeByName<ContentTypeName, FallbackType> = ContentTypeName extends keyof XP.ContentTypes
       ? XP.ContentTypes[ContentTypeName]
       : FallbackType;
@@ -227,7 +225,8 @@ declare module "*/lib/xp/content" {
 
     export type Site = Content<SiteData>;
 
-    export type SiteData = WithTypeName<"portal_Site_Data"> & {
+    export type SiteData = {
+      __typename?: "portal_Site_Data";
       description?: string;
       siteConfig: SiteDataSiteConfig | Array<SiteDataSiteConfig>;
     };
@@ -240,7 +239,8 @@ declare module "*/lib/xp/content" {
     /**
      * Implements the "data" of type "base:shortcut"
      */
-    export interface BaseShortcut<TypeName extends string> extends WithTypeName<TypeName> {
+    export interface BaseShortcut {
+      __typename?: "base_Shortcut_Data";
       target: string;
       parameters?: Array<BaseShortcutParameter> | BaseShortcutParameter;
     }
@@ -251,10 +251,31 @@ declare module "*/lib/xp/content" {
     }
 
     /**
+     * Implements the "data" of type "base:unstructured"
+     */
+    export interface BaseUnstructured {
+      __typename?: "base_Unstructured_Data";
+    }
+
+    /**
+     * Implements the "data" of type "base:structured"
+     */
+    export interface BaseStructured {
+      __typename?: "base_Structured_Data";
+    }
+
+    /**
+     * Implements the "data" of type "base:folder"
+     */
+    export interface BaseFolder {
+      __typename?: "base_Folder_Data";
+    }
+
+    /**
      * Implements the "data" of type "base:media"
      */
     export interface BaseMedia<TypeName extends string, Media extends object = BaseMediaConfig> {
-      __typename: TypeName;
+      __typename?: TypeName;
       media: Media;
       caption?: string;
       artist?: string | Array<string>;
