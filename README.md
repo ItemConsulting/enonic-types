@@ -21,10 +21,18 @@ you are using the [webpack-starter](https://github.com/enonic/starter-webpack)) 
 ```json
 {
   "compilerOptions": {
-    "types": ["node", "enonic-types"]
-  }
+    "types": ["node", "enonic-types"],
+    "rootDirs": [
+      "./src/main/resources",
+      "./.xp-codegen"
+    ],
+  },
+  "include": [
+    "./.xp-codegen/**/*",
+    "./src/main/resources/**/*"
+  ],
+  "exclude": ["./build/*"]
 }
-
 ```
 
 And you're ready to start coding!
@@ -38,7 +46,7 @@ We recommend using this library together with the [xp-codegen-plugin](https://gi
 We have an Enonic service that returns an article by id.
 
 ```typescript
-import { Article } from "../../site/content-types/article/article"; // 1
+import { Article } from "../../site/content-types"; // 1
 import * as contentLib from "/lib/xp/content"; // 2
 
 export function get(req: XP.Request): XP.Response { // 3
