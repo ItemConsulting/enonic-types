@@ -1,0 +1,24 @@
+{
+  "name": "@item-enonic-types/event",
+  "sideEffects": false,
+  "version": "7.10.0",
+  "description": "TypeScript types for Enonic XP",
+  "typings": "index.d.ts",
+  "files": ["index.d.ts"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItemConsulting/enonic-types.git"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "keywords": [
+    "enonic"
+  ],
+  "author": "Tom Arild Jakobsen <tajakobsen@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ItemConsulting/enonic-types/issues"
+  },
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+}

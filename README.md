@@ -25,7 +25,7 @@ you are using the [webpack-starter](https://github.com/enonic/starter-webpack)) 
     "rootDirs": [
       "./src/main/resources",
       "./.xp-codegen"
-    ],
+    ]
   },
   "include": [
     "./.xp-codegen/**/*",
@@ -84,11 +84,9 @@ All you have to do is the following:
  1. Configure *./tsconfig.json* as described above
  2. Add a file: *./src/main/resources/types.ts* with the following content:
     ```typescript
-    type LibMap = import('enonic-types/libs').EnonicLibraryMap;
-    
-    declare const require: <K extends keyof LibMap | string = string>(
+    declare const require: <K extends keyof XpLibraries | string = string>(
       path: K
-    ) => K extends keyof LibMap ? LibMap[K] : unknown;
+    ) => K extends keyof XpLibraries ? XpLibraries[K] : unknown;
     
     declare const resolve: (
       path: string
@@ -121,10 +119,8 @@ If you add (or replace the existing)
 Enonic XP-libraries. 
 
 ```typescript
-type LibMap = import("enonic-types/libs").EnonicLibraryMap;
-
-declare const __non_webpack_require__: <K extends keyof LibMap | string = string>(path: K) => K extends keyof LibMap
-  ? LibMap[K]
+declare const __non_webpack_require__: <K extends keyof XpLibraries | string = string>(path: K) => K extends keyof XpLibraries
+  ? XpLibraries[K]
   : any;
 ```
  

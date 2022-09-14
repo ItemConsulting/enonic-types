@@ -66,6 +66,4 @@ lib
 .idea
 
 # Buildt files
-*.d.ts
 ./generated
-!src/generated/*.d.ts
