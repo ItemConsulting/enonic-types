@@ -196,10 +196,13 @@ export function restore(params: RestoreParams): Array<string>;
 
 export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
 
+export declare type ContentInheritType = "CONTENT" | "PARENT" | "NAME" | "SORT";
+
 export interface Content<Data = unknown, Type extends string = KeyOfContentType<Data>> {
   readonly _id: string;
   readonly _name: string;
   readonly _path: string;
+  readonly _score: number;
   readonly creator: string;
   readonly modifier: string;
   readonly createdTime: string;
@@ -210,7 +213,8 @@ export interface Content<Data = unknown, Type extends string = KeyOfContentType<
   readonly hasChildren: boolean;
   language?: string;
   readonly valid: boolean;
-  childOrder: string;
+  originProject: string;
+  childOrder?: string;
   data: Type extends keyof XP.ContentTypes ? (Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data) : Data;
   page: Component;
   x: XP.XData;
@@ -220,6 +224,7 @@ export interface Content<Data = unknown, Type extends string = KeyOfContentType<
     state: WORKFLOW_STATES;
     checks: Record<string, WORKFLOW_STATES>;
   };
+  inherit?: ContentInheritType[];
 }
 
 export type Site = Content<SiteData>;
