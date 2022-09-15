@@ -1,5 +1,13 @@
-import type { LocalTime, Instant, LocalDate, LocalDateTime } from "@item-enonic-types/value";
-import type { LiteralUnion, KeysOfType, WrapDataInContent } from "@item-enonic-types/utils";
+import type { LocalTime, Instant, LocalDate, LocalDateTime } from "@item-enonic-types/lib-xp-value";
+import type { ByteSource } from "@item-enonic-types/utils";
+import type {
+  ContentTypeByName,
+  KeyOfContentType,
+  LiteralContentTypeNames,
+  WrapDataInContent,
+} from "@item-enonic-types/utils/content";
+import type { Component } from "@item-enonic-types/lib-xp-portal";
+import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
 
 declare global {
   interface XpLibraries {
@@ -45,16 +53,6 @@ declare global {
     }
   }
 }
-
-type ContentTypeByName<ContentTypeName, FallbackType> = ContentTypeName extends keyof XP.ContentTypes
-  ? XP.ContentTypes[ContentTypeName]
-  : FallbackType;
-
-export type KeyOfContentType<Data> = KeysOfType<XP.ContentTypes, Data> extends never
-  ? string
-  : KeysOfType<XP.ContentTypes, Data>;
-
-type LiteralContentTypeNames = LiteralUnion<keyof XP.ContentTypes>;
 
 /**
  * This function fetches a content
@@ -214,7 +212,7 @@ export interface Content<Data = unknown, Type extends string = KeyOfContentType<
   readonly valid: boolean;
   childOrder: string;
   data: Type extends keyof XP.ContentTypes ? (Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data) : Data;
-  page: import("@item-enonic-types/portal").Component;
+  page: Component;
   x: XP.XData;
   attachments: Attachments;
   publish?: ScheduleParams;
@@ -963,13 +961,6 @@ export interface RemoveAttachmentParams {
   name: string | Array<string>;
 }
 
-// com.google.common.io.ByteSource
-export interface ByteSource {
-  isEmpty(): boolean;
-
-  size(): number;
-}
-
 export interface CreateMediaParams {
   name: string;
   parentPath?: string;
@@ -1005,7 +996,7 @@ export interface GetPermissionsResult {
 export type Permission = "READ" | "CREATE" | "MODIFY" | "DELETE" | "PUBLISH" | "READ_PERMISSIONS" | "WRITE_PERMISSIONS";
 
 export interface PermissionsParams {
-  principal: import("@item-enonic-types/auth").PrincipalKey;
+  principal: PrincipalKey;
   allow: Array<Permission>;
   deny: Array<Permission>;
 }

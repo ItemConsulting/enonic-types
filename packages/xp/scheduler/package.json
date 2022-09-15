@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/scheduler",
+  "name": "@item-enonic-types/lib-xp-scheduler",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

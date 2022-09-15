@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/qrcode": typeof import("./index");
@@ -8,7 +10,7 @@ declare global {
  * Generates a PNG image with a QR Code that encodes the specified text. The value returned is a stream object.
  * It can be set as the response of an HTTP request, stored in a node or content, or manipulated using the lib-io.
  */
-export function generateQrCode(options: GenerateQrCodeParams): import("@item-enonic-types/content").ByteSource;
+export function generateQrCode(options: GenerateQrCodeParams): ByteSource;
 
 interface GenerateQrCodeParams {
   /**

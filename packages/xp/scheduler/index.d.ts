@@ -1,10 +1,12 @@
+import type { PrincipalKeyUser } from "@item-enonic-types/lib-xp-auth";
+import type { XOR } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/scheduler": typeof import("./index");
   }
 }
 
-type PrincipalKeyUser = import("../auth").PrincipalKeyUser;
 /**
  * Returns scheduled job with the specified name.
  */
@@ -91,7 +93,7 @@ export interface CreateScheduledJobParams<Config = never> {
   /**
    * Task time run config
    */
-  schedule: import("@item-enonic-types/utils").XOR<ScheduleTypeCron, ScheduleTypeOneTime>;
+  schedule: XOR<ScheduleTypeCron, ScheduleTypeOneTime>;
 
   /**
    * Key of the user that submitted the task.
@@ -147,7 +149,7 @@ export interface ScheduledJob<Config = never> {
   /**
    * Task time run config
    */
-  schedule: import("@item-enonic-types/utils").XOR<ScheduleTypeCron, ScheduleTypeOneTime>;
+  schedule: XOR<ScheduleTypeCron, ScheduleTypeOneTime>;
 
   /**
    * Principal key of the user that submitted the task

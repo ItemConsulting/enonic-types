@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/notifications": typeof import("./index");
@@ -33,12 +35,12 @@ export interface KeyPair {
   /**
    * The private key as a binary stream.
    */
-  readonly privateKeyBytes: import("@item-enonic-types/content").ByteSource;
+  readonly privateKeyBytes: ByteSource;
 
   /**
    * The public key as a binary stream.
    */
-  readonly publicKeyBytes: import("@item-enonic-types/content").ByteSource;
+  readonly publicKeyBytes: ByteSource;
 }
 
 export interface SendParams<Payload extends object | string> {

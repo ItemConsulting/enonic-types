@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/router",
+  "name": "@item-enonic-types/lib-router",
   "sideEffects": false,
   "version": "3.0.0",
   "description": "TypeScript types for Enonic XP",

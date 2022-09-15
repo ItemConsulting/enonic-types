@@ -1,3 +1,5 @@
+import type { EmptyObject } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/graphql": typeof import("./index");
@@ -46,7 +48,6 @@ export function execute<ExecuteContext = undefined, Result = any>(
   context?: ExecuteContext
 ): Result;
 
-export type EmptyObject = import("@item-enonic-types/utils").EmptyObject;
 export type GraphQLSchema = unknown & { kind?: "SCHEMA" };
 
 export type GraphQLInt = unknown & {

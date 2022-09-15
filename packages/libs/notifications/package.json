@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/notifications",
+  "name": "@item-enonic-types/lib-notifications",
   "sideEffects": false,
   "version": "2.0.0",
   "description": "TypeScript types for Enonic XP",

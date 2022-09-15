@@ -1,3 +1,6 @@
+import type { ByteSource, EmptyObject } from "@item-enonic-types/utils";
+import type { PermissionsParams } from "@item-enonic-types/lib-xp-content";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/repo": typeof import("./index");
@@ -48,11 +51,11 @@ export function modify<Data>(params: ModifyParams<Data>): RepositoryConfig<Data>
 /**
  * This function returns a data-stream for the specified repository attachment.
  */
-export function getBinary(params: GetBinaryParams): import("@item-enonic-types/content").ByteSource;
+export function getBinary(params: GetBinaryParams): ByteSource;
 
 export interface CreateRepoParams {
   id: string;
-  rootPermissions?: ReadonlyArray<import("@item-enonic-types/content").PermissionsParams>;
+  rootPermissions?: ReadonlyArray<PermissionsParams>;
   settings?: RepositorySettings;
 }
 
@@ -74,7 +77,7 @@ export interface CreateBranchParams {
   repoId: string;
 }
 
-export interface RepositoryConfig<Data = import("@item-enonic-types/utils").EmptyObject> {
+export interface RepositoryConfig<Data = EmptyObject> {
   readonly id: string;
   readonly branches: ReadonlyArray<string>;
   readonly settings: RepositorySettings;

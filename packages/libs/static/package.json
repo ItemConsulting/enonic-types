@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/static",
+  "name": "@item-enonic-types/lib-static",
   "sideEffects": false,
   "version": "1.0.2",
   "description": "TypeScript types for Enonic XP",

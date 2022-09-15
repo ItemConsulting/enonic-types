@@ -1,3 +1,7 @@
+import type { ByteSource, XOR } from "@item-enonic-types/utils";
+import type { WrapDataInContent } from "@item-enonic-types/utils/content";
+import type { Site } from "@item-enonic-types/lib-xp-content";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/portal": typeof import("./index");
@@ -8,7 +12,6 @@ declare global {
  * This function returns the component corresponding to the current execution context. It is meant to be called
  * from a layout or part controller.
  */
-import type { WrapDataInContent, XOR } from "@item-enonic-types/utils";
 
 export function getComponent<Config = unknown>(): Component<Config>;
 
@@ -41,10 +44,7 @@ export function getMultipartItem(name: string, index?: number): MultipartItem | 
 /**
  * This function returns a data-stream for a named multipart item.
  */
-export function getMultipartStream(
-  name: string,
-  index?: number
-): import("@item-enonic-types/content").ByteSource | undefined;
+export function getMultipartStream(name: string, index?: number): ByteSource | undefined;
 
 /**
  * This function returns the multipart item data as text.
@@ -55,7 +55,7 @@ export function getMultipartText(name: string, index?: number): string | undefin
  * This function returns the parent site of the content corresponding to the current execution context. It is meant
  * to be called from a page, layout or part controller.
  */
-export function getSite(): import("@item-enonic-types/content").Site;
+export function getSite(): Site;
 
 /**
  * This function returns the site configuration for this app in the parent site of the content corresponding to the

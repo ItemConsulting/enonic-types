@@ -1,3 +1,5 @@
+import type { ResourceKey } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/export": typeof import("./index");
@@ -21,7 +23,7 @@ interface ImportNodesParams {
   /**
    * Either name of nodes-export located in exports directory or application resource key.
    */
-  source: string | import("../../libs/thymeleaf").ResourceKey;
+  source: string | ResourceKey;
 
   /**
    * Target path for imported nodes.
@@ -31,7 +33,7 @@ interface ImportNodesParams {
   /**
    * XSLT file name in exports directory or application resource key. Used for XSLT transformation.
    */
-  xslt?: string | import("../../libs/thymeleaf").ResourceKey;
+  xslt?: string | ResourceKey;
 
   /**
    * Parameters used in XSLT transformation.

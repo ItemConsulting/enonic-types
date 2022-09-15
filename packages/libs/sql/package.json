@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/sql",
+  "name": "@item-enonic-types/lib-sql",
   "sideEffects": false,
   "version": "1.0.0",
   "description": "TypeScript types for Enonic XP",

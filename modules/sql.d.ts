@@ -1,4 +1,4 @@
 declare module "*/lib/sql" {
-  const lib: typeof import("../packages/libs/sql");
+  const lib: typeof import("@item-enonic-types/lib-sql");
   export = lib;
 }

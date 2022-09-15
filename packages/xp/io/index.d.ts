@@ -1,3 +1,5 @@
+import type { ByteSource, ResourceKey } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/io": typeof import("./index");
@@ -39,10 +41,8 @@ export function readLines(stream: ByteSource): Array<string>;
  */
 export function readText(stream: ByteSource): string;
 
-export type ByteSource = import("@item-enonic-types/content").ByteSource;
-
 export interface Resource {
-  getKey(): import("../../libs/thymeleaf").ResourceKey;
+  getKey(): ResourceKey;
 
   getUrl(): unknown;
 

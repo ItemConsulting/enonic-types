@@ -1,3 +1,5 @@
+import type { PrincipalKeyUser } from "@item-enonic-types/lib-xp-auth";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/auditlog": typeof import("./index");
@@ -52,7 +54,7 @@ export interface LogEntry<Data = DefaultData> {
   /**
    *Log entry user.
    */
-  user: import("../auth").PrincipalKeyUser;
+  user: PrincipalKeyUser;
 
   /**
    * URIs to objects that relate to this log entry.

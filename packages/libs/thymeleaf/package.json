@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/thymeleaf",
+  "name": "@item-enonic-types/lib-thymeleaf",
   "sideEffects": false,
   "version": "2.0.1",
   "description": "TypeScript types for Enonic XP",

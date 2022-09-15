@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/grid",
+  "name": "@item-enonic-types/lib-xp-grid",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

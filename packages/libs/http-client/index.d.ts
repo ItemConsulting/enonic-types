@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/http-client": typeof import("./index");
@@ -5,8 +7,6 @@ declare global {
 }
 
 export function request(params: HttpRequestParams): HttpResponse;
-
-export type ByteSource = import("@item-enonic-types/content").ByteSource;
 
 export interface HttpRequestParams {
   /** URL to which the request is sent. */

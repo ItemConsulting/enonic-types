@@ -1,3 +1,6 @@
+import type { XOR } from "@item-enonic-types/utils";
+import type { RunContext, ContextAttributes } from "@item-enonic-types/lib-xp-context";
+
 declare global {
   interface XpLibraries {
     "/lib/cron": typeof import("./index");
@@ -33,7 +36,7 @@ export function get(params: GetParams): TaskMapper;
  */
 export function list(): ReadonlyArray<TaskMapper>;
 
-export type ScheduleParams = import("@item-enonic-types/utils").XOR<ScheduleByCron, ScheduleByDelay>;
+export type ScheduleParams = XOR<ScheduleByCron, ScheduleByDelay>;
 
 export interface ScheduleByCron {
   /**
@@ -150,10 +153,7 @@ export interface TaskMapper {
   readonly nextExecTime: string;
 }
 
-export type CronRunContext = Omit<
-  import("@item-enonic-types/context").RunContext<import("@item-enonic-types/context").ContextAttributes>,
-  "user"
-> & {
+export type CronRunContext = Omit<RunContext<ContextAttributes>, "user"> & {
   user?: {
     login?: string;
     userStore?: string;

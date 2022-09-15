@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": ".",
+    "incremental": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
-    "lib": ["es6"],
-    "removeComments": false
+    "removeComments": false,
+    "lib": ["es6"]
   },
-  "include": ["./src/**/*"],
+  "include": ["./modules"],
   "exclude": [
     "node_modules"
   ]

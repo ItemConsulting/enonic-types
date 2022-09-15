@@ -1,4 +1,4 @@
-/// <reference path="../../../node_modules/@item-enonic-types/global/index.d.ts" />
+import { Request, Response } from "@item-enonic-types/global/controller";
 
 declare global {
   interface XpLibraries {
@@ -8,8 +8,7 @@ declare global {
 
 export default function router(): Router;
 
-export type Response = XP.Response;
-export type RouterRequest = XP.Request & { pathParams: Record<string, string | undefined> };
+export type RouterRequest = Request & { pathParams: Record<string, string | undefined> };
 
 /**
  * Path pattern to match.
@@ -55,10 +54,10 @@ export interface Router {
   /**
    * Adds a filter to this router.
    */
-  filter(filter: (req: XP.Request, next: (req: XP.Request) => Response) => Response): void;
+  filter(filter: (req: Request, next: (req: Request) => Response) => Response): void;
 
   /**
    * Dispatch the request to this router.
    */
-  dispatch(req: XP.Request): Response;
+  dispatch(req: Request): Response;
 }

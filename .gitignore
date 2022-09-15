@@ -66,4 +66,4 @@ lib
 .idea
 
 # Buildt files
-./generated
+tsconfig.tsbuildinfo

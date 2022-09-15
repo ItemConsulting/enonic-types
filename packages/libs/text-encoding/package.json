@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/text-encoding",
+  "name": "@item-enonic-types/lib-text-encoding",
   "sideEffects": false,
   "version": "2.1.0",
   "description": "TypeScript types for Enonic XP",

@@ -172,3 +172,11 @@ declare const __non_webpack_require__: <K extends keyof XpLibraries | string = s
  * [VhostLibrary](./src/vhost.ts)
  * [WebsocketLibrary](./src/websocket.ts)
  * [XsltLibrary](./src/xslt.ts)
+
+## Deployment
+
+You can run the following command to bump all XP-packages:
+
+```bash
+npm pkg set version=7.10.0 --workspace packages/xp
+```

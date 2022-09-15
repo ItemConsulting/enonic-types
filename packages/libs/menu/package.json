@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/menu",
+  "name": "@item-enonic-types/lib-menu",
   "sideEffects": false,
   "version": "4.2.0",
   "description": "TypeScript types for Enonic XP",

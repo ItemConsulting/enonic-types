@@ -1,3 +1,5 @@
+import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/context": typeof import("./index");
@@ -19,8 +21,6 @@ export function run<Result, Attributes extends ContextAttributes>(
 ): Result;
 
 export type ContextAttributes = Record<string, string | boolean | number>;
-
-export type PrincipalKey = import("../xp/auth").PrincipalKey;
 
 export interface Context<Attributes extends ContextAttributes | undefined> {
   /**

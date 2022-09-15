@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/i18n",
+  "name": "@item-enonic-types/lib-xp-i18n",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

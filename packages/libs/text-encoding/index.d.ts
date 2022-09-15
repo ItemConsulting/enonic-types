@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/text-encoding": typeof import("./index");
@@ -41,5 +43,3 @@ export function hmacSha256AsStream(stream: string | ByteSource, key: string): By
 
 export function hmacSha512AsHex(stream: string | ByteSource, key: string): string;
 export function hmacSha512AsStream(stream: string | ByteSource, key: string): ByteSource;
-
-export type ByteSource = import("@item-enonic-types/content").ByteSource;

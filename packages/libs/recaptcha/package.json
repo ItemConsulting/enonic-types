@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/recaptcha",
+  "name": "@item-enonic-types/lib-recaptcha",
   "sideEffects": false,
   "version": "3.0.0",
   "description": "TypeScript types for Enonic XP",

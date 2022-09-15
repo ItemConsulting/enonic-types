@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/mail",
+  "name": "@item-enonic-types/lib-xp-mail",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

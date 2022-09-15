@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/http-client",
+  "name": "@item-enonic-types/lib-http-client",
   "sideEffects": false,
   "version": "3.1.0",
   "description": "TypeScript types for Enonic XP",

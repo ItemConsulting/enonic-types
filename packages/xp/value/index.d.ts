@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/value": typeof import("./index");
@@ -7,7 +9,7 @@ declare global {
 /**
  * Creates a BinaryAttachment java-type.
  */
-export function binary(name: string, stream: import("@item-enonic-types/content").ByteSource): BinaryAttachment;
+export function binary(name: string, stream: ByteSource): BinaryAttachment;
 
 /**
  * Creates a GeoPoint java-type.
@@ -49,7 +51,7 @@ export interface BinaryAttachment {
 
   getReference(): BinaryReference;
 
-  getByteSource(): import("@item-enonic-types/content").ByteSource;
+  getByteSource(): ByteSource;
 }
 
 export interface BinaryReference {

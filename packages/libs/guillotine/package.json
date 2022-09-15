@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/guillotine",
+  "name": "@item-enonic-types/lib-guillotine",
   "sideEffects": false,
   "version": "5.4.0",
   "description": "TypeScript types for Enonic XP",

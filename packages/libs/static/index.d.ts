@@ -1,5 +1,5 @@
-/// <reference path="../../../node_modules/@item-enonic-types/global/index.d.ts" />
-import { Resource } from "@item-enonic-types/io";
+import type { Request, Response } from "@item-enonic-types/global/controller";
+import type { Resource } from "@item-enonic-types/lib-xp-io";
 
 declare global {
   interface XpLibraries {
@@ -10,24 +10,24 @@ declare global {
 /**
  * Sets up and returns a reusable resource-getter function.
  */
-export function buildGetter(root: string, params?: BuildGetterParams): (req: XP.Request) => XP.Response;
+export function buildGetter(root: string, params?: BuildGetterParams): (req: Request) => Response;
 
 /**
  * Sets up and returns a reusable resource-getter function.
  */
-export function buildGetter(params: BuildGetterParams & { root: string }): (req: XP.Request) => XP.Response;
+export function buildGetter(params: BuildGetterParams & { root: string }): (req: Request) => Response;
 
 /**
  * A specific-recource getter method, returns a response object for the particular asset that’s named in the
  * argument string.
  */
-export function get(path: string, params?: GetParams): XP.Response;
+export function get(path: string, params?: GetParams): Response;
 
 /**
  * A specific-recource getter method, returns a response object for the particular asset that’s named in the
  * argument string.
  */
-export function get(params: GetParams & { path: string }): XP.Response;
+export function get(params: GetParams & { path: string }): Response;
 
 export interface BuildGetterParams extends GetParams {
   /**
@@ -36,7 +36,7 @@ export interface BuildGetterParams extends GetParams {
    * relative asset path below root (so that later, prefixing the root value to that relative path will give the
    * absolute full path to the resource in the JAR).
    */
-  getCleanPath?: (req: XP.Request) => string;
+  getCleanPath?: (req: Request) => string;
 }
 
 export interface GetParams {

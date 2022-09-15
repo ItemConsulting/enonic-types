@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/websocket",
+  "name": "@item-enonic-types/lib-xp-websocket",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

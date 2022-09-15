@@ -1,4 +1,4 @@
 declare module "*/lib/menu" {
-  const lib: typeof import("../packages/libs/menu");
+  const lib: typeof import("@item-enonic-types/lib-menu");
   export = lib;
 }

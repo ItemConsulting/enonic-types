@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/mustache",
+  "name": "@item-enonic-types/lib-mustache",
   "sideEffects": false,
   "version": "2.1.0",
   "description": "TypeScript types for Enonic XP",

@@ -1,3 +1,14 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+import type {
+  Aggregation,
+  AggregationsResponseEntry,
+  BasicFilters,
+  BooleanFilter,
+  Highlight,
+  PermissionsParams,
+} from "@item-enonic-types/lib-xp-content";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/node": typeof import("./index");
@@ -10,8 +21,6 @@ declare global {
 export function connect(params: Source): RepoConnection;
 
 export function multiRepoConnect(params: MultiRepoConnectParams): MultiRepoConnection;
-
-export type PrincipalKey = import("../auth").PrincipalKey;
 
 export interface Source {
   repoId: string;
@@ -46,7 +55,7 @@ export interface NodeQueryResponse {
   total: number;
   count: number;
   hits: Array<NodeQueryHit>;
-  aggregations: Record<string, import("@item-enonic-types/content").AggregationsResponseEntry>;
+  aggregations: Record<string, AggregationsResponseEntry>;
 }
 
 export type MultiRepoNodeQueryResponse = Omit<NodeQueryResponse, "hits"> & {
@@ -84,7 +93,7 @@ export interface NodeQueryParams {
   /**
    * Query filters
    */
-  filters?: import("@item-enonic-types/content").BasicFilters | import("@item-enonic-types/content").BooleanFilter;
+  filters?: BasicFilters | BooleanFilter;
 
   /**
    * Sorting expression.
@@ -94,12 +103,12 @@ export interface NodeQueryParams {
   /**
    * Aggregations expression.
    */
-  aggregations?: Record<string, import("@item-enonic-types/content").Aggregation>;
+  aggregations?: Record<string, Aggregation>;
 
   /**
    * Highlighting config
    */
-  highlight?: import("@item-enonic-types/content").Highlight;
+  highlight?: Highlight;
 
   /**
    * Return score calculation explanation.
@@ -172,7 +181,7 @@ export interface NodeCreateParams {
   /**
    * The access control list for the node. By default the creator will have full access
    */
-  _permissions?: Array<import("@item-enonic-types/content").PermissionsParams>;
+  _permissions?: Array<PermissionsParams>;
 
   /**
    * true if the permissions should be inherited from the node parent. Default is false.
@@ -249,7 +258,7 @@ export interface RepoNode {
   _childOrder: string;
   _indexConfig: IndexConfig;
   _inheritsPermissions: boolean;
-  _permissions: Array<import("@item-enonic-types/content").PermissionsParams>;
+  _permissions: Array<PermissionsParams>;
   _state: string;
   _nodeType: string;
   _versionKey: string;
@@ -330,7 +339,7 @@ export interface RepoConnection {
   /**
    * This function returns a binary stream.
    */
-  getBinary(params: GetBinaryParams): import("@item-enonic-types/content").ByteSource;
+  getBinary(params: GetBinaryParams): ByteSource;
 
   /**
    * This command queries nodes.
@@ -422,7 +431,7 @@ export interface SetChildOrderParams {
 }
 
 export interface SetRootPermissionParams {
-  _permissions: Array<import("@item-enonic-types/content").PermissionsParams>;
+  _permissions: Array<PermissionsParams>;
   _inheritsPermissions: boolean;
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/cron",
+  "name": "@item-enonic-types/lib-cron",
   "sideEffects": false,
   "version": "1.1.1",
   "description": "TypeScript types for Enonic XP",

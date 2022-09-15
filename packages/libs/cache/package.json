@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/cache",
+  "name": "@item-enonic-types/lib-cache",
   "sideEffects": false,
   "version": "2.1.1",
   "description": "TypeScript types for Enonic XP",

@@ -5,12 +5,10 @@
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "scripts": {
-    "clean": "rimraf ./*.d.ts && rimraf ./generated && rimraf ./*.tgz",
-    "copy-dts": "copyfiles -u 1 \"src/generated/**/*.d.ts\" .",
-    "build": "npm run clean && tsc && npm run copy-dts",
-    "lint": "eslint --fix 'src/**/*.ts'",
-    "prepublishOnly": "npm run lint && npm run build",
-    "json2ts": "json2ts -i src/generated/schemas/ -o src/generated/"
+    "clean": "rimraf ./*.tgz",
+    "build": "npm run clean && tsc",
+    "lint": "eslint --fix './**/*.ts'",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
@@ -28,11 +26,9 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
-    "copyfiles": "^2.4.1",
     "eslint": "8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "json-schema-to-typescript": "^11.0.2",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "tsd": "^0.23.0",
@@ -43,5 +39,3 @@
     "packages/libs/*"
   ]
 }
-
-

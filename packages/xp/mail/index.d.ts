@@ -1,3 +1,5 @@
+import type { ByteSource } from "@item-enonic-types/utils";
+
 declare global {
   interface XpLibraries {
     "/lib/xp/mail": typeof import("./index");
@@ -8,7 +10,7 @@ export function send(params: EmailParams): boolean;
 
 export interface EmailAttachment {
   fileName: string;
-  data: import("@item-enonic-types/content").ByteSource;
+  data: ByteSource;
   mimeType?: string;
   headers?: Record<string, string>;
 }

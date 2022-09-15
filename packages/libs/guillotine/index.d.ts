@@ -1,4 +1,15 @@
-/// <reference path="../../../node_modules/@item-enonic-types/global/index.d.ts" />
+import type { WebSocketEvent } from "@item-enonic-types/global/controller";
+import type { EmptyObject, XOR } from "@item-enonic-types/utils";
+import type {
+  CreateObjectTypeParams,
+  GraphQLEnumType,
+  GraphQLInputObjectType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLType,
+  SchemaGenerator,
+} from "@item-enonic-types/lib-graphql";
 
 declare global {
   interface XpLibraries {
@@ -7,31 +18,24 @@ declare global {
   }
 }
 
-type EmptyObject = import("@item-enonic-types/utils").EmptyObject;
 type ContextCreationCallbacks<ExecuteContext = EmptyObject> = Record<
   string,
-  (context: Context<ExecuteContext>, params: import("../graphql").CreateObjectTypeParams<ExecuteContext>) => void
+  (context: Context<ExecuteContext>, params: CreateObjectTypeParams<ExecuteContext>) => void
 >;
 
-export function createSchema<ExecuteContext = EmptyObject>(
-  params?: ContextOptions<ExecuteContext>
-): import("../graphql").GraphQLSchema;
+export function createSchema<ExecuteContext = EmptyObject>(params?: ContextOptions<ExecuteContext>): GraphQLSchema;
 
-export function createHeadlessCmsType<ExecuteContext = EmptyObject>(
-  context?: Context<ExecuteContext>
-): import("../graphql").GraphQLType;
+export function createHeadlessCmsType<ExecuteContext = EmptyObject>(context?: Context<ExecuteContext>): GraphQLType;
 
 export function createContext<ExecuteContext = EmptyObject>(
   options?: ContextOptions<ExecuteContext>
 ): Context<ExecuteContext>;
 
-export function initWebSockets(schema?: import("../graphql").GraphQLSchema): (event: XP.WebSocketEvent) => void;
+export function initWebSockets(schema?: GraphQLSchema): (event: WebSocketEvent) => void;
 
 export function createWebSocketData(req: CreateWebSocketDataParams): WebSocketData;
 
-export function execute(
-  params: import("@item-enonic-types/utils").XOR<ExecuteBySchemaParams, ExecuteByConfigParams>
-): string;
+export function execute(params: XOR<ExecuteBySchemaParams, ExecuteByConfigParams>): string;
 
 export interface ContextOptions<ExecuteContext = EmptyObject> {
   applications?: Array<string>;
@@ -41,11 +45,6 @@ export interface ContextOptions<ExecuteContext = EmptyObject> {
 
   [key: string]: unknown;
 }
-
-type GraphQLInputObjectType = import("../graphql").GraphQLInputObjectType;
-type GraphQLObjectType = import("../graphql").GraphQLObjectType;
-type GraphQLEnumType = import("../graphql").GraphQLEnumType;
-type GraphQLInterfaceType = import("../graphql").GraphQLInterfaceType;
 
 export interface Context<ExecuteContext = EmptyObject> {
   types: {
@@ -135,7 +134,7 @@ export interface Context<ExecuteContext = EmptyObject> {
 
   putOption(name: string, value: unknown): ContextOptions<ExecuteContext>;
 
-  schemaGenerator: import("../graphql").SchemaGenerator;
+  schemaGenerator: SchemaGenerator;
 }
 
 interface CreateWebSocketDataParams {
@@ -152,7 +151,7 @@ interface WebSocketData {
 export interface ExecuteBySchemaParams {
   query: string;
   variables?: unknown;
-  schema: import("../graphql").GraphQLSchema;
+  schema: GraphQLSchema;
 }
 
 export interface ExecuteByConfigParams {

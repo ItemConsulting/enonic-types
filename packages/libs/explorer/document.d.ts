@@ -1,3 +1,5 @@
+import type { RepoConnection } from "@item-enonic-types/lib-xp-node";
+
 /**
  * Create documents
  */
@@ -14,7 +16,7 @@ interface CreateData {
 
 interface CreateOptions {
   boolRequireValid?: boolean;
-  connection: import("../../xp/node").RepoConnection;
+  connection: RepoConnection;
 }
 
 interface UpdateData {
@@ -24,5 +26,5 @@ interface UpdateData {
 interface UpdateOptions {
   boolPartial?: boolean;
   boolRequireValid?: boolean;
-  connection: import("../../xp/node").RepoConnection;
+  connection: RepoConnection;
 }

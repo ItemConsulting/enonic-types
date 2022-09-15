@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/graphql-playground",
+  "name": "@item-enonic-types/lib-graphql-playground",
   "sideEffects": false,
   "version": "0.0.1",
   "description": "TypeScript types for Enonic XP",

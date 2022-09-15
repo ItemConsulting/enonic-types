@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/task",
+  "name": "@item-enonic-types/lib-xp-task",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

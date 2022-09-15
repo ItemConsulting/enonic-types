@@ -1,5 +1,5 @@
-type IndexConfigEntry = import("../../../../xp/node").IndexConfigEntry;
-type PermissionsParams = import("@item-enonic-types/content").PermissionsParams;
+import type { IndexConfigEntry } from "@item-enonic-types/lib-xp-node";
+import type { PermissionsParams } from "@item-enonic-types/lib-xp-content";
 
 export const APP_EXPLORER: string;
 export const INTERFACES_FOLDER: string;
