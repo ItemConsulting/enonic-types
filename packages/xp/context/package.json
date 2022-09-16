@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/lib-xp-context",
+  "name": "@item-enonic-types/lib-context",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",

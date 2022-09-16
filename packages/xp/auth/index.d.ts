@@ -1,136 +1,17 @@
-declare global {
-  interface XpLibraries {
-    "/lib/xp/auth": typeof import("./index");
-  }
-}
-
-/**
- * Login a user through the specified idProvider, with userName and password.
- */
-export function login(params: LoginParams): LoginResult;
-
-/**
- * Logout the currently logged-in user.
- */
-export function logout(): void;
-
-/**
- * Returns the logged-in user. If not logged-in, this will return undefined or null.
- */
-export function getUser(): User | null;
-
-/**
- * Changes password for specified user.
- */
-export function changePassword(params: ChangePasswordParams): void;
-
-/**
- * Generates a random secure password that may be suggested to a user.
- */
-export function generatePassword(): string;
-
-/**
- * This function returns the ID provider configuration. It is meant to be called from an ID provider controller.
- */
-export function getIdProviderConfig<IdProviderConfig>(): IdProviderConfig;
-
-/**
- * Search for users matching the specified query.
- */
-export function findUsers<Profile>(
-  params: FindUsersParams & { includeProfile: true }
-): UserQueryResult<UserWithProfile<Profile>>;
-
-export function findUsers(params: FindUsersParams & { includeProfile?: false }): UserQueryResult<User>;
-
-/**
- * Retrieves the user specified and updates it with the changes applied through the editor.
- */
-export function modifyUser(params: ModifyUserParams): User;
-
-/**
- * Creates a user.
- */
-export function createUser(params: CreateUserParams): User;
-
-/**
- * Adds members to a principal (user or role).
- */
-export function addMembers(
-  principalKey: PrincipalKeyRole | PrincipalKeyGroup,
-  members: Array<PrincipalKeyGroup | PrincipalKeyUser>
-): void;
-
-/**
- * Returns a list of principals that are members of the specified principal.
- */
-export function getMembers(principalKey: PrincipalKeyRole | PrincipalKeyGroup): ReadonlyArray<User | Group>;
-
-/**
- * Removes members from a principal (group or role).
- */
-export function removeMembers(
-  principalKey: PrincipalKeyRole | PrincipalKeyGroup,
-  members: Array<PrincipalKeyGroup | PrincipalKeyUser>
-): void;
-
-/**
- * Returns the principal with the specified key.
- */
-export function getPrincipal(principalKey: PrincipalKey): Principal | null;
-
-/**
- * Search for principals matching the specified criteria.
- */
-export function findPrincipals(params: FindPrincipalsParams): FindPrincipalsResult;
-
-/**
- * Returns the list of principals which the specified principal is a member of.
- */
-export function getMemberships(
-  principalKey: PrincipalKeyUser | PrincipalKeyGroup,
-  transitive?: boolean
-): ReadonlyArray<Principal>;
-
-/**
- * Deletes the principal with the specified key.
- */
-export function deletePrincipal(principalKey: PrincipalKey): boolean;
-
-/**
- * Creates a role.
- */
-export function createRole(params: CreateRoleParams): Role;
-
-/**
- * Retrieves the role specified and updates it with the changes applied through an editor.
- */
-export function modifyRole(params: ModifyRoleParams): Role;
-
-/**
- * Checks if the logged-in user has the specified role.
- */
-export function hasRole(role: string): boolean;
-
-/**
- * Creates a group.
- */
-export function createGroup(params: CreateGroupParams): Group;
-
-/**
- * Retrieves the group specified and updates it with the changes applied.
- */
-export function modifyGroup(params: ModifyGroupParams): Group;
-
-/**
- * Returns the profile of a user.
- */
-export function getProfile<Profile>(params: GetProfileParams): Profile;
-
-/**
- * This function retrieves the profile of a user and updates it.
- */
-export function modifyProfile<Profile>(params: ModifyProfileParams<Profile>): Profile;
+import type {
+  CreateGroupParams,
+  CreateUserParams,
+  LoginParams,
+  EditorFn,
+  CreateRoleParams,
+} from "@enonic-types/lib-auth";
+export type {
+  CreateGroupParams,
+  CreateUserParams,
+  LoginParams,
+  EditorFn,
+  CreateRoleParams,
+} from "@enonic-types/lib-auth";
 
 type PrincipalKeySystem =
   | "role:system.everyone"
@@ -142,87 +23,241 @@ type PrincipalKeySystem =
   | "role:system.user.app"
   | "user:system:su";
 
-type PrincipalKeyUser = `user:${string}:${string}`;
-type PrincipalKeyGroup = `group:${string}:${string}`;
-type PrincipalKeyRole = `role:${string}`;
+export type PrincipalKeyUser = `user:${string}:${string}`;
+export type PrincipalKeyGroup = `group:${string}:${string}`;
+export type PrincipalKeyRole = `role:${string}`;
 
-type PrincipalKey = PrincipalKeySystem | PrincipalKeyUser | PrincipalKeyGroup | PrincipalKeyRole;
+export type PrincipalKey = PrincipalKeySystem | PrincipalKeyUser | PrincipalKeyGroup | PrincipalKeyRole;
 
-export interface LoginParams {
-  /**
-   * Mandatory name of the user to log in
-   */
-  user: string;
+export type Principal = User | Role | Group;
 
-  /**
-   * Password for the user. Ignored if skipAuth is set to true, mandatory otherwise.
-   */
-  password?: string;
+export interface User {
+  type: "user";
+  key: PrincipalKeyUser;
+  displayName: string;
+  modifiedTime: string;
+  disabled: boolean;
+  email: string;
+  login: string;
+  idProvider: string;
+}
 
-  /**
-   * Name of id provider where the user is stored. If not specified it will try all available id providers,
-   * in alphabetical order.
-   */
-  idProvider?: string;
+export interface UserWithProfile<Profile> extends User {
+  profile: Profile;
+}
 
-  /**
-   * Skip authentication. Default is false if not specified.
-   */
-  skipAuth?: boolean;
+export interface Role {
+  type: "role";
+  key: PrincipalKeyRole;
+  displayName: string;
+  modifiedTime: string;
+  description?: string;
+}
 
-  /**
-   * Session timeout (in seconds). By default, the value of session.timeout from com.enonic.xp.web.jetty.cfg
-   */
-  sessionTimeout?: number;
-
-  /**
-   * Defines the scope of the login.
-   */
-  scope?: "SESSION" | "REQUEST" | "NONE";
+export interface Group {
+  type: "group";
+  key: PrincipalKeyGroup;
+  displayName: string;
+  modifiedTime: string;
+  description?: string;
 }
 
 export interface LoginResult {
-  readonly authenticated: boolean;
-  readonly user: User;
+  authenticated: boolean;
+  message: string;
+  users?: User;
 }
+
+/**
+ * Login a user with the specified idProvider, userName, password and scope.
+ *
+ * @example-ref examples/auth/login.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.user Name of user to log in.
+ * @param {string} [params.idProvider] Name of id provider where the user is stored. If not specified it will try all available id providers, in alphabetical order.
+ * @param {string} [params.password] Password for the user. Ignored if skipAuth is set to true, mandatory otherwise.
+ * @param {('SESSION'|'REQUEST'|'NONE')} [params.scope=SESSION] The scope of this login. Two values are valid. SESSION logs the user in and creates a session in XP for use in future requests. REQUEST logs the user in but only for this particular request and thus does not create a session.
+ * @param {boolean} [params.skipAuth=false] Skip authentication.
+ * @param {number} [params.sessionTimeout] Session timeout (in seconds). By default, the value of session.timeout from com.enonic.xp.web.jetty.cfg
+ * @returns {LoginResult} Information for logged-in user.
+ */
+export function login(params: LoginParams): LoginResult;
+
+/**
+ * Logout an already logged-in user.
+ *
+ * @example-ref examples/auth/logout.js
+ */
+export function logout(): void;
+
+/**
+ * Returns the logged-in user. If not logged-in, this will return *undefined*.
+ *
+ * @example-ref examples/auth/getUser.js
+ *
+ * @param {object} [params] JSON parameters.
+ * @param {boolean} [params.includeProfile=false] Include profile.
+ *
+ * @returns {User} Information for logged-in user.
+ */
+export function getUser(params?: { includeProfile?: false }): User | null;
+export function getUser<Profile>(params: { includeProfile: true }): UserWithProfile<Profile> | null;
+
+/**
+ * Checks if the logged-in user has the specified role.
+ *
+ * @example-ref examples/auth/hasRole.js
+ *
+ * @param {string} role Role to check for.
+ * @returns {boolean} True if the user has specfied role, false otherwise.
+ */
+export function hasRole(role: string): boolean;
+
+/**
+ * Generates a secure password.
+ *
+ * @example-ref examples/auth/generatePassword.js
+ *
+ * @returns {string} A secure generated password.
+ */
+export function generatePassword(): string;
 
 export interface ChangePasswordParams {
   userKey: PrincipalKeyUser;
   password: string;
 }
 
-export type Principal = User | Role | Group;
+/**
+ * Changes password for specified user.
+ *
+ * @example-ref examples/auth/changePassword.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.userKey Key for user to change password.
+ * @param {string} params.password New password to set.
+ */
+export function changePassword(params: ChangePasswordParams): void;
 
-export interface User {
-  readonly type: "user";
-  readonly key: PrincipalKeyUser;
-  readonly displayName: string;
-  readonly modifiedTime: string;
-  readonly disabled: boolean;
-  readonly email: string;
-  readonly login: string;
-  readonly idProvider: string;
+/**
+ * Returns the principal with the specified key.
+ *
+ * @example-ref examples/auth/getPrincipal.js
+ *
+ * @param {string} principalKey Principal key to look for.
+ * @returns {Principal} the principal specified, or null if it doesn't exist.
+ */
+export function getPrincipal(principalKey: PrincipalKey): Principal | null;
+
+/**
+ * Returns a list of principals the specified principal is a member of.
+ *
+ * @example-ref examples/auth/getMemberships.js
+ *
+ * @param {string} principalKey Principal key to retrieve memberships for.
+ * @param {boolean} [transitive=false] Retrieve transitive memberships.
+ * @returns {Array.<User | Group | Role>} Returns the list of principals.
+ */
+export function getMemberships(
+  principalKey: PrincipalKeyUser | PrincipalKeyGroup,
+  transitive?: boolean
+): Array<Principal>;
+
+/**
+ * Returns a list of principals that are members of the specified principal.
+ *
+ * @example-ref examples/auth/getMembers.js
+ *
+ * @param {string} principalKey Principal key to retrieve members for.
+ * @returns {Array.<User | Group | Role>} Returns the list of principals.
+ */
+export function getMembers(principalKey: PrincipalKeyRole | PrincipalKeyGroup): Array<User | Group>;
+
+/**
+ * Creates user from passed parameters.
+ *
+ * @example-ref examples/auth/createUser.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.idProvider Key for id provider where user has to be created.
+ * @param {string} params.name User login name to set.
+ * @param {string} params.displayName User display name.
+ * @param {string} [params.email] User email.
+ */
+export function createUser(params: CreateUserParams): User;
+
+export interface ModifyUserParams {
+  key: PrincipalKeyUser;
+  editor: (c: User) => User;
 }
 
-export interface UserWithProfile<Profile> extends User {
-  readonly profile: Profile;
+/**
+ * Retrieves the user specified and updates it with the changes applied.
+ *
+ * @example-ref examples/auth/modifyUser.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.key Principal key of the user to modify.
+ * @param {function} params.editor User editor function to apply to user.
+ * @returns {User} the updated user or null if a  user not found.
+ */
+export function modifyUser(params: ModifyUserParams): User;
+
+/**
+ * Creates a group.
+ *
+ * @example-ref examples/auth/createGroup.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.idProvider Key for id provider where group has to be created.
+ * @param {string} params.name Group name.
+ * @param {string} params.displayName Group display name.
+ * @param {string} params.description as principal description .
+ */
+export function createGroup(params: CreateGroupParams): Group;
+
+export interface ModifyGroupParams {
+  key: PrincipalKeyGroup;
+  editor: (c: Group) => Group;
 }
 
-export interface Role {
-  readonly type: "role";
-  readonly key: PrincipalKeyRole;
-  readonly displayName: string;
-  readonly modifiedTime: string;
-  readonly description?: string;
-}
+/**
+ * Retrieves the group specified and updates it with the changes applied.
+ *
+ * @example-ref examples/auth/modifyGroup.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.key Principal key of the group to modify.
+ * @param {function} params.editor Group editor function to apply to group.
+ * @returns {Group} the updated group or null if a group not found.
+ */
+export function modifyGroup(params: ModifyGroupParams): Group;
 
-export interface Group {
-  readonly type: "group";
-  readonly key: PrincipalKeyGroup;
-  readonly displayName: string;
-  readonly modifiedTime: string;
-  readonly description?: string;
-}
+/**
+ * Adds members to a principal (user or role).
+ *
+ * @example-ref examples/auth/addMembers.js
+ *
+ * @param {string} principalKey Key of the principal to add members to.
+ * @param {string} members Keys of the principals to add.
+ */
+export function addMembers(
+  principalKey: PrincipalKeyRole | PrincipalKeyGroup,
+  members: Array<PrincipalKeyGroup | PrincipalKeyUser>
+): void;
+
+/**
+ * Removes members from a principal (user or role).
+ *
+ * @example-ref examples/auth/removeMembers.js
+ *
+ * @param {string} principalKey Key of the principal to remove members from.
+ * @param {string} members Keys of the principals to remove.
+ */
+export function removeMembers(
+  principalKey: PrincipalKeyRole | PrincipalKeyGroup,
+  members: Array<PrincipalKeyGroup | PrincipalKeyUser>
+): void;
 
 export interface FindPrincipalsParams {
   type?: Principal["type"];
@@ -236,8 +271,80 @@ export interface FindPrincipalsParams {
 export interface FindPrincipalsResult {
   total: number;
   count: number;
-  hits: ReadonlyArray<Principal>;
+  hits: Principal[];
 }
+
+/**
+ * Search for principals matching the specified criteria.
+ *
+ * @example-ref examples/auth/findPrincipals.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} [params.type] Principal type to look for, one of: 'user', 'group' or 'role'. If not specified all principal types will be included.
+ * @param {string} [params.idProvider] Key of the id provider to look for. If not specified all id providers will be included.
+ * @param {number} [params.start=0] First principal to return from the search results. It can be used for pagination.
+ * @param {number} [params.count=10] A limit on the number of principals to be returned.
+ * @param {string} [params.name] Name of the principal to look for.
+ * @param {string} [params.searchText] Text to look for in any principal field.
+ * @returns {FindPrincipalsResult} The "total" number of principals matching the search, the "count" of principals included, and an array of "hits" containing the principals.
+ */
+export function findPrincipals(params: FindPrincipalsParams): FindPrincipalsResult;
+
+/**
+ * Deletes the principal with the specified key.
+ *
+ * @example-ref examples/auth/deletePrincipal.js
+ *
+ * @param {string} principalKey Principal key to delete.
+ * @returns {boolean} True if deleted, false otherwise.
+ */
+export function deletePrincipal(principalKey: PrincipalKey): boolean;
+
+/**
+ * This function returns the ID provider configuration.
+ * It is meant to be called from an ID provider controller.
+ *
+ * @example-ref examples/auth/getIdProviderConfig.js
+ *
+ * @returns {object} The ID provider configuration as JSON.
+ */
+export function getIdProviderConfig<IdProviderConfig>(): IdProviderConfig | null;
+
+export interface GetProfileParams {
+  key: PrincipalKeyUser;
+  scope?: string;
+}
+
+/**
+ * This function retrieves the profile of a user.
+ *
+ * @example-ref examples/auth/getProfile.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.key Principal key of the user.
+ * @param {string} [params.scope] Scope of the data to retrieve.
+ * @returns {object} The extra data as JSON
+ */
+export function getProfile<Profile>(params: GetProfileParams): Profile | null;
+
+export interface ModifyProfileParams<Profile> {
+  key: PrincipalKeyUser;
+  scope?: string | null;
+  editor: EditorFn<Profile>;
+}
+
+/**
+ * This function retrieves the profile of a user and updates it.
+ *
+ * @example-ref examples/auth/modifyProfile.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.key Principal key of the user.
+ * @param {string} [params.scope] Scope of the data to retrieve and update.
+ * @param {function} params.editor Profile editor function to apply.
+ * @returns {object} The extra data as JSON
+ */
+export function modifyProfile<Profile>(params: ModifyProfileParams<Profile>): Profile | null;
 
 export interface FindUsersParams {
   start?: number;
@@ -247,64 +354,54 @@ export interface FindUsersParams {
 }
 
 export interface UserQueryResult<User> {
-  readonly total: number;
-  readonly count: number;
-  readonly hits: ReadonlyArray<User>;
+  total: number;
+  count: number;
+  hits: User[];
 }
 
-export interface ModifyUserParams {
-  key: PrincipalKeyUser;
-  editor: (c: User) => User;
-}
+/**
+ * Search for users matching the specified query.
+ *
+ * @example-ref examples/auth/findUsers.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {number} [params.start=0] Start index (used for paging).
+ * @param {number} [params.count=10] Number of contents to fetch.
+ * @param {string} params.query Query expression.
+ * @param {string} [params.sort] Sorting expression.
+ * @param {boolean} [params.includeProfile=false] Include profile.
+ *
+ * @returns {FindPrincipalsResult} Result of query.
+ */
+export function findUsers<Profile>(
+  params: FindUsersParams & { includeProfile: true }
+): UserQueryResult<UserWithProfile<Profile>>;
+export function findUsers(params: FindUsersParams & { includeProfile?: false }): UserQueryResult<User>;
 
-export interface GetProfileParams {
-  key: PrincipalKeyUser;
-  scope?: string;
-}
-
-export interface ModifyProfileParams<Profile> {
-  /**
-   * Principal key of the user.
-   */
-  key: PrincipalKeyUser;
-
-  /**
-   * Scope of the data to retrieve and update.
-   */
-  scope?: string;
-
-  /**
-   * Profile editor function to apply.
-   */
-  editor: (c: Profile) => Profile;
-}
-
-export interface ModifyGroupParams {
-  key: PrincipalKeyGroup;
-  editor: (c: Group) => Group;
-}
+/**
+ * Creates a role.
+ *
+ * @example-ref examples/auth/createRole.js
+ *
+ * @param {string} params.name Role name.
+ * @param {string} [params.displayName] Role display name.
+ * @param {string} [params.description] as principal description .
+ */
+export function createRole(params: CreateRoleParams): Role;
 
 export interface ModifyRoleParams {
   key: PrincipalKeyRole;
-  editor: (c: Role) => Role;
+  editor: EditorFn<Role>;
 }
 
-export interface CreateUserParams {
-  idProvider: string;
-  name: string;
-  displayName: string;
-  email?: string;
-}
-
-export interface CreateRoleParams {
-  name: string;
-  displayName: string;
-  description?: string;
-}
-
-export interface CreateGroupParams {
-  idProvider: string;
-  name: string;
-  displayName: string;
-  description: string;
-}
+/**
+ * Retrieves the role specified and updates it with the changes applied.
+ *
+ * @example-ref examples/auth/modifyRole.js
+ *
+ * @param {object} params JSON parameters.
+ * @param {string} params.key Principal key of the role to modify.
+ * @param {function} params.editor Role editor function to apply to role.
+ * @returns {Role} the updated role or null if a role not found.
+ */
+export function modifyRole(params: ModifyRoleParams): Role;

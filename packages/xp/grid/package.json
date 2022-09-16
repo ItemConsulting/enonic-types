@@ -1,5 +1,5 @@
 {
-  "name": "@item-enonic-types/lib-xp-grid",
+  "name": "@item-enonic-types/lib-grid",
   "sideEffects": false,
   "version": "7.10.0",
   "description": "TypeScript types for Enonic XP",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/lib-grid": "^7.11.0-B1"
+  }
 }

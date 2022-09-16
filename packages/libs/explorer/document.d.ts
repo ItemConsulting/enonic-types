@@ -1,4 +1,4 @@
-import type { RepoConnection } from "@item-enonic-types/lib-xp-node";
+import type { RepoConnection } from "@item-enonic-types/lib-node";
 
 /**
  * Create documents

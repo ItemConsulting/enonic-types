@@ -1,5 +1,5 @@
 import type { Request, Response } from "@item-enonic-types/global/controller";
-import type { Resource } from "@item-enonic-types/lib-xp-io";
+import type { Resource } from "@enonic-types/lib-io";
 
 declare global {
   interface XpLibraries {

@@ -1,4 +1,3 @@
-import type { LocalTime, Instant, LocalDate, LocalDateTime } from "@item-enonic-types/lib-xp-value";
 import type { ByteSource } from "@item-enonic-types/utils";
 import type {
   ContentTypeByName,
@@ -6,14 +5,40 @@ import type {
   LiteralContentTypeNames,
   WrapDataInContent,
 } from "@item-enonic-types/utils/content";
-import type { Component } from "@item-enonic-types/lib-xp-portal";
-import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+import type { Component } from "@item-enonic-types/lib-portal";
+import type {
+  Content as OriginalContent,
+  GetAttachmentStreamParams,
+  GetContentParams,
+  AddAttachmentParam as OriginalAddAttachmentParam,
+  GetSiteParams,
+  GetSiteConfigParams,
+  GetChildContentParams,
+  ContentsResult as OriginalContentsResult,
+  CreateContentParams as OriginalCreateContentParams,
+  QueryContentParams as OriginalQueryContentParams,
+  ModifyContentParams as OriginalModifyContentParams,
+  CreateMediaParams as OriginalCreateMediaParams,
+  MoveContentParams,
+} from "@enonic-types/lib-content";
 
-declare global {
-  interface XpLibraries {
-    "/lib/xp/content": typeof import("./index");
-  }
-}
+export {
+  getAttachments,
+  removeAttachment,
+  publish,
+  unpublish,
+  exists,
+  archive,
+  restore,
+  setPermissions,
+  getPermissions,
+  getType,
+  getTypes,
+  getOutboundDependencies,
+  resetInheritance,
+} from "@enonic-types/lib-content";
+import { delete as _delete, Workflow } from "@enonic-types/lib-content";
+export { _delete as delete };
 
 declare global {
   namespace XP {
@@ -54,178 +79,45 @@ declare global {
   }
 }
 
+export type Content<Data = unknown, Type extends string = KeyOfContentType<Data>> = Omit<
+  OriginalContent,
+  "type" | "data" | "page" | "x"
+> & {
+  type: Type;
+  data: Type extends keyof XP.ContentTypes ? (Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data) : Data;
+  page: Component;
+  x: XP.XData;
+};
+
 /**
- * This function fetches a content
+ * This function fetches a content.
+ *
+ * @example-ref examples/content/get.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the content.
+ * @param {string} [params.versionId] Version Id of the content.
+ *
+ * @returns {object} The content (as JSON) fetched from the repository.
  */
 export function get<Data>(params: GetContentParams): WrapDataInContent<Data> | null;
 
 /**
- * This command queries content
+ * This function returns a data-stream for the specified content attachment.
+ *
+ * @example-ref examples/content/getAttachmentStream.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the content.
+ * @param {string} params.name Attachment name.
+ *
+ * @returns {*} Stream of the attachment data.
  */
-export function query<Data, ContentTypeName extends LiteralContentTypeNames = KeyOfContentType<Data>>(
-  params: QueryContentParams<ContentTypeName>
-): QueryResponse<ContentTypeByName<ContentTypeName, Data>>;
+export function getAttachmentStream(params: GetAttachmentStreamParams): ByteSource | null;
 
-export function query<Data, ContentTypeName extends LiteralContentTypeNames = KeyOfContentType<Data>>(
-  params: QueryContentParamsWithSort<ContentTypeName>
-): QueryResponseSorted<ContentTypeByName<ContentTypeName, Data>>;
-
-/**
- * This function creates a content.
- */
-export function create<Data, ContentTypeName extends LiteralContentTypeNames>(
-  params: CreateContentParams<Data, ContentTypeName>
-): Content<ContentTypeByName<ContentTypeName, Data>>;
-
-/**
- * Modifies properties of a content
- */
-export function modify<Data>(params: ModifyContentParams<Data>): Content<Data>;
-
-/**
- * This function deletes a content
- */
-declare function del(params: DeleteContentParams): boolean;
-
-export { del as delete };
-
-/**
- * This function checks if a content exists for the current context.
- */
-export function exists(params: ExistsParams): boolean;
-
-/**
- * This function publishes content to a branch
- */
-export function publish(params: PublishContentParams): PublishResponse;
-
-/**
- * This function unpublishes content that had been published to the master branch
- */
-export function unpublish(params: UnpublishContentParams): ReadonlyArray<string>;
-
-/**
- * This function fetches children of a content
- */
-export function getChildren<Data>(params: GetChildrenParams): QueryResponse<Data>;
-
-/**
- * This function returns the list of content items that are outbound dependencies of specified content.
- */
-export function getOutboundDependencies(params: GetOutboundDependenciesParams): ReadonlyArray<string>;
-
-/**
- * Rename a content or move it to a new path
- */
-export function move<Data>(params: MoveParams): Content<Data>;
-
-/**
- * This function returns the parent site of a content
- */
-export function getSite(params: GetSiteParams): Site;
-
-/**
- * This function returns the site configuration for this app in the parent site of a content
- */
-export function getSiteConfig(params: GetSiteConfigParams): XP.SiteConfig;
-
-/**
- * Creates a media content
- */
-export function createMedia<Data = MediaImage>(params: CreateMediaImageParams): Content<Data>;
-export function createMedia<Data>(params: CreateMediaParams): Content<Data>;
-
-/**
- * Adds an attachment to an existing content.
- */
-export function addAttachment(params: AddAttachmentParams): void;
-
-/**
- * This function returns a content attachments
- */
-export function getAttachments(key: string): Attachments | null;
-
-/**
- * This function returns a data-stream for the specified content attachment
- */
-export function getAttachmentStream(params: AttachmentStreamParams): ByteSource | null;
-
-/**
- * Removes an attachment from an existing content
- */
-export function removeAttachment(params: RemoveAttachmentParams): void;
-
-/**
- * Resets custom inheritance flags of a content item. For an item that was inherited from a parent content
- * project/layer this action will reset specified changes made inside a specified layer.
- * @since 7.6.0
- */
-export function resetInheritance(params: ResetInheritanceParams): void;
-
-/**
- * Gets permissions on a content
- */
-export function getPermissions(params: GetPermissionsParams): GetPermissionsResult;
-
-/**
- * Sets permissions on a content
- */
-export function setPermissions(params: SetPermissionsParams): GetPermissionsResult;
-
-/**
- * Returns the properties and icon of the specified content type
- */
-export function getType(name: string): ContentType | null;
-
-/**
- * Returns the list of all the content types currently registered in the system
- */
-export function getTypes(): ReadonlyArray<ContentType>;
-
-/**
- * Archive a content.
- * @since 7.8.0
- */
-export function archive(params: ArchiveParams): Array<string>;
-
-/**
- * Restore a content from the archive.
- * @since 7.8.0
- */
-export function restore(params: RestoreParams): Array<string>;
-
-export type WORKFLOW_STATES = "IN_PROGRESS" | "PENDING_APPROVAL" | "REJECTED" | "READY";
-
-export declare type ContentInheritType = "CONTENT" | "PARENT" | "NAME" | "SORT";
-
-export interface Content<Data = unknown, Type extends string = KeyOfContentType<Data>> {
-  readonly _id: string;
-  readonly _name: string;
-  readonly _path: string;
-  readonly _score: number;
-  readonly creator: string;
-  readonly modifier: string;
-  readonly createdTime: string;
-  readonly modifiedTime: string;
-  owner: string;
-  type: Type;
-  displayName: string;
-  readonly hasChildren: boolean;
-  language?: string;
-  readonly valid: boolean;
-  originProject: string;
-  childOrder?: string;
-  data: Type extends keyof XP.ContentTypes ? (Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data) : Data;
-  page: Component;
-  x: XP.XData;
-  attachments: Attachments;
-  publish?: ScheduleParams;
-  workflow: {
-    state: WORKFLOW_STATES;
-    checks: Record<string, WORKFLOW_STATES>;
-  };
-  inherit?: ContentInheritType[];
-}
+export type AddAttachmentParam = Omit<OriginalAddAttachmentParam, "data"> & {
+  data?: ByteSource;
+};
 
 export type Site = Content<SiteData>;
 
@@ -239,6 +131,177 @@ export interface SiteDataSiteConfig {
   applicationKey: string;
   config: XP.SiteConfig;
 }
+
+/**
+ * This function returns the parent site of a content.
+ *
+ * @example-ref examples/content/getSite.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the content.
+ *
+ * @returns {object} The current site as JSON.
+ */
+export function getSite(params: GetSiteParams): Site;
+
+/**
+ * This function returns the site configuration for this app in the parent site of a content.
+ *
+ * @example-ref examples/content/getSiteConfig.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the content.
+ * @param {string} params.applicationKey Application key.
+ *
+ * @returns {object} The site configuration for current application as JSON.
+ */
+export function getSiteConfig(params: GetSiteConfigParams): XP.SiteConfig;
+
+export type ContentsResult<Data> = Omit<OriginalContentsResult, "hits"> & {
+  hits: Array<WrapDataInContent<Data>>;
+};
+
+/**
+ * This function fetches children of a content.
+ *
+ * @example-ref examples/content/getChildren.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the parent content.
+ * @param {number} [params.start=0] Start index (used for paging).
+ * @param {number} [params.count=10] Number of contents to fetch.
+ * @param {string} [params.sort] Sorting expression.
+ *
+ * @returns {Object} Result (of content) fetched from the repository.
+ */
+export function getChildren<Data>(params: GetChildContentParams): ContentsResult<Data>;
+
+export type CreateContentParams<Data, ContentTypeName extends LiteralContentTypeNames> = Omit<
+  OriginalCreateContentParams,
+  "contentType" | "data" | "x"
+> & {
+  contentType: ContentTypeName;
+  data: ContentTypeByName<ContentTypeName, Data>;
+  x?: XP.XData;
+};
+
+/**
+ * This function creates a content.
+ *
+ * The parameter `name` is optional, but if it is not set then `displayName` must be specified. When name is not set, the
+ * system will auto-generate a `name` based on the `displayName`, by lower-casing and replacing certain characters. If there
+ * is already a content with the auto-generated name, a suffix will be added to the `name` in order to make it unique.
+ *
+ * To create a content where the name is not important and there could be multiple instances under the same parent content,
+ * skip the `name` parameter and specify a `displayName`.
+ *
+ * @example-ref examples/content/create.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} [params.name] Name of content.
+ * @param {string} params.parentPath Path to place content under.
+ * @param {string} [params.displayName] Display name. Default is same as `name`.
+ * @param {boolean} [params.requireValid=true] The content has to be valid, according to the content type, to be created. If requireValid=true and the content is not strictly valid, an error will be thrown.
+ * @param {boolean} [params.refresh=true] If refresh is true, the created content will to be searchable through queries immediately, else within 1 second. Since there is a performance penalty doing this refresh, refresh should be set to false for bulk operations.
+ * @param {string} params.contentType Content type to use.
+ * @param {string} [params.language] The language tag representing the content’s locale.
+ * @param {string} [params.childOrder] Default ordering of children when doing getChildren if no order is given in query
+ * @param {object} params.data Actual content data.
+ * @param {object} [params.x] eXtra data to use.
+ * @param {object} [params.workflow] Workflow information to use. Default has state READY and empty check list.
+ *
+ * @returns {object} Content created as JSON.
+ */
+export function create<Data, ContentTypeName extends LiteralContentTypeNames>(
+  params: CreateContentParams<Data, ContentTypeName>
+): Content<ContentTypeByName<ContentTypeName, Data>>;
+
+export type QueryContentParams<ContentTypeName extends LiteralContentTypeNames> = Omit<
+  OriginalQueryContentParams,
+  "contentTypes"
+> & {
+  contentTypes?: Array<ContentTypeName>;
+};
+
+/**
+ * This command queries content.
+ *
+ * @example-ref examples/content/query.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {number} [params.start=0] Start index (used for paging).
+ * @param {number} [params.count=10] Number of contents to fetch.
+ * @param {string|object} params.query Query expression.
+ * @param {object|object[]} [params.filters] Filters to apply to query result
+ * @param {string|object|object[]} [params.sort] Sorting expression.
+ * @param {object} [params.aggregations] Aggregations expression.
+ * @param {string[]} [params.contentTypes] Content types to filter on.
+ *
+ * @returns {object} Result of query.
+ */
+export function query<Data, ContentTypeName extends LiteralContentTypeNames = KeyOfContentType<Data>>(
+  params: QueryContentParams<ContentTypeName>
+): ContentsResult<ContentTypeByName<ContentTypeName, Data>>;
+
+export type ModifyContentParams<Data> = Omit<OriginalModifyContentParams, "editor"> & {
+  editor: (c: Content<Data>) => Content<Data>;
+};
+
+/**
+ * This function modifies a content.
+ *
+ * @example-ref examples/content/modify.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.key Path or id to the content.
+ * @param {function} params.editor Editor callback function.
+ * @param {boolean} [params.requireValid=true] The content has to be valid, according to the content type, to be updated. If requireValid=true and the content is not strictly valid, an error will be thrown.
+ *
+ * @returns {object} Modified content as JSON.
+ */
+export function modify<Data>(params: ModifyContentParams<Data>): Content<Data> | null;
+
+export type CreateMediaParams = Omit<OriginalCreateMediaParams, "focalX" | "focalY" | "data"> & {
+  data: ByteSource;
+};
+
+export type CreateMediaImageParams = CreateMediaParams & {
+  focalX: number;
+  focalY: number;
+};
+
+/**
+ * Creates a media content.
+ *
+ * @example-ref examples/content/createMedia.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.name Name of content.
+ * @param {string} [params.parentPath=/] Path to place content under.
+ * @param {string} [params.mimeType] Mime-type of the data.
+ * @param {number} [params.focalX] Focal point for X axis (if it's an image).
+ * @param {number} [params.focalY] Focal point for Y axis (if it's an image).
+ * @param  params.data Data (as stream) to use.
+ *
+ * @returns {object} Returns the created media content.
+ */
+export function createMedia<Data = MediaImage>(params: CreateMediaImageParams): Content<Data>;
+export function createMedia<Data>(params: CreateMediaParams): Content<Data>;
+
+/**
+ * Rename a content or move it to a new path.
+ *
+ * @example-ref examples/content/move.js
+ *
+ * @param {object} params JSON with the parameters.
+ * @param {string} params.source Path or id of the content to be moved or renamed.
+ * @param {string} params.target New path or name for the content. If the target ends in slash '/', it specifies the parent path where to be moved. Otherwise it means the new desired path or name for the content.
+ *
+ * @returns {object} The content that was moved or renamed.
+ */
+export function move<Data>(params: MoveContentParams): Content<Data>;
+
+export function addAttachment(params: AddAttachmentParam): void;
 
 /**
  * Implements the "data" of type "base:shortcut"
@@ -352,758 +415,4 @@ export interface MediaImageXData {
       orientation: string;
     };
   };
-}
-
-export interface Attachment {
-  name: string;
-  label?: string;
-  size: number;
-  mimeType: string;
-}
-
-export interface Attachments {
-  [key: string]: Attachment;
-}
-
-export interface QueryContentParams<ContentTypeName extends LiteralContentTypeNames> {
-  start?: number;
-  count: number;
-  query?: string | QueryDSL;
-  filters?: BasicFilters | BooleanFilter;
-  aggregations?: Record<string, Aggregation>;
-  contentTypes?: Array<ContentTypeName>;
-  highlight?: Highlight;
-}
-
-/**
- * @since 7.9.0
- */
-export type QueryDSL =
-  | TermQuery
-  | InQuery
-  | LikeQuery
-  | RangeQuery
-  | PathMatchQuery
-  | MatchAllQuery
-  | FulltextQuery
-  | NgramQuery
-  | StemmedQuery
-  | BooleanQuery;
-
-type ValueTypeTimeValue = string | LocalTime;
-
-type ValueTypeDateTimeValue = string | number | Instant | LocalDate | LocalDateTime;
-
-export interface TermQuery {
-  term:
-    | {
-        type?: never;
-        field: string;
-        value: unknown;
-        boost?: number;
-      }
-    | {
-        type: "time";
-        field: string;
-        value: ValueTypeTimeValue;
-        boost?: number;
-      }
-    | {
-        type: "dateTime";
-        field: string;
-        value: ValueTypeDateTimeValue;
-        boost?: number;
-      };
-}
-
-export interface InQuery {
-  in:
-    | {
-        type?: never;
-        field: string;
-        value: Array<unknown>;
-        boost?: number;
-      }
-    | {
-        type: "time";
-        field: string;
-        value: Array<ValueTypeTimeValue>;
-        boost?: number;
-      }
-    | {
-        type: "dateTime";
-        field: string;
-        value: Array<ValueTypeDateTimeValue>;
-        boost?: number;
-      };
-}
-
-export interface LikeQuery {
-  like: {
-    field: string;
-    value: string;
-    type?: "time" | "dateTime";
-    boost?: number;
-  };
-}
-
-export interface RangeQuery {
-  range:
-    | {
-        type?: never;
-        field: string;
-        lt?: unknown;
-        lte?: unknown;
-        gt?: unknown;
-        gte?: unknown;
-        boost?: number;
-      }
-    | {
-        type: "time";
-        field: string;
-        lt?: ValueTypeTimeValue;
-        lte?: ValueTypeTimeValue;
-        gt?: ValueTypeTimeValue;
-        gte?: ValueTypeTimeValue;
-        boost?: number;
-      }
-    | {
-        type: "dateTime";
-        field: string;
-        lt?: ValueTypeDateTimeValue;
-        lte?: ValueTypeDateTimeValue;
-        gt?: ValueTypeDateTimeValue;
-        gte?: ValueTypeDateTimeValue;
-        boost?: number;
-      };
-}
-
-export interface PathMatchQuery {
-  pathMatch: {
-    field: string;
-    path: string;
-    minimumMatch?: number;
-    boost?: number;
-  };
-}
-
-export interface MatchAllQuery {
-  matchAll: {
-    boost?: number;
-  };
-}
-
-export interface FulltextQuery {
-  fulltext: {
-    fields: Array<string>;
-    query: string;
-    operator?: "AND" | "OR";
-  };
-}
-
-export interface NgramQuery {
-  ngram: {
-    fields: Array<string>;
-    query: string;
-    operator?: "AND" | "OR";
-  };
-}
-
-export interface StemmedQuery {
-  stemmed: {
-    fields?: string;
-    field?: string;
-    query: string;
-    language: string;
-  };
-}
-
-export interface BooleanQuery {
-  boolean: {
-    must?: QueryDSL | Array<QueryDSL>;
-    mustNot?: QueryDSL | Array<QueryDSL>;
-    should?: QueryDSL | Array<QueryDSL>;
-  };
-}
-
-export interface ExistsFilter {
-  exists: {
-    field: string;
-  };
-}
-
-export interface NotExistsFilter {
-  notExists: {
-    field: string;
-  };
-}
-
-export interface HasValueFilter {
-  hasValue: {
-    field: string;
-    values: Array<unknown>;
-  };
-}
-
-export interface IdsFilter {
-  ids: {
-    values: Array<string>;
-  };
-}
-
-export type BasicFilters = ExistsFilter | NotExistsFilter | HasValueFilter | IdsFilter;
-
-export interface BooleanFilter {
-  boolean: {
-    must?: BasicFilters | Array<BasicFilters>;
-    mustNot?: BasicFilters | Array<BasicFilters>;
-    should?: BasicFilters | Array<BasicFilters>;
-  };
-}
-
-export type Direction = "ASC" | "DESC";
-
-export type QueryContentParamsWithSort<ContentTypeName extends LiteralContentTypeNames> =
-  QueryContentParams<ContentTypeName> & {
-    sort: string | SortDSL;
-  };
-
-/**
- * @since 7.9.0
- */
-export type SortDSL = FieldSort | GeoDistanceSort;
-
-export interface FieldSort {
-  field: string;
-  direction?: Direction; // Default is ASC (except for when field='_score')
-}
-
-export type DistanceUnit =
-  | "m"
-  | "meters"
-  | "in"
-  | "inch"
-  | "yd"
-  | "yards"
-  | "ft"
-  | "feet"
-  | "km"
-  | "kilometers"
-  | "NM"
-  | "nmi"
-  | "nauticalmiles"
-  | "mm"
-  | "millimeters"
-  | "cm"
-  | "centimeters"
-  | "mi"
-  | "miles";
-
-export interface GeoDistanceSort {
-  field: string;
-  direction?: Direction;
-  location: {
-    lat: number;
-    lon: number;
-  };
-  unit?: DistanceUnit; // Defaults to "m"
-}
-
-export interface BaseQueryResponse {
-  readonly count: number;
-  readonly total: number;
-  readonly aggregations: Record<string, AggregationsResponseEntry>;
-  readonly highlight: HighlightResponse;
-}
-
-export type QueryResponse<Data> = BaseQueryResponse & {
-  readonly hits: ReadonlyArray<
-    WrapDataInContent<
-      Data,
-      {
-        readonly _score: number;
-      }
-    >
-  >;
-};
-
-export type QueryResponseSorted<Data> = BaseQueryResponse & {
-  readonly hits: ReadonlyArray<
-    WrapDataInContent<
-      Data,
-      {
-        readonly _score: null;
-        readonly _sort: Array<string>;
-      }
-    >
-  >;
-};
-
-export type Aggregation =
-  | TermsAggregation
-  | StatsAggregation
-  | RangeAggregation
-  | GeoDistanceAggregation
-  | DateRangeAggregation
-  | DateHistogramAggregation
-  | MinAggregation
-  | MaxAggregation
-  | ValueCountAggregation;
-
-export interface TermsAggregation {
-  terms: {
-    field: string;
-    order?: string; // defaults to '_term ASC'
-    size: number;
-    /**
-     * @since 7.7.0
-     */
-    minDocCount?: number;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface StatsAggregation {
-  stats: {
-    field: string;
-    order: string;
-    size: number;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface RangeAggregation {
-  range: {
-    field: string;
-    ranges?: Array<{
-      from?: number;
-      to?: number;
-    }>;
-    range?: {
-      from: number;
-      to: number;
-    };
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface GeoDistanceAggregation {
-  geoDistance: {
-    field: string;
-    ranges?: Array<{
-      from?: number;
-      to?: number;
-    }>;
-    range?: {
-      from: number;
-      to: number;
-    };
-    unit: string;
-    origin: {
-      lat: string;
-      lon: string;
-    };
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface DateRangeAggregation {
-  dateRange: {
-    field: string;
-    format: string;
-    ranges: Array<{
-      from?: string;
-      to?: string;
-    }>;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface DateHistogramAggregation {
-  dateHistogram: {
-    field: string;
-    interval: string;
-    minDocCount: number;
-    format: string;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-/**
- * @since 7.7.0
- */
-export interface MinAggregation {
-  min: {
-    field: string;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-/**
- * @since 7.7.0
- */
-export interface MaxAggregation {
-  max: {
-    field: string;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-/**
- * @since 7.7.0
- */
-export interface ValueCountAggregation {
-  count: {
-    field: string;
-  };
-  aggregations?: {
-    [subaggregation: string]: Aggregation;
-  };
-}
-
-export interface AggregationsResponseBucket {
-  readonly docCount: number;
-  readonly key: string;
-  readonly from?: number | string;
-  readonly to?: number | string;
-
-  readonly [key2: string]: any; // sub aggregations
-}
-
-export interface AggregationsResponseEntry {
-  readonly buckets: Array<AggregationsResponseBucket>;
-}
-
-export interface Highlight {
-  encoder?: "default" | "html";
-  fragmenter?: "simple" | "span";
-  fragmentSize?: number;
-  numberOfFragments?: number;
-  noMatchSize?: number;
-  order?: "score" | "none";
-  preTag?: string;
-  postTag?: string;
-  requireFieldMatch?: boolean;
-  tagsSchema?: string;
-  properties: Record<string, Highlight>;
-}
-
-export interface HighlightResponse {
-  readonly [uuid: string]:
-    | {
-        [name: string]: ReadonlyArray<string>;
-      }
-    | undefined;
-}
-
-export interface GetContentParams {
-  key: string;
-  versionId?: string;
-}
-
-export interface DeleteContentParams {
-  key: string;
-}
-
-export interface ExistsParams {
-  key: string;
-}
-
-export interface CreateContentParams<Data, ContentTypeName extends LiteralContentTypeNames> {
-  /**
-   * Name of content
-   *
-   * The parameter name is optional, but if it is not set then displayName must be specified.
-   * When name is not set, the system will auto-generate a name based on the displayName,
-   * by lower-casing and replacing certain characters. If there is already a content with the
-   * auto-generated name, a suffix will be added to the name in order to make it unique.
-   */
-  name?: string;
-
-  /**
-   * Path to place content under
-   */
-  parentPath: string;
-
-  /**
-   * Display name. Default is same as name
-   */
-  displayName?: string;
-
-  /**
-   * The content has to be valid, according to the content type, to be created.
-   * If requireValid=true and the content is not strictly valid, an error will be thrown
-   */
-  requireValid?: boolean;
-
-  /**
-   * If refresh is true, the created content will to be searchable through queries immediately,
-   * else within 1 second. Since there is a performance penalty doing this refresh,
-   * refresh should be set to false for bulk operations
-   */
-  refresh?: boolean;
-
-  /**
-   * Content type to use
-   */
-  contentType: ContentTypeName;
-
-  /**
-   * The language tag representing the content’s locale
-   */
-  language?: string;
-
-  /**
-   * Default ordering of children when doing getChildren if no order is given in query
-   */
-  childOrder?: string;
-
-  /**
-   * Actual content data
-   */
-  data: ContentTypeByName<ContentTypeName, Data>;
-
-  /**
-   * eXtra data to use
-   */
-  x?: XP.XData;
-}
-
-export interface ModifyContentParams<Data> {
-  /**
-   * Path or id to the content
-   */
-  key: string;
-
-  /**
-   * Editor callback function
-   */
-  editor: (c: Content<Data>) => Content<Data>;
-
-  /**
-   * The content has to be valid, according to the content type, to be updated.
-   * If requireValid=true and the content is not strictly valid, an error will be thrown
-   */
-  requireValid?: boolean;
-}
-
-export interface PublishContentParams {
-  keys: Array<string>;
-  sourceBranch: string;
-  targetBranch: string;
-  schedule?: ScheduleParams;
-  excludeChildrenIds?: Array<string>;
-  includeDependencies?: boolean;
-}
-
-export interface ScheduleParams {
-  from?: string;
-  to?: string;
-  first?: string;
-}
-
-export interface PublishResponse {
-  readonly pushedContents: ReadonlyArray<string>;
-  readonly deletedContents: ReadonlyArray<string>;
-  readonly failedContents: ReadonlyArray<string>;
-}
-
-export interface UnpublishContentParams {
-  readonly keys: ReadonlyArray<string>;
-}
-
-export interface GetChildrenParams {
-  key: string;
-  count: number;
-  start?: number;
-  sort?: string;
-}
-
-export interface GetOutboundDependenciesParams {
-  /**
-   * Path or id to the content
-   */
-  key: string;
-}
-
-export interface MoveParams {
-  source: string;
-  target: string;
-}
-
-export interface GetSiteParams {
-  key: string;
-}
-
-export interface GetSiteConfigParams {
-  key: string;
-  applicationKey: string;
-}
-
-export interface AttachmentStreamParams {
-  key: string;
-  name: string;
-}
-
-export interface RemoveAttachmentParams {
-  key: string;
-  name: string | Array<string>;
-}
-
-export interface CreateMediaParams {
-  name: string;
-  parentPath?: string;
-  mimeType?: string;
-  data: ByteSource;
-}
-
-export type CreateMediaImageParams = CreateMediaParams & {
-  focalX: number;
-  focalY: number;
-};
-
-export interface AddAttachmentParams {
-  key: string;
-  name: string;
-  mimeType: string;
-  label?: string;
-  data?: ByteSource;
-}
-
-export interface GetPermissionsParams {
-  key: string;
-}
-
-export interface GetPermissionsResult {
-  readonly inheritsPermissions: boolean;
-  readonly permissions: ReadonlyArray<PermissionsParams>;
-}
-
-/**
- * From enum "com.enonic.xp.security.acl.Permission"
- */
-export type Permission = "READ" | "CREATE" | "MODIFY" | "DELETE" | "PUBLISH" | "READ_PERMISSIONS" | "WRITE_PERMISSIONS";
-
-export interface PermissionsParams {
-  principal: PrincipalKey;
-  allow: Array<Permission>;
-  deny: Array<Permission>;
-}
-
-export interface SetPermissionsParams {
-  key: string;
-  inheritPermissions?: boolean;
-  overwriteChildPermissions?: boolean;
-  permissions?: Array<PermissionsParams>;
-}
-
-export interface IconType {
-  readonly data?: ByteSource;
-  readonly mimeType?: string;
-  readonly modifiedTime?: string;
-}
-
-export interface ContentType {
-  readonly name: string;
-  readonly displayName: string;
-  readonly description: string;
-  readonly superType: string;
-  readonly abstract: boolean;
-  readonly final: boolean;
-  readonly allowChildContent: boolean;
-  readonly displayNameExpression: string;
-  readonly icon: ReadonlyArray<IconType>;
-  readonly form: ReadonlyArray<FormItem>;
-}
-
-export interface ResetInheritanceParams {
-  /**
-   * Path or id to the content
-   */
-  key: string;
-
-  /**
-   * A unique id of a Content Layer in which the inherited content item should be reset
-   */
-  projectName: string;
-
-  /**
-   * Array of inheritance flags (case-sensitive, all upper-case).
-   * Supported values are:
-   *  - CONTENT (resets any customized content data)
-   *  - PARENT (resets item moved under a different parent)
-   *  - NAME (resets renamed item)
-   *  - SORT (resets custom sorting)
-   */
-  inherit: Array<"CONTENT" | "PARENT" | "NAME" | "SORT">;
-}
-
-export type InputType =
-  | "Time"
-  | "DateTime"
-  | "CheckBox"
-  | "ComboBox"
-  | "Long"
-  | "Double"
-  | "RadioButton"
-  | "TextArea"
-  | "ContentTypeFilter"
-  | "GeoPoint"
-  | "TextLine"
-  | "Tag"
-  | "CustomSelector"
-  | "AttachmentUploader"
-  | "ContentSelector"
-  | "MediaSelector"
-  | "ImageSelector"
-  | "HtmlArea";
-
-export type FormItemType = "Input" | "ItemSet" | "Layout" | "OptionSet";
-
-export interface FormItem<Config = unknown> {
-  readonly formItemType: FormItemType | string;
-  readonly name: string;
-  readonly label: string;
-  readonly maximize: boolean;
-  readonly inputType: InputType;
-  readonly occurrences: {
-    readonly maximum: 1;
-    readonly minimum: 1;
-  };
-  readonly config: Config;
-}
-
-interface ArchiveParams {
-  /**
-   * Path or id of the content to be archived.
-   */
-  content: string;
-}
-
-interface RestoreParams {
-  /**
-   * Path or id of the content to be restored.
-   */
-  content: string;
-
-  /**
-   * Path of parent for restored content.
-   */
-  path: string;
 }

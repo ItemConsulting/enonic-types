@@ -1,4 +1,4 @@
 declare module "*/lib/xp/mail" {
-  const lib: typeof import("@item-enonic-types/lib-xp-mail");
+  const lib: typeof import("@enonic-types/lib-mail");
   export = lib;
 }

@@ -1,4 +1,4 @@
-import type { Content } from "@item-enonic-types/lib-xp-content";
+import type { Content } from "@item-enonic-types/lib-content";
 
 declare global {
   interface XpLibraries {

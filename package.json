@@ -37,5 +37,29 @@
   "workspaces": [
     "packages/xp/*",
     "packages/libs/*"
-  ]
+  ],
+  "dependencies": {
+    "@enonic-types/global": "^7.11.0-B1",
+    "@enonic-types/lib-admin": "^7.11.0-B1",
+    "@enonic-types/lib-auditlog": "^7.11.0-B1",
+    "@enonic-types/lib-auth": "^7.11.0-B1",
+    "@enonic-types/lib-cluster": "^7.11.0-B1",
+    "@enonic-types/lib-common": "^7.11.0-B1",
+    "@enonic-types/lib-content": "^7.11.0-B1",
+    "@enonic-types/lib-context": "^7.11.0-B1",
+    "@enonic-types/lib-event": "^7.11.0-B1",
+    "@enonic-types/lib-export": "^7.11.0-B1",
+    "@enonic-types/lib-grid": "^7.11.0-B1",
+    "@enonic-types/lib-i18n": "^7.11.0-B1",
+    "@enonic-types/lib-io": "^7.11.0-B1",
+    "@enonic-types/lib-mail": "^7.11.0-B1",
+    "@enonic-types/lib-portal": "^7.11.0-B1",
+    "@enonic-types/lib-project": "^7.11.0-B1",
+    "@enonic-types/lib-repo": "^7.11.0-B1",
+    "@enonic-types/lib-scheduler": "^7.11.0-B1",
+    "@enonic-types/lib-task": "^7.11.0-B1",
+    "@enonic-types/lib-value": "^7.11.0-B1",
+    "@enonic-types/lib-vhost": "^7.11.0-B1",
+    "@enonic-types/lib-websocket": "^7.11.0-B1"
+  }
 }

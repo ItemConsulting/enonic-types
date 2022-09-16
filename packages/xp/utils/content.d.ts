@@ -1,5 +1,5 @@
 // https://stackoverflow.com/a/51691257/1758634
-import type { Content } from "@item-enonic-types/lib-xp-content";
+import type { Content } from "@item-enonic-types/lib-content";
 import type { LiteralUnion } from "./index";
 
 export type KeysOfType<O, T> = {

@@ -1,11 +1,5 @@
 import type { XOR } from "@item-enonic-types/utils";
-import type { RunContext, ContextAttributes } from "@item-enonic-types/lib-xp-context";
-
-declare global {
-  interface XpLibraries {
-    "/lib/cron": typeof import("./index");
-  }
-}
+import type { RunContext } from "@item-enonic-types/lib-context";
 
 /**
  * Since 7.7.0 you can use {@link SchedulerLibrary} to be safe for custers
@@ -153,7 +147,7 @@ export interface TaskMapper {
   readonly nextExecTime: string;
 }
 
-export type CronRunContext = Omit<RunContext<ContextAttributes>, "user"> & {
+export type CronRunContext = Omit<RunContext, "user"> & {
   user?: {
     login?: string;
     userStore?: string;

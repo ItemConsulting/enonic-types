@@ -1,19 +1,7 @@
 import type { ByteSource } from "@item-enonic-types/utils";
 import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
-import type {
-  Aggregation,
-  AggregationsResponseEntry,
-  BasicFilters,
-  BooleanFilter,
-  Highlight,
-  PermissionsParams,
-} from "@item-enonic-types/lib-xp-content";
-
-declare global {
-  interface XpLibraries {
-    "/lib/xp/node": typeof import("./index");
-  }
-}
+import type { Aggregation, Highlight, AccessControlEntry } from "@enonic-types/lib-content";
+import { Filter } from "@enonic-types/lib-content";
 
 /**
  * Creates a connection to a repository with a given branch and authentication info.
@@ -55,7 +43,7 @@ export interface NodeQueryResponse {
   total: number;
   count: number;
   hits: Array<NodeQueryHit>;
-  aggregations: Record<string, AggregationsResponseEntry>;
+  aggregations: Record<string, Aggregation>;
 }
 
 export type MultiRepoNodeQueryResponse = Omit<NodeQueryResponse, "hits"> & {
@@ -93,7 +81,7 @@ export interface NodeQueryParams {
   /**
    * Query filters
    */
-  filters?: BasicFilters | BooleanFilter;
+  filters?: Filter | Filter[];
 
   /**
    * Sorting expression.
@@ -116,7 +104,7 @@ export interface NodeQueryParams {
   explain?: boolean;
 }
 
-export interface IndexConfigEntry {
+export interface NodeConfigEntry {
   /**
    * If true, indexing is done based on valueType, according to the table above. I.e. numeric values are indexed as
    * both string and numeric.
@@ -155,10 +143,10 @@ export interface IndexConfigEntry {
 export type IndexConfigTemplates = "none" | "byType" | "fulltext" | "path" | "minimal";
 
 export interface IndexConfig {
-  default: IndexConfigEntry | IndexConfigTemplates;
+  default: NodeConfigEntry | IndexConfigTemplates;
   configs?: Array<{
     path: string;
-    config: IndexConfigEntry | IndexConfigTemplates;
+    config: NodeConfigEntry | IndexConfigTemplates;
   }>;
 }
 
@@ -181,7 +169,7 @@ export interface NodeCreateParams {
   /**
    * The access control list for the node. By default the creator will have full access
    */
-  _permissions?: Array<PermissionsParams>;
+  _permissions?: Array<AccessControlEntry>;
 
   /**
    * true if the permissions should be inherited from the node parent. Default is false.
@@ -258,7 +246,7 @@ export interface RepoNode {
   _childOrder: string;
   _indexConfig: IndexConfig;
   _inheritsPermissions: boolean;
-  _permissions: Array<PermissionsParams>;
+  _permissions: Array<AccessControlEntry>;
   _state: string;
   _nodeType: string;
   _versionKey: string;
@@ -431,7 +419,7 @@ export interface SetChildOrderParams {
 }
 
 export interface SetRootPermissionParams {
-  _permissions: Array<PermissionsParams>;
+  _permissions: Array<AccessControlEntry>;
   _inheritsPermissions: boolean;
 }
 

@@ -1,101 +1,33 @@
 import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+import type { Context, ContextParams } from "@enonic-types/lib-context";
 
-declare global {
-  interface XpLibraries {
-    "/lib/xp/context": typeof import("./index");
-  }
-}
-
-/**
- * Returns the current context
- */
-export function get<Attributes extends ContextAttributes>(): Context<Attributes>;
-
-/**
- * Runs a function within a custom context, for instance the one returned by the get() function call.
- * Commonly used when accessing repositories, or to override current users permissions.
- */
-export function run<Result, Attributes extends ContextAttributes>(
-  runContext: RunContext<Attributes>,
-  f: () => Result
-): Result;
-
-export type ContextAttributes = Record<string, string | boolean | number>;
-
-export interface Context<Attributes extends ContextAttributes | undefined> {
-  /**
-   * Repository context.
-   */
-  readonly repository: string;
-
-  /**
-   * Branch context.
-   */
-  readonly branch: string;
-
-  /**
-   * Info about the current user
-   */
-  readonly authInfo: AuthInfo;
-
-  /**
-   * Custom attributes
-   */
-  readonly attributes: Attributes;
-}
-
-export interface AuthInfo {
-  readonly user: User;
-
-  /**
-   * Roles or group principals
-   */
-  readonly principals: ReadonlyArray<PrincipalKey>;
-}
-
-export interface User {
-  readonly type: string;
-  readonly key: string;
-  readonly displayName: string;
-  readonly disabled: boolean;
-  readonly email: string;
-  readonly login: string;
-  readonly idProvider: string;
-}
-
-export interface RunContext<Attributes extends ContextAttributes | undefined> {
-  /**
-   * Repository context.
-   */
-  repository?: string;
-
-  /**
-   * Branch context.
-   */
-  branch?: string;
-
-  /**
-   * Specify a valid user/idprovider combination
-   */
-  user?: {
-    /**
-     * User
-     */
-    login: string;
-
-    /**
-     * ID provider
-     */
-    idProvider?: string;
-  };
-
-  /**
-   * Roles or group principals applicable for current user
-   */
+export type RunContext = Omit<ContextParams, "principals"> & {
   principals?: ReadonlyArray<PrincipalKey>;
+};
 
-  /**
-   * Custom attributes
-   */
-  attributes?: Attributes;
-}
+/**
+ * Runs a function within a specified context.
+ *
+ * @example-ref examples/context/run.js
+ *
+ * @param {object} context JSON parameters.
+ * @param {string} [context.repository] Repository to execute the callback in. Default is the current repository set in portal.
+ * @param {string} [context.branch] Name of the branch to execute the callback in. Default is the current branch set in portal.
+ * @param {object} [context.user] User to execute the callback with. Default is the current user.
+ * @param {string} context.user.login Login of the user.
+ * @param {string} [context.user.idProvider] Id provider containing the user. By default, all the id providers will be used.
+ * @param {array} [context.principals] Additional principals to execute the callback with.
+ * @param {object} [context.attributes] Additional Context attributes.
+ * @param {function} callback Function to execute.
+ * @returns {object} Result of the function execution.
+ */
+export function run<Result>(context: RunContext, callback: () => Result): Result;
+
+/**
+ * Returns the current context.
+ *
+ * @example-ref examples/context/get.js
+ *
+ * @returns {object} Return the current context as JSON object.
+ */
+export function get(): Context;
