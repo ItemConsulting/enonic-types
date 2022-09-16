@@ -11,13 +11,6 @@ import type {
   SchemaGenerator,
 } from "@item-enonic-types/lib-graphql";
 
-declare global {
-  interface XpLibraries {
-    "/lib/guillotine": typeof import("./index");
-    "/lib/guillotine/macro": typeof import("./macro");
-  }
-}
-
 type ContextCreationCallbacks<ExecuteContext = EmptyObject> = Record<
   string,
   (context: Context<ExecuteContext>, params: CreateObjectTypeParams<ExecuteContext>) => void

@@ -1,11 +1,5 @@
 import type { ByteSource } from "@item-enonic-types/utils";
 
-declare global {
-  interface XpLibraries {
-    "/lib/text-encoding": typeof import("./index");
-  }
-}
-
 export function base64Encode(stream: ByteSource | string): string;
 export function base64Decode(text: string): ByteSource | null;
 

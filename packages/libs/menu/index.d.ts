@@ -1,11 +1,5 @@
 import type { Content } from "@item-enonic-types/lib-content";
 
-declare global {
-  interface XpLibraries {
-    "/lib/menu": typeof import("./index");
-  }
-}
-
 /**
  * Returns the full breadcrumb menu path for the current content and site.
  */

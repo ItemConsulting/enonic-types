@@ -1,11 +1,5 @@
 import type { ByteSource } from "@item-enonic-types/utils";
 
-declare global {
-  interface XpLibraries {
-    "/lib/http-client": typeof import("./index");
-  }
-}
-
 export function request(params: HttpRequestParams): HttpResponse;
 
 export interface HttpRequestParams {

@@ -1,9 +1,3 @@
-declare global {
-  interface XpLibraries {
-    "/lib/cache": typeof import("./index");
-  }
-}
-
 /**
  * This will create a new cache instance.
  */

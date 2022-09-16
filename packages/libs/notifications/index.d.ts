@@ -1,11 +1,5 @@
 import type { ByteSource } from "@item-enonic-types/utils";
 
-declare global {
-  interface XpLibraries {
-    "/lib/notifications": typeof import("./index");
-  }
-}
-
 /**
  * Generate a VAPID public/private key pair.
  */

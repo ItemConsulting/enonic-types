@@ -1,11 +1,5 @@
 import { Request, Response } from "@item-enonic-types/global/controller";
 
-declare global {
-  interface XpLibraries {
-    "/lib/router": typeof import("./index");
-  }
-}
-
 export default function router(): Router;
 
 export type RouterRequest = Request & { pathParams: Record<string, string | undefined> };

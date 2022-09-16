@@ -1,9 +1,3 @@
-declare global {
-  interface XpLibraries {
-    "/lib/recaptcha": typeof import("./index");
-  }
-}
-
 /**
  * The reCAPTCHA site key
  */

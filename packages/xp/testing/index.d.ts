@@ -1,9 +1,3 @@
-declare global {
-  interface XpLibraries {
-    "/lib/xp/testing": typeof import("./index");
-  }
-}
-
 /**
  * Load a file from path.
  */

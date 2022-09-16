@@ -2,10 +2,6 @@ import type { XOR } from "@item-enonic-types/utils";
 import type { RunContext } from "@item-enonic-types/lib-context";
 
 /**
- * Since 7.7.0 you can use {@link SchedulerLibrary} to be safe for custers
- * https://discuss.enonic.com/t/scheduler-task-and-cron-what-to-use-where/2539/6
- */
-/**
  * Schedule a task
  */
 export function schedule(params: ScheduleParams): void;

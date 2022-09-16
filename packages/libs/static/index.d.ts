@@ -1,12 +1,6 @@
 import type { Request, Response } from "@item-enonic-types/global/controller";
 import type { Resource } from "@enonic-types/lib-io";
 
-declare global {
-  interface XpLibraries {
-    "/lib/enonic/static": typeof import("./index");
-  }
-}
-
 /**
  * Sets up and returns a reusable resource-getter function.
  */

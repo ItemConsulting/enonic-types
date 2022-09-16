@@ -1,9 +1,3 @@
-declare global {
-  interface XpLibraries {
-    "/lib/sql": typeof import("./index");
-  }
-}
-
 /**
  * Creates an sql handler
  */

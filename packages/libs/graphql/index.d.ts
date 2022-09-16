@@ -1,11 +1,5 @@
 import type { EmptyObject } from "@item-enonic-types/utils";
 
-declare global {
-  interface XpLibraries {
-    "/lib/graphql": typeof import("./index");
-  }
-}
-
 export const GraphQLInt: GraphQLInt;
 export const GraphQLFloat: GraphQLFloat;
 export const GraphQLString: GraphQLString;
