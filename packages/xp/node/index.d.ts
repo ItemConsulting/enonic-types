@@ -1,5 +1,5 @@
 import type { ByteSource } from "@item-enonic-types/utils";
-import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+import type { PrincipalKey } from "@item-enonic-types/lib-auth";
 import type { Aggregation, Highlight, AccessControlEntry } from "@enonic-types/lib-content";
 import { Filter } from "@enonic-types/lib-content";
 

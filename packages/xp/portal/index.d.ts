@@ -23,12 +23,13 @@ export {
 } from "@enonic-types/lib-portal";
 
 export type ImageScale =
-  | `block(${number},${"" | " "}${number})`
+  | `block(${number},${number})`
   | `height(${number})`
   | `max(${number})`
   | `square(${number})`
-  | `wide(${number},${"" | " "}${number})`
-  | `width(${number})`;
+  | `wide(${number},${number})`
+  | `width(${number})`
+  | "full";
 
 /**
  * This function generates a URL pointing to an image.

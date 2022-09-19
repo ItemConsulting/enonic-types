@@ -1,4 +1,4 @@
-import type { PrincipalKey } from "@item-enonic-types/lib-xp-auth";
+import type { PrincipalKey } from "@item-enonic-types/lib-auth";
 import type { Context, ContextParams } from "@enonic-types/lib-context";
 
 export type RunContext = Omit<ContextParams, "principals"> & {

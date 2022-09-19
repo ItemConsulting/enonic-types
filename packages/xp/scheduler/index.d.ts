@@ -1,4 +1,4 @@
-import type { PrincipalKeyUser } from "@item-enonic-types/lib-xp-auth";
+import type { PrincipalKeyUser } from "@item-enonic-types/lib-auth";
 import type {
   CreateScheduledJobParams as OriginalCreateScheduledJobParams,
   ModifyScheduledJobParams as OriginalModifyScheduledJobParams,
