@@ -37,7 +37,7 @@ export {
   getOutboundDependencies,
   resetInheritance,
 } from "@enonic-types/lib-content";
-import { delete as _delete, Workflow } from "@enonic-types/lib-content";
+import { delete as _delete } from "@enonic-types/lib-content";
 export { _delete as delete };
 
 declare global {
@@ -79,12 +79,12 @@ declare global {
   }
 }
 
-export type Content<Data = unknown, Type extends string = KeyOfContentType<Data>> = Omit<
+export type Content<Data = Record<string, unknown>, Type extends string = string> = Omit<
   OriginalContent,
-  "type" | "data" | "page" | "x"
+  "type" | "data" | "x"
 > & {
+  data: Data;
   type: Type;
-  data: Type extends keyof XP.ContentTypes ? (Data extends XP.ContentTypes[Type] ? XP.ContentTypes[Type] : Data) : Data;
   page: Component;
   x: XP.XData;
 };
@@ -100,7 +100,7 @@ export type Content<Data = unknown, Type extends string = KeyOfContentType<Data>
  *
  * @returns {object} The content (as JSON) fetched from the repository.
  */
-export function get<Data>(params: GetContentParams): WrapDataInContent<Data> | null;
+export function get<Data = Record<string, unknown>>(params: GetContentParams): WrapDataInContent<Data> | null;
 
 /**
  * This function returns a data-stream for the specified content attachment.
@@ -176,12 +176,12 @@ export type ContentsResult<Data> = Omit<OriginalContentsResult, "hits"> & {
  */
 export function getChildren<Data>(params: GetChildContentParams): ContentsResult<Data>;
 
-export type CreateContentParams<Data, ContentTypeName extends LiteralContentTypeNames> = Omit<
+export type CreateContentParams<Data, ContentType extends LiteralContentTypeNames> = Omit<
   OriginalCreateContentParams,
   "contentType" | "data" | "x"
 > & {
-  contentType: ContentTypeName;
-  data: ContentTypeByName<ContentTypeName, Data>;
+  contentType: ContentType;
+  data: ContentTypeByName<ContentType, Data>;
   x?: XP.XData;
 };
 
@@ -212,9 +212,9 @@ export type CreateContentParams<Data, ContentTypeName extends LiteralContentType
  *
  * @returns {object} Content created as JSON.
  */
-export function create<Data, ContentTypeName extends LiteralContentTypeNames>(
-  params: CreateContentParams<Data, ContentTypeName>
-): Content<ContentTypeByName<ContentTypeName, Data>>;
+export function create<Data = Record<string, unknown>, ContentType extends string = KeyOfContentType<Data>>(
+  params: CreateContentParams<Data, ContentType>
+): Content<ContentTypeByName<ContentType, Data>, ContentType>;
 
 export type QueryContentParams<ContentTypeName extends LiteralContentTypeNames> = Omit<
   OriginalQueryContentParams,

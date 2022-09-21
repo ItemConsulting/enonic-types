@@ -1,5 +1,5 @@
 import { expectType } from "tsd";
-import { query, type Content, type MediaImage } from ".";
+import { get, query, type Content, type MediaImage, create } from ".";
 
 interface UnregisteredArticle {
   type: "unregistered";
@@ -60,3 +60,44 @@ const queryResult5 = query({
 });
 expectType<RegisteredArticle | MediaImage>(queryResult5.hits[0].data);
 expectType<"testsuite:article" | "media:image">(queryResult5.hits[0].type);
+
+const getResult1 = get({ key: "1" });
+expectType<Content | null>(getResult1);
+expectType<Record<string, unknown>>(getResult1!.data);
+
+const getResult2 = get<RegisteredArticle>({ key: "1" });
+expectType<Content<RegisteredArticle, "testsuite:article"> | null>(getResult2);
+
+const getResult3 = get<UnregisteredArticle>({ key: "1" });
+expectType<Content<UnregisteredArticle, string> | null>(getResult3);
+
+const getResult4 = get<RegisteredArticle | UnregisteredArticle>({ key: "1" });
+expectType<Content<RegisteredArticle, "testsuite:article"> | Content<UnregisteredArticle, string> | null>(getResult4);
+
+const createResult1 = create({
+  name: "asdf",
+  contentType: "notregistered:myarticle",
+  data: {
+    title: "blub",
+  },
+  parentPath: "/mypath",
+  // TODO Remove idGenerator after next release
+  idGenerator: (a) => a + "1",
+});
+
+expectType<Content<{ title: string }, "notregistered:myarticle">>(createResult1);
+
+const createResult2 = create({
+  name: "asdf",
+  contentType: "testsuite:article",
+  data: {
+    type: "registered",
+    body: "eu",
+    title: "asdf",
+  },
+  parentPath: "/mypath",
+  // TODO Remove idGenerator after next release
+  idGenerator: (a) => a + "1",
+});
+
+expectType<Content<RegisteredArticle, "testsuite:article">>(createResult2);
