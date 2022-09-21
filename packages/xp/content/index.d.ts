@@ -5,7 +5,7 @@ import type {
   LiteralContentTypeNames,
   WrapDataInContent,
 } from "@item-enonic-types/utils/content";
-import type { Component } from "@item-enonic-types/lib-portal";
+import type { Component } from "@enonic-types/lib-portal";
 import type {
   Content as OriginalContent,
   GetAttachmentStreamParams,

@@ -1,7 +1,5 @@
-import type { WrapDataInContent } from "@item-enonic-types/utils/content";
-import type { Site } from "@item-enonic-types/lib-content";
-import type { ImageUrlParams } from "@enonic-types/lib-portal";
-
+import type { Content } from "@item-enonic-types/lib-content";
+import type { Component, ImageUrlParams, Region } from "@enonic-types/lib-portal";
 export {
   assetUrl,
   componentUrl,
@@ -20,16 +18,8 @@ export {
   getMultipartStream,
   getMultipartText,
   imagePlaceholder,
+  getComponent,
 } from "@enonic-types/lib-portal";
-
-export type ImageScale =
-  | `block(${number},${number})`
-  | `height(${number})`
-  | `max(${number})`
-  | `square(${number})`
-  | `wide(${number},${number})`
-  | `width(${number})`
-  | "full";
 
 /**
  * This function generates a URL pointing to an image.
@@ -49,27 +39,18 @@ export type ImageScale =
  *
  * @returns {string} The generated URL.
  */
-export function imageUrl(params: Omit<ImageUrlParams, "scale"> & { scale: ImageScale }): string;
-
-/**
- * This function returns the parent site of the content corresponding to the current execution context. It is meant to be
- * called from a page, layout or part controller.
- *
- * @example-ref examples/portal/getSite.js
- *
- * @returns {object|null} The current site as JSON.
- */
-export function getSite(): Site;
-
-/**
- * This function returns the site configuration for this app in the parent site of the content corresponding to the current
- * execution context. It is meant to be called from a page, layout or part controller.
- *
- * @example-ref examples/portal/getSiteConfig.js
- *
- * @returns {object|null} The site configuration for current application as JSON.
- */
-export function getSiteConfig(): XP.SiteConfig;
+export function imageUrl(
+  params: Omit<ImageUrlParams, "scale"> & {
+    scale:
+      | `block(${number},${number})`
+      | `height(${number})`
+      | `max(${number})`
+      | `square(${number})`
+      | `wide(${number},${number})`
+      | `width(${number})`
+      | "full";
+  }
+): string;
 
 /**
  * This function returns the content corresponding to the current execution context. It is meant to be called from a page, layout or
@@ -79,32 +60,13 @@ export function getSiteConfig(): XP.SiteConfig;
  *
  * @returns {object|null} The current content as JSON.
  */
-export function getContent<Data, PageConfig = unknown>(): WrapDataInContent<
-  Data,
-  {
-    page: Component<PageConfig>;
-  }
-> | null;
-
-export interface Component<Config = unknown> {
-  path: string;
-  type: "page" | "layout" | "part";
-  descriptor: string;
-  config: Config;
-  regions?: Record<string, Region>;
-}
-
-export interface Region {
-  components: Array<Component>;
-  name: string;
-}
-
-/**
- * This function returns the component corresponding to the current execution context. It is meant to be called
- * from a layout or part controller.
- *
- * @example-ref examples/portal/getComponent.js
- *
- * @returns {object|null} The current component as JSON.
- */
-export function getComponent<Config = unknown>(): Component<Config> | null;
+export function getContent<
+  Data = Record<string, unknown>,
+  Type extends string = string,
+  Config extends object = object,
+  Regions extends Record<string, Region> = Record<string, Region>
+>():
+  | (Content<Data> & {
+      page: Component<Config, Regions>;
+    })
+  | null;
