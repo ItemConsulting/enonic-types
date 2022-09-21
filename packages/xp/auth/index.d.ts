@@ -5,6 +5,7 @@ import type {
   EditorFn,
   CreateRoleParams,
 } from "@enonic-types/lib-auth";
+export { logout, hasRole, generatePassword } from "@enonic-types/lib-auth";
 
 export type PrincipalKeyUser = `user:${string}:${string}`;
 export type PrincipalKeyGroup = `group:${string}:${string}`;
@@ -68,13 +69,6 @@ export interface LoginResult {
 export function login(params: LoginParams): LoginResult;
 
 /**
- * Logout an already logged-in user.
- *
- * @example-ref examples/auth/logout.js
- */
-export function logout(): void;
-
-/**
  * Returns the logged-in user. If not logged-in, this will return *undefined*.
  *
  * @example-ref examples/auth/getUser.js
@@ -86,25 +80,6 @@ export function logout(): void;
  */
 export function getUser(params?: { includeProfile?: false }): User | null;
 export function getUser<Profile>(params: { includeProfile: true }): UserWithProfile<Profile> | null;
-
-/**
- * Checks if the logged-in user has the specified role.
- *
- * @example-ref examples/auth/hasRole.js
- *
- * @param {string} role Role to check for.
- * @returns {boolean} True if the user has specfied role, false otherwise.
- */
-export function hasRole(role: string): boolean;
-
-/**
- * Generates a secure password.
- *
- * @example-ref examples/auth/generatePassword.js
- *
- * @returns {string} A secure generated password.
- */
-export function generatePassword(): string;
 
 export interface ChangePasswordParams {
   userKey: PrincipalKeyUser;
