@@ -1,0 +1,29 @@
+{
+  "name": "@item-enonic-types/lib-http-client",
+  "sideEffects": false,
+  "version": "3.1.0",
+  "description": "TypeScript types for Enonic XP",
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItemConsulting/enonic-types.git"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "keywords": [
+    "enonic"
+  ],
+  "dependencies": {
+    "@item-enonic-types/core": "^7.11.0-B3"
+  },
+  "author": "Tom Arild Jakobsen <tajakobsen@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ItemConsulting/enonic-types/issues"
+  },
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+}

@@ -1,4 +1,4 @@
 declare module "*/lib/xp/node" {
-  const lib: typeof import("@item-enonic-types/lib-node");
+  const lib: typeof import("@enonic-types/lib-node");
   export = lib;
 }
