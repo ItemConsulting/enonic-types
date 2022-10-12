@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@item-enonic-types/core": "^7.11.0-B3"
+  }
 }

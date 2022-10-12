@@ -1,8 +1,9 @@
 {
   "name": "@item-enonic-types/global",
+  "private": false,
   "sideEffects": false,
   "version": "7.11.0-B3",
-  "description": "TypeScript types for Enonic XP",
+  "description": "Global variables and functions type definition.",
   "typings": "index.d.ts",
   "files": [
     "controller.d.ts",

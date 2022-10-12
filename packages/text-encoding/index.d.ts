@@ -1,4 +1,4 @@
-import type { ByteSource } from "../core";
+import type { ByteSource } from "@item-enonic-types/core";
 
 export function base64Encode(stream: ByteSource | string): string;
 export function base64Decode(text: string): ByteSource | null;

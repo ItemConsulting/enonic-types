@@ -1,46 +1,11 @@
 declare namespace XP {
-  type Controller = <ResponseBody extends ResponseType = ResponseType>(req: Request) => Response<ResponseBody>;
+  type Request = import("./controller").Request;
 
-  interface Request {
-    readonly method: "GET" | "PUT" | "POST" | "DELETE" | "HEAD" | "PATCH" | "OPTIONS" | "TRACE" | "CONNECT";
-    readonly scheme: string;
-    readonly host: string;
-    readonly port: number;
-    readonly path: string;
-    readonly rawPath: string;
-    readonly url: string;
-    readonly remoteAddress: string;
-    readonly mode: "inline" | "edit" | "preview" | "live";
-    readonly webSocket?: boolean;
-    readonly repositoryId: string;
-    readonly branch: "draft" | "master";
-    readonly contextPath: string;
-    readonly body: string;
-    readonly params: { readonly [key: string]: string | undefined };
-    readonly headers: { readonly [key: string]: string | undefined };
-    readonly cookies: { readonly [key: string]: string | undefined };
-    readonly contentType: string;
-  }
+  type Response<ResponseBody> = import("./controller").Response<ResponseBody>;
 
-  type ResponseType = string | object | Array<any> | ReadonlyArray<any> | null;
+  type Controller = <ResponseBody = unknown>(req: Request) => Response<ResponseBody>;
 
-  interface Response<ResponseBody extends ResponseType = ResponseType> {
-    status?: number;
-    body?: ResponseBody;
-    contentType?:
-      | "text/html"
-      | "application/json"
-      | "application/problem+json"
-      | "text/xml"
-      | "application/xml"
-      | string;
-    headers?: { readonly [key: string]: string | undefined };
-    cookies?: { readonly [key: string]: string | Cookie | undefined };
-    redirect?: string;
-    postProcess?: boolean;
-    pageContributions?: PageContributions;
-    applyFilters?: boolean;
-  }
+  type WebSocketEvent<WebSocketData = {}> = import("./controller").WebSocketEvent<WebSocketData>;
 
   interface WebSocketResponse<WebSocketData = {}> {
     webSocket: {
@@ -55,23 +20,6 @@ declare namespace XP {
     readonly params: Params;
     readonly document: string;
     readonly request: Request;
-  }
-
-  interface PageContributions {
-    headBegin?: string | Array<string>;
-    headEnd?: string | Array<string>;
-    bodyBegin?: string | Array<string>;
-    bodyEnd?: string | Array<string>;
-  }
-
-  interface Cookie {
-    value: string;
-    path?: string;
-    domain?: string;
-    comment?: string;
-    maxAge?: number;
-    secure?: boolean;
-    httpOnly?: boolean;
   }
 
   /**
@@ -132,38 +80,4 @@ declare namespace XP {
       type: string;
     };
   }
-
-  interface AbstractWebSocketEvent<WebSocketData = {}> {
-    readonly session: {
-      readonly id: string;
-      readonly path: string;
-      readonly params: { readonly [key: string]: string | undefined };
-    };
-    readonly data: WebSocketData;
-  }
-
-  interface OpenWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-    readonly type: "open";
-  }
-
-  interface MessageWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-    readonly type: "message";
-    readonly message: string;
-  }
-
-  interface CloseWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-    readonly type: "close";
-    readonly closeReason: number;
-  }
-
-  interface ErrorWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-    readonly type: "error";
-    readonly error: string;
-  }
-
-  type WebSocketEvent<WebSocketData = {}> =
-    | OpenWebSocketEvent<WebSocketData>
-    | MessageWebSocketEvent<WebSocketData>
-    | CloseWebSocketEvent<WebSocketData>
-    | ErrorWebSocketEvent<WebSocketData>;
 }

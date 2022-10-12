@@ -1,4 +1,4 @@
-import type { ByteSource } from "../core";
+import type { ByteSource } from "@item-enonic-types/core";
 
 /**
  * Generates a PNG image with a QR Code that encodes the specified text. The value returned is a stream object.

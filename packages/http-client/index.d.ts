@@ -1,4 +1,4 @@
-import type { ByteSource } from "../core";
+import type { ByteSource } from "@item-enonic-types/core";
 
 export function request(params: HttpRequestParams): HttpResponse;
 
