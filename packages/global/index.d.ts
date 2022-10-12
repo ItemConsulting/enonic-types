@@ -1,26 +1,15 @@
 declare namespace XP {
   type Request = import("./controller").Request;
 
-  type Response<ResponseBody> = import("./controller").Response<ResponseBody>;
+  type Response<ResponseBody = unknown> = import("./controller").Response<ResponseBody>;
 
   type Controller = <ResponseBody = unknown>(req: Request) => Response<ResponseBody>;
 
   type WebSocketEvent<WebSocketData = {}> = import("./controller").WebSocketEvent<WebSocketData>;
 
-  interface WebSocketResponse<WebSocketData = {}> {
-    webSocket: {
-      data?: WebSocketData;
-      subProtocols?: ReadonlyArray<string>;
-    };
-  }
+  type WebSocketResponse<WebSocketData = {}> = import("./controller").WebSocketResponse<WebSocketData>;
 
-  interface MacroContext<Params = never> {
-    readonly name: string;
-    readonly body: string;
-    readonly params: Params;
-    readonly document: string;
-    readonly request: Request;
-  }
+  type MacroContext<Params = never> = import("./controller").MacroContext<Params>;
 
   /**
    * Request where params potentially are typed as Arrays, reflecting the real
@@ -33,51 +22,24 @@ declare namespace XP {
   /**
    * Request object to be used with functions in "error.ts"
    */
-  interface ErrorRequest {
-    readonly status: number;
-    readonly message: string;
-    readonly exception?: unknown;
-    readonly request: Request;
-  }
+  type ErrorRequest = import("./controller").ErrorRequest;
 
   /**
    * Predefined parameters that CustomSelector service always has
    */
-  interface CustomSelectorServiceRequestParams {
-    readonly count: string;
-    readonly start?: string;
-    readonly ids?: string;
-    readonly query?: string;
-
-    readonly [key: string]: string | undefined;
-  }
+  type CustomSelectorServiceRequestParams = import("./controller").CustomSelectorServiceRequestParams;
 
   /**
    * This Request can be used by a Service that provides data to a CustomSelector input field
    */
-  type CustomSelectorServiceRequest = Omit<Request, "params"> & {
-    params: CustomSelectorServiceRequestParams;
-  };
+  type CustomSelectorServiceRequest = import("./controller").CustomSelectorServiceRequest;
 
-  interface CustomSelectorServiceResponseBody {
-    total: number;
-    count: number;
-    hits: Array<CustomSelectorServiceResponseHit>;
-  }
+  type CustomSelectorServiceResponseBody = import("./controller").CustomSelectorServiceResponseBody;
 
   /**
    * This Response can be used by a Service that provides data to a CustomSelector input field
    */
-  type CustomSelectorServiceResponse = Response<CustomSelectorServiceResponseBody>;
+  type CustomSelectorServiceResponse = import("./controller").CustomSelectorServiceResponse;
 
-  interface CustomSelectorServiceResponseHit {
-    id: string;
-    displayName: string;
-    description?: string;
-    iconUrl?: string;
-    icon?: {
-      data: string;
-      type: string;
-    };
-  }
+  type CustomSelectorServiceResponseHit = import("./controller").CustomSelectorServiceResponseHit;
 }
