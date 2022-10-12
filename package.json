@@ -61,6 +61,7 @@
     "@enonic-types/lib-task": "^7.11.0-B3",
     "@enonic-types/lib-value": "^7.11.0-B3",
     "@enonic-types/lib-vhost": "^7.11.0-B3",
-    "@enonic-types/lib-websocket": "^7.11.0-B3"
+    "@enonic-types/lib-websocket": "^7.11.0-B3",
+    "@item-enonic-types/lib-turbo-streams": "^1.0.3"
   }
 }
