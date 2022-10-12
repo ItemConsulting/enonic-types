@@ -2,7 +2,7 @@
   "name": "@item-enonic-types/lib-http-client",
   "sideEffects": false,
   "version": "3.1.0",
-  "description": "TypeScript types for Enonic XP",
+  "description": "TypeScript types for Enonic XP lib lib-http-client",
   "typings": "index.d.ts",
   "files": [
     "index.d.ts"
