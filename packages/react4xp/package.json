@@ -1,7 +1,7 @@
 {
-  "name": "@item-enonic-types/lib-qrcode",
+  "name": "@item-enonic-types/lib-react4xp",
   "sideEffects": false,
-  "version": "2.0.2",
+  "version": "2.0.0",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [

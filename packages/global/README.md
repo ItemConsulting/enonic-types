@@ -1,5 +1,7 @@
 # Global types for Enonic XP
 
+[![npm version](https://badge.fury.io/js/@item-enonic-types%2Fglobal.svg)](https://badge.fury.io/js/@item-enonic-types%2Fglobal)
+
 > **Note** There is also an [official package for Global types for XP](https://www.npmjs.com/package/@enonic-types/global).
 
 This library provides backwards compatibility for the old [enonic-types](https://www.npmjs.com/package/enonic-types) package

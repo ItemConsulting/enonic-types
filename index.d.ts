@@ -27,6 +27,7 @@
 /// <reference path="modules/portal.d.ts" />
 /// <reference path="modules/project.d.ts" />
 /// <reference path="modules/qrcode.d.ts" />
+/// <reference path="modules/react4xp.d.ts" />
 /// <reference path="modules/recaptcha.d.ts" />
 /// <reference path="modules/repo.d.ts" />
 /// <reference path="modules/router.d.ts" />
