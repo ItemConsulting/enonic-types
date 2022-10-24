@@ -11,6 +11,8 @@ declare module "*/lib/xp/node" {
 
     export type PrincipalKey = import("/lib/xp/auth").PrincipalKey;
 
+    export type Filter = import("/lib/xp/content").Filter;
+
     export interface Source {
       repoId: string;
       branch: string;
@@ -82,7 +84,7 @@ declare module "*/lib/xp/node" {
       /**
        * Query filters
        */
-      filters?: import("/lib/xp/content").BasicFilters | import("/lib/xp/content").BooleanFilter;
+      filters?: Filter | Filter[];
 
       /**
        * Sorting expression.

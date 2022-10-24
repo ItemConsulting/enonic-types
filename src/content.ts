@@ -287,7 +287,7 @@ declare module "*/lib/xp/content" {
       start?: number;
       count: number;
       query?: string | QueryDSL;
-      filters?: BasicFilters | BooleanFilter;
+      filters?: Filter | Filter[];
       aggregations?: Record<string, Aggregation>;
       contentTypes?: Array<string>;
       highlight?: Highlight;
@@ -474,13 +474,13 @@ declare module "*/lib/xp/content" {
       };
     }
 
-    export type BasicFilters = ExistsFilter | NotExistsFilter | HasValueFilter | IdsFilter;
+    export type Filter = ExistsFilter | NotExistsFilter | HasValueFilter | IdsFilter | BooleanFilter;
 
     export interface BooleanFilter {
       boolean: {
-        must?: BasicFilters | Array<BasicFilters>;
-        mustNot?: BasicFilters | Array<BasicFilters>;
-        should?: BasicFilters | Array<BasicFilters>;
+        must?: Filter[];
+        mustNot?: Filter[];
+        should?: Filter[];
       };
     }
 
