@@ -10,20 +10,13 @@ import type {
   SchemaGenerator,
 } from "@item-enonic-types/lib-graphql";
 
-export type EmptyObject = Record<string, never>;
+type ContextCreationCallbacks = Record<string, (context: Context, params: CreateObjectTypeParams) => void>;
 
-type ContextCreationCallbacks<ExecuteContext = EmptyObject> = Record<
-  string,
-  (context: Context<ExecuteContext>, params: CreateObjectTypeParams) => void
->;
+export function createSchema(params?: ContextOptions): GraphQLSchema;
 
-export function createSchema<ExecuteContext = EmptyObject>(params?: ContextOptions<ExecuteContext>): GraphQLSchema;
+export function createHeadlessCmsType(context?: Context): GraphQLType;
 
-export function createHeadlessCmsType<ExecuteContext = EmptyObject>(context?: Context<ExecuteContext>): GraphQLType;
-
-export function createContext<ExecuteContext = EmptyObject>(
-  options?: ContextOptions<ExecuteContext>
-): Context<ExecuteContext>;
+export function createContext(options?: ContextOptions): Context;
 
 export function initWebSockets(schema?: GraphQLSchema): (event: WebSocketEvent) => void;
 
@@ -31,16 +24,16 @@ export function createWebSocketData(req: CreateWebSocketDataParams): WebSocketDa
 
 export function execute(params: ExecuteBySchemaParams | ExecuteByConfigParams): string;
 
-export interface ContextOptions<ExecuteContext = EmptyObject> {
+export interface ContextOptions {
   applications?: Array<string>;
   allowPaths?: Array<string>;
   subscriptionEventTypes?: Array<string>;
-  creationCallbacks: ContextCreationCallbacks<ExecuteContext>;
+  creationCallbacks: ContextCreationCallbacks;
 
   [key: string]: unknown;
 }
 
-export interface Context<ExecuteContext = EmptyObject> {
+export interface Context {
   types: {
     // acl-types
     principalKeyType: GraphQLObjectType;
@@ -116,7 +109,7 @@ export interface Context<ExecuteContext = EmptyObject> {
   dictionary: Array<GraphQLObjectType>;
   nameCountMap: Record<string, number>;
   contentTypeMap: Record<string, GraphQLObjectType>;
-  options: ContextOptions<ExecuteContext>;
+  options: ContextOptions;
 
   addDictionaryType(objectType: GraphQLObjectType): void;
 
@@ -124,9 +117,9 @@ export interface Context<ExecuteContext = EmptyObject> {
 
   uniqueName(name: string): string;
 
-  getOption(name: string): ContextOptions<ExecuteContext>;
+  getOption(name: string): ContextOptions;
 
-  putOption(name: string, value: unknown): ContextOptions<ExecuteContext>;
+  putOption(name: string, value: unknown): ContextOptions;
 
   schemaGenerator: SchemaGenerator;
 }
