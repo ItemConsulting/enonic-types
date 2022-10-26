@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@item-enonic-types/global": "*"
+    "@item-enonic-types/global": "*",
+    "@enonic-types/lib-io": "*"
   }
 }
