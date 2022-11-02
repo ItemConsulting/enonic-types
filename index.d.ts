@@ -1,4 +1,4 @@
-/// <reference path="node_modules/@item-enonic-types/global/index.d.ts" />
+/// <reference path="../@item-enonic-types/global/index.d.ts" />
 /// <reference path="modules/admin.d.ts" />
 /// <reference path="modules/auditlog.d.ts" />
 /// <reference path="modules/auth.d.ts" />

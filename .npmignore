@@ -5,3 +5,6 @@ src
 .eslintrc.json
 .prettierrc.json
 *.test-d.d.ts
+*.tgz
+packages
+tsconfig.tsbuildinfo
