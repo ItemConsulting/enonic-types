@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-testing",
   "sideEffects": false,
-  "version": "7.11.0-RC4",
+  "version": "7.11.0",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
