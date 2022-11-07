@@ -202,12 +202,10 @@ export interface CreateEnumTypeParams {
   readonly description?: string;
 }
 
-type ISGraphQLString<T> = T extends GraphQLString ? string : T extends GraphQLInt ? number : never;
-
-export interface GraphQLResolver {
-  type: ReturnType<this["resolve"]>;
+export interface GraphQLResolver<ExecuteContext = EmptyObject, Source = any> {
+  type: GraphQLType;
   args?: Record<string, GraphQLType>;
-  resolve: (env: GraphQLResolverEnvironment) => unknown;
+  resolve?: (env: GraphQLResolverEnvironment) => unknown;
 }
 
 export interface GraphQLResolverEnvironment<Source = any, Context = EmptyObject> {
