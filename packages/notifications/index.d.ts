@@ -1,4 +1,4 @@
-import type { ByteSource } from "@item-enonic-types/core";
+import type { ByteSource } from "@enonic-types/core";
 
 /**
  * Generate a VAPID public/private key pair.

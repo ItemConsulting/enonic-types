@@ -13,7 +13,6 @@ You can install individual packages with support for Enonic libraries like this:
 You can find the [complete list of supported packages on npm](https://www.npmjs.com/org/item-enonic-types).
 
 ```bash
-npm i --save-dev @item-enonic-types/core
 npm i --save-dev @item-enonic-types/global
 npm i --save-dev @item-enonic-types/lib-menu
 ```

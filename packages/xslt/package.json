@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@item-enonic-types/core": "*"
+    "@enonic-types/lib-export": "7.11.1"
   }
 }

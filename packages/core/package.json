@@ -1,13 +1,11 @@
 {
   "name": "@item-enonic-types/core",
   "sideEffects": false,
-  "version": "7.11.0",
+  "version": "7.11.1",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
-    "index.d.ts",
-    "content.d.ts",
-    "option-set.d.ts"
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -24,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/core": "^7.11.1",
+    "@enonic-types/lib-export": "^7.11.1"
+  }
 }

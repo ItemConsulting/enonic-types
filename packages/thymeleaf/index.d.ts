@@ -1,4 +1,4 @@
-import type { ResourceKey } from "@item-enonic-types/core";
+import type { ResourceKey } from "@enonic-types/lib-export";
 
 export interface ThymeleafRenderOptions {
   mode: "HTML" | "XML" | "TEXT" | "JAVASCRIPT" | "CSS" | "RAW";
