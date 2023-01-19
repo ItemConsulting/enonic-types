@@ -74,7 +74,7 @@
     "@item-enonic-types/lib-graphql-playground": "^0.0.1",
     "@item-enonic-types/lib-guillotine": "^5.5.0",
     "@item-enonic-types/lib-http-client": "^3.1.0",
-    "@item-enonic-types/lib-menu": "^4.2.0",
+    "@item-enonic-types/lib-menu": "^4.2.0-patch1",
     "@item-enonic-types/lib-mustache": "^2.1.0",
     "@item-enonic-types/lib-notifications": "^2.0.0",
     "@item-enonic-types/lib-qrcode": "^2.0.2",

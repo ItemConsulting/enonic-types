@@ -13,7 +13,7 @@ export function getMenuTree(levels: number, params?: GetMenuTreeParams): MenuTre
 /**
  * Returns submenus of a parent menuitem.
  */
-export function getSubMenus(parentContent: Content, levels?: number, params?: GetMenuParams): Array<MenuItem>;
+export function getSubMenus(parentContent: Content<unknown>, levels?: number, params?: GetMenuParams): Array<MenuItem>;
 
 export interface MenuTree {
   /**
