@@ -144,3 +144,5 @@ interface Cookie {
   secure?: boolean;
   httpOnly?: boolean;
 }
+
+export type AdminWidgetResponse = Response<`<widget>${string}</widget>` | `<widget class="error">${string}</widget>`>;
