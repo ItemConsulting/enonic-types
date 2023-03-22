@@ -1,3 +1,3 @@
-import type { ResourceKey } from "@enonic-types/lib-export";
+import type { ResourceKey } from "@enonic-types/core";
 
 export function render<Model extends object>(view: ResourceKey, model: Model): string;
