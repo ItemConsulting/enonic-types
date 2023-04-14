@@ -1,3 +1,5 @@
+import { AdminWidgetResponse } from "./controller";
+
 declare namespace XP {
   type Request = import("./controller").Request;
 
@@ -42,4 +44,6 @@ declare namespace XP {
   type CustomSelectorServiceResponse = import("./controller").CustomSelectorServiceResponse;
 
   type CustomSelectorServiceResponseHit = import("./controller").CustomSelectorServiceResponseHit;
+
+  type AdminWidgetResponse = import("./controller").AdminWidgetResponse;
 }

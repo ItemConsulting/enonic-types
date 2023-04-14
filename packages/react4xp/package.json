@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@enonic-types/lib-portal": "^7.12.1",
-    "@item-enonic-types/global": "^7.12.1"
+    "@enonic-types/lib-portal": "^7.12.2",
+    "@item-enonic-types/global": "^7.12.2"
   }
 }
