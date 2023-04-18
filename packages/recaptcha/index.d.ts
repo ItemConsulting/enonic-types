@@ -11,7 +11,7 @@ export function getSecretKey(): string;
 /**
  * Checks with Google if user is verified
  */
-export function verify(res: string): VerifyResponse;
+export function verify(res: string | undefined): VerifyResponse;
 
 /**
  * Check if site key and secret key are configured
@@ -47,5 +47,5 @@ export interface VerifyResponse {
   /**
    * Error codes
    */
-  errorcodes?: Array<string>;
+  "error-codes"?: Array<string>;
 }

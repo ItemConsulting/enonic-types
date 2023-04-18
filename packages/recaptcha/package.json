@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-recaptcha",
   "sideEffects": false,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
