@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/lib-context": "^7.12.2"
+  }
 }
