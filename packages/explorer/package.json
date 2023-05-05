@@ -5,7 +5,10 @@
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "client.d.ts,
+    "document.d.ts",
+    "model/2/constants.d.ts"
   ],
   "repository": {
     "type": "git",
