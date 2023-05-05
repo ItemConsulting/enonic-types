@@ -6,7 +6,7 @@
   "typings": "index.d.ts",
   "files": [
     "index.d.ts",
-    "client.d.ts,
+    "client.d.ts",
     "document.d.ts",
     "model/2/constants.d.ts"
   ],
