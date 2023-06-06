@@ -22,6 +22,11 @@ export interface Cache {
   get<A>(key: string, fetcher: () => A): A;
 
   /**
+   * Returns value for cache entry if exists, otherwise it returns null.
+   */
+  getIfPresent<A>(key: string): A | null;
+
+  /**
    * This will clear all entries from the cache.
    */
   clear(): void;
@@ -30,6 +35,11 @@ export interface Cache {
    * This will return the number of items currently in the cache.
    */
   getSize(): number;
+
+  /**
+   * Puts the value into the cache with the provided key
+   */
+  put(key: string, value: unknown): void;
 
   /**
    * Removes an entry, identified by its key, from the cache. If the key is not found in the cache, no changes are made.
