@@ -1,30 +1,30 @@
 export interface Request {
-  readonly method: "GET" | "PUT" | "POST" | "DELETE" | "HEAD" | "PATCH" | "OPTIONS" | "TRACE" | "CONNECT";
-  readonly scheme: string;
-  readonly host: string;
-  readonly port: number;
-  readonly path: string;
-  readonly rawPath: string;
-  readonly url: string;
-  readonly remoteAddress: string;
-  readonly mode: "inline" | "edit" | "preview" | "live";
-  readonly webSocket?: boolean;
-  readonly repositoryId: string;
-  readonly branch: "draft" | "master";
-  readonly contextPath: string;
-  readonly body: string;
-  readonly params: { readonly [key: string]: string | undefined };
-  readonly headers: { readonly [key: string]: string | undefined };
-  readonly cookies: { readonly [key: string]: string | undefined };
-  readonly contentType: string;
+  method: "GET" | "PUT" | "POST" | "DELETE" | "HEAD" | "PATCH" | "OPTIONS" | "TRACE" | "CONNECT";
+  scheme: string;
+  host: string;
+  port: number;
+  path: string;
+  rawPath: string;
+  url: string;
+  remoteAddress: string;
+  mode: "inline" | "edit" | "preview" | "live";
+  webSocket?: boolean;
+  repositoryId: string;
+  branch: "draft" | "master";
+  contextPath: string;
+  body: string;
+  params: { [key: string]: string | undefined };
+  headers: { [key: string]: string | undefined };
+  cookies: { [key: string]: string | undefined };
+  contentType: string;
 }
 
 export interface Response<ResponseBody = unknown> {
   status?: number;
   body?: ResponseBody;
   contentType?: "text/html" | "application/json" | "application/problem+json" | "text/xml" | "application/xml" | string;
-  headers?: { readonly [key: string]: string | undefined };
-  cookies?: { readonly [key: string]: string | Cookie | undefined };
+  headers?: { [key: string]: string | undefined };
+  cookies?: { [key: string]: string | Cookie | undefined };
   redirect?: string;
   postProcess?: boolean;
   pageContributions?: PageContributions;
@@ -34,38 +34,38 @@ export interface Response<ResponseBody = unknown> {
 export interface WebSocketResponse<WebSocketData = {}> {
   webSocket: {
     data?: WebSocketData;
-    subProtocols?: ReadonlyArray<string>;
+    subProtocols?: string[];
   };
 }
 
 export interface MacroContext<Params = never> {
-  readonly name: string;
-  readonly body: string;
-  readonly params: Params;
-  readonly document: string;
-  readonly request: Request;
+  name: string;
+  body: string;
+  params: Params;
+  document: string;
+  request: Request;
 }
 
 /**
  * Request object to be used with functions in "error.ts"
  */
 export interface ErrorRequest {
-  readonly status: number;
-  readonly message: string;
-  readonly exception?: unknown;
-  readonly request: Request;
+  status: number;
+  message: string;
+  exception?: unknown;
+  request: Request;
 }
 
 /**
  * Predefined parameters that CustomSelector service always has
  */
 export interface CustomSelectorServiceRequestParams {
-  readonly count: string;
-  readonly start?: string;
-  readonly ids?: string;
-  readonly query?: string;
+  count: string;
+  start?: string;
+  ids?: string;
+  query?: string;
 
-  readonly [key: string]: string | undefined;
+  [key: string]: string | undefined;
 }
 
 export type CustomSelectorServiceRequest = Omit<Request, "params"> & {
@@ -95,31 +95,31 @@ export interface CustomSelectorServiceResponseHit {
 }
 
 interface AbstractWebSocketEvent<WebSocketData = {}> {
-  readonly session: {
-    readonly id: string;
-    readonly path: string;
-    readonly params: { readonly [key: string]: string | undefined };
+  session: {
+    id: string;
+    path: string;
+    params: { [key: string]: string | undefined };
   };
-  readonly data: WebSocketData;
+  data: WebSocketData;
 }
 
 export interface OpenWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: "open";
+  type: "open";
 }
 
 export interface MessageWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: "message";
-  readonly message: string;
+  type: "message";
+  message: string;
 }
 
 export interface CloseWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: "close";
-  readonly closeReason: number;
+  type: "close";
+  closeReason: number;
 }
 
 export interface ErrorWebSocketEvent<WebSocketData = {}> extends AbstractWebSocketEvent<WebSocketData> {
-  readonly type: "error";
-  readonly error: string;
+  type: "error";
+  error: string;
 }
 
 export type WebSocketEvent<WebSocketData = {}> =
