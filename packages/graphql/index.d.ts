@@ -39,7 +39,7 @@ export function execute<ExecuteContext = undefined, Result = any>(
   schema: GraphQLSchema,
   query: string,
   variables: object,
-  context?: ExecuteContext
+  context?: ExecuteContext,
 ): Result;
 
 export type GraphQLSchema = unknown & { kind?: "SCHEMA" };

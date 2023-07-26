@@ -7,5 +7,5 @@ export interface ThymeleafRenderOptions {
 export function render<Model extends object>(
   view: ResourceKey,
   model?: Model,
-  options?: ThymeleafRenderOptions
+  options?: ThymeleafRenderOptions,
 ): string;

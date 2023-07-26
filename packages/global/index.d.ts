@@ -1,5 +1,3 @@
-import { AdminWidgetResponse } from "./controller";
-
 declare namespace XP {
   type Request = import("./controller").Request;
 
