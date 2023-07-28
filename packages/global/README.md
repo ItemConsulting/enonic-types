@@ -14,12 +14,10 @@ The following global types:
 - `XP.Controller`
 - `XP.Request`
   - `XP.ErrorRequest`
-  - `XP.CustomSelectorServiceRequest`
-  - `XP.CustomSelectorServiceRequestParams`
+  - `XP.CustomSelectorServiceParams`
 - `XP.Response`
   - `XP.WebSocketResponse`
-  - `XP.CustomSelectorServiceResponse`
-  - `XP.CustomSelectorServiceResponseHit`
+  - `XP.CustomSelectorServiceResponseBody`
 - `XP.MacroContext`
 - `XP.WebSocketEvent`
    - `XP.OpenWebSocketEvent`

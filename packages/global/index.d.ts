@@ -1,15 +1,22 @@
 declare namespace XP {
-  type Request = import("./controller").Request;
+  type Request<Params extends Record<string, string | undefined> = Record<string, string>> =
+    import("./controller").Request<Params>;
 
   type Response<ResponseBody = unknown> = import("./controller").Response<ResponseBody>;
 
-  type Controller = <ResponseBody = unknown>(req: Request) => Response<ResponseBody>;
+  type Controller = <
+    Params extends Record<string, string | undefined> = Record<string, string>,
+    ResponseBody = unknown,
+  >(
+    req: Request<Params>,
+  ) => Response<ResponseBody>;
 
   type WebSocketEvent<WebSocketData = {}> = import("./controller").WebSocketEvent<WebSocketData>;
 
   type WebSocketResponse<WebSocketData = {}> = import("./controller").WebSocketResponse<WebSocketData>;
 
-  type MacroContext<Params = never> = import("./controller").MacroContext<Params>;
+  type MacroContext<Params extends Record<string, string> = Record<string, string>> =
+    import("./controller").MacroContext<Params>;
 
   /**
    * Request where params potentially are typed as Arrays, reflecting the real
@@ -27,10 +34,15 @@ declare namespace XP {
   /**
    * Predefined parameters that CustomSelector service always has
    */
+  type CustomSelectorServiceParams = import("./controller").CustomSelectorServiceParams;
+
+  /**
+   * @deprecated Use `Partial<CustomSelectorServiceParams>`
+   */
   type CustomSelectorServiceRequestParams = import("./controller").CustomSelectorServiceRequestParams;
 
   /**
-   * This Request can be used by a Service that provides data to a CustomSelector input field
+   * @deprecated Use `Request<CustomSelectorServiceParams>`
    */
   type CustomSelectorServiceRequest = import("./controller").CustomSelectorServiceRequest;
 
@@ -43,5 +55,8 @@ declare namespace XP {
 
   type CustomSelectorServiceResponseHit = import("./controller").CustomSelectorServiceResponseHit;
 
+  /**
+   * @deprecated Use `Response<AdminWidgetBody>` instead.
+   */
   type AdminWidgetResponse = import("./controller").AdminWidgetResponse;
 }
