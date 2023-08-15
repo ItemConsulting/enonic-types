@@ -1,5 +1,3 @@
-export type EmptyObject = Record<string, never>;
-
 export const GraphQLInt: GraphQLInt;
 export const GraphQLFloat: GraphQLFloat;
 export const GraphQLString: GraphQLString;
@@ -35,7 +33,7 @@ export function reference(typeKey: string): GraphQLTypeReference;
 /**
  * Executes a GraphQL query and variables against a schema
  */
-export function execute<ExecuteContext = undefined, Result = any>(
+export function execute<ExecuteContext = unknown, Result = any>(
   schema: GraphQLSchema,
   query: string,
   variables: object,
@@ -202,13 +200,13 @@ export interface CreateEnumTypeParams {
   readonly description?: string;
 }
 
-export interface GraphQLResolver<ExecuteContext = EmptyObject, Source = any> {
+export interface GraphQLResolver {
   type: GraphQLType;
   args?: Record<string, GraphQLType>;
-  resolve?: (env: GraphQLResolverEnvironment) => unknown;
+  resolve?: <Environment extends GraphQLResolverEnvironment>(env: Environment) => unknown;
 }
 
-export interface GraphQLResolverEnvironment<Source = any, Context = EmptyObject> {
+export interface GraphQLResolverEnvironment<Source = any, Context = any> {
   source: Source;
   args: Record<string, any>;
   context: Context;
