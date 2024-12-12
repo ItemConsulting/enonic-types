@@ -41,7 +41,7 @@ export type Response<ResponseBody = unknown> = Partial<{
   applyFilters: boolean;
 }>;
 
-export type WebSocketResponse<WebSocketData = {}> = {
+export type WebSocketResponse<WebSocketData = Record<string, never>> = {
   webSocket: {
     data?: WebSocketData;
     subProtocols?: string[];

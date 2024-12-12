@@ -24,16 +24,14 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "devDependencies": {
-    "@enonic-types/lib-react4xp": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.0",
-    "rimraf": "^5.0.1",
-    "tsd": "^0.28.1",
-    "typescript": "^5.1.6"
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "tsd": "^0.31.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
   },
   "workspaces": [
     "packages/*"
@@ -84,7 +82,7 @@
     "@item-enonic-types/lib-testing": "^7.13.0",
     "@item-enonic-types/lib-text-encoding": "^2.1.0",
     "@item-enonic-types/lib-thymeleaf": "^2.1.0",
-    "@item-enonic-types/lib-turbo-streams": "^1.0.4",
+    "@item-enonic-types/lib-turbo-streams": "^1.1.2",
     "@item-enonic-types/lib-xslt": "^2.1.1"
   }
 }

@@ -3,7 +3,7 @@ declare const Java: {
    * The Java.type() function takes a string with the fully qualified Java class name, and returns the corresponding
    * JavaClass function object.
    */
-  type<JavaClass = any>(className: string): JavaClass;
+  type<JavaClass>(className: string): JavaClass;
 
   /**
    * If you have an existing JavaScript array, you can convert it to a Java array using the Java.to() function.

@@ -13,7 +13,8 @@ declare namespace XP {
 
   type WebSocketEvent<WebSocketData = {}> = import("./controller").WebSocketEvent<WebSocketData>;
 
-  type WebSocketResponse<WebSocketData = {}> = import("./controller").WebSocketResponse<WebSocketData>;
+  type WebSocketResponse<WebSocketData = Record<string, never>> =
+    import("./controller").WebSocketResponse<WebSocketData>;
 
   type MacroContext<Params extends Record<string, string> = Record<string, string>> =
     import("./controller").MacroContext<Params>;

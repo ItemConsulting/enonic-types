@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const GraphQLInt: GraphQLInt;
 export const GraphQLFloat: GraphQLFloat;
 export const GraphQLString: GraphQLString;
@@ -245,3 +246,4 @@ export interface CreateInputObjectTypeParams {
   fields: Record<string, GraphQLResolver>;
   interfaces?: Array<GraphQLInterfaceType | GraphQLTypeReference>;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
