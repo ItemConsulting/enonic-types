@@ -10,9 +10,10 @@ declare namespace XP {
   /**
    * @deprecated Since 7.15.0, use @enonic-types/core instead.
    */
-  type Response<Body extends import("@enonic-types/core").ResponseBody> = import("@enonic-types/core").Response<{
-    body: Body;
-  }>;
+  type Response<Body extends import("@enonic-types/core").ResponseBody = import("@enonic-types/core").ResponseBody> =
+    import("@enonic-types/core").Response<{
+      body: Body;
+    }>;
 
   /**
    * @deprecated Since 7.15.0, use @enonic-types/core instead.

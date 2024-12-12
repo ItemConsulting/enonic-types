@@ -13,7 +13,7 @@ export type Request<Params extends RequestParams = Record<string, string>> = Cor
 /**
  * @deprecated Since 7.15.0, use @enonic-types/core instead.
  */
-export type Response<Body extends ResponseBody> = CoreResponse<{
+export type Response<Body extends ResponseBody = ResponseBody> = CoreResponse<{
   body: Body;
 }>;
 
