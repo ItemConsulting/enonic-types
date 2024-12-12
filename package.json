@@ -78,7 +78,6 @@
     "@item-enonic-types/lib-recaptcha": "^3.0.1",
     "@item-enonic-types/lib-router": "^3.0.0",
     "@item-enonic-types/lib-sql": "^1.0.0",
-    "@item-enonic-types/lib-static": "^1.0.2",
     "@item-enonic-types/lib-testing": "^7.13.0",
     "@item-enonic-types/lib-text-encoding": "^2.1.0",
     "@item-enonic-types/lib-thymeleaf": "^2.1.0",

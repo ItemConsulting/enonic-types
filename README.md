@@ -129,7 +129,6 @@ function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
  * [RecaptchaLibrary](./packages/recaptcha)
  * [RouterLibrary](./packages/router) 
  * [SqlLibrary](./packages/sql) 
- * [StaticLibrary](./packages/static) 
  * [TestingLibrary](./packages/testing)
  * [TextEncodingLibrary](./packages/text-encoding)
  * [ThymeleafLibrary](./packages/thymeleaf)
