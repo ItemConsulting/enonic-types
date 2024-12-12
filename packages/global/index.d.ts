@@ -1,17 +1,23 @@
 declare namespace XP {
-  type Request<Params extends Record<string, string | undefined> = Record<string, string>> =
-    import("./controller").Request<Params>;
+  /**
+   * @deprecated Since 7.15.0, use @enonic-types/core instead.
+   */
+  type Request<Params extends import("@enonic-types/core").RequestParams = Record<string, string>> =
+    import("@enonic-types/core").Request<{
+      params: Params;
+    }>;
 
-  type Response<ResponseBody = unknown> = import("./controller").Response<ResponseBody>;
+  /**
+   * @deprecated Since 7.15.0, use @enonic-types/core instead.
+   */
+  type Response<Body extends import("@enonic-types/core").ResponseBody> = import("@enonic-types/core").Response<{
+    body: Body;
+  }>;
 
-  type Controller = <
-    Params extends Record<string, string | undefined> = Record<string, string>,
-    ResponseBody = unknown,
-  >(
-    req: Request<Params>,
-  ) => Response<ResponseBody>;
-
-  type WebSocketEvent<WebSocketData = {}> = import("./controller").WebSocketEvent<WebSocketData>;
+  /**
+   * @deprecated Since 7.15.0, use @enonic-types/core instead.
+   */
+  type WebSocketEvent<T> = import("@enonic-types/core").WebSocketEvent<T>;
 
   type WebSocketResponse<WebSocketData = Record<string, never>> =
     import("./controller").WebSocketResponse<WebSocketData>;
@@ -20,44 +26,18 @@ declare namespace XP {
     import("./controller").MacroContext<Params>;
 
   /**
-   * Request where params potentially are typed as Arrays, reflecting the real
-   * behaviour of XP, instead of the common use case.
+   * @deprecated Since 7.15.0, use @enonic-types/core instead.
    */
-  type RequestWithArrayParams = Omit<Request, "params"> & {
-    params: { readonly [key: string]: string | ReadonlyArray<string> | undefined };
-  };
+  type ErrorRequest<
+    T extends import("@enonic-types/core").RequestInterface = import("@enonic-types/core").DefaultRequest,
+  > = import("@enonic-types/core").ErrorRequest<T>;
 
-  /**
-   * Request object to be used with functions in "error.ts"
-   */
-  type ErrorRequest = import("./controller").ErrorRequest;
+  type CustomSelectorServiceParams = import("./controller").CustomSelectorServiceParams;
 
   /**
    * Predefined parameters that CustomSelector service always has
    */
-  type CustomSelectorServiceParams = import("./controller").CustomSelectorServiceParams;
-
-  /**
-   * @deprecated Use `Partial<CustomSelectorServiceParams>`
-   */
-  type CustomSelectorServiceRequestParams = import("./controller").CustomSelectorServiceRequestParams;
-
-  /**
-   * @deprecated Use `Request<CustomSelectorServiceParams>`
-   */
-  type CustomSelectorServiceRequest = import("./controller").CustomSelectorServiceRequest;
-
   type CustomSelectorServiceResponseBody = import("./controller").CustomSelectorServiceResponseBody;
 
-  /**
-   * This Response can be used by a Service that provides data to a CustomSelector input field
-   */
-  type CustomSelectorServiceResponse = import("./controller").CustomSelectorServiceResponse;
-
   type CustomSelectorServiceResponseHit = import("./controller").CustomSelectorServiceResponseHit;
-
-  /**
-   * @deprecated Use `Response<AdminWidgetBody>` instead.
-   */
-  type AdminWidgetResponse = import("./controller").AdminWidgetResponse;
 }

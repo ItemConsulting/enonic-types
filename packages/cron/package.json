@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@enonic-types/lib-context": "^7.13.0"
+    "@enonic-types/lib-context": "^7.15.0-A1"
   }
 }

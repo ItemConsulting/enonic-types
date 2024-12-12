@@ -11,18 +11,15 @@ while moving to the [new types provided by Enonic](https://www.npmjs.com/org/eno
 
 The following global types:
 
-- `XP.Controller`
 - `XP.Request`
   - `XP.ErrorRequest`
   - `XP.CustomSelectorServiceParams`
 - `XP.Response`
   - `XP.WebSocketResponse`
   - `XP.CustomSelectorServiceResponseBody`
+  - `XP.CustomSelectorServiceResponseHit`
 - `XP.MacroContext`
 - `XP.WebSocketEvent`
-   - `XP.OpenWebSocketEvent`
-   - `XP.MessageWebSocketEvent`
-   - `XP.CloseWebSocketEvent`
 
 ## Use
 

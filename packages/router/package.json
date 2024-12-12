@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-router",
   "sideEffects": false,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": ["index.d.ts"],
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/core": "^7.15.0-A1"
+  }
 }

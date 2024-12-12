@@ -1,4 +1,4 @@
-import { Request, Response } from "@item-enonic-types/global/controller";
+import type { Request, Response } from "@enonic-types/core";
 
 export default function router(): Router;
 
@@ -7,9 +7,9 @@ export type RouterRequest = Request & { pathParams: Record<string, string | unde
 /**
  * Path pattern to match.
  */
-export type Pattern = string | Array<string>;
+export type Pattern = string | string[];
 
-export interface Router {
+export type Router = {
   /**
    * Adds a route that matches the GET method.
    */
@@ -54,4 +54,4 @@ export interface Router {
    * Dispatch the request to this router.
    */
   dispatch(req: Request): Response;
-}
+};

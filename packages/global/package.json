@@ -2,7 +2,7 @@
   "name": "@item-enonic-types/global",
   "private": false,
   "sideEffects": false,
-  "version": "7.13.1",
+  "version": "7.15.0-A1",
   "description": "Global variables and functions type definition.",
   "typings": "index.d.ts",
   "files": [
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/core": "^7.15.0-A1"
+  }
 }
