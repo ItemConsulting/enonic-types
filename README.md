@@ -120,7 +120,6 @@ function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
  * [ExplorerLibrary](./packages/explorer)
  * [FreeMarkerLibrary](./packages/freemarker)
  * [GraphQLLibrary](./packages/graphql)
- * [GraphQLPlaygroundLibrary](./packages/graphql-playground)
  * [HttpClientLibrary](./packages/http-client)
  * [MenuLibrary](./packages/menu)
  * [MustacheLibrary](./packages/mustache)

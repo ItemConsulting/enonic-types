@@ -69,7 +69,6 @@
     "@item-enonic-types/lib-explorer": "^3.20.6-patch1",
     "@item-enonic-types/lib-freemarker": "^2.0.2",
     "@item-enonic-types/lib-graphql": "^2.1.0",
-    "@item-enonic-types/lib-graphql-playground": "^0.0.1",
     "@item-enonic-types/lib-http-client": "^3.2.2",
     "@item-enonic-types/lib-menu": "^4.2.1",
     "@item-enonic-types/lib-mustache": "^2.1.0",
