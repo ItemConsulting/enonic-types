@@ -21,6 +21,12 @@ export interface HttpRequestParams {
   /** HTTP headers, an object where the keys are header names and the values the header values. */
   headers?: { readonly [key: string]: string | undefined };
 
+  /**
+   * Disable use of HTTP/2 protocol. The default value is false. For insecure HTTP connections HTTP/2 is always disabled.
+   * @since 3.2.0
+   */
+  disableHttp2?: boolean;
+
   /** The timeout on establishing the connection, in milliseconds. */
   connectionTimeout?: number;
 
@@ -52,10 +58,28 @@ export interface HttpRequestParams {
   }>;
 
   /** Settings for basic authentication. */
-  auth?: HttpRequestParamsAuth;
+  auth?: {
+    /** User name for basic authentication. */
+    user?: string;
+
+    /** Password for basic authentication. */
+    password?: string;
+  };
 
   /** Proxy settings. */
-  proxy?: HttpRequestParamsProxy;
+  proxy?: {
+    /** Proxy host name to use. */
+    host?: string;
+
+    /** Proxy port to use. */
+    port?: number;
+
+    /** User name for proxy authentication. */
+    user?: string;
+
+    /** Password for proxy authentication. */
+    password?: string;
+  };
 
   /**
    * Stream of PEM encoded certificates. Replaces the host platform’s certificate authorities with a custom certificate.
@@ -68,28 +92,6 @@ export interface HttpRequestParams {
    * @since 2.2.0
    */
   clientCertificate?: ByteSource;
-}
-
-export interface HttpRequestParamsAuth {
-  /** User name for basic authentication. */
-  user?: string;
-
-  /** Password for basic authentication. */
-  password?: string;
-}
-
-export interface HttpRequestParamsProxy {
-  /** Proxy host name to use. */
-  host?: string;
-
-  /** Proxy port to use. */
-  port?: number;
-
-  /** User name for proxy authentication. */
-  user?: string;
-
-  /** Password for proxy authentication. */
-  password?: string;
 }
 
 export interface HttpResponse {
