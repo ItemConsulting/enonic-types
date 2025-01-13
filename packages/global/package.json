@@ -2,7 +2,7 @@
   "name": "@item-enonic-types/global",
   "private": false,
   "sideEffects": false,
-  "version": "7.15.0-A1",
+  "version": "7.15.0-A2",
   "description": "Global variables and functions type definition.",
   "typings": "index.d.ts",
   "files": [
