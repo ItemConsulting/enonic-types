@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-cron",
   "sideEffects": false,
-  "version": "1.1.1",
+  "version": "1.1.4",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": ["index.d.ts"],
@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@enonic-types/lib-context": "^7.15.0-A1"
+    "@enonic-types/lib-context": "^7.15.0"
   }
 }

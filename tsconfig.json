@@ -11,7 +11,7 @@
     "lib": ["es6"],
     "skipLibCheck": true
   },
-  "include": ["./modules"],
+  "include": ["./packages"],
   "exclude": [
     "node_modules"
   ]
