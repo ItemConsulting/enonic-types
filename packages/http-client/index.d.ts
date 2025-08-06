@@ -2,7 +2,7 @@ import type { ByteSource } from "@enonic-types/core";
 
 export function request(params: HttpRequestParams): HttpResponse;
 
-export interface HttpRequestParams {
+export type HttpRequestParams = {
   /** URL to which the request is sent. */
   url: string;
 
@@ -19,7 +19,7 @@ export interface HttpRequestParams {
   params?: { readonly [key: string]: string | undefined };
 
   /** HTTP headers, an object where the keys are header names and the values the header values. */
-  headers?: { readonly [key: string]: string | undefined };
+  headers?: { readonly [key: string]: string };
 
   /**
    * Disable use of HTTP/2 protocol. The default value is false. For insecure HTTP connections HTTP/2 is always disabled.
@@ -92,9 +92,9 @@ export interface HttpRequestParams {
    * @since 2.2.0
    */
   clientCertificate?: ByteSource;
-}
+};
 
-export interface HttpResponse {
+export type HttpResponse = {
   /** HTTP status code returned. */
   readonly status: number;
 
@@ -112,4 +112,4 @@ export interface HttpResponse {
 
   /** Body of the response as a stream object. */
   readonly bodyStream: ByteSource;
-}
+};
