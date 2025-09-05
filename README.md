@@ -55,20 +55,6 @@ To add the TypeScript-types you need to update your *tsconfig.json* with the fol
 }
 ```
 
-Note that individual packages that are not directly under `"/lib/..."` needs to be mapped separately.
-
-An example is Freemarker:
-
-```diff
-{
-  "compilerOptions": {
-    "paths": {
-+     "/lib/tineikt/freemarker": ["./node_modules/@item-enonic-types/lib-freemarker"]
-    }
-  }
-}
-```
-
 ## Code generation
 
 We recommend using this library together with the [xp-codegen-plugin](https://github.com/ItemConsulting/xp-codegen-plugin) Gradle plugin. *xp-codegen-plugin* will create a TypeScript `type` for your content-types. Those interfaces will be very useful together with this library.
@@ -118,7 +104,6 @@ function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
  * [CacheLibrary](./packages/cache)
  * [CronLibrary](./packages/cron)
  * [ExplorerLibrary](./packages/explorer)
- * [FreeMarkerLibrary](./packages/freemarker)
  * [GraphQLLibrary](./packages/graphql)
  * [HttpClientLibrary](./packages/http-client)
  * [MenuLibrary](./packages/menu)
