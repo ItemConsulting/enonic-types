@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-menu",
   "sideEffects": false,
-  "version": "4.2.1",
+  "version": "5.0.0",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ItemConsulting/enonic-types/issues"
   },
-  "homepage": "https://github.com/ItemConsulting/enonic-types#readme"
+  "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
+  "dependencies": {
+    "@enonic-types/core": "^8.0.0"
+  }
 }

@@ -1,5 +1,69 @@
 # Changelog
 
+## Enonic XP 8
+
+The packages have been updated for the XP 8 versions of the libraries, and now depend on `@enonic-types/core@^8.0.0`
+where needed. Each package follows the version of the library it provides types for.
+
+### Removed packages
+
+ * **`enonic-types`** is deprecated. Install the individual `@enonic-types/*` and `@item-enonic-types/*` packages you
+   need instead.
+ * **`@item-enonic-types/lib-cron`**, **`lib-graphql`**, **`lib-mustache`** and **`lib-notifications`** are replaced by
+   the official [`@enonic-types/lib-cron`](https://www.npmjs.com/package/@enonic-types/lib-cron),
+   [`@enonic-types/lib-graphql`](https://www.npmjs.com/package/@enonic-types/lib-graphql),
+   [`@enonic-types/lib-mustache`](https://www.npmjs.com/package/@enonic-types/lib-mustache) and
+   [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
+ * **`@item-enonic-types/lib-testing`** is removed.
+
+### Breaking changes
+
+#### `@item-enonic-types/lib-menu` 5.0.0
+
+ * `MenuItem.displayName` and `MenuItem.menuName` are removed, since they were never returned by the library. Use
+   `MenuItem.title`, which contains the `menuName` from the "menu-item" mixin, falling back to the `displayName`.
+ * `url` on breadcrumb items (`BreadcrumbMenuItem`) is now optional. It is not set on the active item, unless
+   `linkActiveItem` is `true`.
+
+#### `@item-enonic-types/lib-http-client` 4.0.0
+
+ * `HttpResponse.headers` values are now `string | string[] | undefined`. Headers with multiple values (e.g.
+   "set-cookie") are returned as an array.
+ * `HttpResponse.contentType` is now `string | null`. It is `null` if the response has no "content-type" header.
+
+```typescript
+const response = request({ url: "https://example.com" });
+
+const setCookie = response.headers["set-cookie"];
+const cookies = Array.isArray(setCookie) ? setCookie : setCookie ? [setCookie] : [];
+```
+
+#### `@item-enonic-types/lib-recaptcha` 4.0.0
+
+ * `VerifyResponse.score` and `VerifyResponse.action` are now optional, since they are only returned for reCAPTCHA v3.
+ * `VerifyResponse.challenge_ts` and `VerifyResponse.hostname` are now optional, since they are not returned if the
+   verification failed.
+
+```typescript
+const result = verify(req.params["g-recaptcha-response"]);
+const isHuman = result.success && (result.score ?? 0) > 0.5;
+```
+
+### Other changes
+
+ * **lib-cache 3.0.0:** `size` and `expire` in `NewCacheParams` are now optional.
+ * **lib-http-client 4.0.0:** Added `HttpResponse.cookies`. `params` and `queryParams` also accept `number`, `boolean`
+   and `null` values.
+ * **lib-qrcode 3.0.1:** `GenerateQrCodeParams` is exported.
+ * **lib-router 4.0.0:** Added `patch()`. All route functions accept an array of patterns.
+ * **lib-sql 2.0.0:** `SqlConnectParams`, `SqlHandler` and `SQLQueryResult` are exported. `query()` and `queryFirst()`
+   default to `Record<string, unknown>` rows.
+ * **lib-text-encoding 3.0.0:** Added `md5AsStream()`, `sha1AsStream()`, `sha256AsStream()` and `sha512AsStream()`.
+   Encode and hash functions also accept `number` and `boolean` values.
+ * **lib-thymeleaf 3.0.0:** `mode` in `ThymeleafRenderOptions` is now optional.
+ * **lib-xslt 3.0.0:** The `model` parameter of `render()` is now optional.
+ * All the packages above have JSDoc comments on every function and field.
+
 ## 7.11.0
 
  > **Note** Enonic has released official types for XP. This library now works as a proxy for those official types, but continues

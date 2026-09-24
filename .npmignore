@@ -2,8 +2,6 @@ tsconfig.json
 src
 .idea
 .editorconfig
-.eslintrc.json
-.prettierrc.json
 *.test-d.d.ts
 *.tgz
 packages

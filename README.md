@@ -102,18 +102,13 @@ function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
 ## Supported libraries
 
  * [CacheLibrary](./packages/cache)
- * [CronLibrary](./packages/cron)
  * [ExplorerLibrary](./packages/explorer)
- * [GraphQLLibrary](./packages/graphql)
  * [HttpClientLibrary](./packages/http-client)
  * [MenuLibrary](./packages/menu)
- * [MustacheLibrary](./packages/mustache)
- * [NotificationsLibrary](./packages/notifications)
  * [QRCodeLibrary](./packages/qrcode)
  * [RecaptchaLibrary](./packages/recaptcha)
  * [RouterLibrary](./packages/router) 
  * [SqlLibrary](./packages/sql) 
- * [TestingLibrary](./packages/testing)
  * [TextEncodingLibrary](./packages/text-encoding)
  * [ThymeleafLibrary](./packages/thymeleaf)
  * [XsltLibrary](./packages/xslt)

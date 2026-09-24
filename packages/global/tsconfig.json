@@ -10,5 +10,5 @@
     "forceConsistentCasingInFileNames": true,
     "composite": true,
     "lib": ["ES6"]
-  },
+  }
 }

@@ -1,5 +1,5 @@
-import type { NodeConfigEntry } from "@enonic-types/lib-node";
 import type { AccessControlEntry } from "@enonic-types/lib-content";
+import type { NodeConfigEntry } from "@enonic-types/lib-node";
 
 export const APP_EXPLORER: string;
 export const INTERFACES_FOLDER: string;

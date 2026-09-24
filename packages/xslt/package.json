@@ -1,7 +1,7 @@
 {
   "name": "@item-enonic-types/lib-xslt",
   "sideEffects": false,
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "TypeScript types for Enonic XP",
   "typings": "index.d.ts",
   "files": [
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@enonic-types/core": "*"
+    "@enonic-types/core": "^8.0.0"
   }
 }

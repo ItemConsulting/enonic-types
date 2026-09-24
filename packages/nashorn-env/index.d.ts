@@ -8,7 +8,10 @@ declare const Java: {
   /**
    * If you have an existing JavaScript array, you can convert it to a Java array using the Java.to() function.
    */
-  to<JavaClass, T>(arr: Array<T>, javaType: JavaClass): JavaClass & ArrayLike<T>;
+  to<JavaClass, T>(
+    arr: Array<T>,
+    javaType: JavaClass,
+  ): JavaClass & ArrayLike<T>;
 
   /**
    * You can extend a class using the Java.extend() function that takes a Java type as the first argument and method

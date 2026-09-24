@@ -1,22 +1,16 @@
 {
-  "name": "enonic-types",
-  "sideEffects": false,
-  "version": "7.15.3",
-  "description": "TypeScript types for Enonic XP",
-  "typings": "index.d.ts",
+  "name": "enonic-types-monorepo",
+  "private": true,
+  "description": "TypeScript types for Enonic XP libraries",
   "scripts": {
-    "clean": "rimraf ./*.tgz",
-    "build": "npm run clean && tsc",
-    "lint": "eslint --fix './**/*.ts'",
-    "prepublishOnly": "npm run lint && npm run build"
+    "build": "tsc",
+    "lint": "biome check --write",
+    "check": "biome check"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ItemConsulting/enonic-types.git"
   },
-  "keywords": [
-    "enonic"
-  ],
   "author": "Tom Arild Jakobsen <tajakobsen@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -24,61 +18,11 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "devDependencies": {
-    "eslint": "^9.32.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.6.2",
-    "rimraf": "^6.0.1",
+    "@biomejs/biome": "2.5.14",
     "tsd": "^0.33.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.0"
+    "typescript": "^7.0.2"
   },
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {
-    "@enonic-types/core": "^7.15.3",
-    "@enonic-types/global": "^7.15.3",
-    "@enonic-types/lib-admin": "^7.15.3",
-    "@enonic-types/lib-app": "^7.15.3",
-    "@enonic-types/lib-auditlog": "^7.15.3",
-    "@enonic-types/lib-auth": "^7.15.3",
-    "@enonic-types/lib-cluster": "^7.15.3",
-    "@enonic-types/lib-common": "^7.15.3",
-    "@enonic-types/lib-content": "^7.15.3",
-    "@enonic-types/lib-context": "^7.15.3",
-    "@enonic-types/lib-event": "^7.15.3",
-    "@enonic-types/lib-export": "^7.15.3",
-    "@enonic-types/lib-grid": "^7.15.3",
-    "@enonic-types/lib-i18n": "^7.15.3",
-    "@enonic-types/lib-io": "^7.15.3",
-    "@enonic-types/lib-mail": "^7.15.3",
-    "@enonic-types/lib-node": "^7.15.3",
-    "@enonic-types/lib-portal": "^7.15.3",
-    "@enonic-types/lib-project": "^7.15.3",
-    "@enonic-types/lib-repo": "^7.15.3",
-    "@enonic-types/lib-scheduler": "^7.15.3",
-    "@enonic-types/lib-schema": "^7.15.3",
-    "@enonic-types/lib-task": "^7.15.3",
-    "@enonic-types/lib-value": "^7.15.3",
-    "@enonic-types/lib-vhost": "^7.15.3",
-    "@enonic-types/lib-websocket": "^7.15.3",
-    "@item-enonic-types/global": "^7.15.0",
-    "@item-enonic-types/lib-cache": "^2.2.1",
-    "@item-enonic-types/lib-cron": "^1.1.4",
-    "@item-enonic-types/lib-explorer": "^3.20.6-patch1",
-    "@item-enonic-types/lib-graphql": "^2.1.0",
-    "@item-enonic-types/lib-http-client": "3.2.2-patch1",
-    "@item-enonic-types/lib-menu": "^4.2.1",
-    "@item-enonic-types/lib-mustache": "^2.1.0",
-    "@item-enonic-types/lib-notifications": "^2.0.0",
-    "@item-enonic-types/lib-qrcode": "^2.0.2",
-    "@item-enonic-types/lib-recaptcha": "^3.0.1",
-    "@item-enonic-types/lib-router": "^3.1.0",
-    "@item-enonic-types/lib-sql": "^1.0.0",
-    "@item-enonic-types/lib-testing": "^7.13.0",
-    "@item-enonic-types/lib-text-encoding": "^2.1.0",
-    "@item-enonic-types/lib-thymeleaf": "^2.1.0",
-    "@item-enonic-types/lib-xslt": "^2.1.1"
-  }
+  ]
 }

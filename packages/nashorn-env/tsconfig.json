@@ -8,6 +8,6 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "composite": true,
-  },
+    "composite": true
+  }
 }

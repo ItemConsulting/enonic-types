@@ -3,12 +3,18 @@ import type { RepoConnection } from "@enonic-types/lib-node";
 /**
  * Create documents
  */
-export function create<Data extends CreateData>(data: Data, options: CreateOptions): Data;
+export function create<Data extends CreateData>(
+  data: Data,
+  options: CreateOptions,
+): Data;
 
 /**
  * Update documents
  */
-export function update<Data extends UpdateData>(data: Data, options: UpdateOptions): Data;
+export function update<Data extends UpdateData>(
+  data: Data,
+  options: UpdateOptions,
+): Data;
 
 interface CreateData {
   _name: string;
