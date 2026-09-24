@@ -1,6 +1,7 @@
 # Item Enonic Types – Cache Lib
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Flib-cache.svg)](https://badge.fury.io/js/@item-enonic-types%2Flib-cache)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 ## Installation
 

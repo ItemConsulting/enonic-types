@@ -1,6 +1,7 @@
 # Item Enonic Types – QRCode Lib
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Flib-qrcode.svg)](https://badge.fury.io/js/@item-enonic-types%2Flib-qrcode)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 ## Installation
 

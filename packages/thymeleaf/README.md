@@ -1,6 +1,7 @@
 # Item Enonic Types – Thymeleaf Lib
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Flib-thymeleaf.svg)](https://badge.fury.io/js/@item-enonic-types%2Flib-thymeleaf)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 ## Installation
 

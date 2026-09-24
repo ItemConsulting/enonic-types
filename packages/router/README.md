@@ -1,6 +1,7 @@
 # Item Enonic Types – Router Lib
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Flib-router.svg)](https://badge.fury.io/js/@item-enonic-types%2Flib-router)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 ## Installation
 

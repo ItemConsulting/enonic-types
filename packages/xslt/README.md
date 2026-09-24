@@ -1,6 +1,7 @@
 # Item Enonic Types – XSLT Lib
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Flib-xslt.svg)](https://badge.fury.io/js/@item-enonic-types%2Flib-xslt)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 ## Installation
 

@@ -1,6 +1,7 @@
 # Enonic XP Nashorn Environment
 
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Fnashorn-env.svg)](https://badge.fury.io/js/@item-enonic-types%2Fnashorn-env)
+![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
 Enonic XP 7 *(and 5 and 6)* is using the [Nashorn JavaScript-engine internally](https://docs.oracle.com/javase/10/nashorn/nashorn-java-api.htm).
 
