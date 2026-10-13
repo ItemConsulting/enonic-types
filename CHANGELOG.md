@@ -14,7 +14,6 @@ where needed. Each package follows the version of the library it provides types 
    [`@enonic-types/lib-graphql`](https://www.npmjs.com/package/@enonic-types/lib-graphql),
    [`@enonic-types/lib-mustache`](https://www.npmjs.com/package/@enonic-types/lib-mustache) and
    [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
- * **`@item-enonic-types/lib-testing`** is removed.
 
 ### Breaking changes
 
@@ -49,6 +48,10 @@ const result = verify(req.params["g-recaptcha-response"]);
 const isHuman = result.success && (result.score ?? 0) > 0.5;
 ```
 
+#### `@item-enonic-types/lib-testing` 8.0.0
+
+ * `load()` now returns `string | null`. It is `null` if the file doesn't exist.
+
 ### Other changes
 
  * **lib-cache 3.0.0:** `size` and `expire` in `NewCacheParams` are now optional.
@@ -58,6 +61,7 @@ const isHuman = result.success && (result.score ?? 0) > 0.5;
  * **lib-router 4.0.0:** Added `patch()`. All route functions accept an array of patterns.
  * **lib-sql 2.0.0:** `SqlConnectParams`, `SqlHandler` and `SQLQueryResult` are exported. `query()` and `queryFirst()`
    default to `Record<string, unknown>` rows.
+ * **lib-testing 8.0.0:** Added `assertThrows()`.
  * **lib-text-encoding 3.0.0:** Added `md5AsStream()`, `sha1AsStream()`, `sha256AsStream()` and `sha512AsStream()`.
    Encode and hash functions also accept `number` and `boolean` values.
  * **lib-thymeleaf 3.0.0:** `mode` in `ThymeleafRenderOptions` is now optional.

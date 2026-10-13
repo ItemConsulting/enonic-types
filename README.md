@@ -111,6 +111,7 @@ export function assertIsDefined<T>(value: T, name: string): asserts value is Non
  * [RecaptchaLibrary](./packages/recaptcha)
  * [RouterLibrary](./packages/router)
  * [SqlLibrary](./packages/sql)
+ * [TestingLibrary](./packages/testing)
  * [TextEncodingLibrary](./packages/text-encoding)
  * [ThymeleafLibrary](./packages/thymeleaf)
  * [XsltLibrary](./packages/xslt)
