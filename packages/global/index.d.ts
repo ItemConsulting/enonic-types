@@ -1,10 +1,13 @@
-import { Request } from "@enonic-types/core";
+import type {
+  WebSocketResponse as CoreWebSocketResponse,
+  Request,
+} from "@enonic-types/core";
 
-export type WebSocketResponse<WebSocketData = Record<string, never>> = {
-  webSocket: {
-    data?: WebSocketData;
-    subProtocols?: string[];
-  };
+export type WebSocketResponse<WebSocketData = Record<string, never>> = Omit<
+  CoreWebSocketResponse,
+  "data"
+> & {
+  data?: WebSocketData;
 };
 
 export type MacroContext<
