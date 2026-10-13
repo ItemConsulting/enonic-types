@@ -105,7 +105,6 @@ export function assertIsDefined<T>(value: T, name: string): asserts value is Non
 
  * [CacheLibrary](./packages/cache)
  * [ExplorerLibrary](./packages/explorer)
- * [HttpClientLibrary](./packages/http-client)
  * [MenuLibrary](./packages/menu)
  * [QRCodeLibrary](./packages/qrcode)
  * [RecaptchaLibrary](./packages/recaptcha)

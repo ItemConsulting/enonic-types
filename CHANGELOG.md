@@ -14,6 +14,8 @@ where needed. Each package follows the version of the library it provides types 
    [`@enonic-types/lib-graphql`](https://www.npmjs.com/package/@enonic-types/lib-graphql),
    [`@enonic-types/lib-mustache`](https://www.npmjs.com/package/@enonic-types/lib-mustache) and
    [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
+ * **`@item-enonic-types/lib-http-client`** is deprecated after 4.0.0, and replaced by the official
+   [`@enonic-types/lib-http-client`](https://www.npmjs.com/package/@enonic-types/lib-http-client).
 
 ### Breaking changes
 
