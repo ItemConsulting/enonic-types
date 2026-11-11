@@ -9,7 +9,7 @@ types.
 
 ## Installation
 
-Install *@item-enonic-types/global* from npm by running:
+Install _@item-enonic-types/global_ from npm by running:
 
 ```bash
 npm i --save-dev @item-enonic-types/global
@@ -17,12 +17,12 @@ npm i --save-dev @item-enonic-types/global
 
 ## Contents
 
-| Type                                | Description                                                                     |
-|-------------------------------------|---------------------------------------------------------------------------------|
-| `CustomSelectorServiceParams`       | The parameters a CustomSelector service is always called with                   |
-| `CustomSelectorServiceResponseBody` | The response body a CustomSelector service must return                          |
-| `MacroContext`                      | The context passed to a macro controller                                        |
-| `WebSocketResponse`                 | `WebSocketResponse` from `@enonic-types/core`, with a typed `data` field        |
+| Type                                | Description                                                              |
+| ----------------------------------- | ------------------------------------------------------------------------ |
+| `CustomSelectorServiceParams`       | The parameters a CustomSelector service is always called with            |
+| `CustomSelectorServiceResponseBody` | The response body a CustomSelector service must return                   |
+| `MacroContext`                      | The context passed to a macro controller                                 |
+| `WebSocketResponse`                 | `WebSocketResponse` from `@enonic-types/core`, with a typed `data` field |
 
 ## Usage
 

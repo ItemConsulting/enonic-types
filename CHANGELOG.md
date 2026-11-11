@@ -7,54 +7,58 @@ where needed. Each package follows the version of the library it provides types 
 
 ### Removed packages
 
- * **`enonic-types`** is deprecated. Install the individual `@enonic-types/*` and `@item-enonic-types/*` packages you
-   need instead.
- * **`@item-enonic-types/lib-cron`**, **`lib-graphql`**, **`lib-mustache`** and **`lib-notifications`** are replaced by
-   the official [`@enonic-types/lib-cron`](https://www.npmjs.com/package/@enonic-types/lib-cron),
-   [`@enonic-types/lib-graphql`](https://www.npmjs.com/package/@enonic-types/lib-graphql),
-   [`@enonic-types/lib-mustache`](https://www.npmjs.com/package/@enonic-types/lib-mustache) and
-   [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
- * **`@item-enonic-types/lib-http-client`** is deprecated after 4.0.0, and replaced by the official
-   [`@enonic-types/lib-http-client`](https://www.npmjs.com/package/@enonic-types/lib-http-client).
- * **`@item-enonic-types/lib-cache`**, **`lib-menu`**, **`lib-qrcode`**, **`lib-recaptcha`**, **`lib-router`**,
-   **`lib-sql`**, **`lib-text-encoding`**, **`lib-thymeleaf`** and **`lib-xslt`** are deprecated, and replaced by the
-   official [`@enonic-types/lib-cache`](https://www.npmjs.com/package/@enonic-types/lib-cache),
-   [`@enonic-types/lib-menu`](https://www.npmjs.com/package/@enonic-types/lib-menu),
-   [`@enonic-types/lib-qrcode`](https://www.npmjs.com/package/@enonic-types/lib-qrcode),
-   [`@enonic-types/lib-recaptcha`](https://www.npmjs.com/package/@enonic-types/lib-recaptcha),
-   [`@enonic-types/lib-router`](https://www.npmjs.com/package/@enonic-types/lib-router),
-   [`@enonic-types/lib-sql`](https://www.npmjs.com/package/@enonic-types/lib-sql),
-   [`@enonic-types/lib-text-encoding`](https://www.npmjs.com/package/@enonic-types/lib-text-encoding),
-   [`@enonic-types/lib-thymeleaf`](https://www.npmjs.com/package/@enonic-types/lib-thymeleaf) and
-   [`@enonic-types/lib-xslt`](https://www.npmjs.com/package/@enonic-types/lib-xslt).
+- **`enonic-types`** is deprecated. Install the individual `@enonic-types/*` and `@item-enonic-types/*` packages you
+  need instead.
+- **`@item-enonic-types/lib-cron`**, **`lib-graphql`**, **`lib-mustache`** and **`lib-notifications`** are replaced by
+  the official [`@enonic-types/lib-cron`](https://www.npmjs.com/package/@enonic-types/lib-cron),
+  [`@enonic-types/lib-graphql`](https://www.npmjs.com/package/@enonic-types/lib-graphql),
+  [`@enonic-types/lib-mustache`](https://www.npmjs.com/package/@enonic-types/lib-mustache) and
+  [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
+- **`@item-enonic-types/lib-http-client`** is deprecated after 4.0.0, and replaced by the official
+  [`@enonic-types/lib-http-client`](https://www.npmjs.com/package/@enonic-types/lib-http-client).
+- **`@item-enonic-types/lib-cache`**, **`lib-menu`**, **`lib-qrcode`**, **`lib-recaptcha`**, **`lib-router`**,
+  **`lib-sql`**, **`lib-text-encoding`**, **`lib-thymeleaf`** and **`lib-xslt`** are deprecated, and replaced by the
+  official [`@enonic-types/lib-cache`](https://www.npmjs.com/package/@enonic-types/lib-cache),
+  [`@enonic-types/lib-menu`](https://www.npmjs.com/package/@enonic-types/lib-menu),
+  [`@enonic-types/lib-qrcode`](https://www.npmjs.com/package/@enonic-types/lib-qrcode),
+  [`@enonic-types/lib-recaptcha`](https://www.npmjs.com/package/@enonic-types/lib-recaptcha),
+  [`@enonic-types/lib-router`](https://www.npmjs.com/package/@enonic-types/lib-router),
+  [`@enonic-types/lib-sql`](https://www.npmjs.com/package/@enonic-types/lib-sql),
+  [`@enonic-types/lib-text-encoding`](https://www.npmjs.com/package/@enonic-types/lib-text-encoding),
+  [`@enonic-types/lib-thymeleaf`](https://www.npmjs.com/package/@enonic-types/lib-thymeleaf) and
+  [`@enonic-types/lib-xslt`](https://www.npmjs.com/package/@enonic-types/lib-xslt).
 
 ### Breaking changes
 
 #### `@item-enonic-types/lib-menu` 5.0.0
 
- * `MenuItem.displayName` and `MenuItem.menuName` are removed, since they were never returned by the library. Use
-   `MenuItem.title`, which contains the `menuName` from the "menu-item" mixin, falling back to the `displayName`.
- * `url` on breadcrumb items (`BreadcrumbMenuItem`) is now optional. It is not set on the active item, unless
-   `linkActiveItem` is `true`.
+- `MenuItem.displayName` and `MenuItem.menuName` are removed, since they were never returned by the library. Use
+  `MenuItem.title`, which contains the `menuName` from the "menu-item" mixin, falling back to the `displayName`.
+- `url` on breadcrumb items (`BreadcrumbMenuItem`) is now optional. It is not set on the active item, unless
+  `linkActiveItem` is `true`.
 
 #### `@item-enonic-types/lib-http-client` 4.0.0
 
- * `HttpResponse.headers` values are now `string | string[] | undefined`. Headers with multiple values (e.g.
-   "set-cookie") are returned as an array.
- * `HttpResponse.contentType` is now `string | null`. It is `null` if the response has no "content-type" header.
+- `HttpResponse.headers` values are now `string | string[] | undefined`. Headers with multiple values (e.g.
+  "set-cookie") are returned as an array.
+- `HttpResponse.contentType` is now `string | null`. It is `null` if the response has no "content-type" header.
 
 ```typescript
 const response = request({ url: "https://example.com" });
 
 const setCookie = response.headers["set-cookie"];
-const cookies = Array.isArray(setCookie) ? setCookie : setCookie ? [setCookie] : [];
+const cookies = Array.isArray(setCookie)
+  ? setCookie
+  : setCookie
+    ? [setCookie]
+    : [];
 ```
 
 #### `@item-enonic-types/lib-recaptcha` 4.0.0
 
- * `VerifyResponse.score` and `VerifyResponse.action` are now optional, since they are only returned for reCAPTCHA v3.
- * `VerifyResponse.challenge_ts` and `VerifyResponse.hostname` are now optional, since they are not returned if the
-   verification failed.
+- `VerifyResponse.score` and `VerifyResponse.action` are now optional, since they are only returned for reCAPTCHA v3.
+- `VerifyResponse.challenge_ts` and `VerifyResponse.hostname` are now optional, since they are not returned if the
+  verification failed.
 
 ```typescript
 const result = verify(req.params["g-recaptcha-response"]);
@@ -63,35 +67,35 @@ const isHuman = result.success && (result.score ?? 0) > 0.5;
 
 #### `@item-enonic-types/lib-testing` 8.0.0
 
- * `load()` now returns `string | null`. It is `null` if the file doesn't exist.
+- `load()` now returns `string | null`. It is `null` if the file doesn't exist.
 
 ### Other changes
 
- * **lib-cache 3.0.0:** `size` and `expire` in `NewCacheParams` are now optional.
- * **lib-http-client 4.0.0:** Added `HttpResponse.cookies`. `params` and `queryParams` also accept `number`, `boolean`
-   and `null` values.
- * **lib-qrcode 3.0.1:** `GenerateQrCodeParams` is exported.
- * **lib-router 4.0.0:** Added `patch()`. All route functions accept an array of patterns.
- * **lib-sql 2.0.0:** `SqlConnectParams`, `SqlHandler` and `SQLQueryResult` are exported. `query()` and `queryFirst()`
-   default to `Record<string, unknown>` rows.
- * **lib-testing 8.0.0:** Added `assertThrows()`.
- * **lib-text-encoding 3.0.0:** Added `md5AsStream()`, `sha1AsStream()`, `sha256AsStream()` and `sha512AsStream()`.
-   Encode and hash functions also accept `number` and `boolean` values.
- * **lib-thymeleaf 3.0.0:** `mode` in `ThymeleafRenderOptions` is now optional.
- * **lib-xslt 3.0.0:** The `model` parameter of `render()` is now optional.
- * All the packages above have JSDoc comments on every function and field.
+- **lib-cache 3.0.0:** `size` and `expire` in `NewCacheParams` are now optional.
+- **lib-http-client 4.0.0:** Added `HttpResponse.cookies`. `params` and `queryParams` also accept `number`, `boolean`
+  and `null` values.
+- **lib-qrcode 3.0.1:** `GenerateQrCodeParams` is exported.
+- **lib-router 4.0.0:** Added `patch()`. All route functions accept an array of patterns.
+- **lib-sql 2.0.0:** `SqlConnectParams`, `SqlHandler` and `SQLQueryResult` are exported. `query()` and `queryFirst()`
+  default to `Record<string, unknown>` rows.
+- **lib-testing 8.0.0:** Added `assertThrows()`.
+- **lib-text-encoding 3.0.0:** Added `md5AsStream()`, `sha1AsStream()`, `sha256AsStream()` and `sha512AsStream()`.
+  Encode and hash functions also accept `number` and `boolean` values.
+- **lib-thymeleaf 3.0.0:** `mode` in `ThymeleafRenderOptions` is now optional.
+- **lib-xslt 3.0.0:** The `model` parameter of `render()` is now optional.
+- All the packages above have JSDoc comments on every function and field.
 
 ## 7.11.0
 
- > **Note** Enonic has released official types for XP. This library now works as a proxy for those official types, but continues
-to provide types for other libraries that there is no official support for yet.
+> **Note** Enonic has released official types for XP. This library now works as a proxy for those official types, but continues
+> to provide types for other libraries that there is no official support for yet.
 
-## Changing *tsconfig.json*
+## Changing _tsconfig.json_
 
-> **Warning** Importing types from libraries are broken if you use the old *tsconfig.json*.
+> **Warning** Importing types from libraries are broken if you use the old _tsconfig.json_.
 
-If you continue to use the old *tsconfig.json*, importing functions still work, but importing types are now broken.
-So we really recommend that you update your *tsconfig.json* to look like the example in [README.md](README.md).
+If you continue to use the old _tsconfig.json_, importing functions still work, but importing types are now broken.
+So we really recommend that you update your _tsconfig.json_ to look like the example in [README.md](README.md).
 
 ## Upgrading
 
@@ -101,9 +105,9 @@ There are some changes in how the official types are shaped compared to the prev
 
 With 3 type parameters this is the new shape of `Content<Data, Type, Page>`.
 
-Similar to the last version of *enonic-types*, the second type parameter lets the developer set a string literal
+Similar to the last version of _enonic-types_, the second type parameter lets the developer set a string literal
 that gives the name of the content type. This allows the developer to use `Content.type` as a discriminated union, and
-use a simple if-statement to split unions on `type`. 
+use a simple if-statement to split unions on `type`.
 
 To give the shape of `Content.x` you have to configure the global `XpXData`.
 
@@ -154,10 +158,10 @@ export function all(req: XP.Request): XP.Response {
 }
 ```
 
-### 3. `getContent` and `getComponent` from *portalLib* can return `null`
+### 3. `getContent` and `getComponent` from _portalLib_ can return `null`
 
 Personally I will be using the `!` ([Non-null assertion operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator))
-when using these functions in a *part* or *layout*.
+when using these functions in a _part_ or _layout_.
 
 ```typescript
 import { getContent, getComponent, type Content } from "/lib/xp/portal"; // Note that portalLib also exports `Content`
@@ -174,7 +178,7 @@ export function all(): XP.Response {
 
 ### 4. `Site` takes `<Config>` as a type parameter (again)
 
-You have to pass in the shape of `<Config>` when using `getSiteConfig` or `getSite` from *portalLib*.
+You have to pass in the shape of `<Config>` when using `getSiteConfig` or `getSite` from _portalLib_.
 
 ```typescript
 import { getSiteConfig } from "/lib/xp/portal";
@@ -199,7 +203,7 @@ names as you need them,
 
 ## 0.5.0
 
-New `global` maps are used for registering shapes of Content Types, as well as the shape of `Site.config` and 
+New `global` maps are used for registering shapes of Content Types, as well as the shape of `Site.config` and
 `Content.x`.
 
 > **Note**
@@ -214,8 +218,8 @@ For the type system to know about the shape of a content type, we first need to 
 declaration.
 
 ```typescript
-export type Article = import("./article").Article
-export type Employee = import("./employee").Employee
+export type Article = import("./article").Article;
+export type Employee = import("./employee").Employee;
 
 declare global {
   namespace XP {
@@ -238,22 +242,22 @@ import { query } from "/lib/xp/content";
 export function get(): XP.Response {
   const res = query({
     count: 100,
-    contentTypes: ["com.mysite:article", "com.mysite:employee"]
+    contentTypes: ["com.mysite:article", "com.mysite:employee"],
   });
-  
+
   // the shape of res.hits is correctly inferred based on `contentTypes`
   const contents: Array<Content<Article> | Content<Employee>> = res.hits;
-  
+
   contents.forEach((content) => {
     // since we now know which shape of `data` belongs to which `type` (name), this is possible
     if (content.type === "com.mysite:article") {
       // This would have failed earlier, since `content.type` as of type `string`
       const article: Article = content.data;
-      log.info("Article: " + JSON.stringify(article))
+      log.info("Article: " + JSON.stringify(article));
     } else {
       // If it isn't an Article, it has to bee an Employee (based on `contentTypes` above)
       const employee: Employee = content.data;
-      log.info("Employee: " + JSON.stringify(employee))
+      log.info("Employee: " + JSON.stringify(employee));
     }
   });
 }
@@ -261,10 +265,10 @@ export function get(): XP.Response {
 
 ### The shape of `Content` has changed
 
-`XData` has been made a global variable which is now declared in `XP.XData`. This is 
+`XData` has been made a global variable which is now declared in `XP.XData`. This is
 an improvement since `XData` usually has the same shape for all content types (e.g. menu).
 
-The shape of `Content` in *0.4.x* was:
+The shape of `Content` in _0.4.x_ was:
 
 ```typescript
 export interface Content<Data, XData> {
@@ -274,7 +278,7 @@ export interface Content<Data, XData> {
 }
 ```
 
-The new shape of `Content` in *0.5.0* is:
+The new shape of `Content` in _0.5.0_ is:
 
 ```typescript
 export interface Content<Data, Type = KeyOfContentType<Data>> {
@@ -285,7 +289,7 @@ export interface Content<Data, Type = KeyOfContentType<Data>> {
 }
 ```
 
-We can now see that the second type parameter is named `Type` and is a *string literal* with the name of the content
+We can now see that the second type parameter is named `Type` and is a _string literal_ with the name of the content
 type.
 
 This makes splitting up a discrete union of different content types very easy. We can just use an `if`-statement, to
@@ -307,7 +311,7 @@ declare global {
     interface XData {
       "no-item-www"?: {
         "menu-item"?: MenuItem;
-      }
+      };
     }
   }
 }

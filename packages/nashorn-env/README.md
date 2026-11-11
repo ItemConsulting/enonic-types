@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Fnashorn-env.svg)](https://badge.fury.io/js/@item-enonic-types%2Fnashorn-env)
 ![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
-Enonic XP 7 *(and 5 and 6)* is using the [Nashorn JavaScript-engine internally](https://docs.oracle.com/javase/10/nashorn/nashorn-java-api.htm).
+Enonic XP 7 _(and 5 and 6)_ is using the [Nashorn JavaScript-engine internally](https://docs.oracle.com/javase/10/nashorn/nashorn-java-api.htm).
 
 This library provides TypeScript-types for the APIs exposed by Nashorn, to be used by JavaScript developers.
 
@@ -17,7 +17,7 @@ The following global types:
 
 ## Use
 
-To use these global types you need to update the `types` field in your *tsconfig.json* with this library.
+To use these global types you need to update the `types` field in your _tsconfig.json_ with this library.
 
 ```diff
 {
@@ -36,7 +36,7 @@ To use these global types you need to update the `types` field in your *tsconfig
 
 This is an example of how we can use `java.time.ZonedDateTime` from TypeScript.
 
-For simplicity we just import `DateTimeFormatter` from [`"/lib/time"`](https://github.com/ItemConsulting/lib-xp-time). 
+For simplicity we just import `DateTimeFormatter` from [`"/lib/time"`](https://github.com/ItemConsulting/lib-xp-time).
 But it is implemented in the same way in that library.
 
 ```typescript
@@ -46,8 +46,7 @@ import type { DateTimeFormatter } from "/lib/time";
 const ZonedDateTime = Java.type<ZonedDateTimeClass>("java.time.ZonedDateTime");
 
 // Now we can use the Java-class like we would in Java
-const timeInTwoDays = ZonedDateTime
-  .now()
+const timeInTwoDays = ZonedDateTime.now()
   .plusDays(2)
   .format(DateTimeFormatter.BASIC_ISO_DATE);
 

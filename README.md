@@ -8,13 +8,13 @@
 
 ## Supported libraries
 
- * [ExplorerLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-explorer)
- * [TestingLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-testing)
+- [ExplorerLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-explorer)
+- [TestingLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-testing)
 
 You can also find some global types in these two libraries
 
- * [Global library](https://www.npmjs.com/package/@item-enonic-types/global) (Types for Custom Selectors)
- * [Nashorn Env.](https://www.npmjs.com/package/@item-enonic-types/nashorn-env)
+- [Global library](https://www.npmjs.com/package/@item-enonic-types/global) (Types for Custom Selectors)
+- [Nashorn Env.](https://www.npmjs.com/package/@item-enonic-types/nashorn-env)
 
 ## Installing individual packages
 
@@ -31,7 +31,7 @@ npm i --save-dev @item-enonic-types/lib-testing
 
 We recommend using [starter-ts](https://github.com/enonic/starter-ts) as the base of your XP-project.
 
-To add the TypeScript-types you need to update your *src/main/resources/tsconfig.json* with the following:
+To add the TypeScript-types you need to update your _src/main/resources/tsconfig.json_ with the following:
 
 ```json
 {
@@ -65,4 +65,4 @@ To add the TypeScript-types you need to update your *src/main/resources/tsconfig
 
 ## Code generation
 
-We recommend using this library together with the [xp-codegen-plugin](https://github.com/ItemConsulting/xp-codegen-plugin) Gradle plugin. *xp-codegen-plugin* will create a TypeScript `type` for your content-types. Those interfaces will be very useful together with this library.
+We recommend using this library together with the [xp-codegen-plugin](https://github.com/ItemConsulting/xp-codegen-plugin) Gradle plugin. _xp-codegen-plugin_ will create a TypeScript `type` for your content-types. Those interfaces will be very useful together with this library.
