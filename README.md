@@ -8,14 +8,14 @@
 
 ## Supported libraries
 
- * [ExplorerLibrary](./packages/explorer)
- * [MenuLibrary](./packages/menu)
- * [TestingLibrary](./packages/testing)
+ * [ExplorerLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-explorer)
+ * [MenuLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-menu)
+ * [TestingLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-testing)
 
 You can also find some global types in these two libraries
 
- * [Global library](./packages/global) (Types for Custom Selectors)
- * [Nashorn Env.](./packages/nashorn-env)
+ * [Global library](https://www.npmjs.com/package/@item-enonic-types/global) (Types for Custom Selectors)
+ * [Nashorn Env.](https://www.npmjs.com/package/@item-enonic-types/nashorn-env)
 
 ## Installing individual packages
 

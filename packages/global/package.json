@@ -2,11 +2,10 @@
   "name": "@item-enonic-types/global",
   "private": false,
   "sideEffects": false,
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "Global variables and functions type definition.",
   "typings": "index.d.ts",
   "files": [
-    "controller.d.ts",
     "index.d.ts"
   ],
   "repository": {
@@ -26,6 +25,6 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "dependencies": {
-    "@enonic-types/core": "^8.0.0"
+    "@enonic-types/core": "^8.1.0"
   }
 }

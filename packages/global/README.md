@@ -3,37 +3,67 @@
 [![npm version](https://badge.fury.io/js/@item-enonic-types%2Fglobal.svg)](https://badge.fury.io/js/@item-enonic-types%2Fglobal)
 ![Enonic XP8 badge](https://market.enonic.com/badges/xp8.svg)
 
-> **Note** There is also an [official package for Global types for XP](https://www.npmjs.com/package/@enonic-types/global).
+Types for Enonic XP that are not covered by the [official types from Enonic](https://www.npmjs.com/org/enonic-types).
+Use [`@enonic-types/core`](https://www.npmjs.com/package/@enonic-types/core) for `Request`, `Response` and other core
+types.
 
-This library provides backwards compatibility for the old [enonic-types](https://www.npmjs.com/package/enonic-types) package
-while moving to the [new types provided by Enonic](https://www.npmjs.com/org/enonic-types).
+## Installation
+
+Install *@item-enonic-types/global* from npm by running:
+
+```bash
+npm i --save-dev @item-enonic-types/global
+```
 
 ## Contents
 
-The following global types:
+| Type                                | Description                                                                     |
+|-------------------------------------|---------------------------------------------------------------------------------|
+| `CustomSelectorServiceParams`       | The parameters a CustomSelector service is always called with                   |
+| `CustomSelectorServiceResponseBody` | The response body a CustomSelector service must return                          |
+| `MacroContext`                      | The context passed to a macro controller                                        |
+| `WebSocketResponse`                 | `WebSocketResponse` from `@enonic-types/core`, with a typed `data` field        |
 
-- `XP.Request`
-  - `XP.ErrorRequest`
-  - `XP.CustomSelectorServiceParams`
-- `XP.Response`
-  - `XP.WebSocketResponse`
-  - `XP.CustomSelectorServiceResponseBody`
-  - `XP.CustomSelectorServiceResponseHit`
-- `XP.MacroContext`
-- `XP.WebSocketEvent`
+## Usage
 
-## Use
+Import the types you need:
 
-To use these global types you need to update the `types` field in your *tsconfig.json* with this library.
+### CustomSelector service
 
-```diff
-{
-  "baseUrl": "./",
-  "paths": {
-    "/lib/xp/*": ["node_modules/@enonic-types/lib-*"]
-  },
-+  "types": [
-+    "@item-enonic-types/global"
-+  ]
+```typescript
+import type { Request, Response } from "@enonic-types/core";
+import type {
+  CustomSelectorServiceParams,
+  CustomSelectorServiceResponseBody,
+} from "@item-enonic-types/global";
+
+export function GET(
+  req: Request<{ params: Partial<CustomSelectorServiceParams> }>,
+): Response<{ body: CustomSelectorServiceResponseBody }> {
+  return {
+    status: 200,
+    body: {
+      total: 0,
+      count: 0,
+      hits: [],
+    },
+  };
+}
+```
+
+### Macro
+
+```typescript
+import type { Response } from "@enonic-types/core";
+import type { MacroContext } from "@item-enonic-types/global";
+
+type InfoBoxParams = {
+  header: string;
+};
+
+export function macro(context: MacroContext<InfoBoxParams>): Response {
+  return {
+    body: `<aside><h2>${context.params.header}</h2>${context.body}</aside>`,
+  };
 }
 ```
