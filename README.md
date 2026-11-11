@@ -9,7 +9,6 @@
 ## Supported libraries
 
  * [ExplorerLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-explorer)
- * [MenuLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-menu)
  * [TestingLibrary](https://www.npmjs.com/package/@item-enonic-types/lib-testing)
 
 You can also find some global types in these two libraries
@@ -25,7 +24,7 @@ You can find the [complete list of supported packages on npm](https://www.npmjs.
 
 ```bash
 npm i --save-dev @item-enonic-types/global
-npm i --save-dev @item-enonic-types/lib-menu
+npm i --save-dev @item-enonic-types/lib-testing
 ```
 
 ## Update tsconfig.json
