@@ -16,6 +16,16 @@ where needed. Each package follows the version of the library it provides types 
    [`@enonic-types/lib-notifications`](https://www.npmjs.com/package/@enonic-types/lib-notifications).
  * **`@item-enonic-types/lib-http-client`** is deprecated after 4.0.0, and replaced by the official
    [`@enonic-types/lib-http-client`](https://www.npmjs.com/package/@enonic-types/lib-http-client).
+ * **`@item-enonic-types/lib-cache`**, **`lib-qrcode`**, **`lib-recaptcha`**, **`lib-router`**, **`lib-sql`**,
+   **`lib-text-encoding`**, **`lib-thymeleaf`** and **`lib-xslt`** are deprecated, and replaced by the official
+   [`@enonic-types/lib-cache`](https://www.npmjs.com/package/@enonic-types/lib-cache),
+   [`@enonic-types/lib-qrcode`](https://www.npmjs.com/package/@enonic-types/lib-qrcode),
+   [`@enonic-types/lib-recaptcha`](https://www.npmjs.com/package/@enonic-types/lib-recaptcha),
+   [`@enonic-types/lib-router`](https://www.npmjs.com/package/@enonic-types/lib-router),
+   [`@enonic-types/lib-sql`](https://www.npmjs.com/package/@enonic-types/lib-sql),
+   [`@enonic-types/lib-text-encoding`](https://www.npmjs.com/package/@enonic-types/lib-text-encoding),
+   [`@enonic-types/lib-thymeleaf`](https://www.npmjs.com/package/@enonic-types/lib-thymeleaf) and
+   [`@enonic-types/lib-xslt`](https://www.npmjs.com/package/@enonic-types/lib-xslt).
 
 ### Breaking changes
 

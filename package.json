@@ -3,7 +3,7 @@
   "private": true,
   "description": "TypeScript types for Enonic XP libraries",
   "scripts": {
-    "build": "tsc",
+    "check-types": "tsc",
     "lint": "biome check --write",
     "check": "biome check"
   },
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ItemConsulting/enonic-types#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.6.6",
     "tsd": "^0.33.0",
     "typescript": "^7.0.2"
   },
